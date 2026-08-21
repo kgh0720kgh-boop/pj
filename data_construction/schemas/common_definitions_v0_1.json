@@ -1,0 +1,1263 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "common_definitions_v0_1.json",
+  "title": "HybridQA hierarchical annotation common definitions v0.1",
+  "description": "Shared, storage-neutral definitions for the v0.1 annotation schemas.",
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "json_pointer": {
+      "type": "string",
+      "pattern": "^(?:/(?:[^~/]|~0|~1)*)*$"
+    },
+    "repository_relative_path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?![A-Za-z]:[\\\\/])(?!\\\\\\\\).+"
+    },
+    "source_span": {
+      "type": "object",
+      "description": "Half-open character offsets into the exact question text. Cross-field offset checks are deterministic-validator responsibilities.",
+      "required": [
+        "text",
+        "start_char",
+        "end_char"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "start_char": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_char": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "occurrence_note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "source_alignment": {
+      "type": "object",
+      "required": [
+        "alignment_status",
+        "source_spans"
+      ],
+      "properties": {
+        "alignment_status": {
+          "enum": [
+            "explicit",
+            "implicit",
+            "inferred"
+          ]
+        },
+        "source_spans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source_span"
+          },
+          "uniqueItems": true
+        },
+        "explanation": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "alignment_status": {
+                "const": "explicit"
+              }
+            },
+            "required": [
+              "alignment_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source_spans": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "required": [
+              "explanation"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "semantic_role": {
+      "type": "object",
+      "required": [
+        "normalized_role",
+        "source_alignment"
+      ],
+      "properties": {
+        "normalized_role": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Open, domain-preserving label; it is not asserted to belong to a universal ontology."
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_alignment": {
+          "$ref": "#/$defs/source_alignment"
+        },
+        "ontology_mapping": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "unmapped",
+                "proposed",
+                "reviewed"
+              ]
+            },
+            "ontology_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "concept_id": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "proposed",
+                      "reviewed"
+                    ]
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "required": [
+                  "ontology_id",
+                  "concept_id"
+                ]
+              }
+            }
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "ambiguity_flag": {
+      "type": "object",
+      "required": [
+        "code",
+        "description",
+        "affected_paths"
+      ],
+      "properties": {
+        "code": {
+          "enum": [
+            "lexical",
+            "entity",
+            "relation",
+            "scope",
+            "attachment",
+            "comparison",
+            "aggregation",
+            "temporal",
+            "ordinal",
+            "candidate_set",
+            "answer_type",
+            "modality",
+            "schema_binding",
+            "document_selection",
+            "operator_choice",
+            "multiple_valid_plans",
+            "missing_evidence",
+            "inconsistent_source",
+            "other"
+          ]
+        },
+        "custom_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "affected_paths": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/json_pointer"
+          },
+          "uniqueItems": true
+        },
+        "evidence": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "code": {
+                "const": "other"
+              }
+            },
+            "required": [
+              "code"
+            ]
+          },
+          "then": {
+            "required": [
+              "custom_code"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "ambiguity": {
+      "type": "object",
+      "required": [
+        "has_ambiguity",
+        "flags",
+        "resolution_status"
+      ],
+      "properties": {
+        "has_ambiguity": {
+          "type": "boolean"
+        },
+        "flags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ambiguity_flag"
+          }
+        },
+        "resolution_status": {
+          "enum": [
+            "not_ambiguous",
+            "unreviewed",
+            "unresolved",
+            "resolved_with_assumption",
+            "resolved_by_evidence",
+            "preserved_as_multiple_interpretations"
+          ]
+        },
+        "resolution_note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "has_ambiguity": {
+                "const": true
+              }
+            },
+            "required": [
+              "has_ambiguity"
+            ]
+          },
+          "then": {
+            "properties": {
+              "flags": {
+                "minItems": 1
+              },
+              "resolution_status": {
+                "not": {
+                  "const": "not_ambiguous"
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "flags": {
+                "maxItems": 0
+              },
+              "resolution_status": {
+                "const": "not_ambiguous"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "leakage_violation": {
+      "type": "object",
+      "required": [
+        "affected_path",
+        "leaked_input_category",
+        "description",
+        "disposition"
+      ],
+      "properties": {
+        "affected_path": {
+          "$ref": "#/$defs/json_pointer"
+        },
+        "leaked_input_category": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "disposition": {
+          "enum": [
+            "unresolved",
+            "annotation_rebuilt",
+            "annotation_excluded",
+            "accepted_question_explicit_constraint"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "leakage_check": {
+      "type": "object",
+      "required": [
+        "status",
+        "violations"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "not_run",
+            "passed",
+            "failed"
+          ]
+        },
+        "checked_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "checker_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "violations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/leakage_violation"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "violations": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "checked_at",
+              "checker_id"
+            ]
+          },
+          "else": {
+            "properties": {
+              "violations": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "passed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "checked_at",
+              "checker_id"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "layer_input_audit_base": {
+      "type": "object",
+      "required": [
+        "layer",
+        "observed_input_categories",
+        "question_explicit_source_constraints",
+        "leakage_check"
+      ],
+      "properties": {
+        "layer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observed_input_categories": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "question_explicit_source_constraints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source_span"
+          },
+          "uniqueItems": true,
+          "description": "Storage/tool mentions are allowed at semantic layers only when aligned to explicit question text here."
+        },
+        "leakage_check": {
+          "$ref": "#/$defs/leakage_check"
+        }
+      }
+    },
+    "artifact_reference": {
+      "type": "object",
+      "required": [
+        "artifact_id",
+        "artifact_type"
+      ],
+      "properties": {
+        "artifact_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artifact_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repository_relative_path": {
+          "$ref": "#/$defs/repository_relative_path"
+        },
+        "source_uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "version_or_revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{64}$"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "repository_relative_path"
+          ]
+        },
+        {
+          "required": [
+            "source_uri"
+          ]
+        },
+        {
+          "required": [
+            "version_or_revision"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "actor": {
+      "type": "object",
+      "required": [
+        "actor_type",
+        "actor_id"
+      ],
+      "properties": {
+        "actor_type": {
+          "enum": [
+            "human",
+            "llm",
+            "deterministic_system",
+            "import_process"
+          ]
+        },
+        "actor_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Use a stable pseudonymous identifier for humans."
+        }
+      },
+      "additionalProperties": false
+    },
+    "model_provenance": {
+      "type": "object",
+      "required": [
+        "model_id",
+        "model_revision",
+        "seed",
+        "prompt_artifact",
+        "raw_output_artifact"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model_revision": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Use an explicit provider revision, or a truthful marker such as not_exposed_by_provider."
+        },
+        "seed": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "specified",
+                "not_supported",
+                "not_exposed",
+                "not_recorded"
+              ]
+            },
+            "value": {
+              "type": "integer"
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "specified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "required": [
+                  "value"
+                ]
+              },
+              "else": {
+                "not": {
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            }
+          ],
+          "additionalProperties": false
+        },
+        "generation_parameters": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "prompt_artifact": {
+          "$ref": "#/$defs/artifact_reference"
+        },
+        "raw_output_artifact": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/artifact_reference"
+            },
+            {
+              "required": [
+                "sha256"
+              ]
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "provenance_event": {
+      "type": "object",
+      "required": [
+        "event_type",
+        "timestamp",
+        "actor",
+        "description"
+      ],
+      "properties": {
+        "event_type": {
+          "enum": [
+            "created",
+            "edited",
+            "validated",
+            "reviewed",
+            "adjudicated",
+            "migrated",
+            "excluded"
+          ]
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "actor": {
+          "$ref": "#/$defs/actor"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "input_artifact_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "annotation_provenance": {
+      "type": "object",
+      "required": [
+        "creation_method",
+        "created_at",
+        "created_by",
+        "source_artifacts",
+        "code_identity",
+        "history"
+      ],
+      "properties": {
+        "creation_method": {
+          "enum": [
+            "llm_proposal",
+            "human_authored",
+            "llm_assisted_human",
+            "imported",
+            "mixed"
+          ]
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "created_by": {
+          "$ref": "#/$defs/actor"
+        },
+        "source_artifacts": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/artifact_reference"
+          }
+        },
+        "model_provenance": {
+          "$ref": "#/$defs/model_provenance"
+        },
+        "code_identity": {
+          "type": "object",
+          "required": [
+            "status",
+            "working_tree_dirty"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "commit_recorded",
+                "uncommitted_work",
+                "not_a_git_repository",
+                "not_recorded"
+              ]
+            },
+            "commit_hash": {
+              "type": "string",
+              "pattern": "^[a-fA-F0-9]{7,64}$"
+            },
+            "working_tree_dirty": {
+              "type": "boolean"
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "commit_recorded"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "required": [
+                  "commit_hash"
+                ]
+              },
+              "else": {
+                "not": {
+                  "required": [
+                    "commit_hash"
+                  ]
+                }
+              }
+            }
+          ],
+          "additionalProperties": false
+        },
+        "annotation_tool_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "history": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/provenance_event"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "creation_method": {
+                "enum": [
+                  "llm_proposal",
+                  "llm_assisted_human",
+                  "mixed"
+                ]
+              }
+            },
+            "required": [
+              "creation_method"
+            ]
+          },
+          "then": {
+            "required": [
+              "model_provenance"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "reviewer_record": {
+      "type": "object",
+      "required": [
+        "reviewer_id",
+        "completed_at",
+        "decision"
+      ],
+      "properties": {
+        "reviewer_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "completed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "decision": {
+          "enum": [
+            "accept",
+            "accept_with_edits",
+            "reject",
+            "abstain"
+          ]
+        },
+        "review_artifact": {
+          "$ref": "#/$defs/artifact_reference"
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "review_status": {
+      "type": "object",
+      "description": "v0.1 intentionally has no gold state; adjudication is recorded without an unsupported gold claim.",
+      "required": [
+        "state",
+        "human_review_count",
+        "reviewer_records",
+        "gold_claimed",
+        "semantic_correctness_claim"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "llm_proposed",
+            "deterministic_validation_only",
+            "llm_assisted_pending_human",
+            "human_single_review",
+            "human_double_review_unadjudicated",
+            "adjudicated",
+            "rejected"
+          ]
+        },
+        "human_review_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reviewer_records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/reviewer_record"
+          }
+        },
+        "gold_claimed": {
+          "const": false
+        },
+        "semantic_correctness_claim": {
+          "enum": [
+            "unassessed",
+            "provisional",
+            "human_reviewed",
+            "adjudicated"
+          ]
+        },
+        "adjudication": {
+          "type": "object",
+          "required": [
+            "adjudicator_id",
+            "completed_at",
+            "decision",
+            "disagreement_summary"
+          ],
+          "properties": {
+            "adjudicator_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "completed_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "decision": {
+              "enum": [
+                "accept_resolved",
+                "preserve_alternatives",
+                "reject"
+              ]
+            },
+            "disagreement_summary": {
+              "type": "string",
+              "minLength": 1
+            },
+            "artifact": {
+              "$ref": "#/$defs/artifact_reference"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "llm_proposed",
+                  "deterministic_validation_only",
+                  "llm_assisted_pending_human"
+                ]
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "human_review_count": {
+                "const": 0
+              },
+              "reviewer_records": {
+                "maxItems": 0
+              },
+              "semantic_correctness_claim": {
+                "enum": [
+                  "unassessed",
+                  "provisional"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "human_single_review"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "human_review_count": {
+                "const": 1
+              },
+              "reviewer_records": {
+                "minItems": 1
+              },
+              "semantic_correctness_claim": {
+                "const": "human_reviewed"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "human_double_review_unadjudicated"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "human_review_count": {
+                "minimum": 2
+              },
+              "reviewer_records": {
+                "minItems": 2
+              },
+              "semantic_correctness_claim": {
+                "const": "human_reviewed"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "adjudicated"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "required": [
+              "adjudication"
+            ],
+            "properties": {
+              "human_review_count": {
+                "minimum": 2
+              },
+              "reviewer_records": {
+                "minItems": 2
+              },
+              "semantic_correctness_claim": {
+                "const": "adjudicated"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "validation_check": {
+      "type": "object",
+      "required": [
+        "check",
+        "status"
+      ],
+      "properties": {
+        "check": {
+          "enum": [
+            "parse",
+            "json_schema",
+            "operator_registry",
+            "type_contract",
+            "dependency_references",
+            "acyclicity",
+            "source_reachability",
+            "execution",
+            "semantic_obligations",
+            "leakage"
+          ]
+        },
+        "status": {
+          "enum": [
+            "not_run",
+            "passed",
+            "failed",
+            "blocked",
+            "not_applicable"
+          ]
+        },
+        "checked_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "checker_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "details": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artifact": {
+          "$ref": "#/$defs/artifact_reference"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "passed",
+                  "failed"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "checked_at",
+              "checker_id"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "failed",
+                  "blocked"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "details"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "typed_value": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "value_type",
+            "value"
+          ],
+          "properties": {
+            "value_type": {
+              "enum": [
+                "string",
+                "entity",
+                "date",
+                "datetime"
+              ]
+            },
+            "value": {
+              "type": "string"
+            },
+            "raw_text": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "value_type",
+            "value"
+          ],
+          "properties": {
+            "value_type": {
+              "const": "number"
+            },
+            "value": {
+              "type": "number"
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "raw_text": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "value_type",
+            "value"
+          ],
+          "properties": {
+            "value_type": {
+              "const": "integer"
+            },
+            "value": {
+              "type": "integer"
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "raw_text": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "value_type",
+            "value"
+          ],
+          "properties": {
+            "value_type": {
+              "const": "boolean"
+            },
+            "value": {
+              "type": "boolean"
+            },
+            "raw_text": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "value_type",
+            "value"
+          ],
+          "properties": {
+            "value_type": {
+              "const": "null"
+            },
+            "value": {
+              "type": "null"
+            },
+            "raw_text": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "value_type",
+            "value"
+          ],
+          "properties": {
+            "value_type": {
+              "const": "list"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/typed_value"
+              }
+            },
+            "raw_text": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "value_type",
+            "raw_text"
+          ],
+          "properties": {
+            "value_type": {
+              "const": "unknown"
+            },
+            "raw_text": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "type": "object"
+}

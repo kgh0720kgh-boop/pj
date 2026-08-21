@@ -1,0 +1,831 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "operator_topology_v0_1.json",
+  "title": "Environment-aware operator topology schema v0.1",
+  "description": "Operator identities and dependencies chosen from one candidate vocabulary using environment affordances. Concrete table, column, literal, entity, and document bindings belong in grounding_v0_1.json.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "topology_id",
+    "operator_vocabulary",
+    "environment_context",
+    "nodes",
+    "required_operator_extensions",
+    "entry_node_ids",
+    "output_node_ids",
+    "graph_status",
+    "validation_checks",
+    "ambiguity",
+    "layer_separation"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "operator_topology_schema_v0_1"
+    },
+    "topology_id": {
+      "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+    },
+    "operator_vocabulary": {
+      "type": "object",
+      "required": [
+        "vocabulary_version",
+        "granularity",
+        "artifact"
+      ],
+      "properties": {
+        "vocabulary_version": {
+          "enum": [
+            "operator_vocabulary_coarse_v0_1",
+            "operator_vocabulary_medium_v0_1",
+            "operator_vocabulary_fine_v0_1"
+          ]
+        },
+        "granularity": {
+          "enum": [
+            "coarse",
+            "medium",
+            "fine"
+          ]
+        },
+        "artifact": {
+          "$ref": "common_definitions_v0_1.json#/$defs/artifact_reference"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "granularity": {
+                "const": "coarse"
+              }
+            },
+            "required": [
+              "granularity"
+            ]
+          },
+          "then": {
+            "properties": {
+              "vocabulary_version": {
+                "const": "operator_vocabulary_coarse_v0_1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "granularity": {
+                "const": "medium"
+              }
+            },
+            "required": [
+              "granularity"
+            ]
+          },
+          "then": {
+            "properties": {
+              "vocabulary_version": {
+                "const": "operator_vocabulary_medium_v0_1"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "granularity": {
+                "const": "fine"
+              }
+            },
+            "required": [
+              "granularity"
+            ]
+          },
+          "then": {
+            "properties": {
+              "vocabulary_version": {
+                "const": "operator_vocabulary_fine_v0_1"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "environment_context": {
+      "type": "object",
+      "required": [
+        "environment_id",
+        "capability_profile_id",
+        "available_capabilities",
+        "source_manifest"
+      ],
+      "properties": {
+        "environment_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "capability_profile_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "available_capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/environment_capability"
+          },
+          "uniqueItems": true
+        },
+        "source_manifest": {
+          "$ref": "common_definitions_v0_1.json#/$defs/artifact_reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/operator_node"
+      }
+    },
+    "required_operator_extensions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/required_operator_extension"
+      },
+      "description": "Evidence that the frozen candidate vocabulary lacks a needed reusable operation; this does not silently add that operator to v0.1."
+    },
+    "entry_node_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+      },
+      "uniqueItems": true
+    },
+    "output_node_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+      },
+      "uniqueItems": true
+    },
+    "graph_status": {
+      "enum": [
+        "complete_dag",
+        "partial_dag",
+        "cyclic_invalid",
+        "unresolved_references",
+        "unsupported_operator_required",
+        "blocked_missing_environment",
+        "not_applicable"
+      ]
+    },
+    "validation_checks": {
+      "type": "array",
+      "items": {
+        "$ref": "common_definitions_v0_1.json#/$defs/validation_check"
+      }
+    },
+    "ambiguity": {
+      "$ref": "common_definitions_v0_1.json#/$defs/ambiguity"
+    },
+    "layer_separation": {
+      "allOf": [
+        {
+          "$ref": "common_definitions_v0_1.json#/$defs/layer_input_audit_base"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "layer": {
+              "const": "operator_topology"
+            },
+            "observed_input_categories": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "enum": [
+                  "question_text",
+                  "question_metadata",
+                  "question_explicit_source_constraint",
+                  "semantic_skeleton",
+                  "information_obligations",
+                  "abstract_topology",
+                  "environment_capability_profile",
+                  "environment_schema",
+                  "linked_document_capability",
+                  "operator_vocabulary"
+                ]
+              },
+              "uniqueItems": true
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "graph_status": {
+            "enum": ["blocked_missing_environment", "not_applicable"]
+          }
+        },
+        "required": ["graph_status"]
+      },
+      "then": {
+        "properties": {
+          "nodes": {"maxItems": 0},
+          "entry_node_ids": {"maxItems": 0},
+          "output_node_ids": {"maxItems": 0},
+          "required_operator_extensions": {"maxItems": 0}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "graph_status": {
+            "enum": ["complete_dag", "partial_dag", "cyclic_invalid", "unresolved_references"]
+          }
+        },
+        "required": ["graph_status"]
+      },
+      "then": {
+        "properties": {
+          "nodes": {"minItems": 1},
+          "entry_node_ids": {"minItems": 1},
+          "output_node_ids": {"minItems": 1}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "graph_status": {"const": "unsupported_operator_required"}
+        },
+        "required": ["graph_status"]
+      },
+      "then": {
+        "properties": {
+          "required_operator_extensions": {"minItems": 1}
+        }
+      },
+      "else": {
+        "properties": {
+          "required_operator_extensions": {"maxItems": 0}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "operator_vocabulary": {
+            "properties": {
+              "granularity": {
+                "const": "coarse"
+              }
+            },
+            "required": [
+              "granularity"
+            ]
+          }
+        },
+        "required": [
+          "operator_vocabulary"
+        ]
+      },
+      "then": {
+        "properties": {
+          "nodes": {
+            "items": {
+              "$ref": "#/$defs/coarse_operator_node"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "operator_vocabulary": {
+            "properties": {
+              "granularity": {
+                "const": "medium"
+              }
+            },
+            "required": [
+              "granularity"
+            ]
+          }
+        },
+        "required": [
+          "operator_vocabulary"
+        ]
+      },
+      "then": {
+        "properties": {
+          "nodes": {
+            "items": {
+              "$ref": "#/$defs/medium_operator_node"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "operator_vocabulary": {
+            "properties": {
+              "granularity": {
+                "const": "fine"
+              }
+            },
+            "required": [
+              "granularity"
+            ]
+          }
+        },
+        "required": [
+          "operator_vocabulary"
+        ]
+      },
+      "then": {
+        "properties": {
+          "nodes": {
+            "items": {
+              "$ref": "#/$defs/fine_operator_node"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "required_operator_extension": {
+      "type": "object",
+      "required": [
+        "extension_id",
+        "proposed_name",
+        "semantic_functions_supported",
+        "typed_contract_summary",
+        "reusability_rationale",
+        "pseudo_primitive_review",
+        "evidence_status",
+        "example_obligation_ids"
+      ],
+      "properties": {
+        "extension_id": {"$ref": "common_definitions_v0_1.json#/$defs/identifier"},
+        "proposed_name": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]*$"},
+        "semantic_functions_supported": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "SELECT_CANDIDATES", "RESTRICT_CANDIDATES", "RESOLVE_RELATION", "ACQUIRE_ATTRIBUTE",
+              "PARSE_SEMANTIC_VALUE", "NORMALIZE_SEMANTIC_VALUE", "COMPARE_VALUES", "AGGREGATE_VALUES",
+              "COMPUTE_VALUE", "APPLY_ORDINAL", "ARG_SELECT", "MAP_BACK_TO_ANSWER", "RETURN_ANSWER"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "typed_contract_summary": {"type": "string", "minLength": 1},
+        "reusability_rationale": {"type": "string", "minLength": 1},
+        "pseudo_primitive_review": {"enum": ["passed", "failed", "pending_human_review"]},
+        "evidence_status": {"enum": ["llm_proposed", "annotator_proposed", "pilot_observed_repeatedly"]},
+        "example_obligation_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "common_definitions_v0_1.json#/$defs/identifier"},
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "environment_capability": {
+      "enum": [
+        "table_access",
+        "row_filtering",
+        "column_projection",
+        "linked_document_traversal",
+        "document_retrieval",
+        "text_selection",
+        "span_extraction",
+        "value_parsing",
+        "value_normalization",
+        "comparison",
+        "aggregation",
+        "arithmetic",
+        "relational_join",
+        "knowledge_graph_property_lookup"
+      ]
+    },
+    "input_source": {
+      "type": "object",
+      "required": [
+        "source_kind"
+      ],
+      "properties": {
+        "source_kind": {
+          "enum": [
+            "upstream_output",
+            "environment_capability",
+            "semantic_input",
+            "unbound"
+          ]
+        },
+        "source_node_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "source_port": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "capability": {
+          "$ref": "#/$defs/environment_capability"
+        },
+        "semantic_variable_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "source_kind": {
+                "const": "upstream_output"
+              }
+            },
+            "required": [
+              "source_kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "source_node_id",
+              "source_port"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "source_kind": {
+                "const": "environment_capability"
+              }
+            },
+            "required": [
+              "source_kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "capability"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "source_kind": {
+                "const": "semantic_input"
+              }
+            },
+            "required": [
+              "source_kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "semantic_variable_id"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "input_slot": {
+      "type": "object",
+      "required": [
+        "slot_name",
+        "expected_type",
+        "cardinality",
+        "source"
+      ],
+      "properties": {
+        "slot_name": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "expected_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cardinality": {
+          "enum": [
+            "one",
+            "optional",
+            "one_or_more",
+            "zero_or_more"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/input_source"
+        }
+      },
+      "additionalProperties": false
+    },
+    "output_slot": {
+      "type": "object",
+      "required": [
+        "slot_name",
+        "declared_type",
+        "cardinality",
+        "semantic_variable_ids"
+      ],
+      "properties": {
+        "slot_name": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "declared_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cardinality": {
+          "enum": [
+            "one",
+            "optional",
+            "one_or_more",
+            "zero_or_more"
+          ]
+        },
+        "semantic_variable_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "argument_slot": {
+      "type": "object",
+      "required": [
+        "slot_name",
+        "semantic_role_ref",
+        "expected_binding_kind",
+        "required",
+        "grounding_status"
+      ],
+      "properties": {
+        "slot_name": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "semantic_role_ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Reference to a semantic variable, requirement, or obligation; never a concrete surface binding."
+        },
+        "expected_binding_kind": {
+          "enum": [
+            "table",
+            "column",
+            "row_predicate",
+            "literal",
+            "entity",
+            "document_locator",
+            "requested_attribute",
+            "declared_value_type",
+            "cardinality",
+            "join_key",
+            "comparison_relation",
+            "aggregate_function",
+            "arithmetic_function",
+            "ordering_semantics",
+            "normalization_rule",
+            "retrieval_query",
+            "selection_policy",
+            "other"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "grounding_status": {
+          "enum": [
+            "deferred_to_grounding",
+            "unresolved",
+            "not_applicable"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "operator_node": {
+      "type": "object",
+      "required": [
+        "node_id",
+        "operator",
+        "depends_on",
+        "dependency_mode",
+        "realizes_abstract_node_ids",
+        "fulfills_obligation_ids",
+        "environment_capabilities_used",
+        "input_slots",
+        "output_slots",
+        "argument_slots",
+        "selection_rationale"
+      ],
+      "properties": {
+        "node_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "operator": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$"
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "dependency_mode": {
+          "enum": [
+            "all",
+            "any",
+            "none"
+          ]
+        },
+        "realizes_abstract_node_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "fulfills_obligation_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "environment_capabilities_used": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/environment_capability"
+          },
+          "uniqueItems": true
+        },
+        "input_slots": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/input_slot"
+          }
+        },
+        "output_slots": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/output_slot"
+          }
+        },
+        "argument_slots": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/argument_slot"
+          }
+        },
+        "selection_rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "depends_on": {
+                "maxItems": 0
+              }
+            },
+            "required": [
+              "depends_on"
+            ]
+          },
+          "then": {
+            "properties": {
+              "dependency_mode": {
+                "const": "none"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "dependency_mode": {
+                "enum": [
+                  "all",
+                  "any"
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "coarse_operator_node": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/operator_node"
+        },
+        {
+          "properties": {
+            "operator": {
+              "enum": [
+                "TABLE_LOOKUP",
+                "DOCUMENT_QA",
+                "COMPARE",
+                "CALCULATE"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "medium_operator_node": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/operator_node"
+        },
+        {
+          "properties": {
+            "operator": {
+              "enum": [
+                "FILTER",
+                "PROJECT",
+                "RETRIEVE",
+                "EXTRACT",
+                "JOIN",
+                "AGGREGATE",
+                "COMPARE",
+                "PARSE",
+                "ARG_EXTREME",
+                "ARITHMETIC",
+                "DISTINCT"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "fine_operator_node": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/operator_node"
+        },
+        {
+          "properties": {
+            "operator": {
+              "enum": [
+                "SELECT_ROWS",
+                "READ_CELL",
+                "FOLLOW_LINK",
+                "RETRIEVE",
+                "SELECT_SENTENCE",
+                "EXTRACT_SPAN",
+                "PARSE_DATE",
+                "PARSE_NUMBER",
+                "NORMALIZE",
+                "COMPARE_DATE",
+                "COMPARE_NUMBER",
+                "COMPARE_STRING",
+                "ARGMIN",
+                "ARGMAX",
+                "COUNT_ITEMS",
+                "SUM_VALUES",
+                "APPLY_ARITHMETIC",
+                "DEDUPLICATE_ITEMS",
+                "MATCH_KEYS",
+                "MAP_BACK"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

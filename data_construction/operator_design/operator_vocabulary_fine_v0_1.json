@@ -1,0 +1,463 @@
+{
+  "schema_ref": "../schemas/operator_vocabulary_schema_v0_1.json",
+  "schema_version": "operator_vocabulary_schema_v0_1",
+  "vocabulary_version": "operator_vocabulary_fine_v0_1",
+  "granularity": "fine",
+  "status": "provisional_candidate",
+  "domain_scope": "HybridQA_only",
+  "selection_claim": "not_selected_pending_annotation_evidence",
+  "empirical_evidence_status": "not_yet_piloted",
+  "type_system": {
+    "status": "candidate_not_ir_v0_2",
+    "note": "Fine analysis contracts deliberately expose micro-steps. They are not claims about the unavailable local IR v0.2 registry.",
+    "types": [
+      {"name": "Table", "description": "A structured HybridQA table."},
+      {"name": "RowSet", "description": "Rows preserving stable row keys."},
+      {"name": "CellSet", "description": "Cells paired with row and column provenance."},
+      {"name": "EntitySet", "description": "Entity-denoting values preserving candidate keys."},
+      {"name": "LinkSet", "description": "Linked-document locators paired with source entities."},
+      {"name": "String", "description": "A text query or scalar surface value."},
+      {"name": "DocumentSet", "description": "Documents with retrieval or link provenance."},
+      {"name": "SentenceSet", "description": "Selected sentences with document offsets."},
+      {"name": "TextSpanSet", "description": "Extracted spans with character provenance."},
+      {"name": "DateSet", "description": "Parsed date values preserving keys."},
+      {"name": "NumberSet", "description": "Parsed numeric values preserving units and keys."},
+      {"name": "Value", "description": "One typed scalar value."},
+      {"name": "ValueSet", "description": "Typed scalar values."},
+      {"name": "KeyedValueSet", "description": "Values paired with candidate keys."},
+      {"name": "ComparisonSet", "description": "Pairwise comparison outcomes or ordering metadata."},
+      {"name": "KeySet", "description": "Selected candidate keys."}
+    ]
+  },
+  "operators": [
+    {
+      "name": "SELECT_ROWS",
+      "category": "structured_access",
+      "purpose": "Apply one grounded predicate to table rows.",
+      "semantics": "Return rows satisfying exactly one declared predicate, preserving row keys.",
+      "semantic_functions_supported": ["SELECT_CANDIDATES", "RESTRICT_CANDIDATES"],
+      "input_ports": [{"name": "rows", "type": "Table|RowSet", "cardinality": "one", "description": "Table or row subset."}],
+      "output_ports": [{"name": "rows", "type": "RowSet", "cardinality": "zero_or_more", "description": "Selected rows."}],
+      "argument_slots": [{"name": "predicate", "binding_kind": "row_predicate", "required": true, "description": "Single row predicate."}],
+      "tool_binding_class": ["table_engine"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Single-predicate row selection is generic."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Row identity and collection type are preserved."},
+        "executability": {"provisional_rating": "high", "rationale": "Direct table predicate execution is deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "RowSet can feed another predicate or cell read."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "Compound filters must be decomposed."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Decomposition agreement is unmeasured."}
+      },
+      "known_risks": ["Multiple predicates lengthen the graph"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "READ_CELL",
+      "category": "structured_access",
+      "purpose": "Read one grounded column from keyed rows.",
+      "semantics": "Return provenance-bearing cells without interpreting links or parsing content.",
+      "semantic_functions_supported": ["RESOLVE_RELATION", "ACQUIRE_ATTRIBUTE", "RETURN_ANSWER"],
+      "input_ports": [{"name": "rows", "type": "RowSet", "cardinality": "one", "description": "Rows to read."}],
+      "output_ports": [{"name": "cells", "type": "CellSet", "cardinality": "zero_or_more", "description": "Cells with row keys."}],
+      "argument_slots": [{"name": "column", "binding_kind": "column", "required": true, "description": "One concrete column."}],
+      "tool_binding_class": ["table_engine"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Cell reading is schema-general."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Cells remain distinct from parsed values and links."},
+        "executability": {"provisional_rating": "high", "rationale": "Column access is deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "Cells feed link traversal, parsing, or answer return."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "Only one column read occurs."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "No fine-grained pilot exists."}
+      },
+      "known_risks": ["One node per field may inflate simple table plans"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "FOLLOW_LINK",
+      "category": "document_access",
+      "purpose": "Resolve linked-document locators from cells or entities.",
+      "semantics": "Traverse an explicit environment link while preserving source candidate identity; do not fetch document content.",
+      "semantic_functions_supported": ["RESOLVE_RELATION"],
+      "input_ports": [{"name": "sources", "type": "CellSet|EntitySet", "cardinality": "one_or_more", "description": "Link-bearing cells or entities."}],
+      "output_ports": [{"name": "links", "type": "LinkSet", "cardinality": "zero_or_more", "description": "Resolved locators."}],
+      "argument_slots": [{"name": "locator", "binding_kind": "document_locator", "required": true, "description": "Link resolution rule."}],
+      "tool_binding_class": ["graph_runtime", "table_engine"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Link traversal is attribute-independent."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Locator resolution is separate from retrieval."},
+        "executability": {"provisional_rating": "medium", "rationale": "Requires linked-document metadata."},
+        "composability": {"provisional_rating": "high", "rationale": "LinkSet feeds retrieval."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "One explicit relation traversal occurs."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Link versus search decisions need review."}
+      },
+      "known_risks": ["May be omitted when a runtime follows links implicitly"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "RETRIEVE",
+      "category": "document_access",
+      "purpose": "Fetch or search for document content from locators or query text.",
+      "semantics": "Return provenance-bearing documents; do not select sentences or extract spans.",
+      "semantic_functions_supported": ["RESOLVE_RELATION", "ACQUIRE_ATTRIBUTE"],
+      "input_ports": [{"name": "request", "type": "LinkSet|EntitySet|String", "cardinality": "one_or_more", "description": "Links, entities, or query text."}],
+      "output_ports": [{"name": "documents", "type": "DocumentSet", "cardinality": "zero_or_more", "description": "Retrieved documents."}],
+      "argument_slots": [{"name": "locator", "binding_kind": "document_locator", "required": false, "description": "Direct or linked locator."}, {"name": "query", "binding_kind": "retrieval_query", "required": false, "description": "Search query template."}],
+      "tool_binding_class": ["retriever"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Content retrieval is generic."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "DocumentSet has explicit provenance."},
+        "executability": {"provisional_rating": "medium", "rationale": "Retriever availability and recall are external."},
+        "composability": {"provisional_rating": "high", "rationale": "Documents feed sentence selection."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "Retrieval is separated from reading."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "No natural annotations have been compared."}
+      },
+      "known_risks": ["Search and direct fetch share a name despite different failure modes"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "SELECT_SENTENCE",
+      "category": "extraction",
+      "purpose": "Select evidence sentences relevant to one requested attribute.",
+      "semantics": "Rank or filter sentences within documents while preserving offsets and subject keys; do not extract the answer span.",
+      "semantic_functions_supported": ["ACQUIRE_ATTRIBUTE"],
+      "input_ports": [{"name": "documents", "type": "DocumentSet", "cardinality": "one_or_more", "description": "Retrieved documents."}],
+      "output_ports": [{"name": "sentences", "type": "SentenceSet", "cardinality": "zero_or_more", "description": "Selected evidence sentences."}],
+      "argument_slots": [{"name": "attribute", "binding_kind": "requested_attribute", "required": true, "description": "Attribute sought."}, {"name": "selection", "binding_kind": "selection_policy", "required": true, "description": "Sentence selection policy."}],
+      "tool_binding_class": ["reader"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Evidence sentence selection transfers across attributes."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Sentence offsets are distinct from answer spans."},
+        "executability": {"provisional_rating": "medium", "rationale": "May require a learned reader component."},
+        "composability": {"provisional_rating": "high", "rationale": "SentenceSet feeds span extraction."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "Evidence localization is isolated."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Sentence boundary agreement is unknown."}
+      },
+      "known_risks": ["Sentence supervision substantially raises annotation cost"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "EXTRACT_SPAN",
+      "category": "extraction",
+      "purpose": "Extract exact attribute spans from selected sentences.",
+      "semantics": "Return character-aligned raw spans with document provenance and candidate keys; do not parse them.",
+      "semantic_functions_supported": ["ACQUIRE_ATTRIBUTE"],
+      "input_ports": [{"name": "sentences", "type": "SentenceSet", "cardinality": "one_or_more", "description": "Evidence sentences."}],
+      "output_ports": [{"name": "spans", "type": "TextSpanSet", "cardinality": "zero_or_more", "description": "Raw answer spans."}],
+      "argument_slots": [{"name": "attribute", "binding_kind": "requested_attribute", "required": true, "description": "Attribute to extract."}, {"name": "cardinality", "binding_kind": "cardinality", "required": true, "description": "Expected spans per subject."}],
+      "tool_binding_class": ["reader"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Span extraction is attribute-parameterized."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Raw spans are explicit and provenance-bearing."},
+        "executability": {"provisional_rating": "medium", "rationale": "Reader capability may fail despite valid semantics."},
+        "composability": {"provisional_rating": "high", "rationale": "Spans feed type-specific parsers."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "No retrieval or parsing is hidden."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Exact span agreement is unmeasured."}
+      },
+      "known_risks": ["Exact-span annotation can over-penalize equivalent evidence"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "PARSE_DATE",
+      "category": "transformation",
+      "purpose": "Parse raw date expressions into typed date values.",
+      "semantics": "Interpret date spans using an explicit format or locale rule and preserve raw text and candidate keys.",
+      "semantic_functions_supported": ["PARSE_SEMANTIC_VALUE"],
+      "input_ports": [{"name": "spans", "type": "TextSpanSet|CellSet", "cardinality": "one_or_more", "description": "Raw date expressions."}],
+      "output_ports": [{"name": "dates", "type": "DateSet", "cardinality": "zero_or_more", "description": "Parsed dates."}],
+      "argument_slots": [{"name": "value_type", "binding_kind": "declared_value_type", "required": true, "description": "Date or datetime target."}, {"name": "format", "binding_kind": "normalization_rule", "required": false, "description": "Format and locale."}],
+      "tool_binding_class": ["parser", "deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Date parsing is domain-general."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "DateSet excludes other numeric types."},
+        "executability": {"provisional_rating": "high", "rationale": "Known formats are deterministically parseable."},
+        "composability": {"provisional_rating": "high", "rationale": "Dates feed normalization and comparison."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "Parsing is separate from normalization."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Implicit versus explicit parsing nodes need study."}
+      },
+      "known_risks": ["Partial dates and calendars require explicit policies"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "PARSE_NUMBER",
+      "category": "transformation",
+      "purpose": "Parse raw numeric expressions and units.",
+      "semantics": "Interpret numeric spans without performing unit conversion or arithmetic.",
+      "semantic_functions_supported": ["PARSE_SEMANTIC_VALUE"],
+      "input_ports": [{"name": "spans", "type": "TextSpanSet|CellSet", "cardinality": "one_or_more", "description": "Raw numeric expressions."}],
+      "output_ports": [{"name": "numbers", "type": "NumberSet", "cardinality": "zero_or_more", "description": "Parsed numbers with units."}],
+      "argument_slots": [{"name": "value_type", "binding_kind": "declared_value_type", "required": true, "description": "Integer or number target."}, {"name": "format", "binding_kind": "normalization_rule", "required": false, "description": "Locale and numeric format."}],
+      "tool_binding_class": ["parser", "deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Numeric parsing is domain-general."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Numbers and units are explicit."},
+        "executability": {"provisional_rating": "high", "rationale": "Known numeric formats are deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "Numbers feed normalization, arithmetic, and comparison."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "Unit conversion is not hidden."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "No fine-grained pilot exists."}
+      },
+      "known_risks": ["Ranges and approximate quantities require policies"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "NORMALIZE",
+      "category": "transformation",
+      "purpose": "Normalize typed values to a declared comparison or arithmetic representation.",
+      "semantics": "Apply one explicit unit, timezone, calendar, or identity normalization while retaining original values.",
+      "semantic_functions_supported": ["NORMALIZE_SEMANTIC_VALUE"],
+      "input_ports": [{"name": "values", "type": "DateSet|NumberSet|ValueSet", "cardinality": "one_or_more", "description": "Typed values."}],
+      "output_ports": [{"name": "values", "type": "DateSet|NumberSet|ValueSet", "cardinality": "one_or_more", "description": "Normalized values."}],
+      "argument_slots": [{"name": "rule", "binding_kind": "normalization_rule", "required": true, "description": "One declared normalization."}],
+      "tool_binding_class": ["deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Normalization rules transfer across questions."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Input type is preserved."},
+        "executability": {"provisional_rating": "high", "rationale": "Grounded transformations are deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "Output substitutes directly in reasoning nodes."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "One normalization rule is applied."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Necessary versus redundant normalization is unmeasured."}
+      },
+      "known_risks": ["Can create long chains when several normalizations are needed"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "COMPARE_DATE",
+      "category": "comparison",
+      "purpose": "Compare parsed dates under one temporal relation.",
+      "semantics": "Produce keyed temporal ordering or relation outcomes without selecting winners.",
+      "semantic_functions_supported": ["COMPARE_VALUES"],
+      "input_ports": [{"name": "dates", "type": "DateSet|KeyedValueSet", "cardinality": "one_or_more", "description": "Comparable dates."}],
+      "output_ports": [{"name": "comparisons", "type": "ComparisonSet", "cardinality": "one_or_more", "description": "Temporal comparison outcomes."}],
+      "argument_slots": [{"name": "relation", "binding_kind": "comparison_relation", "required": true, "description": "Earlier, later, equal, older, or younger semantics."}],
+      "tool_binding_class": ["deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Temporal comparison is generic."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Only dates are accepted."},
+        "executability": {"provisional_rating": "high", "rationale": "Parsed dates compare deterministically."},
+        "composability": {"provisional_rating": "high", "rationale": "ComparisonSet feeds arg-selection."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "One typed relation is applied."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Surface terms such as older require reviewer calibration."}
+      },
+      "known_risks": ["Older may reverse chronological ordering depending on the compared concept"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "COMPARE_NUMBER",
+      "category": "comparison",
+      "purpose": "Compare normalized numeric values.",
+      "semantics": "Produce keyed numeric ordering or relation outcomes without selecting winners.",
+      "semantic_functions_supported": ["COMPARE_VALUES"],
+      "input_ports": [{"name": "numbers", "type": "NumberSet|KeyedValueSet", "cardinality": "one_or_more", "description": "Comparable numbers."}],
+      "output_ports": [{"name": "comparisons", "type": "ComparisonSet", "cardinality": "one_or_more", "description": "Numeric comparison outcomes."}],
+      "argument_slots": [{"name": "relation", "binding_kind": "comparison_relation", "required": true, "description": "Numeric relation."}],
+      "tool_binding_class": ["deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Numeric comparison is generic."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Numeric inputs are explicit."},
+        "executability": {"provisional_rating": "high", "rationale": "Normalized numbers compare deterministically."},
+        "composability": {"provisional_rating": "high", "rationale": "Outputs feed arg-selection or boolean conditions."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "One numeric relation is applied."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "No reviewer agreement data exist."}
+      },
+      "known_risks": ["Unit mismatch must be rejected or normalized first"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "COMPARE_STRING",
+      "category": "comparison",
+      "purpose": "Compare string or entity-label values under declared text semantics.",
+      "semantics": "Apply exact, normalized, containment, or lexicographic comparison without implicit entity resolution.",
+      "semantic_functions_supported": ["COMPARE_VALUES"],
+      "input_ports": [{"name": "values", "type": "ValueSet|KeyedValueSet", "cardinality": "one_or_more", "description": "String-like values."}],
+      "output_ports": [{"name": "comparisons", "type": "ComparisonSet", "cardinality": "one_or_more", "description": "String comparison outcomes."}],
+      "argument_slots": [{"name": "relation", "binding_kind": "comparison_relation", "required": true, "description": "Text comparison relation."}, {"name": "normalization", "binding_kind": "normalization_rule", "required": false, "description": "Case or punctuation normalization."}],
+      "tool_binding_class": ["deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "String relations are schema-general."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Text comparison is distinct from numeric comparison."},
+        "executability": {"provisional_rating": "high", "rationale": "Declared rules are deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "ComparisonSet feeds selection."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "Entity resolution is excluded."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Normalization choices need calibration."}
+      },
+      "known_risks": ["String equality is not entity identity"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "ARGMIN",
+      "category": "selection",
+      "purpose": "Return keys attaining the minimum comparison value or requested lowest rank.",
+      "semantics": "Select keys under explicit rank and tie policy; do not map them to answer fields.",
+      "semantic_functions_supported": ["APPLY_ORDINAL", "ARG_SELECT"],
+      "input_ports": [{"name": "comparisons", "type": "ComparisonSet|KeyedValueSet", "cardinality": "one", "description": "Ordered keyed candidates."}],
+      "output_ports": [{"name": "keys", "type": "KeySet", "cardinality": "one_or_more", "description": "Minimum-attaining keys."}],
+      "argument_slots": [{"name": "ordering", "binding_kind": "ordering_semantics", "required": true, "description": "Rank and tie policy."}],
+      "tool_binding_class": ["deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Argmin is schema-independent."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Returns keys, not minimum values."},
+        "executability": {"provisional_rating": "high", "rationale": "Ordering is deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "KeySet feeds map-back."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "Minimum selection is one operation."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Tie behavior needs evidence."}
+      },
+      "known_risks": ["Adds a separate operator from ARGMAX and expands vocabulary"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "ARGMAX",
+      "category": "selection",
+      "purpose": "Return keys attaining the maximum comparison value or requested highest rank.",
+      "semantics": "Select keys under explicit rank and tie policy; do not map them to answer fields.",
+      "semantic_functions_supported": ["APPLY_ORDINAL", "ARG_SELECT"],
+      "input_ports": [{"name": "comparisons", "type": "ComparisonSet|KeyedValueSet", "cardinality": "one", "description": "Ordered keyed candidates."}],
+      "output_ports": [{"name": "keys", "type": "KeySet", "cardinality": "one_or_more", "description": "Maximum-attaining keys."}],
+      "argument_slots": [{"name": "ordering", "binding_kind": "ordering_semantics", "required": true, "description": "Rank and tie policy."}],
+      "tool_binding_class": ["deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Argmax is schema-independent."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Returns keys, not maximum values."},
+        "executability": {"provisional_rating": "high", "rationale": "Ordering is deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "KeySet feeds map-back."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "Maximum selection is one operation."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Tie behavior needs evidence."}
+      },
+      "known_risks": ["Natural-language older or earlier may not map naively to ARGMAX"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "COUNT_ITEMS",
+      "category": "aggregation",
+      "purpose": "Count items under explicit duplicate and null semantics.",
+      "semantics": "Return the cardinality of the input collection after only explicitly represented prior transformations.",
+      "semantic_functions_supported": ["AGGREGATE_VALUES"],
+      "input_ports": [{"name": "items", "type": "RowSet|CellSet|ValueSet|KeySet", "cardinality": "one", "description": "Collection to count."}],
+      "output_ports": [{"name": "count", "type": "Value", "cardinality": "one", "description": "Integer count."}],
+      "argument_slots": [{"name": "function", "binding_kind": "aggregate_function", "required": true, "description": "Count-all, count-non-null, or count-distinct semantics."}],
+      "tool_binding_class": ["deterministic_function", "table_engine"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Counting is generic."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Collection-to-integer contract is narrow."},
+        "executability": {"provisional_rating": "high", "rationale": "Counting is deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "Integer results feed arithmetic and comparison."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "Deduplication is excluded unless explicitly requested."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Null and duplicate policies need review."}
+      },
+      "known_risks": ["Count-distinct may duplicate a preceding DEDUPLICATE_ITEMS node"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "SUM_VALUES",
+      "category": "aggregation",
+      "purpose": "Sum normalized numeric values.",
+      "semantics": "Return a sum with explicit empty-set, unit, and null handling.",
+      "semantic_functions_supported": ["AGGREGATE_VALUES"],
+      "input_ports": [{"name": "numbers", "type": "NumberSet|ValueSet", "cardinality": "one", "description": "Normalized numeric values."}],
+      "output_ports": [{"name": "sum", "type": "Value", "cardinality": "one", "description": "Numeric sum."}],
+      "argument_slots": [{"name": "function", "binding_kind": "aggregate_function", "required": true, "description": "Sum and empty-set policy."}],
+      "tool_binding_class": ["deterministic_function", "table_engine"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Summation is generic."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Numeric collection-to-scalar contract is narrow."},
+        "executability": {"provisional_rating": "high", "rationale": "Normalized inputs sum deterministically."},
+        "composability": {"provisional_rating": "high", "rationale": "Scalar feeds arithmetic and answers."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "Only summation occurs."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "No fine-grained pilot exists."}
+      },
+      "known_risks": ["Group-wise sums would require additional grouping structure"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "APPLY_ARITHMETIC",
+      "category": "arithmetic",
+      "purpose": "Apply one elementary arithmetic function to ordered operands.",
+      "semantics": "Compute one addition, subtraction, multiplication, division, ratio, or percentage step with explicit units and rounding.",
+      "semantic_functions_supported": ["COMPUTE_VALUE"],
+      "input_ports": [{"name": "operands", "type": "NumberSet|ValueSet", "cardinality": "one_or_more", "description": "Ordered operands."}],
+      "output_ports": [{"name": "result", "type": "Value", "cardinality": "one", "description": "One computed value."}],
+      "argument_slots": [{"name": "function", "binding_kind": "arithmetic_function", "required": true, "description": "One elementary function and operand order."}, {"name": "normalization", "binding_kind": "normalization_rule", "required": false, "description": "Rounding or unit policy."}],
+      "tool_binding_class": ["deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Elementary arithmetic is generic."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "One numeric result is declared."},
+        "executability": {"provisional_rating": "high", "rationale": "Grounded arithmetic is deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "Results can chain into further steps."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "Complex expressions must be decomposed."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Expression decomposition agreement is unknown."}
+      },
+      "known_risks": ["Complex formulas create long dependency chains"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "DEDUPLICATE_ITEMS",
+      "category": "transformation",
+      "purpose": "Remove duplicates under one declared identity rule.",
+      "semantics": "Preserve first-occurrence order and provenance while collapsing equivalent items.",
+      "semantic_functions_supported": ["RESTRICT_CANDIDATES", "NORMALIZE_SEMANTIC_VALUE"],
+      "input_ports": [{"name": "items", "type": "CellSet|EntitySet|ValueSet|KeySet", "cardinality": "one", "description": "Possibly duplicated items."}],
+      "output_ports": [{"name": "items", "type": "CellSet|EntitySet|ValueSet|KeySet", "cardinality": "zero_or_more", "description": "Unique items."}],
+      "argument_slots": [{"name": "identity", "binding_kind": "normalization_rule", "required": true, "description": "Exact, normalized-string, or entity identity."}],
+      "tool_binding_class": ["deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Deduplication is generic."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Collection type is preserved."},
+        "executability": {"provisional_rating": "high", "rationale": "Declared identity is deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "Output substitutes directly for input."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "One set-like operation occurs."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Implicit distinctness is unmeasured."}
+      },
+      "known_risks": ["Adds nodes that may be semantically irrelevant for already-unique data"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "MATCH_KEYS",
+      "category": "association",
+      "purpose": "Match two keyed collections under one grounded key relation.",
+      "semantics": "Return matched key pairs without projecting answer values.",
+      "semantic_functions_supported": ["RESOLVE_RELATION"],
+      "input_ports": [{"name": "left", "type": "RowSet|CellSet|KeyedValueSet", "cardinality": "one", "description": "Left keyed collection."}, {"name": "right", "type": "RowSet|CellSet|KeyedValueSet|KeySet", "cardinality": "one", "description": "Right keyed collection."}],
+      "output_ports": [{"name": "matches", "type": "KeySet", "cardinality": "zero_or_more", "description": "Matched key identities."}],
+      "argument_slots": [{"name": "join_key", "binding_kind": "join_key", "required": true, "description": "Key correspondence and equality semantics."}],
+      "tool_binding_class": ["deterministic_function", "table_engine"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Key matching is generic."},
+        "typed_contract_clarity": {"provisional_rating": "medium", "rationale": "Several provenance-bearing collections are accepted."},
+        "executability": {"provisional_rating": "high", "rationale": "Grounded equality is deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "Matched keys feed map-back."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "Projection is excluded."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Explicit versus implicit key matching needs study."}
+      },
+      "known_risks": ["May duplicate provenance already carried through keyed values"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "MAP_BACK",
+      "category": "answer",
+      "purpose": "Map selected keys to the requested answer role.",
+      "semantics": "Project the grounded answer field for selected candidate keys while preserving answer provenance.",
+      "semantic_functions_supported": ["MAP_BACK_TO_ANSWER", "RETURN_ANSWER"],
+      "input_ports": [{"name": "keys", "type": "KeySet", "cardinality": "one_or_more", "description": "Selected candidate keys."}, {"name": "source", "type": "RowSet|CellSet|KeyedValueSet", "cardinality": "one", "description": "Keyed answer source."}],
+      "output_ports": [{"name": "answer", "type": "ValueSet|EntitySet", "cardinality": "one_or_more", "description": "Answer values with provenance."}],
+      "argument_slots": [{"name": "join_key", "binding_kind": "join_key", "required": true, "description": "Association from selected key to answer source."}, {"name": "answer_field", "binding_kind": "column", "required": false, "description": "Answer column when mapping to a table field."}],
+      "tool_binding_class": ["table_engine", "deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Back-mapping is independent of the answer attribute."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Selected keys and keyed source are explicit."},
+        "executability": {"provisional_rating": "high", "rationale": "Grounded key mapping is deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "Produces the final answer collection."},
+        "semantic_atomicity": {"provisional_rating": "medium", "rationale": "Key matching and answer projection may both occur."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Reviewers may omit mapping when keys already contain labels."}
+      },
+      "known_risks": ["Can be redundant if the selected key is itself the answer"],
+      "empirical_frequency_status": "not_measured"
+    }
+  ],
+  "pseudo_primitive_policy": {
+    "default_disposition": "reject_or_flag",
+    "rejected_patterns": [
+      {"pattern": "GET_<QUESTION_SPECIFIC_ATTRIBUTE>", "reason": "Attribute identity is a grounding argument, not an operator."},
+      {"pattern": "ANSWER_<QUESTION_TEMPLATE>", "reason": "Template-bound shortcuts defeat fine-grained composition."}
+    ],
+    "exception_requirements": ["Demonstrate reuse across multiple questions and schemas", "Specify narrow typed inputs and outputs", "Identify an executable binding", "Show that the added node improves pilot transparency or agreement"]
+  },
+  "known_global_risks": ["Graph length and planning search space may explode", "Sentence and span decisions sharply increase annotation cost", "Type-specific operators expand vocabulary", "Coverage gaps are expected until a pilot is annotated"]
+}

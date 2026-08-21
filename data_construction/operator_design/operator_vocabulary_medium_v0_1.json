@@ -1,0 +1,271 @@
+{
+  "schema_ref": "../schemas/operator_vocabulary_schema_v0_1.json",
+  "schema_version": "operator_vocabulary_schema_v0_1",
+  "vocabulary_version": "operator_vocabulary_medium_v0_1",
+  "granularity": "medium",
+  "status": "provisional_candidate",
+  "domain_scope": "HybridQA_only",
+  "selection_claim": "not_selected_pending_annotation_evidence",
+  "empirical_evidence_status": "not_yet_piloted",
+  "type_system": {
+    "status": "candidate_not_ir_v0_2",
+    "note": "Candidate annotation contracts only; names and types do not redefine the locally unavailable IR v0.2 registry.",
+    "types": [
+      {"name": "Table", "description": "A structured HybridQA table."},
+      {"name": "RowSet", "description": "Zero or more table rows preserving row identity."},
+      {"name": "String", "description": "Text usable as a query or value."},
+      {"name": "Value", "description": "A typed scalar value."},
+      {"name": "ValueSet", "description": "Zero or more typed scalar values."},
+      {"name": "EntitySet", "description": "Entity-denoting values with optional link identity."},
+      {"name": "DocumentSet", "description": "Retrieved or linked documents with provenance."},
+      {"name": "TextSpanSet", "description": "Text spans paired with document provenance."},
+      {"name": "KeyedValueSet", "description": "Values paired with candidate keys for back-mapping."},
+      {"name": "ComparedValueSet", "description": "Keyed values annotated with comparison outcomes or ordering."},
+      {"name": "KeySet", "description": "Keys identifying selected candidates."},
+      {"name": "GroupedValues", "description": "Values partitioned by one or more semantic keys."},
+      {"name": "ComparisonResult", "description": "A boolean, relation, or ordering result."}
+    ]
+  },
+  "operators": [
+    {
+      "name": "FILTER",
+      "category": "structured_access",
+      "purpose": "Restrict rows by a declared predicate.",
+      "semantics": "Return exactly those input rows satisfying the grounded predicate while preserving row identity.",
+      "semantic_functions_supported": ["SELECT_CANDIDATES", "RESTRICT_CANDIDATES"],
+      "input_ports": [{"name": "rows", "type": "Table|RowSet", "cardinality": "one", "description": "Table or prior row subset."}],
+      "output_ports": [{"name": "rows", "type": "RowSet", "cardinality": "zero_or_more", "description": "Predicate-satisfying rows."}],
+      "argument_slots": [{"name": "predicate", "binding_kind": "row_predicate", "required": true, "description": "Column, comparator, and literal values."}],
+      "tool_binding_class": ["table_engine"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Row restriction is schema-general."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "RowSet is preserved across the operation."},
+        "executability": {"provisional_rating": "high", "rationale": "Predicates map to deterministic table filtering."},
+        "composability": {"provisional_rating": "high", "rationale": "RowSet output composes with projection and joins."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "One predicate application is a stable medium-level unit."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Column and predicate agreement has not been measured."}
+      },
+      "known_risks": ["Compound predicates may require explicit conjunction semantics"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "PROJECT",
+      "category": "structured_access",
+      "purpose": "Read one or more declared fields from rows while preserving association keys when required.",
+      "semantics": "Map rows to field values or entities; row identity must remain available when a later back-map is required.",
+      "semantic_functions_supported": ["RESOLVE_RELATION", "ACQUIRE_ATTRIBUTE", "MAP_BACK_TO_ANSWER", "RETURN_ANSWER"],
+      "input_ports": [{"name": "rows", "type": "RowSet", "cardinality": "one", "description": "Rows to read."}],
+      "output_ports": [{"name": "values", "type": "ValueSet|EntitySet|KeyedValueSet", "cardinality": "zero_or_more", "description": "Projected values, optionally keyed by row."}],
+      "argument_slots": [{"name": "column", "binding_kind": "column", "required": true, "description": "Projected table column."}, {"name": "cardinality", "binding_kind": "cardinality", "required": true, "description": "Expected result count."}],
+      "tool_binding_class": ["table_engine"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Column projection is schema-general."},
+        "typed_contract_clarity": {"provisional_rating": "medium", "rationale": "Key-preserving and unkeyed outputs share one operator."},
+        "executability": {"provisional_rating": "high", "rationale": "Direct table access is deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "Projected values feed retrieval, comparison, and answers."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "Reading a declared field is a reusable unit."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Projection and key-preservation agreement has not been measured."}
+      },
+      "known_risks": ["Dropping row identity can make later back-mapping impossible"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "RETRIEVE",
+      "category": "document_access",
+      "purpose": "Locate linked or searched documents relevant to subject entities or a query.",
+      "semantics": "Return provenance-bearing document candidates without extracting the requested answer span.",
+      "semantic_functions_supported": ["RESOLVE_RELATION", "ACQUIRE_ATTRIBUTE"],
+      "input_ports": [{"name": "subjects", "type": "EntitySet|String", "cardinality": "one_or_more", "description": "Entities or query terms that scope retrieval."}],
+      "output_ports": [{"name": "documents", "type": "DocumentSet", "cardinality": "zero_or_more", "description": "Ranked or linked document candidates."}],
+      "argument_slots": [{"name": "locator", "binding_kind": "document_locator", "required": true, "description": "Link traversal or retrieval rule."}, {"name": "query", "binding_kind": "retrieval_query", "required": false, "description": "Query template for search retrieval."}],
+      "tool_binding_class": ["retriever"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Document location recurs across attributes and schemas."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "DocumentSet cleanly separates location from extraction."},
+        "executability": {"provisional_rating": "medium", "rationale": "Depends on linked-document and retriever availability."},
+        "composability": {"provisional_rating": "high", "rationale": "DocumentSet feeds extraction while retaining provenance."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "Document acquisition is distinct from content reading."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Linked versus search retrieval choices need pilot review."}
+      },
+      "known_risks": ["Oracle document IDs can leak if selection provenance is not recorded"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "EXTRACT",
+      "category": "extraction",
+      "purpose": "Extract an attribute-bearing span or value from documents.",
+      "semantics": "Read the requested attribute from each relevant document and preserve the subject/document association.",
+      "semantic_functions_supported": ["RESOLVE_RELATION", "ACQUIRE_ATTRIBUTE"],
+      "input_ports": [{"name": "documents", "type": "DocumentSet", "cardinality": "one_or_more", "description": "Documents containing candidate evidence."}],
+      "output_ports": [{"name": "extractions", "type": "TextSpanSet|KeyedValueSet", "cardinality": "zero_or_more", "description": "Provenance-bearing spans or values."}],
+      "argument_slots": [{"name": "attribute", "binding_kind": "requested_attribute", "required": true, "description": "Requested attribute."}, {"name": "value_type", "binding_kind": "declared_value_type", "required": true, "description": "Declared extraction type."}, {"name": "cardinality", "binding_kind": "cardinality", "required": true, "description": "Expected matches per subject."}],
+      "tool_binding_class": ["reader"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Attribute extraction is not question-specific."},
+        "typed_contract_clarity": {"provisional_rating": "medium", "rationale": "Span and already-typed value outputs remain a union."},
+        "executability": {"provisional_rating": "medium", "rationale": "Reader capability may be incomplete."},
+        "composability": {"provisional_rating": "high", "rationale": "Outputs feed parsing, comparison, or joins."},
+        "semantic_atomicity": {"provisional_rating": "medium", "rationale": "Sentence selection and span extraction are fused at medium granularity."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Attribute boundary and cardinality agreement need measurement."}
+      },
+      "known_risks": ["Reader failure must not be mislabeled as semantic-plan failure"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "JOIN",
+      "category": "association",
+      "purpose": "Associate values or selected keys with their originating rows or entities.",
+      "semantics": "Match declared keys while preserving multiplicity and provenance; includes back-mapping after selection.",
+      "semantic_functions_supported": ["RESOLVE_RELATION", "MAP_BACK_TO_ANSWER"],
+      "input_ports": [{"name": "left", "type": "RowSet|KeyedValueSet", "cardinality": "one", "description": "Left keyed collection."}, {"name": "right", "type": "RowSet|KeyedValueSet|KeySet", "cardinality": "one", "description": "Right keyed collection or selected keys."}],
+      "output_ports": [{"name": "joined", "type": "RowSet|KeyedValueSet", "cardinality": "zero_or_more", "description": "Matched records or values."}],
+      "argument_slots": [{"name": "join_key", "binding_kind": "join_key", "required": true, "description": "Left/right key relation and normalization."}],
+      "tool_binding_class": ["table_engine", "deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Association and back-mapping recur widely."},
+        "typed_contract_clarity": {"provisional_rating": "medium", "rationale": "Several keyed collection types are accepted."},
+        "executability": {"provisional_rating": "high", "rationale": "Grounded key matching is deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "Join reconnects modality-derived values to answer rows."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "Keyed association is a distinct dependency."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Join necessity and key choice have not been reviewed."}
+      },
+      "known_risks": ["Implicit row identity can make an explicit join appear unnecessary", "Multiplicity errors can duplicate answers"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "AGGREGATE",
+      "category": "aggregation",
+      "purpose": "Reduce values globally or by declared groups.",
+      "semantics": "Apply COUNT, SUM, MIN, MAX, AVG, or another reviewed aggregate with explicit grouping and empty-set behavior.",
+      "semantic_functions_supported": ["AGGREGATE_VALUES"],
+      "input_ports": [{"name": "values", "type": "ValueSet|GroupedValues", "cardinality": "one", "description": "Values to aggregate."}],
+      "output_ports": [{"name": "result", "type": "Value|KeyedValueSet", "cardinality": "one_or_more", "description": "Global or grouped aggregate."}],
+      "argument_slots": [{"name": "function", "binding_kind": "aggregate_function", "required": true, "description": "Aggregate and empty-set semantics."}, {"name": "grouping", "binding_kind": "column", "required": false, "description": "Optional group key."}],
+      "tool_binding_class": ["table_engine", "deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Standard aggregates are schema-general."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Input and grouped output distinctions are explicit."},
+        "executability": {"provisional_rating": "high", "rationale": "Grounded aggregates are deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "Aggregate values feed comparison and answers."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "One declared reduction is a stable unit."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Grouping and empty-set agreement are unmeasured."}
+      },
+      "known_risks": ["MIN or MAX can be confused with ARG_EXTREME when an associated entity is requested"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "COMPARE",
+      "category": "comparison",
+      "purpose": "Apply an equality, ordering, temporal, or set comparison to typed values.",
+      "semantics": "Produce a relation result or comparison-annotated keyed values without performing answer back-mapping.",
+      "semantic_functions_supported": ["COMPARE_VALUES"],
+      "input_ports": [{"name": "values", "type": "ValueSet|KeyedValueSet", "cardinality": "one_or_more", "description": "Typed comparable values."}],
+      "output_ports": [{"name": "result", "type": "ComparisonResult|ComparedValueSet", "cardinality": "one_or_more", "description": "Relation or ordering result."}],
+      "argument_slots": [{"name": "relation", "binding_kind": "comparison_relation", "required": true, "description": "Declared comparison."}, {"name": "ordering", "binding_kind": "ordering_semantics", "required": false, "description": "Direction and tie semantics."}],
+      "tool_binding_class": ["deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Typed comparisons transfer across domains."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Comparison is separate from winner selection."},
+        "executability": {"provisional_rating": "high", "rationale": "Parsed typed values support deterministic comparison."},
+        "composability": {"provisional_rating": "high", "rationale": "Results feed ARG_EXTREME or conditions."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "One comparison relation is applied."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Comparison-family agreement is unmeasured."}
+      },
+      "known_risks": ["Unparsed strings can yield invalid lexical comparisons"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "PARSE",
+      "category": "transformation",
+      "purpose": "Convert text spans or surface values into declared typed values.",
+      "semantics": "Parse and minimally normalize a declared value type while recording failures and raw text.",
+      "semantic_functions_supported": ["PARSE_SEMANTIC_VALUE", "NORMALIZE_SEMANTIC_VALUE"],
+      "input_ports": [{"name": "surface_values", "type": "TextSpanSet|ValueSet", "cardinality": "one_or_more", "description": "Raw spans or surface values."}],
+      "output_ports": [{"name": "typed_values", "type": "ValueSet|KeyedValueSet", "cardinality": "zero_or_more", "description": "Parsed values preserving keys."}],
+      "argument_slots": [{"name": "value_type", "binding_kind": "declared_value_type", "required": true, "description": "Target type."}, {"name": "normalization", "binding_kind": "normalization_rule", "required": false, "description": "Locale, format, or unit rule."}],
+      "tool_binding_class": ["parser", "deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Typed parsing is generic."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Surface input and typed output are distinct."},
+        "executability": {"provisional_rating": "high", "rationale": "Common formats can be parsed deterministically."},
+        "composability": {"provisional_rating": "high", "rationale": "Typed values feed all reasoning operators."},
+        "semantic_atomicity": {"provisional_rating": "medium", "rationale": "Parsing and normalization are fused at medium granularity."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Need evidence on when parsing is explicitly annotated."}
+      },
+      "known_risks": ["Locale and unit conversion may deserve separate fine-grained nodes"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "ARG_EXTREME",
+      "category": "selection",
+      "purpose": "Select candidate keys attaining an extremum or requested ordinal.",
+      "semantics": "Return all or a question-specified subset of keys whose values satisfy the declared rank and tie policy.",
+      "semantic_functions_supported": ["APPLY_ORDINAL", "ARG_SELECT"],
+      "input_ports": [{"name": "values", "type": "KeyedValueSet|ComparedValueSet", "cardinality": "one", "description": "Comparable values paired with candidate keys."}],
+      "output_ports": [{"name": "keys", "type": "KeySet", "cardinality": "one_or_more", "description": "Selected candidate keys."}],
+      "argument_slots": [{"name": "ordering", "binding_kind": "ordering_semantics", "required": true, "description": "Minimum, maximum, rank, and tie policy."}],
+      "tool_binding_class": ["deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Arg-selection is independent of schema."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Keys are returned rather than bare extreme values."},
+        "executability": {"provisional_rating": "high", "rationale": "Typed ordering is deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "KeySet supports explicit back-mapping."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "Selection is separated from comparison and mapping."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Tie and ordinal policies need pilot evidence."}
+      },
+      "known_risks": ["Using AGGREGATE MIN instead loses the associated candidate"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "ARITHMETIC",
+      "category": "arithmetic",
+      "purpose": "Compute a declared arithmetic expression over typed values.",
+      "semantics": "Apply an ordered arithmetic function with explicit units, rounding, and divide-by-zero behavior where relevant.",
+      "semantic_functions_supported": ["COMPUTE_VALUE"],
+      "input_ports": [{"name": "operands", "type": "ValueSet", "cardinality": "one_or_more", "description": "Ordered numeric operands."}],
+      "output_ports": [{"name": "result", "type": "Value", "cardinality": "one", "description": "Computed typed value."}],
+      "argument_slots": [{"name": "function", "binding_kind": "arithmetic_function", "required": true, "description": "Expression and operand order."}, {"name": "normalization", "binding_kind": "normalization_rule", "required": false, "description": "Units and rounding."}],
+      "tool_binding_class": ["deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Arithmetic is schema-independent."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Typed operands and result are explicit."},
+        "executability": {"provisional_rating": "high", "rationale": "Grounded arithmetic is deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "Scalar results feed comparison or answers."},
+        "semantic_atomicity": {"provisional_rating": "medium", "rationale": "A complex expression could hide multiple elementary steps."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Expression decomposition agreement is unmeasured."}
+      },
+      "known_risks": ["Operand order and units can be silently wrong"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "DISTINCT",
+      "category": "transformation",
+      "purpose": "Remove duplicates using declared identity semantics.",
+      "semantics": "Return first-occurrence-stable unique items under exact, normalized-string, or entity-identity equivalence.",
+      "semantic_functions_supported": ["RESTRICT_CANDIDATES", "NORMALIZE_SEMANTIC_VALUE"],
+      "input_ports": [{"name": "items", "type": "ValueSet|EntitySet|KeySet", "cardinality": "one", "description": "Possibly duplicated items."}],
+      "output_ports": [{"name": "items", "type": "ValueSet|EntitySet|KeySet", "cardinality": "zero_or_more", "description": "Unique items."}],
+      "argument_slots": [{"name": "identity", "binding_kind": "normalization_rule", "required": true, "description": "Equivalence used for deduplication."}],
+      "tool_binding_class": ["deterministic_function", "table_engine"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Deduplication recurs across schemas."},
+        "typed_contract_clarity": {"provisional_rating": "high", "rationale": "Collection type is preserved."},
+        "executability": {"provisional_rating": "high", "rationale": "Declared identity semantics are deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "Output substitutes directly for input collections."},
+        "semantic_atomicity": {"provisional_rating": "high", "rationale": "One identity-based set operation is applied."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "Need evidence on implicit versus explicit distinctness."}
+      },
+      "known_risks": ["Entity alias normalization may be mistaken for exact string deduplication"],
+      "empirical_frequency_status": "not_measured"
+    }
+  ],
+  "pseudo_primitive_policy": {
+    "default_disposition": "reject_or_flag",
+    "rejected_patterns": [
+      {"pattern": "GET_<QUESTION_SPECIFIC_ATTRIBUTE>", "reason": "Attribute identity belongs in grounding, not the operator name."},
+      {"pattern": "ANSWER_<QUESTION_TEMPLATE>", "reason": "Question-template macros are not reusable primitives."}
+    ],
+    "exception_requirements": ["Demonstrate reuse across multiple questions and schemas", "Specify typed inputs and outputs", "Identify a concrete tool binding", "Report pilot frequency, contexts, ambiguity, and reviewer agreement"]
+  },
+  "known_global_risks": ["Still provisional until annotated pilot evidence exists", "Some operators expose union types that may weaken type checking", "Graph length and reviewer agreement are not yet measured"]
+}

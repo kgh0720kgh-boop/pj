@@ -1,0 +1,694 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "semantic_skeleton_v0_1.json",
+  "title": "Semantic skeleton schema v0.1",
+  "description": "Question-level, storage-neutral semantic requirements. Concrete tables, columns, documents, tools, and execution operators are intentionally absent.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "skeleton_id",
+    "answer_target",
+    "answer_type",
+    "candidate_structure",
+    "relations_required",
+    "attributes_required",
+    "comparison_requirements",
+    "aggregation_requirements",
+    "arithmetic_requirements",
+    "ordinal_requirements",
+    "selection_requirements",
+    "back_mapping_requirements",
+    "information_dependencies",
+    "ambiguity",
+    "completeness",
+    "layer_separation"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "semantic_schema_v0_1"
+    },
+    "skeleton_id": {
+      "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+    },
+    "answer_target": {
+      "type": "object",
+      "required": [
+        "semantic_role",
+        "target_variable_ids"
+      ],
+      "properties": {
+        "semantic_role": {
+          "$ref": "common_definitions_v0_1.json#/$defs/semantic_role"
+        },
+        "target_variable_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "answer_type": {
+      "type": "object",
+      "required": [
+        "value_type",
+        "cardinality"
+      ],
+      "properties": {
+        "value_type": {
+          "enum": [
+            "entity",
+            "string",
+            "number",
+            "integer",
+            "date",
+            "datetime",
+            "boolean",
+            "table_row",
+            "list",
+            "set",
+            "unknown",
+            "other"
+          ]
+        },
+        "other_value_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cardinality": {
+          "enum": [
+            "exactly_one",
+            "zero_or_one",
+            "one_or_more",
+            "zero_or_more",
+            "unknown"
+          ]
+        },
+        "source_alignment": {
+          "$ref": "common_definitions_v0_1.json#/$defs/source_alignment"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "value_type": {
+                "const": "other"
+              }
+            },
+            "required": [
+              "value_type"
+            ]
+          },
+          "then": {
+            "required": [
+              "other_value_type"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "candidate_structure": {
+      "$ref": "#/$defs/candidate_structure"
+    },
+    "relations_required": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relation_requirement"
+      }
+    },
+    "attributes_required": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/attribute_requirement"
+      }
+    },
+    "comparison_requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/comparison_requirement"
+      }
+    },
+    "aggregation_requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/aggregation_requirement"
+      }
+    },
+    "arithmetic_requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/arithmetic_requirement"
+      }
+    },
+    "ordinal_requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ordinal_requirement"
+      }
+    },
+    "selection_requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/selection_requirement"
+      }
+    },
+    "back_mapping_requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/back_mapping_requirement"
+      }
+    },
+    "information_dependencies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/information_dependency"
+      }
+    },
+    "ambiguity": {
+      "$ref": "common_definitions_v0_1.json#/$defs/ambiguity"
+    },
+    "completeness": {
+      "enum": [
+        "complete",
+        "partial",
+        "underspecified_question",
+        "not_annotatable"
+      ]
+    },
+    "layer_separation": {
+      "allOf": [
+        {
+          "$ref": "common_definitions_v0_1.json#/$defs/layer_input_audit_base"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "layer": {
+              "const": "semantic_skeleton"
+            },
+            "observed_input_categories": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "enum": [
+                  "question_text",
+                  "question_metadata",
+                  "question_language",
+                  "question_explicit_source_constraint"
+                ]
+              },
+              "uniqueItems": true
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "completeness": {
+            "const": "not_annotatable"
+          }
+        },
+        "required": ["completeness"]
+      },
+      "then": {
+        "properties": {
+          "answer_target": {"properties": {"target_variable_ids": {"maxItems": 0}}},
+          "candidate_structure": {"properties": {"variables": {"maxItems": 0}}},
+          "relations_required": {"maxItems": 0},
+          "attributes_required": {"maxItems": 0},
+          "comparison_requirements": {"maxItems": 0},
+          "aggregation_requirements": {"maxItems": 0},
+          "arithmetic_requirements": {"maxItems": 0},
+          "ordinal_requirements": {"maxItems": 0},
+          "selection_requirements": {"maxItems": 0},
+          "back_mapping_requirements": {"maxItems": 0},
+          "information_dependencies": {"maxItems": 0}
+        }
+      },
+      "else": {
+        "properties": {
+          "answer_target": {"properties": {"target_variable_ids": {"minItems": 1}}},
+          "candidate_structure": {"properties": {"variables": {"minItems": 1}}}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "variable": {
+      "type": "object",
+      "required": [
+        "variable_id",
+        "semantic_role",
+        "quantification"
+      ],
+      "properties": {
+        "variable_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "semantic_role": {
+          "$ref": "common_definitions_v0_1.json#/$defs/semantic_role"
+        },
+        "quantification": {
+          "enum": [
+            "single",
+            "existential",
+            "universal",
+            "set",
+            "group",
+            "unknown"
+          ]
+        },
+        "explicit_members": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/semantic_role"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "candidate_structure": {
+      "type": "object",
+      "required": [
+        "kind",
+        "variables"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "single",
+            "set",
+            "paired",
+            "ordered_set",
+            "grouped",
+            "implicit",
+            "unknown"
+          ]
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/variable"
+          }
+        },
+        "set_description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expected_candidate_count": {
+          "type": "object",
+          "required": [
+            "kind"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "exact",
+                "minimum",
+                "range",
+                "unknown"
+              ]
+            },
+            "minimum": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "maximum": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "relation_requirement": {
+      "type": "object",
+      "required": [
+        "requirement_id",
+        "relation_role",
+        "subject_variable_id",
+        "object_variable_id",
+        "directionality"
+      ],
+      "properties": {
+        "requirement_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "relation_role": {
+          "$ref": "common_definitions_v0_1.json#/$defs/semantic_role"
+        },
+        "subject_variable_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "object_variable_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "directionality": {
+          "enum": [
+            "directed",
+            "symmetric",
+            "unknown"
+          ]
+        },
+        "cardinality_expectation": {
+          "enum": [
+            "one_to_one",
+            "one_to_many",
+            "many_to_one",
+            "many_to_many",
+            "unknown"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "attribute_requirement": {
+      "type": "object",
+      "required": [
+        "requirement_id",
+        "attribute_role",
+        "subject_variable_id",
+        "value_variable_id",
+        "expected_value_type"
+      ],
+      "properties": {
+        "requirement_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "attribute_role": {
+          "$ref": "common_definitions_v0_1.json#/$defs/semantic_role"
+        },
+        "subject_variable_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "value_variable_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "expected_value_type": {
+          "enum": [
+            "entity",
+            "string",
+            "number",
+            "integer",
+            "date",
+            "datetime",
+            "boolean",
+            "unknown",
+            "other"
+          ]
+        },
+        "other_value_type": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "expected_value_type": {
+                "const": "other"
+              }
+            },
+            "required": [
+              "expected_value_type"
+            ]
+          },
+          "then": {
+            "required": [
+              "other_value_type"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "comparison_requirement": {
+      "type": "object",
+      "required": [
+        "requirement_id",
+        "comparison_role",
+        "comparison_family",
+        "operand_variable_ids"
+      ],
+      "properties": {
+        "requirement_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "comparison_role": {
+          "$ref": "common_definitions_v0_1.json#/$defs/semantic_role"
+        },
+        "comparison_family": {
+          "enum": [
+            "equality",
+            "ordered",
+            "temporal",
+            "set",
+            "boolean",
+            "unknown"
+          ]
+        },
+        "operand_variable_ids": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          }
+        },
+        "ordering_direction": {
+          "enum": [
+            "minimum",
+            "maximum",
+            "ascending",
+            "descending",
+            "question_specific",
+            "not_applicable",
+            "unknown"
+          ]
+        },
+        "tie_policy": {
+          "enum": [
+            "return_all",
+            "single_unspecified",
+            "question_defined",
+            "not_applicable",
+            "unknown"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "aggregation_requirement": {
+      "type": "object",
+      "required": [
+        "requirement_id",
+        "aggregation_role",
+        "input_variable_id",
+        "result_variable_id"
+      ],
+      "properties": {
+        "requirement_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "aggregation_role": {
+          "$ref": "common_definitions_v0_1.json#/$defs/semantic_role"
+        },
+        "input_variable_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "result_variable_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "grouping_variable_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "arithmetic_requirement": {
+      "type": "object",
+      "required": [
+        "requirement_id",
+        "arithmetic_role",
+        "operand_variable_ids",
+        "result_variable_id"
+      ],
+      "properties": {
+        "requirement_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "arithmetic_role": {
+          "$ref": "common_definitions_v0_1.json#/$defs/semantic_role"
+        },
+        "operand_variable_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          }
+        },
+        "result_variable_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "unit_semantics": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "ordinal_requirement": {
+      "type": "object",
+      "required": [
+        "requirement_id",
+        "ordinal_role",
+        "rank",
+        "ordered_variable_id"
+      ],
+      "properties": {
+        "requirement_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "ordinal_role": {
+          "$ref": "common_definitions_v0_1.json#/$defs/semantic_role"
+        },
+        "rank": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "ordered_variable_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "direction": {
+          "enum": [
+            "ascending",
+            "descending",
+            "question_specific",
+            "unknown"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "selection_requirement": {
+      "type": "object",
+      "required": [
+        "requirement_id",
+        "candidate_variable_id",
+        "criterion_requirement_ids",
+        "selected_variable_id"
+      ],
+      "properties": {
+        "requirement_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "candidate_variable_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "criterion_requirement_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "selected_variable_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "selection_semantics": {
+          "enum": [
+            "filter",
+            "arg_select",
+            "threshold",
+            "boolean_condition",
+            "question_specific",
+            "unknown"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "back_mapping_requirement": {
+      "type": "object",
+      "required": [
+        "requirement_id",
+        "from_variable_id",
+        "to_answer_variable_id",
+        "association_role"
+      ],
+      "properties": {
+        "requirement_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "from_variable_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "to_answer_variable_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "association_role": {
+          "$ref": "common_definitions_v0_1.json#/$defs/semantic_role"
+        }
+      },
+      "additionalProperties": false
+    },
+    "information_dependency": {
+      "type": "object",
+      "required": [
+        "dependency_id",
+        "predecessor_requirement_ids",
+        "successor_requirement_id",
+        "dependency_kind"
+      ],
+      "properties": {
+        "dependency_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "predecessor_requirement_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "successor_requirement_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "dependency_kind": {
+          "enum": [
+            "value",
+            "candidate_restriction",
+            "comparison_input",
+            "selection_input",
+            "back_mapping",
+            "logical_precondition",
+            "other"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

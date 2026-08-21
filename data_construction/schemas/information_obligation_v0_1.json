@@ -1,0 +1,283 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "information_obligation_v0_1.json",
+  "title": "Information obligation set schema v0.1",
+  "description": "Facts and semantic dependencies required to answer a question, represented without physical operators or concrete storage bindings.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "obligation_set_id",
+    "obligations",
+    "terminal_obligation_ids",
+    "graph_status",
+    "layer_separation"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "obligation_schema_v0_1"
+    },
+    "obligation_set_id": {
+      "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+    },
+    "obligations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/obligation"
+      }
+    },
+    "terminal_obligation_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+      },
+      "uniqueItems": true,
+      "description": "Obligations whose satisfaction directly supports returning the answer."
+    },
+    "graph_status": {
+      "enum": [
+        "complete",
+        "partial",
+        "cyclic_invalid",
+        "unresolved_dependencies",
+        "blocked_missing_evidence",
+        "not_annotatable"
+      ]
+    },
+    "layer_separation": {
+      "allOf": [
+        {
+          "$ref": "common_definitions_v0_1.json#/$defs/layer_input_audit_base"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "layer": {
+              "const": "information_obligations"
+            },
+            "observed_input_categories": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "enum": [
+                  "question_text",
+                  "question_metadata",
+                  "question_language",
+                  "question_explicit_source_constraint",
+                  "semantic_skeleton"
+                ]
+              },
+              "uniqueItems": true
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "graph_status": {
+            "enum": ["blocked_missing_evidence", "not_annotatable"]
+          }
+        },
+        "required": ["graph_status"]
+      },
+      "then": {
+        "properties": {
+          "obligations": {"maxItems": 0},
+          "terminal_obligation_ids": {"maxItems": 0}
+        }
+      },
+      "else": {
+        "properties": {
+          "obligations": {"minItems": 1},
+          "terminal_obligation_ids": {"minItems": 1}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "obligation": {
+      "type": "object",
+      "required": [
+        "obligation_id",
+        "description",
+        "normalized_goal",
+        "source_alignment",
+        "depends_on",
+        "dependency_mode",
+        "skeleton_requirement_refs",
+        "semantic_outputs",
+        "satisfaction_criteria",
+        "necessity",
+        "environment_independent",
+        "ambiguity"
+      ],
+      "properties": {
+        "obligation_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "normalized_goal": {
+          "type": "string",
+          "minLength": 1,
+          "description": "A concise semantic goal such as obtain(attribute(flag_bearer, birth_date)); not a tool instruction."
+        },
+        "source_alignment": {
+          "$ref": "common_definitions_v0_1.json#/$defs/source_alignment"
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "dependency_mode": {
+          "enum": [
+            "all",
+            "any",
+            "none"
+          ]
+        },
+        "skeleton_requirement_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "semantic_outputs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "output_role_id",
+              "semantic_role",
+              "cardinality"
+            ],
+            "properties": {
+              "output_role_id": {
+                "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+              },
+              "semantic_role": {
+                "$ref": "common_definitions_v0_1.json#/$defs/semantic_role"
+              },
+              "cardinality": {
+                "enum": [
+                  "exactly_one",
+                  "zero_or_one",
+                  "one_or_more",
+                  "zero_or_more",
+                  "unknown"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "satisfaction_criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "criterion_id",
+              "description"
+            ],
+            "properties": {
+              "criterion_id": {
+                "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "verifiability": {
+                "enum": [
+                  "semantic",
+                  "requires_environment_evidence",
+                  "requires_human_judgment"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "necessity": {
+          "enum": [
+            "required",
+            "conditional",
+            "optional_supporting"
+          ]
+        },
+        "condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "environment_independent": {
+          "const": true
+        },
+        "ambiguity": {
+          "$ref": "common_definitions_v0_1.json#/$defs/ambiguity"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "necessity": {
+                "const": "conditional"
+              }
+            },
+            "required": [
+              "necessity"
+            ]
+          },
+          "then": {
+            "required": [
+              "condition"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "depends_on": {
+                "maxItems": 0
+              }
+            },
+            "required": [
+              "depends_on"
+            ]
+          },
+          "then": {
+            "properties": {
+              "dependency_mode": {
+                "const": "none"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "dependency_mode": {
+                "enum": [
+                  "all",
+                  "any"
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,317 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "abstract_topology_v0_1.json",
+  "title": "Environment-independent abstract semantic topology schema v0.1",
+  "description": "A DAG-like dependency representation over semantic functions. These functions are not asserted to be executable primitive operators.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "topology_id",
+    "nodes",
+    "entry_node_ids",
+    "output_node_ids",
+    "required_dependency_constraints",
+    "graph_status",
+    "ambiguity",
+    "layer_separation"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "abstract_topology_schema_v0_1"
+    },
+    "topology_id": {
+      "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/semantic_node"
+      }
+    },
+    "entry_node_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+      },
+      "uniqueItems": true
+    },
+    "output_node_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+      },
+      "uniqueItems": true
+    },
+    "required_dependency_constraints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/dependency_constraint"
+      },
+      "description": "Plan-invariant semantic dependencies used to assess alternative topologies without exact graph matching."
+    },
+    "graph_status": {
+      "enum": [
+        "complete_dag",
+        "partial_dag",
+        "cyclic_invalid",
+        "unresolved_references",
+        "blocked_missing_semantics",
+        "not_applicable"
+      ]
+    },
+    "ambiguity": {
+      "$ref": "common_definitions_v0_1.json#/$defs/ambiguity"
+    },
+    "layer_separation": {
+      "allOf": [
+        {
+          "$ref": "common_definitions_v0_1.json#/$defs/layer_input_audit_base"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "layer": {
+              "const": "abstract_topology"
+            },
+            "observed_input_categories": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "enum": [
+                  "question_text",
+                  "question_metadata",
+                  "question_language",
+                  "question_explicit_source_constraint",
+                  "semantic_skeleton",
+                  "information_obligations"
+                ]
+              },
+              "uniqueItems": true
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "graph_status": {
+            "enum": ["blocked_missing_semantics", "not_applicable"]
+          }
+        },
+        "required": ["graph_status"]
+      },
+      "then": {
+        "properties": {
+          "nodes": {"maxItems": 0},
+          "entry_node_ids": {"maxItems": 0},
+          "output_node_ids": {"maxItems": 0},
+          "required_dependency_constraints": {"maxItems": 0}
+        }
+      },
+      "else": {
+        "properties": {
+          "nodes": {"minItems": 1},
+          "entry_node_ids": {"minItems": 1},
+          "output_node_ids": {"minItems": 1}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "semantic_node": {
+      "type": "object",
+      "required": [
+        "node_id",
+        "semantic_function",
+        "description",
+        "source_alignment",
+        "depends_on",
+        "dependency_mode",
+        "fulfills_obligation_ids",
+        "realizes_skeleton_requirement_ids",
+        "input_semantic_variable_ids",
+        "output_semantic_variable_ids",
+        "required_for_all_valid_plans"
+      ],
+      "properties": {
+        "node_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "semantic_function": {
+          "enum": [
+            "SELECT_CANDIDATES",
+            "RESTRICT_CANDIDATES",
+            "RESOLVE_RELATION",
+            "ACQUIRE_ATTRIBUTE",
+            "PARSE_SEMANTIC_VALUE",
+            "NORMALIZE_SEMANTIC_VALUE",
+            "COMPARE_VALUES",
+            "AGGREGATE_VALUES",
+            "COMPUTE_VALUE",
+            "APPLY_ORDINAL",
+            "ARG_SELECT",
+            "MAP_BACK_TO_ANSWER",
+            "RETURN_ANSWER",
+            "OTHER"
+          ]
+        },
+        "other_function_label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_alignment": {
+          "$ref": "common_definitions_v0_1.json#/$defs/source_alignment"
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "dependency_mode": {
+          "enum": [
+            "all",
+            "any",
+            "none"
+          ]
+        },
+        "fulfills_obligation_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "realizes_skeleton_requirement_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "input_semantic_variable_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "output_semantic_variable_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "required_for_all_valid_plans": {
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "semantic_function": {
+                "const": "OTHER"
+              }
+            },
+            "required": [
+              "semantic_function"
+            ]
+          },
+          "then": {
+            "required": [
+              "other_function_label"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "depends_on": {
+                "maxItems": 0
+              }
+            },
+            "required": [
+              "depends_on"
+            ]
+          },
+          "then": {
+            "properties": {
+              "dependency_mode": {
+                "const": "none"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "dependency_mode": {
+                "enum": [
+                  "all",
+                  "any"
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "dependency_constraint": {
+      "type": "object",
+      "required": [
+        "constraint_id",
+        "predecessor_obligation_ids",
+        "successor_obligation_id",
+        "dependency_kind",
+        "required"
+      ],
+      "properties": {
+        "constraint_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "predecessor_obligation_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "successor_obligation_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "dependency_kind": {
+          "enum": [
+            "data_precondition",
+            "logical_precondition",
+            "candidate_association",
+            "comparison_before_selection",
+            "selection_before_back_mapping",
+            "other"
+          ]
+        },
+        "required": {
+          "const": true
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,477 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "operator_vocabulary_schema_v0_1.json",
+  "title": "Candidate operator vocabulary schema v0.1",
+  "description": "Schema for coarse, medium, and fine candidate vocabularies. It records design judgments without fabricating pilot evidence.",
+  "type": "object",
+  "required": [
+    "schema_ref",
+    "schema_version",
+    "vocabulary_version",
+    "granularity",
+    "status",
+    "domain_scope",
+    "selection_claim",
+    "empirical_evidence_status",
+    "type_system",
+    "operators",
+    "pseudo_primitive_policy",
+    "known_global_risks"
+  ],
+  "properties": {
+    "schema_ref": {
+      "const": "../schemas/operator_vocabulary_schema_v0_1.json"
+    },
+    "schema_version": {
+      "const": "operator_vocabulary_schema_v0_1"
+    },
+    "vocabulary_version": {
+      "enum": [
+        "operator_vocabulary_coarse_v0_1",
+        "operator_vocabulary_medium_v0_1",
+        "operator_vocabulary_fine_v0_1"
+      ]
+    },
+    "granularity": {
+      "enum": [
+        "coarse",
+        "medium",
+        "fine"
+      ]
+    },
+    "status": {
+      "const": "provisional_candidate"
+    },
+    "domain_scope": {
+      "const": "HybridQA_only"
+    },
+    "selection_claim": {
+      "const": "not_selected_pending_annotation_evidence"
+    },
+    "empirical_evidence_status": {
+      "const": "not_yet_piloted"
+    },
+    "type_system": {
+      "type": "object",
+      "required": [
+        "status",
+        "types"
+      ],
+      "properties": {
+        "status": {
+          "const": "candidate_not_ir_v0_2"
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "types": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "description"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "pattern": "^[A-Z][A-Za-z0-9_]*$"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "operators": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/operator"
+      }
+    },
+    "pseudo_primitive_policy": {
+      "type": "object",
+      "required": [
+        "default_disposition",
+        "rejected_patterns",
+        "exception_requirements"
+      ],
+      "properties": {
+        "default_disposition": {
+          "const": "reject_or_flag"
+        },
+        "rejected_patterns": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "pattern",
+              "reason"
+            ],
+            "properties": {
+              "pattern": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "exception_requirements": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "known_global_risks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "granularity": {
+            "const": "coarse"
+          }
+        },
+        "required": [
+          "granularity"
+        ]
+      },
+      "then": {
+        "properties": {
+          "vocabulary_version": {
+            "const": "operator_vocabulary_coarse_v0_1"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "granularity": {
+            "const": "medium"
+          }
+        },
+        "required": [
+          "granularity"
+        ]
+      },
+      "then": {
+        "properties": {
+          "vocabulary_version": {
+            "const": "operator_vocabulary_medium_v0_1"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "granularity": {
+            "const": "fine"
+          }
+        },
+        "required": [
+          "granularity"
+        ]
+      },
+      "then": {
+        "properties": {
+          "vocabulary_version": {
+            "const": "operator_vocabulary_fine_v0_1"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "port": {
+      "type": "object",
+      "required": [
+        "name",
+        "type",
+        "cardinality"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "type": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Za-z0-9_]*(?:\\|[A-Z][A-Za-z0-9_]*)*$"
+        },
+        "cardinality": {
+          "enum": [
+            "one",
+            "optional",
+            "one_or_more",
+            "zero_or_more"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "argument_slot": {
+      "type": "object",
+      "required": [
+        "name",
+        "binding_kind",
+        "required",
+        "description"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "binding_kind": {
+          "enum": [
+            "table",
+            "column",
+            "row_predicate",
+            "literal",
+            "entity",
+            "document_locator",
+            "requested_attribute",
+            "declared_value_type",
+            "cardinality",
+            "join_key",
+            "comparison_relation",
+            "aggregate_function",
+            "arithmetic_function",
+            "ordering_semantics",
+            "normalization_rule",
+            "retrieval_query",
+            "selection_policy",
+            "other"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "design_assessment": {
+      "type": "object",
+      "required": [
+        "reusability",
+        "typed_contract_clarity",
+        "executability",
+        "composability",
+        "semantic_atomicity",
+        "annotation_stability"
+      ],
+      "properties": {
+        "reusability": {
+          "$ref": "#/$defs/rating_with_rationale"
+        },
+        "typed_contract_clarity": {
+          "$ref": "#/$defs/rating_with_rationale"
+        },
+        "executability": {
+          "$ref": "#/$defs/rating_with_rationale"
+        },
+        "composability": {
+          "$ref": "#/$defs/rating_with_rationale"
+        },
+        "semantic_atomicity": {
+          "$ref": "#/$defs/rating_with_rationale"
+        },
+        "annotation_stability": {
+          "type": "object",
+          "required": [
+            "status",
+            "rationale"
+          ],
+          "properties": {
+            "status": {
+              "const": "unknown_pending_pilot"
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "rating_with_rationale": {
+      "type": "object",
+      "required": [
+        "provisional_rating",
+        "rationale"
+      ],
+      "properties": {
+        "provisional_rating": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "operator": {
+      "type": "object",
+      "required": [
+        "name",
+        "category",
+        "purpose",
+        "semantics",
+        "semantic_functions_supported",
+        "input_ports",
+        "output_ports",
+        "argument_slots",
+        "tool_binding_class",
+        "design_assessment",
+        "known_risks",
+        "empirical_frequency_status"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$"
+        },
+        "category": {
+          "enum": [
+            "structured_access",
+            "document_access",
+            "extraction",
+            "transformation",
+            "comparison",
+            "selection",
+            "aggregation",
+            "arithmetic",
+            "association",
+            "answer",
+            "macro"
+          ]
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "semantics": {
+          "type": "string",
+          "minLength": 1
+        },
+        "semantic_functions_supported": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "SELECT_CANDIDATES",
+              "RESTRICT_CANDIDATES",
+              "RESOLVE_RELATION",
+              "ACQUIRE_ATTRIBUTE",
+              "PARSE_SEMANTIC_VALUE",
+              "NORMALIZE_SEMANTIC_VALUE",
+              "COMPARE_VALUES",
+              "AGGREGATE_VALUES",
+              "COMPUTE_VALUE",
+              "APPLY_ORDINAL",
+              "ARG_SELECT",
+              "MAP_BACK_TO_ANSWER",
+              "RETURN_ANSWER"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "input_ports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/port"
+          }
+        },
+        "output_ports": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/port"
+          }
+        },
+        "argument_slots": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/argument_slot"
+          }
+        },
+        "tool_binding_class": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "table_engine",
+              "retriever",
+              "reader",
+              "parser",
+              "deterministic_function",
+              "graph_runtime",
+              "composite_runtime",
+              "unbound"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "design_assessment": {
+          "$ref": "#/$defs/design_assessment"
+        },
+        "known_risks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "empirical_frequency_status": {
+          "const": "not_measured"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,7 @@
+# Runtime dependencies for Draft 2020-12 annotation validation.
+# All transitive packages are pinned to make cross-device resolution stable.
+attrs==24.2.0
+jsonschema==4.23.0
+jsonschema-specifications==2024.10.1
+referencing==0.35.1
+rpds-py==0.20.1

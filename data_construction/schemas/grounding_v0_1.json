@@ -1,0 +1,1054 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "grounding_v0_1.json",
+  "title": "Environment-specific grounding schema v0.1",
+  "description": "Concrete bindings for operator slots. Semantic-role references are kept separate from surface bindings and every oracle-assisted choice is declared.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "grounding_id",
+    "operator_topology_id",
+    "environment_snapshot",
+    "node_bindings",
+    "grounding_status",
+    "oracle_assistance_summary",
+    "validation_checks",
+    "ambiguity",
+    "layer_separation"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "grounding_schema_v0_1"
+    },
+    "grounding_id": {
+      "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+    },
+    "operator_topology_id": {
+      "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+    },
+    "environment_snapshot": {
+      "type": "object",
+      "required": [
+        "environment_id",
+        "capability_profile_id",
+        "table_ids",
+        "source_manifest"
+      ],
+      "properties": {
+        "environment_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "capability_profile_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "table_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "document_collection_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "source_manifest": {
+          "$ref": "common_definitions_v0_1.json#/$defs/artifact_reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "node_bindings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/node_binding"
+      }
+    },
+    "grounding_status": {
+      "enum": [
+        "fully_grounded",
+        "partially_grounded",
+        "ambiguous",
+        "blocked_missing_environment_evidence",
+        "blocked_missing_operator_topology",
+        "not_applicable",
+        "invalid"
+      ]
+    },
+    "oracle_assistance_summary": {
+      "type": "object",
+      "required": [
+        "used",
+        "affected_node_ids",
+        "acceptable_for_training_role"
+      ],
+      "properties": {
+        "used": {
+          "type": "boolean"
+        },
+        "affected_node_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "acceptable_for_training_role": {
+          "type": "boolean",
+          "description": "Policy decision only; this does not convert oracle-assisted evidence into natural model evidence."
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "used": {
+                "const": true
+              }
+            },
+            "required": [
+              "used"
+            ]
+          },
+          "then": {
+            "properties": {
+              "affected_node_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "note"
+            ]
+          },
+          "else": {
+            "properties": {
+              "affected_node_ids": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "validation_checks": {
+      "type": "array",
+      "items": {
+        "$ref": "common_definitions_v0_1.json#/$defs/validation_check"
+      }
+    },
+    "ambiguity": {
+      "$ref": "common_definitions_v0_1.json#/$defs/ambiguity"
+    },
+    "layer_separation": {
+      "allOf": [
+        {
+          "$ref": "common_definitions_v0_1.json#/$defs/layer_input_audit_base"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "layer": {
+              "const": "grounding"
+            },
+            "observed_input_categories": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "enum": [
+                  "question_text",
+                  "question_metadata",
+                  "question_explicit_source_constraint",
+                  "semantic_skeleton",
+                  "information_obligations",
+                  "abstract_topology",
+                  "operator_topology",
+                  "environment_capability_profile",
+                  "environment_schema",
+                  "environment_records",
+                  "linked_documents",
+                  "retriever_output",
+                  "reader_output",
+                  "oracle_annotation"
+                ]
+              },
+              "uniqueItems": true
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "grounding_status": {
+            "enum": ["blocked_missing_environment_evidence", "blocked_missing_operator_topology", "not_applicable"]
+          }
+        },
+        "required": ["grounding_status"]
+      },
+      "then": {
+        "properties": {
+          "node_bindings": {"maxItems": 0}
+        }
+      },
+      "else": {
+        "properties": {
+          "node_bindings": {"minItems": 1}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "column_reference": {
+      "type": "object",
+      "required": [
+        "table_id",
+        "column_index",
+        "column_label"
+      ],
+      "properties": {
+        "table_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "column_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "column_label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "match_status": {
+          "enum": [
+            "exact_label",
+            "normalized_label",
+            "semantic_match",
+            "ambiguous_match"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "table_binding": {
+      "type": "object",
+      "required": [
+        "binding_type",
+        "table_id"
+      ],
+      "properties": {
+        "binding_type": {
+          "const": "table"
+        },
+        "table_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "table_title": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "column_binding": {
+      "type": "object",
+      "required": [
+        "binding_type",
+        "column"
+      ],
+      "properties": {
+        "binding_type": {
+          "const": "column"
+        },
+        "column": {
+          "$ref": "#/$defs/column_reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "row_predicate_binding": {
+      "type": "object",
+      "required": [
+        "binding_type",
+        "column",
+        "comparator",
+        "values"
+      ],
+      "properties": {
+        "binding_type": {
+          "const": "row_predicate"
+        },
+        "column": {
+          "$ref": "#/$defs/column_reference"
+        },
+        "comparator": {
+          "enum": [
+            "eq",
+            "neq",
+            "lt",
+            "lte",
+            "gt",
+            "gte",
+            "in",
+            "contains",
+            "starts_with",
+            "ends_with",
+            "regex",
+            "is_null",
+            "is_not_null"
+          ]
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/typed_value"
+          }
+        },
+        "case_sensitive": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "literal_binding": {
+      "type": "object",
+      "required": [
+        "binding_type",
+        "literal"
+      ],
+      "properties": {
+        "binding_type": {
+          "const": "literal"
+        },
+        "literal": {
+          "$ref": "common_definitions_v0_1.json#/$defs/typed_value"
+        },
+        "question_span": {
+          "$ref": "common_definitions_v0_1.json#/$defs/source_span"
+        }
+      },
+      "additionalProperties": false
+    },
+    "entity_binding": {
+      "type": "object",
+      "required": [
+        "binding_type",
+        "entity_role",
+        "surface_form",
+        "resolution_status"
+      ],
+      "properties": {
+        "binding_type": {
+          "const": "entity"
+        },
+        "entity_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "surface_form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entity_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resolution_status": {
+          "enum": [
+            "resolved",
+            "surface_only",
+            "ambiguous",
+            "unresolved"
+          ]
+        },
+        "source_column": {
+          "$ref": "#/$defs/column_reference"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "resolution_status": {
+                "const": "resolved"
+              }
+            },
+            "required": [
+              "resolution_status"
+            ]
+          },
+          "then": {
+            "required": [
+              "entity_id"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "document_locator_binding": {
+      "type": "object",
+      "required": [
+        "binding_type",
+        "locator_rule",
+        "entity_role",
+        "selection_basis",
+        "oracle_assistance_used"
+      ],
+      "properties": {
+        "binding_type": {
+          "const": "document_locator"
+        },
+        "locator_rule": {
+          "enum": [
+            "linked_from_cell",
+            "linked_from_entity",
+            "retrieval_query",
+            "question_explicit",
+            "direct_document_id"
+          ]
+        },
+        "entity_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "document_collection_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "document_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "selection_basis": {
+          "enum": [
+            "environment_link",
+            "retriever_result",
+            "question_explicit",
+            "annotator_inference",
+            "oracle_annotation"
+          ]
+        },
+        "oracle_assistance_used": {
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "locator_rule": {
+                "const": "direct_document_id"
+              }
+            },
+            "required": [
+              "locator_rule"
+            ]
+          },
+          "then": {
+            "required": [
+              "document_id"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "selection_basis": {
+                "const": "oracle_annotation"
+              }
+            },
+            "required": [
+              "selection_basis"
+            ]
+          },
+          "then": {
+            "properties": {
+              "oracle_assistance_used": {
+                "const": true
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "requested_attribute_binding": {
+      "type": "object",
+      "required": [
+        "binding_type",
+        "semantic_attribute_role",
+        "surface_attribute_label"
+      ],
+      "properties": {
+        "binding_type": {
+          "const": "requested_attribute"
+        },
+        "semantic_attribute_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "surface_attribute_label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "declared_value_type_binding": {
+      "type": "object",
+      "required": [
+        "binding_type",
+        "value_type"
+      ],
+      "properties": {
+        "binding_type": {
+          "const": "declared_value_type"
+        },
+        "value_type": {
+          "enum": [
+            "string",
+            "entity",
+            "number",
+            "integer",
+            "date",
+            "datetime",
+            "boolean",
+            "list",
+            "unknown"
+          ]
+        },
+        "format_hint": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "cardinality_binding": {
+      "type": "object",
+      "required": [
+        "binding_type",
+        "cardinality"
+      ],
+      "properties": {
+        "binding_type": {
+          "const": "cardinality"
+        },
+        "cardinality": {
+          "enum": [
+            "exactly_one",
+            "zero_or_one",
+            "one_or_more",
+            "zero_or_more",
+            "unknown"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "key_reference": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["key_kind", "column"],
+          "properties": {
+            "key_kind": {"const": "column"},
+            "column": {"$ref": "#/$defs/column_reference"}
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["key_kind", "semantic_variable_id", "value_type"],
+          "properties": {
+            "key_kind": {"const": "semantic_variable"},
+            "semantic_variable_id": {"$ref": "common_definitions_v0_1.json#/$defs/identifier"},
+            "value_type": {"type": "string", "minLength": 1}
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["key_kind", "table_id"],
+          "properties": {
+            "key_kind": {"const": "row_identity"},
+            "table_id": {"type": "string", "minLength": 1}
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["key_kind", "entity_role"],
+          "properties": {
+            "key_kind": {"const": "entity_identity"},
+            "entity_role": {"type": "string", "minLength": 1}
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["key_kind", "field_name"],
+          "properties": {
+            "key_kind": {"const": "document_field"},
+            "field_name": {"type": "string", "minLength": 1}
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "join_key_binding": {
+      "type": "object",
+      "required": [
+        "binding_type",
+        "left_key",
+        "right_key",
+        "match_semantics"
+      ],
+      "properties": {
+        "binding_type": {
+          "const": "join_key"
+        },
+        "left_key": {
+          "$ref": "#/$defs/key_reference"
+        },
+        "right_key": {
+          "$ref": "#/$defs/key_reference"
+        },
+        "match_semantics": {
+          "enum": [
+            "exact",
+            "normalized_string",
+            "entity_identity",
+            "link_identity",
+            "other"
+          ]
+        },
+        "other_match_semantics": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "reasoning_binding": {
+      "type": "object",
+      "required": [
+        "binding_type",
+        "function"
+      ],
+      "properties": {
+        "binding_type": {
+          "enum": [
+            "comparison_relation",
+            "aggregate_function",
+            "arithmetic_function",
+            "ordering_semantics",
+            "normalization_rule",
+            "selection_policy"
+          ]
+        },
+        "function": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "retrieval_query_binding": {
+      "type": "object",
+      "required": [
+        "binding_type",
+        "query_template",
+        "entity_role_refs"
+      ],
+      "properties": {
+        "binding_type": {
+          "const": "retrieval_query"
+        },
+        "query_template": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entity_role_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "other_binding": {
+      "type": "object",
+      "required": [
+        "binding_type",
+        "custom_binding_type",
+        "value",
+        "justification"
+      ],
+      "properties": {
+        "binding_type": {
+          "const": "other"
+        },
+        "custom_binding_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {},
+        "justification": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "concrete_binding": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/table_binding"
+        },
+        {
+          "$ref": "#/$defs/column_binding"
+        },
+        {
+          "$ref": "#/$defs/row_predicate_binding"
+        },
+        {
+          "$ref": "#/$defs/literal_binding"
+        },
+        {
+          "$ref": "#/$defs/entity_binding"
+        },
+        {
+          "$ref": "#/$defs/document_locator_binding"
+        },
+        {
+          "$ref": "#/$defs/requested_attribute_binding"
+        },
+        {
+          "$ref": "#/$defs/declared_value_type_binding"
+        },
+        {
+          "$ref": "#/$defs/cardinality_binding"
+        },
+        {
+          "$ref": "#/$defs/join_key_binding"
+        },
+        {
+          "$ref": "#/$defs/reasoning_binding"
+        },
+        {
+          "$ref": "#/$defs/retrieval_query_binding"
+        },
+        {
+          "$ref": "#/$defs/other_binding"
+        }
+      ]
+    },
+    "candidate_binding": {
+      "type": "object",
+      "required": [
+        "candidate_id",
+        "binding",
+        "selection_status"
+      ],
+      "properties": {
+        "candidate_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "binding": {
+          "$ref": "#/$defs/concrete_binding"
+        },
+        "selection_status": {
+          "enum": [
+            "selected",
+            "rejected",
+            "unresolved"
+          ]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "argument_grounding": {
+      "type": "object",
+      "required": [
+        "slot_name",
+        "semantic_role_ref",
+        "expected_binding_kind",
+        "status",
+        "candidate_bindings",
+        "evidence_artifacts",
+        "selection_provenance",
+        "oracle_assistance_used"
+      ],
+      "properties": {
+        "slot_name": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "semantic_role_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expected_binding_kind": {
+          "enum": [
+            "table",
+            "column",
+            "row_predicate",
+            "literal",
+            "entity",
+            "document_locator",
+            "requested_attribute",
+            "declared_value_type",
+            "cardinality",
+            "join_key",
+            "comparison_relation",
+            "aggregate_function",
+            "arithmetic_function",
+            "ordering_semantics",
+            "normalization_rule",
+            "retrieval_query",
+            "selection_policy",
+            "other"
+          ]
+        },
+        "status": {
+          "enum": [
+            "grounded",
+            "partial",
+            "ambiguous",
+            "unresolved",
+            "not_applicable"
+          ]
+        },
+        "selected_binding": {
+          "$ref": "#/$defs/concrete_binding"
+        },
+        "candidate_bindings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/candidate_binding"
+          }
+        },
+        "evidence_artifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/artifact_reference"
+          }
+        },
+        "selection_provenance": {
+          "enum": [
+            "question_explicit",
+            "exact_schema_match",
+            "semantic_schema_match",
+            "environment_link",
+            "retriever_result",
+            "reader_result",
+            "annotator_inference",
+            "oracle_annotation",
+            "not_selected"
+          ]
+        },
+        "oracle_assistance_used": {
+          "type": "boolean"
+        },
+        "unresolved_reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "grounded"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "selected_binding"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ambiguous"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "candidate_bindings": {
+                "minItems": 2
+              }
+            },
+            "required": [
+              "unresolved_reason"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "partial",
+                  "unresolved"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "unresolved_reason"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_applicable"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "not": {
+              "required": [
+                "selected_binding"
+              ]
+            },
+            "properties": {
+              "candidate_bindings": {
+                "maxItems": 0
+              },
+              "selection_provenance": {
+                "const": "not_selected"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "selection_provenance": {
+                "const": "oracle_annotation"
+              }
+            },
+            "required": [
+              "selection_provenance"
+            ]
+          },
+          "then": {
+            "properties": {
+              "oracle_assistance_used": {
+                "const": true
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "node_binding": {
+      "type": "object",
+      "required": [
+        "binding_id",
+        "topology_node_id",
+        "operator",
+        "argument_groundings",
+        "coverage_status",
+        "ambiguity"
+      ],
+      "properties": {
+        "binding_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "topology_node_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "operator": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$"
+        },
+        "argument_groundings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/argument_grounding"
+          }
+        },
+        "coverage_status": {
+          "enum": [
+            "all_required_slots_grounded",
+            "partial",
+            "none",
+            "ambiguous",
+            "not_applicable"
+          ]
+        },
+        "ambiguity": {
+          "$ref": "common_definitions_v0_1.json#/$defs/ambiguity"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

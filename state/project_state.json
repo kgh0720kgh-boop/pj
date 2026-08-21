@@ -1,0 +1,150 @@
+{
+  "schema_version": "project_state_v0_1",
+  "state_updated_date": "2026-08-21",
+  "project": "hierarchical_data_construction_for_semantic_execution_topology_induction",
+  "active_phase": "phase_0_historical_provenance_recovery_gate",
+  "active_branch": "NOT_A_GIT_REPOSITORY",
+  "expected_head": "unknown",
+  "last_completed_task": "official_source_audit_v0_1_scaffold_and_hardened_cross_device_preflight_integration",
+  "next_task": "recover_the_five_historical_artifacts_with_authoritative_provenance_then_regenerate_the_historical_manifest_before_any_split_allocation",
+  "current_scientific_decision": "DATA_SOURCE_BLOCKED",
+  "scientific_decision_status": "provisional_pending_historical_exposure_recovery",
+  "synchronization_state": "REMOTE_NOT_CONFIGURED",
+  "handoff_readiness": "not_ready",
+  "blocked_gates": [
+    "REQUIRES_RESEARCHER_DECISION: recover the canonical project repository or authorize a preservation-first repository migration",
+    "REQUIRES_RESEARCHER_DECISION: select the remote provider, repository identity, and visibility",
+    "REMOTE_NOT_CONFIGURED",
+    "AUTHORITATIVE_PROJECT_PROVENANCE_NOT_AVAILABLE",
+    "HISTORICAL_ARTIFACTS_NOT_AVAILABLE",
+    "HISTORICAL_EXPOSED_ID_AUDIT_INCOMPLETE",
+    "FRESH_QUESTION_DISJOINTNESS_NOT_VERIFIABLE",
+    "IR_V0_2_DEFINITION_AND_VALIDATOR_NOT_RECOVERED",
+    "PROJECT_LOCAL_PINNED_ENVIRONMENT_NOT_RECONSTRUCTED"
+  ],
+  "repository": {
+    "git_root": "NOT_A_GIT_REPOSITORY",
+    "current_branch": "NOT_A_GIT_REPOSITORY",
+    "head": "unknown",
+    "remotes": [],
+    "working_tree_status": "unknown_without_git_metadata",
+    "untracked_files": "unknown_without_git_metadata",
+    "unpushed_commits": "unknown_without_git_metadata",
+    "stash_state": "unknown_without_git_metadata"
+  },
+  "artifact_status": {
+    "official_source_audit": {
+      "status": "complete_at_pinned_upstream_commits",
+      "manifest": "data_construction/manifests/source_manifest_v0_1.json",
+      "official_source_materialization": "machine_local_cache_reacquirable_from_manifest"
+    },
+    "historical_exposure_audit": {
+      "status": "incomplete_missing_historical_artifacts_and_authoritative_provenance",
+      "manifest": "data_construction/manifests/historical_exposed_ids.json",
+      "required_file_count": 5,
+      "recovered_file_count": 0
+    },
+    "split_manifest": {
+      "status": "blocked_not_allocated",
+      "release_eligible": false
+    },
+    "schema_bundle": {
+      "schema_version": "v0_1",
+      "schema_count": 8,
+      "operator_vocabulary_count": 3,
+      "portable_structure_check": "passed_with_legacy_validator_warnings",
+      "draft_2020_12_full_validation": "passed_in_ephemeral_exact_pin_environment_with_zero_errors_and_zero_warnings"
+    },
+    "tools": {
+      "status": "implemented",
+      "test_entry_point": "python3 -m unittest discover -s tests -v",
+      "final_integration_test_status": "passed_26_tests_with_system_python"
+    }
+  },
+  "preflight_status": {
+    "last_verified_date": "2026-08-21",
+    "result": "NOT_READY",
+    "exit_code": 2,
+    "validation_failures": 0,
+    "core_json_files_parsed": 15,
+    "unit_tests_passed": 26,
+    "unit_tests_failed": 0
+  },
+  "canonical_artifacts": [
+    "CODEX_DATA_CONSTRUCTION_RESET_PROMPT_V2_MULTI_DEVICE.md",
+    "AGENTS.md",
+    "HANDOFF_CURRENT.md",
+    "ENVIRONMENT.md",
+    "state/project_state.json",
+    "reports/cross_device_repo_audit.md",
+    "scripts/cross_device_preflight.sh",
+    ".python-version",
+    "requirements.txt",
+    "data_construction/README.md",
+    "data_construction/manifests/historical_exposed_ids.json",
+    "data_construction/manifests/source_manifest_v0_1.json",
+    "data_construction/manifests/split_manifest_v0_1.json",
+    "data_construction/schemas/",
+    "data_construction/operator_design/",
+    "data_construction/tools/",
+    "data_construction/reports/",
+    "tests/test_data_construction_tools.py"
+  ],
+  "historical_read_only_paths": [
+    "data_analysis/week1_sample_100.jsonl",
+    "evaluation/week2_eval_ids.json",
+    "evaluation/week3_engineering_dev_ids.json",
+    "evaluation/week3_locked_eval_ids.json",
+    "evaluation/week3_split_manifest.json"
+  ],
+  "environment_contract": {
+    "python": {
+      "implementation": "CPython",
+      "observed_version": "3.10.12",
+      "required_version": "3.10.12",
+      "version_file": ".python-version"
+    },
+    "git": {
+      "observed_version": "2.34.1"
+    },
+    "dependency_contract": {
+      "manager": "pip",
+      "requirements_file": "requirements.txt",
+      "all_requirements_exactly_pinned": true,
+      "pinned_packages": {
+        "attrs": "24.2.0",
+        "jsonschema": "4.23.0",
+        "jsonschema-specifications": "2024.10.1",
+        "referencing": "0.35.1",
+        "rpds-py": "0.20.1"
+      }
+    },
+    "draft_2020_12_validation": {
+      "required_jsonschema_version": "4.23.0",
+      "observed_system_jsonschema_version": "3.2.0",
+      "status": "passed_in_ephemeral_exact_pin_environment",
+      "ephemeral_validation_result": {
+        "schemas_checked": 8,
+        "vocabularies_checked": 3,
+        "errors": 0,
+        "warnings": 0
+      },
+      "project_local_environment_status": "not_reconstructed",
+      "required_command": ".venv/bin/python data_construction/tools/check_schema_bundle.py --require-jsonschema"
+    },
+    "project_path_policy": "repository_relative",
+    "hostname_dependency": "forbidden",
+    "secret_policy": "machine_local_only",
+    "model_identity_policy": "stable_model_id_plus_exact_revision",
+    "consumer_folder_sync_for_active_worktree": "forbidden",
+    "preflight_command": "sh scripts/cross_device_preflight.sh"
+  },
+  "source_of_truth_priority": [
+    "git_commit_history_and_remote_branch",
+    "committed_manifests_configs_schemas_reports_and_tests",
+    "committed_AGENTS_md_and_handoff_artifacts",
+    "environment_version_and_requirement_files",
+    "machine_local_secrets_sources_and_caches",
+    "conversation_memory"
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "audit_status": "incomplete_missing_historical_artifacts",
+  "counts": {
+    "exposed_unique": 0,
+    "known_expected_count_mismatches": 0,
+    "locked_eval_unique": 0,
+    "missing_required_files": 5,
+    "required_files_with_no_question_ids": 0
+  },
+  "engineering_dev_question_ids": null,
+  "exposed_question_ids": [],
+  "forbidden_future_training_ids": [],
+  "generated_at_utc": "2026-08-21T04:39:59.728408+00:00",
+  "interpretation": "BLOCKED: missing/empty artifacts, unexpected known counts, or absent researcher-approved provenance do not prove a complete historical inventory.",
+  "is_complete": false,
+  "known_expected_count_mismatches": [],
+  "locked_eval_question_ids": [],
+  "missing_required_files": [
+    "data_analysis/week1_sample_100.jsonl",
+    "evaluation/week2_eval_ids.json",
+    "evaluation/week3_engineering_dev_ids.json",
+    "evaluation/week3_locked_eval_ids.json",
+    "evaluation/week3_split_manifest.json"
+  ],
+  "recovery_provenance": null,
+  "recovery_provenance_errors": [],
+  "recovery_provenance_status": "missing",
+  "required_files_with_no_question_ids": [],
+  "schema_version": "historical_exposed_ids_v0_1",
+  "source_files": [
+    {
+      "historical_role": "historical_feasibility",
+      "locked_id_extraction": "none",
+      "path": "data_analysis/week1_sample_100.jsonl",
+      "question_id_count": null,
+      "sha256": null,
+      "status": "missing"
+    },
+    {
+      "historical_role": "historical_evaluation",
+      "locked_id_extraction": "none",
+      "path": "evaluation/week2_eval_ids.json",
+      "question_id_count": null,
+      "sha256": null,
+      "status": "missing"
+    },
+    {
+      "historical_role": "historical_engineering_dev",
+      "locked_id_extraction": "none",
+      "path": "evaluation/week3_engineering_dev_ids.json",
+      "question_id_count": null,
+      "sha256": null,
+      "status": "missing"
+    },
+    {
+      "historical_role": "historical_locked_eval",
+      "locked_id_extraction": "all",
+      "path": "evaluation/week3_locked_eval_ids.json",
+      "question_id_count": null,
+      "sha256": null,
+      "status": "missing"
+    },
+    {
+      "historical_role": "historical_split_manifest",
+      "locked_id_extraction": "named_only",
+      "path": "evaluation/week3_split_manifest.json",
+      "question_id_count": null,
+      "sha256": null,
+      "status": "missing"
+    }
+  ],
+  "source_question_ids": {
+    "data_analysis/week1_sample_100.jsonl": null,
+    "evaluation/week2_eval_ids.json": null,
+    "evaluation/week3_engineering_dev_ids.json": null,
+    "evaluation/week3_locked_eval_ids.json": null,
+    "evaluation/week3_split_manifest.json": null
+  },
+  "week1_sample_question_ids": null,
+  "week2_eval_question_ids": null
+}

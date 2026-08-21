@@ -1,0 +1,1273 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hierarchical_annotation_v0_1.json",
+  "title": "Hierarchical HybridQA annotation bundle schema v0.1",
+  "description": "Portable bundle connecting question semantics, information obligations, abstract topology, environment-aware operator topology, grounding, and an external execution-IR reference without collapsing the layers.",
+  "$comment": "The project IR v0.2 definition was not present when this schema was authored. execution_graph is therefore a reference envelope, not a redefinition of that IR.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "annotation_id",
+    "question_id",
+    "question",
+    "question_language",
+    "table_id",
+    "dataset_role",
+    "semantic_skeleton",
+    "information_obligations",
+    "abstract_topology",
+    "operator_topology",
+    "grounding",
+    "execution_graph",
+    "execution_reference",
+    "plan_equivalence_contract",
+    "alternative_plans",
+    "ambiguity",
+    "annotation_provenance",
+    "review_status",
+    "leakage_controls",
+    "locked_eval_controls",
+    "bundle_validation",
+    "bundle_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "annotation_bundle_v0_1"
+    },
+    "annotation_id": {
+      "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+    },
+    "question_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1
+    },
+    "question_language": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 35,
+      "description": "BCP-47 language tag when known."
+    },
+    "table_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dataset_role": {
+      "enum": [
+        "annotation_schema_pilot",
+        "annotation_train",
+        "annotation_dev",
+        "locked_eval"
+      ]
+    },
+    "semantic_skeleton": {
+      "$ref": "semantic_skeleton_v0_1.json"
+    },
+    "information_obligations": {
+      "$ref": "information_obligation_v0_1.json"
+    },
+    "abstract_topology": {
+      "$ref": "abstract_topology_v0_1.json"
+    },
+    "operator_topology": {
+      "$ref": "operator_topology_v0_1.json"
+    },
+    "grounding": {
+      "$ref": "grounding_v0_1.json"
+    },
+    "execution_graph": {
+      "$ref": "#/$defs/execution_graph_envelope"
+    },
+    "execution_reference": {
+      "$ref": "#/$defs/execution_reference"
+    },
+    "plan_equivalence_contract": {
+      "$ref": "#/$defs/plan_equivalence_contract"
+    },
+    "alternative_plans": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/alternative_plan"
+      }
+    },
+    "ambiguity": {
+      "$ref": "common_definitions_v0_1.json#/$defs/ambiguity"
+    },
+    "annotation_provenance": {
+      "$ref": "common_definitions_v0_1.json#/$defs/annotation_provenance"
+    },
+    "review_status": {
+      "$ref": "common_definitions_v0_1.json#/$defs/review_status"
+    },
+    "leakage_controls": {
+      "$ref": "#/$defs/leakage_controls"
+    },
+    "locked_eval_controls": {
+      "$ref": "#/$defs/locked_eval_controls"
+    },
+    "bundle_validation": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 10,
+      "items": {
+        "$ref": "common_definitions_v0_1.json#/$defs/validation_check"
+      },
+      "allOf": [
+        {"contains": {"properties": {"check": {"const": "parse"}}, "required": ["check"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"check": {"const": "json_schema"}}, "required": ["check"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"check": {"const": "operator_registry"}}, "required": ["check"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"check": {"const": "type_contract"}}, "required": ["check"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"check": {"const": "dependency_references"}}, "required": ["check"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"check": {"const": "acyclicity"}}, "required": ["check"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"check": {"const": "source_reachability"}}, "required": ["check"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"check": {"const": "semantic_obligations"}}, "required": ["check"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"check": {"const": "leakage"}}, "required": ["check"]}, "minContains": 1, "maxContains": 1},
+        {"contains": {"properties": {"check": {"const": "execution"}}, "required": ["check"]}, "minContains": 0, "maxContains": 1}
+      ]
+    },
+    "bundle_status": {
+      "enum": [
+        "proposal",
+        "structurally_validated",
+        "pending_human_review",
+        "human_reviewed",
+        "adjudicated",
+        "ambiguous_preserved",
+        "blocked",
+        "rejected"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "dataset_role": {
+            "const": "locked_eval"
+          }
+        },
+        "required": [
+          "dataset_role"
+        ]
+      },
+      "then": {
+        "properties": {
+          "locked_eval_controls": {
+            "properties": {
+              "prompt_tuning_allowed": {
+                "const": false
+              },
+              "rubric_tuning_allowed": {
+                "const": false
+              },
+              "operator_vocabulary_tuning_allowed": {
+                "const": false
+              },
+              "split_membership_verified": {
+                "const": "passed"
+              },
+              "historical_exposure_checked": {
+                "const": "passed"
+              }
+            },
+            "required": ["split_manifest_artifact", "historical_exposure_manifest_artifact"]
+          },
+          "leakage_controls": {
+            "properties": {
+              "boundary_audits": {
+                "contains": {
+                  "properties": {
+                    "boundary": {"const": "locked_eval_isolation"},
+                    "status": {"const": "passed"}
+                  },
+                  "required": ["boundary", "status"]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "leakage_controls": {
+            "properties": {
+              "boundary_audits": {
+                "contains": {
+                  "properties": {
+                    "boundary": {"const": "locked_eval_isolation"},
+                    "status": {"const": "not_run"}
+                  },
+                  "required": ["boundary", "status"]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "review_status": {
+            "properties": {
+              "state": {
+                "enum": ["llm_proposed", "deterministic_validation_only", "llm_assisted_pending_human"]
+              }
+            },
+            "required": ["state"]
+          }
+        },
+        "required": ["review_status"]
+      },
+      "then": {
+        "properties": {
+          "bundle_status": {
+            "enum": ["proposal", "structurally_validated", "pending_human_review", "blocked", "rejected"]
+          },
+          "execution_graph": {
+            "properties": {
+              "semantic_plan_assessment": {
+                "enum": ["unassessed", "provisional_semantically_valid", "rejected"]
+              }
+            }
+          },
+          "alternative_plans": {
+            "items": {
+              "properties": {
+                "assessment": {
+                  "properties": {
+                    "assessment_basis": {"enum": ["llm_proposal", "deterministic_checks"]},
+                    "semantic_validity": {"enum": ["unassessed", "proposed_valid", "rejected"]}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "review_status": {
+            "properties": {
+              "state": {"enum": ["human_single_review", "human_double_review_unadjudicated"]}
+            },
+            "required": ["state"]
+          }
+        },
+        "required": ["review_status"]
+      },
+      "then": {
+        "properties": {
+          "bundle_status": {"enum": ["human_reviewed", "ambiguous_preserved", "blocked", "rejected"]},
+          "execution_graph": {
+            "properties": {
+              "semantic_plan_assessment": {"enum": ["unassessed", "provisional_semantically_valid", "human_accepted", "rejected"]}
+            }
+          },
+          "alternative_plans": {
+            "items": {
+              "properties": {
+                "assessment": {
+                  "properties": {
+                    "assessment_basis": {"enum": ["llm_proposal", "deterministic_checks", "human_single_review", "human_double_review"]},
+                    "semantic_validity": {"not": {"const": "adjudicated_accepted"}}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "review_status": {
+            "properties": {"state": {"const": "adjudicated"}},
+            "required": ["state"]
+          }
+        },
+        "required": ["review_status"]
+      },
+      "then": {
+        "properties": {
+          "bundle_status": {"enum": ["adjudicated", "ambiguous_preserved", "rejected"]},
+          "execution_graph": {
+            "properties": {
+              "semantic_plan_assessment": {"enum": ["adjudicated_accepted", "rejected"]}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "review_status": {
+            "properties": {"state": {"const": "rejected"}},
+            "required": ["state"]
+          }
+        },
+        "required": ["review_status"]
+      },
+      "then": {
+        "properties": {
+          "bundle_status": {"const": "rejected"},
+          "execution_graph": {
+            "properties": {"semantic_plan_assessment": {"const": "rejected"}}
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "semantic_skeleton": {
+            "properties": {"completeness": {"const": "not_annotatable"}},
+            "required": ["completeness"]
+          }
+        },
+        "required": ["semantic_skeleton"]
+      },
+      "then": {
+        "properties": {
+          "information_obligations": {"properties": {"graph_status": {"const": "not_annotatable"}}},
+          "abstract_topology": {"properties": {"graph_status": {"const": "not_applicable"}}},
+          "operator_topology": {"properties": {"graph_status": {"const": "not_applicable"}}},
+          "grounding": {"properties": {"grounding_status": {"const": "not_applicable"}}},
+          "plan_equivalence_contract": {"properties": {"applicability": {"const": "not_applicable"}}},
+          "alternative_plans": {"maxItems": 0},
+          "bundle_status": {"enum": ["blocked", "rejected"]}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "execution_graph_envelope": {
+      "type": "object",
+      "description": "Reference-only adapter for the historical project IR. No node or edge semantics are invented here.",
+      "required": [
+        "declared_target_ir_version",
+        "local_ir_definition_status",
+        "graph_status",
+        "executable_status",
+        "semantic_plan_assessment",
+        "validation_checks"
+      ],
+      "properties": {
+        "declared_target_ir_version": {
+          "enum": [
+            "IR_v0.2",
+            "unresolved"
+          ]
+        },
+        "local_ir_definition_status": {
+          "enum": [
+            "available",
+            "missing_local_definition",
+            "not_checked"
+          ]
+        },
+        "graph_status": {
+          "enum": [
+            "not_constructed",
+            "blocked_missing_ir_definition",
+            "referenced_pending_validation",
+            "referenced_validated",
+            "incompatible_with_declared_ir"
+          ]
+        },
+        "ir_schema_artifact": {
+          "$ref": "common_definitions_v0_1.json#/$defs/artifact_reference"
+        },
+        "graph_artifact": {
+          "$ref": "common_definitions_v0_1.json#/$defs/artifact_reference"
+        },
+        "graph_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "executable_status": {
+          "enum": [
+            "not_tested",
+            "executable",
+            "not_executable",
+            "blocked_by_reader_or_tool",
+            "blocked_missing_ir_definition"
+          ]
+        },
+        "semantic_plan_assessment": {
+          "enum": [
+            "unassessed",
+            "provisional_semantically_valid",
+            "human_accepted",
+            "adjudicated_accepted",
+            "rejected"
+          ],
+          "description": "Independent of execution success."
+        },
+        "validation_checks": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/validation_check"
+          }
+        },
+        "limitation_note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "local_ir_definition_status": {
+                "const": "missing_local_definition"
+              }
+            },
+            "required": [
+              "local_ir_definition_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "graph_status": {
+                "enum": [
+                  "not_constructed",
+                  "blocked_missing_ir_definition"
+                ]
+              },
+              "executable_status": {
+                "enum": [
+                  "not_tested",
+                  "blocked_missing_ir_definition"
+                ]
+              }
+            },
+            "required": [
+              "limitation_note"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "graph_status": {
+                "enum": [
+                  "referenced_pending_validation",
+                  "referenced_validated",
+                  "incompatible_with_declared_ir"
+                ]
+              }
+            },
+            "required": [
+              "graph_status"
+            ]
+          },
+          "then": {
+            "required": [
+              "ir_schema_artifact",
+              "graph_artifact",
+              "graph_id"
+            ],
+            "properties": {
+              "local_ir_definition_status": {
+                "const": "available"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "intermediate_expectation": {
+      "type": "object",
+      "required": [
+        "expectation_id",
+        "obligation_ids",
+        "description",
+        "evidence_requirements"
+      ],
+      "properties": {
+        "expectation_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "obligation_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expected_value": {
+          "$ref": "common_definitions_v0_1.json#/$defs/typed_value"
+        },
+        "evidence_requirements": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "table_id",
+              "row_id",
+              "column_id",
+              "cell_coordinate",
+              "entity_id",
+              "document_id",
+              "passage_or_sentence",
+              "character_span",
+              "normalization_record",
+              "operator_trace"
+            ]
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "execution_trial": {
+      "type": "object",
+      "required": [
+        "trial_id",
+        "status",
+        "runtime_id",
+        "timestamp"
+      ],
+      "properties": {
+        "trial_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "status": {
+          "enum": [
+            "success",
+            "failure",
+            "blocked",
+            "not_run"
+          ]
+        },
+        "runtime_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "observed_answer": {
+          "$ref": "common_definitions_v0_1.json#/$defs/typed_value"
+        },
+        "trace_artifact": {
+          "$ref": "common_definitions_v0_1.json#/$defs/artifact_reference"
+        },
+        "failure_category": {
+          "enum": [
+            "semantic_plan",
+            "grounding",
+            "retriever",
+            "reader",
+            "parser",
+            "runtime",
+            "source_missing",
+            "unknown"
+          ]
+        },
+        "details": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "failure"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "failure_category",
+              "details"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "execution_reference": {
+      "type": "object",
+      "required": [
+        "availability",
+        "answer_visibility",
+        "expected_intermediates",
+        "execution_trials"
+      ],
+      "properties": {
+        "availability": {
+          "enum": [
+            "available",
+            "withheld_for_early_layer_annotation",
+            "unavailable",
+            "not_applicable"
+          ]
+        },
+        "answer_visibility": {
+          "const": "execution_layer_only"
+        },
+        "expected_final_answer": {
+          "$ref": "common_definitions_v0_1.json#/$defs/typed_value"
+        },
+        "answer_provenance_artifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/artifact_reference"
+          }
+        },
+        "expected_intermediates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/intermediate_expectation"
+          }
+        },
+        "execution_trials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/execution_trial"
+          }
+        },
+        "unavailability_reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "availability": {
+                "const": "available"
+              }
+            },
+            "required": [
+              "availability"
+            ]
+          },
+          "then": {
+            "required": [
+              "expected_final_answer",
+              "answer_provenance_artifacts"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "expected_final_answer"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "availability": {
+                "enum": [
+                  "unavailable",
+                  "withheld_for_early_layer_annotation"
+                ]
+              }
+            },
+            "required": [
+              "availability"
+            ]
+          },
+          "then": {
+            "required": [
+              "unavailability_reason"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "required_dependency": {
+      "type": "object",
+      "required": [
+        "constraint_id",
+        "predecessor_obligation_ids",
+        "successor_obligation_id",
+        "dependency_kind"
+      ],
+      "properties": {
+        "constraint_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "predecessor_obligation_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "successor_obligation_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "dependency_kind": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "plan_equivalence_contract": {
+      "type": "object",
+      "required": [
+        "applicability",
+        "exact_graph_match_required",
+        "primary_correctness_criterion",
+        "required_obligation_ids",
+        "required_dependencies",
+        "answer_equivalence_required",
+        "execution_success_required_for_semantic_validity",
+        "allowed_variation"
+      ],
+      "properties": {
+        "applicability": {
+          "enum": ["applicable", "not_applicable"]
+        },
+        "exact_graph_match_required": {
+          "const": false
+        },
+        "primary_correctness_criterion": {
+          "enum": ["obligation_dependency_and_answer_equivalence", "not_applicable_no_semantic_plan"]
+        },
+        "required_obligation_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "required_dependencies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/required_dependency"
+          }
+        },
+        "answer_equivalence_required": {
+          "type": "boolean"
+        },
+        "execution_success_required_for_semantic_validity": {
+          "const": false
+        },
+        "allowed_variation": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "operator_fusion",
+              "operator_fission",
+              "independent_node_order",
+              "equivalent_retrieval_strategy",
+              "equivalent_join_strategy",
+              "equivalent_normalization",
+              "environment_specific_realization",
+              "other_reviewed_equivalence"
+            ]
+          },
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"applicability": {"const": "applicable"}},
+            "required": ["applicability"]
+          },
+          "then": {
+            "properties": {
+              "primary_correctness_criterion": {"const": "obligation_dependency_and_answer_equivalence"},
+              "required_obligation_ids": {"minItems": 1},
+              "answer_equivalence_required": {"const": true},
+              "allowed_variation": {"minItems": 1}
+            }
+          },
+          "else": {
+            "properties": {
+              "primary_correctness_criterion": {"const": "not_applicable_no_semantic_plan"},
+              "required_obligation_ids": {"maxItems": 0},
+              "required_dependencies": {"maxItems": 0},
+              "answer_equivalence_required": {"const": false},
+              "allowed_variation": {"maxItems": 0}
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "alternative_plan_assessment": {
+      "type": "object",
+      "required": [
+        "semantic_validity",
+        "environment_compatibility",
+        "grounding_validity",
+        "execution_status",
+        "assessment_basis"
+      ],
+      "properties": {
+        "semantic_validity": {
+          "enum": [
+            "unassessed",
+            "proposed_valid",
+            "human_accepted",
+            "adjudicated_accepted",
+            "rejected"
+          ]
+        },
+        "environment_compatibility": {
+          "enum": [
+            "unassessed",
+            "compatible",
+            "incompatible",
+            "conditional"
+          ]
+        },
+        "grounding_validity": {
+          "enum": [
+            "not_applicable",
+            "unassessed",
+            "complete",
+            "partial",
+            "invalid"
+          ]
+        },
+        "execution_status": {
+          "enum": [
+            "not_run",
+            "success",
+            "failure",
+            "blocked"
+          ]
+        },
+        "assessment_basis": {
+          "enum": [
+            "llm_proposal",
+            "deterministic_checks",
+            "human_single_review",
+            "human_double_review",
+            "adjudication"
+          ]
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "alternative_plan": {
+      "type": "object",
+      "required": [
+        "alternative_plan_id",
+        "representation_kind",
+        "description",
+        "satisfies_obligation_ids",
+        "satisfies_dependency_constraint_ids",
+        "differences_from_representative",
+        "assessment",
+        "ambiguity"
+      ],
+      "properties": {
+        "alternative_plan_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "representation_kind": {
+          "enum": [
+            "description_only",
+            "abstract_topology",
+            "operator_topology",
+            "grounded_operator_topology",
+            "execution_graph_reference"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "abstract_topology": {
+          "$ref": "abstract_topology_v0_1.json"
+        },
+        "operator_topology": {
+          "$ref": "operator_topology_v0_1.json"
+        },
+        "grounding": {
+          "$ref": "grounding_v0_1.json"
+        },
+        "execution_graph": {
+          "$ref": "#/$defs/execution_graph_envelope"
+        },
+        "satisfies_obligation_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "satisfies_dependency_constraint_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "differences_from_representative": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "valid_when": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "assessment": {
+          "$ref": "#/$defs/alternative_plan_assessment"
+        },
+        "ambiguity": {
+          "$ref": "common_definitions_v0_1.json#/$defs/ambiguity"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "representation_kind": {
+                "const": "abstract_topology"
+              }
+            },
+            "required": [
+              "representation_kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "abstract_topology"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "representation_kind": {
+                "const": "operator_topology"
+              }
+            },
+            "required": [
+              "representation_kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "operator_topology"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "representation_kind": {
+                "const": "grounded_operator_topology"
+              }
+            },
+            "required": [
+              "representation_kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "operator_topology",
+              "grounding"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "representation_kind": {
+                "const": "execution_graph_reference"
+              }
+            },
+            "required": [
+              "representation_kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "execution_graph"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "prediction_view_contract": {
+      "type": "object",
+      "required": [
+        "task",
+        "input_paths",
+        "target_paths",
+        "prohibited_input_paths"
+      ],
+      "properties": {
+        "task": {
+          "enum": [
+            "question_to_semantics",
+            "semantics_to_operator_topology",
+            "operator_topology_to_grounding",
+            "question_environment_to_execution_graph",
+            "execution_evaluation"
+          ]
+        },
+        "input_paths": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/json_pointer"
+          },
+          "uniqueItems": true
+        },
+        "target_paths": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/json_pointer"
+          },
+          "uniqueItems": true
+        },
+        "prohibited_input_paths": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/json_pointer"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "boundary_leakage_audit": {
+      "type": "object",
+      "required": [
+        "boundary",
+        "status",
+        "violations"
+      ],
+      "properties": {
+        "boundary": {
+          "enum": [
+            "question_to_semantics",
+            "semantics_to_abstract_topology",
+            "abstract_to_operator_topology",
+            "operator_topology_to_grounding",
+            "grounding_to_execution_graph",
+            "locked_eval_isolation"
+          ]
+        },
+        "status": {
+          "enum": [
+            "not_run",
+            "passed",
+            "failed"
+          ]
+        },
+        "checked_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "checker_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "violations": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/leakage_violation"
+          }
+        },
+        "input_view_artifact": {
+          "$ref": "common_definitions_v0_1.json#/$defs/artifact_reference"
+        },
+        "audit_result_artifact": {
+          "$ref": "common_definitions_v0_1.json#/$defs/artifact_reference"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "violations": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "checked_at",
+              "checker_id"
+            ]
+          },
+          "else": {
+            "properties": {
+              "violations": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "passed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "checked_at",
+              "checker_id",
+              "input_view_artifact",
+              "audit_result_artifact"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "leakage_controls": {
+      "type": "object",
+      "required": [
+        "policy_version",
+        "prediction_view_contracts",
+        "boundary_audits",
+        "early_layer_answer_exposure"
+      ],
+      "properties": {
+        "policy_version": {
+          "const": "hierarchical_leakage_policy_v0_1"
+        },
+        "prediction_view_contracts": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": {
+            "$ref": "#/$defs/prediction_view_contract"
+          },
+          "allOf": [
+            {"contains": {"properties": {"task": {"const": "question_to_semantics"}}, "required": ["task"]}, "minContains": 1, "maxContains": 1},
+            {"contains": {"properties": {"task": {"const": "semantics_to_operator_topology"}}, "required": ["task"]}, "minContains": 1, "maxContains": 1},
+            {"contains": {"properties": {"task": {"const": "operator_topology_to_grounding"}}, "required": ["task"]}, "minContains": 1, "maxContains": 1},
+            {"contains": {"properties": {"task": {"const": "question_environment_to_execution_graph"}}, "required": ["task"]}, "minContains": 1, "maxContains": 1},
+            {"contains": {"properties": {"task": {"const": "execution_evaluation"}}, "required": ["task"]}, "minContains": 1, "maxContains": 1}
+          ]
+        },
+        "boundary_audits": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/boundary_leakage_audit"
+          },
+          "allOf": [
+            {"contains": {"properties": {"boundary": {"const": "question_to_semantics"}}, "required": ["boundary"]}, "minContains": 1, "maxContains": 1},
+            {"contains": {"properties": {"boundary": {"const": "semantics_to_abstract_topology"}}, "required": ["boundary"]}, "minContains": 1, "maxContains": 1},
+            {"contains": {"properties": {"boundary": {"const": "abstract_to_operator_topology"}}, "required": ["boundary"]}, "minContains": 1, "maxContains": 1},
+            {"contains": {"properties": {"boundary": {"const": "operator_topology_to_grounding"}}, "required": ["boundary"]}, "minContains": 1, "maxContains": 1},
+            {"contains": {"properties": {"boundary": {"const": "grounding_to_execution_graph"}}, "required": ["boundary"]}, "minContains": 1, "maxContains": 1},
+            {"contains": {"properties": {"boundary": {"const": "locked_eval_isolation"}}, "required": ["boundary"]}, "minContains": 1, "maxContains": 1}
+          ]
+        },
+        "early_layer_answer_exposure": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "locked_eval_controls": {
+      "type": "object",
+      "required": [
+        "prompt_tuning_allowed",
+        "rubric_tuning_allowed",
+        "operator_vocabulary_tuning_allowed",
+        "split_membership_verified",
+        "historical_exposure_checked"
+      ],
+      "properties": {
+        "prompt_tuning_allowed": {
+          "type": "boolean"
+        },
+        "rubric_tuning_allowed": {
+          "type": "boolean"
+        },
+        "operator_vocabulary_tuning_allowed": {
+          "type": "boolean"
+        },
+        "split_membership_verified": {
+          "enum": [
+            "not_run",
+            "passed",
+            "failed"
+          ]
+        },
+        "historical_exposure_checked": {
+          "enum": [
+            "not_run",
+            "passed",
+            "failed"
+          ]
+        },
+        "split_manifest_artifact": {
+          "$ref": "common_definitions_v0_1.json#/$defs/artifact_reference"
+        },
+        "historical_exposure_manifest_artifact": {
+          "$ref": "common_definitions_v0_1.json#/$defs/artifact_reference"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

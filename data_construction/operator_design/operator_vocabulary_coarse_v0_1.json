@@ -1,0 +1,135 @@
+{
+  "schema_ref": "../schemas/operator_vocabulary_schema_v0_1.json",
+  "schema_version": "operator_vocabulary_schema_v0_1",
+  "vocabulary_version": "operator_vocabulary_coarse_v0_1",
+  "granularity": "coarse",
+  "status": "provisional_candidate",
+  "domain_scope": "HybridQA_only",
+  "selection_claim": "not_selected_pending_annotation_evidence",
+  "empirical_evidence_status": "not_yet_piloted",
+  "type_system": {
+    "status": "candidate_not_ir_v0_2",
+    "note": "These analysis types describe candidate contracts only. They do not replace or amend the unavailable local IR v0.2 definition.",
+    "types": [
+      {"name": "Table", "description": "A structured HybridQA table."},
+      {"name": "EntitySet", "description": "Zero or more entity-denoting values."},
+      {"name": "String", "description": "Text usable as a query or answer."},
+      {"name": "RowSet", "description": "Zero or more table rows."},
+      {"name": "Value", "description": "A scalar semantic value."},
+      {"name": "ValueSet", "description": "Zero or more scalar semantic values."},
+      {"name": "KeySet", "description": "Keys identifying selected candidates."},
+      {"name": "ComparisonResult", "description": "An ordering, relation, or selected-key result."}
+    ]
+  },
+  "operators": [
+    {
+      "name": "TABLE_LOOKUP",
+      "category": "macro",
+      "purpose": "Resolve a structured-table subquestion in one coarse step.",
+      "semantics": "Select relevant rows and fields, optionally deduplicate, and return table-derived values or rows.",
+      "semantic_functions_supported": ["SELECT_CANDIDATES", "RESTRICT_CANDIDATES", "RESOLVE_RELATION", "ACQUIRE_ATTRIBUTE"],
+      "input_ports": [{"name": "table", "type": "Table", "cardinality": "one", "description": "Structured table source."}],
+      "output_ports": [{"name": "result", "type": "RowSet|ValueSet", "cardinality": "zero_or_more", "description": "Rows or values satisfying the lookup."}],
+      "argument_slots": [
+        {"name": "table", "binding_kind": "table", "required": true, "description": "Concrete table."},
+        {"name": "predicate", "binding_kind": "row_predicate", "required": false, "description": "Row restriction."},
+        {"name": "projection", "binding_kind": "column", "required": true, "description": "Returned field."},
+        {"name": "selection", "binding_kind": "selection_policy", "required": false, "description": "Optional within-table selection behavior."}
+      ],
+      "tool_binding_class": ["table_engine", "composite_runtime"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Applies across structured HybridQA questions."},
+        "typed_contract_clarity": {"provisional_rating": "medium", "rationale": "The union output hides whether rows or values are returned."},
+        "executability": {"provisional_rating": "high", "rationale": "A table engine can bind the macro."},
+        "composability": {"provisional_rating": "medium", "rationale": "Macro outputs compose, but internal dependencies are opaque."},
+        "semantic_atomicity": {"provisional_rating": "low", "rationale": "Filtering, projection, and selection may be fused."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "No pilot annotations are available."}
+      },
+      "known_risks": ["Hides filtering and projection choices", "May mask dead or unnecessary internal work"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "DOCUMENT_QA",
+      "category": "macro",
+      "purpose": "Answer an attribute subquestion from linked or retrieved documents in one step.",
+      "semantics": "Locate document evidence, select text, extract an answer, and optionally parse it.",
+      "semantic_functions_supported": ["RESOLVE_RELATION", "ACQUIRE_ATTRIBUTE", "PARSE_SEMANTIC_VALUE", "NORMALIZE_SEMANTIC_VALUE"],
+      "input_ports": [{"name": "subjects", "type": "EntitySet|String", "cardinality": "one_or_more", "description": "Entities or query text that scope document answering."}],
+      "output_ports": [{"name": "answers", "type": "ValueSet", "cardinality": "zero_or_more", "description": "Document-derived values."}],
+      "argument_slots": [
+        {"name": "locator", "binding_kind": "document_locator", "required": true, "description": "Document access rule."},
+        {"name": "attribute", "binding_kind": "requested_attribute", "required": true, "description": "Requested semantic attribute."},
+        {"name": "value_type", "binding_kind": "declared_value_type", "required": true, "description": "Expected answer type."},
+        {"name": "cardinality", "binding_kind": "cardinality", "required": true, "description": "Expected answer count."}
+      ],
+      "tool_binding_class": ["retriever", "reader", "parser", "composite_runtime"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Generic document question answering recurs across schemas."},
+        "typed_contract_clarity": {"provisional_rating": "medium", "rationale": "Declared value type helps, but evidence selection is hidden."},
+        "executability": {"provisional_rating": "medium", "rationale": "Execution depends on retriever and reader contracts."},
+        "composability": {"provisional_rating": "medium", "rationale": "Values compose but document provenance may be lost."},
+        "semantic_atomicity": {"provisional_rating": "low", "rationale": "Retrieval, extraction, parsing, and normalization are fused."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "No pilot annotations are available."}
+      },
+      "known_risks": ["Conceals modality-avoidance and retrieval failures", "May behave like an unconstrained reader"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "COMPARE",
+      "category": "comparison",
+      "purpose": "Compare candidate values and optionally identify matching candidates.",
+      "semantics": "Apply a declared relation or ordering to values, including tie behavior.",
+      "semantic_functions_supported": ["COMPARE_VALUES", "APPLY_ORDINAL", "ARG_SELECT"],
+      "input_ports": [{"name": "values", "type": "ValueSet", "cardinality": "one_or_more", "description": "Comparable candidate values."}],
+      "output_ports": [{"name": "result", "type": "ComparisonResult|KeySet", "cardinality": "one_or_more", "description": "Comparison or winning candidate keys."}],
+      "argument_slots": [
+        {"name": "relation", "binding_kind": "comparison_relation", "required": true, "description": "Comparison semantics."},
+        {"name": "ordering", "binding_kind": "ordering_semantics", "required": false, "description": "Direction, rank, and tie handling."}
+      ],
+      "tool_binding_class": ["deterministic_function"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Comparison is schema-independent."},
+        "typed_contract_clarity": {"provisional_rating": "medium", "rationale": "The result union merges relation testing and arg-selection."},
+        "executability": {"provisional_rating": "high", "rationale": "Typed comparisons can be deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "Comparison results feed selection or answer mapping."},
+        "semantic_atomicity": {"provisional_rating": "medium", "rationale": "Comparison and arg-selection may be fused."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "No pilot annotations are available."}
+      },
+      "known_risks": ["Can hide parse and normalization prerequisites", "Tie semantics may be under-annotated"],
+      "empirical_frequency_status": "not_measured"
+    },
+    {
+      "name": "CALCULATE",
+      "category": "macro",
+      "purpose": "Perform arithmetic or aggregation in one coarse operation.",
+      "semantics": "Apply a declared aggregate or arithmetic expression to one or more values.",
+      "semantic_functions_supported": ["AGGREGATE_VALUES", "COMPUTE_VALUE"],
+      "input_ports": [{"name": "values", "type": "ValueSet", "cardinality": "one_or_more", "description": "Values to aggregate or combine."}],
+      "output_ports": [{"name": "result", "type": "Value", "cardinality": "one", "description": "Computed result."}],
+      "argument_slots": [
+        {"name": "aggregate", "binding_kind": "aggregate_function", "required": false, "description": "Aggregate function when applicable."},
+        {"name": "arithmetic", "binding_kind": "arithmetic_function", "required": false, "description": "Arithmetic expression when applicable."}
+      ],
+      "tool_binding_class": ["deterministic_function", "composite_runtime"],
+      "design_assessment": {
+        "reusability": {"provisional_rating": "high", "rationale": "Generic calculation transfers across questions."},
+        "typed_contract_clarity": {"provisional_rating": "medium", "rationale": "Aggregation and arithmetic share a broad contract."},
+        "executability": {"provisional_rating": "high", "rationale": "Declared numeric functions can be deterministic."},
+        "composability": {"provisional_rating": "high", "rationale": "Scalar results are easy to compose."},
+        "semantic_atomicity": {"provisional_rating": "low", "rationale": "Multiple operations and normalization may be hidden."},
+        "annotation_stability": {"status": "unknown_pending_pilot", "rationale": "No pilot annotations are available."}
+      },
+      "known_risks": ["Obscures whether aggregation or arithmetic is required", "May hide unit conversion"],
+      "empirical_frequency_status": "not_measured"
+    }
+  ],
+  "pseudo_primitive_policy": {
+    "default_disposition": "reject_or_flag",
+    "rejected_patterns": [
+      {"pattern": "GET_<QUESTION_SPECIFIC_ATTRIBUTE>", "reason": "Encodes a question-specific relation rather than a reusable operation."},
+      {"pattern": "ANSWER_<QUESTION_TEMPLATE>", "reason": "Bundles an entire surface template into a pseudo-primitive."}
+    ],
+    "exception_requirements": ["Demonstrate reuse across multiple questions and schemas", "Specify typed inputs and outputs", "Provide an executable tool binding", "Record pilot evidence and reviewer agreement"]
+  },
+  "known_global_risks": ["Reasoning is hidden inside macro operators", "Exact topology comparisons become less informative", "Failure attribution is weak"]
+}

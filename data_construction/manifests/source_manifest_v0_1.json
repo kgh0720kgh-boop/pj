@@ -1,0 +1,237 @@
+{
+  "schema_version": "source_manifest_v0_1",
+  "generated_at": "2026-08-21T12:50:32+09:00",
+  "dataset": "HybridQA",
+  "source_policy": "official_primary_sources_only",
+  "retrieval_status": "available_and_locally_verified",
+  "annotation_release_status": "blocked_pending_complete_historical_id_audit",
+  "primary_references": [
+    {
+      "kind": "paper",
+      "title": "HybridQA: A Dataset of Multi-Hop Question Answering over Tabular and Textual Data",
+      "url": "https://aclanthology.org/2020.findings-emnlp.91/",
+      "doi": "10.18653/v1/2020.findings-emnlp.91"
+    },
+    {
+      "kind": "official_project_site",
+      "url": "https://hybridqa.github.io/"
+    }
+  ],
+  "upstreams": [
+    {
+      "source_id": "hybridqa_questions_and_code",
+      "repository_url": "https://github.com/wenhuchen/HybridQA.git",
+      "web_url": "https://github.com/wenhuchen/HybridQA",
+      "branch_observed": "master",
+      "pinned_commit": "db22fda8c5951438fade3c69d75b350335ba93b3",
+      "commit_timestamp": "2023-06-02T22:53:23-04:00",
+      "commit_subject": "Merge pull request #8 from lfy79001/master",
+      "git_tree_sha1": "1e1ef6a6168ef6c6cf362264d8f7b75859ce8fdf",
+      "released_data_tree_sha1": "e3746c1ae9de9b8ecc85f8a6326faa1edf58a90f",
+      "release_tags_observed": [],
+      "artifacts": [
+        {
+          "path": "released_data/train.json",
+          "sha256": "b33aa73638959a2383e1e1638fd6abe87818b7379c7a42eac1621475d2d959e2",
+          "bytes": 21638585,
+          "record_count": 62682,
+          "unique_question_id_count": 62682,
+          "unique_table_id_count": 12374,
+          "answer_text_present": true,
+          "provenance": "official original human-annotated release"
+        },
+        {
+          "path": "released_data/dev.json",
+          "sha256": "424272b233735a70ed8ef5af4a615373d114f472168c686c4370d54c92d58ac1",
+          "bytes": 1193503,
+          "record_count": 3466,
+          "unique_question_id_count": 3466,
+          "unique_table_id_count": 3053,
+          "answer_text_present": true,
+          "provenance": "official original human-annotated release"
+        },
+        {
+          "path": "released_data/test.json",
+          "sha256": "41845fec9cba21979e663a96626c2880adbf2d26b5667ea7d0bf61fab0cdc356",
+          "bytes": 1071558,
+          "record_count": 3463,
+          "unique_question_id_count": 3463,
+          "unique_table_id_count": 3061,
+          "answer_text_present": false,
+          "provenance": "official original human-annotated release; answers withheld"
+        },
+        {
+          "path": "released_data/train.traced.json",
+          "sha256": "5008fc2e4b8859f729201fe4a45800dba95686ab5cde5a9f1a66b5794e27fd5b",
+          "bytes": 50492344,
+          "record_count": 62682,
+          "provenance": "official generated weak answer-node trace; not human gold"
+        },
+        {
+          "path": "released_data/dev.traced.json",
+          "sha256": "2fe4ca01e23d4e589ee6a79f46d7eeeddefd1d33a581c7ceb8955902da3f19c1",
+          "bytes": 2741563,
+          "record_count": 3466,
+          "provenance": "official generated weak answer-node trace; not human gold"
+        },
+        {
+          "path": "released_data/dev_reference.json",
+          "sha256": "617cd141a09550e85a0634b68b2e16727a87f9a6005002d31f40d839dfa389ed",
+          "bytes": 221436,
+          "answer_reference_count": 3466,
+          "provenance": "official evaluation reference"
+        }
+      ]
+    },
+    {
+      "source_id": "hybridqa_linked_tables_and_passages",
+      "repository_url": "https://github.com/wenhuchen/WikiTables-WithLinks.git",
+      "web_url": "https://github.com/wenhuchen/WikiTables-WithLinks",
+      "branch_observed": "master",
+      "pinned_commit": "dc066e1a6d5281511d8b73a6107d5ad2824cc2b2",
+      "commit_timestamp": "2021-08-19T14:19:30-07:00",
+      "commit_subject": "Update pipeline.py",
+      "git_tree_sha1": "b4f2d5e0eeb2d18cf95bf6e6a583bc499c53b68c",
+      "release_tags_observed": [],
+      "artifacts": [
+        {
+          "path": "tables_tok",
+          "git_tree_sha1": "772e97624b08e0bd5534b8991a8c2dd8fb6b153f",
+          "file_count": 15316,
+          "content_bytes": 116927500,
+          "canonical_content_list_sha256": "3969fcf6c0192d6085ad999e3abd41f0039a73c878ffd30d7cd8b7786ea62c92"
+        },
+        {
+          "path": "request_tok",
+          "git_tree_sha1": "f1c1a1dab31b2341f338a6a7bf626b5b8c569f20",
+          "file_count": 15316,
+          "content_bytes": 454233454,
+          "canonical_content_list_sha256": "bc289b9aa6d397369b44cbf9b54250539a5a0cf01287f94c9a5572e79e8cd916"
+        },
+        {
+          "path": "orig_id_to_uid.json",
+          "sha256": "3320a9457ae6ebcdb80ee8b47a7fb20cd657dece67f6dad60ebf189ee90763d8",
+          "bytes": 765874,
+          "mapping_entry_count": 15273
+        }
+      ]
+    }
+  ],
+  "canonical_content_list_hash_algorithm": {
+    "name": "sha256_of_sorted_sha256sum_lines",
+    "definition": "From the pinned repository root, enumerate regular JSON files immediately under the named directory with find -print0; sort paths bytewise with LC_ALL=C sort -z; hash each file with sha256sum; hash the resulting newline-delimited sha256sum output with sha256sum. Paths are repository-relative and therefore machine-independent."
+  },
+  "validation": {
+    "json_parse": {
+      "question_split_files_ok": 3,
+      "tables_tok_files_ok": 15316,
+      "request_tok_files_ok": 15316,
+      "parse_failures": 0
+    },
+    "question_ids": {
+      "combined_unique_count": 69611,
+      "duplicate_count_within_splits": 0,
+      "train_dev_overlap": 0,
+      "train_test_overlap": 0,
+      "dev_test_overlap": 0
+    },
+    "table_ids": {
+      "combined_unique_question_table_count": 12378,
+      "train_dev_overlap": 3050,
+      "train_test_overlap": 3059,
+      "dev_test_overlap": 718,
+      "missing_tables_tok_for_question_tables": 0,
+      "missing_request_tok_for_question_tables": 0
+    },
+    "linked_environment": {
+      "table_and_request_filename_sets_equal": true,
+      "table_row_count": 241435,
+      "table_cells_including_headers": 1150426,
+      "hyperlink_occurrence_count": 679119,
+      "request_entry_count": 512737,
+      "hyperlink_occurrences_missing_from_matching_request_file": 0
+    },
+    "traces": {
+      "train_question_id_order_matches_original": true,
+      "dev_question_id_order_matches_original": true,
+      "all_train_and_dev_trace_records_have_answer_node": true,
+      "semantic_status": "weak_supervision_only_not_gold"
+    }
+  },
+  "source_id_inventory": {
+    "exact_values_location": "Exact question IDs are fields in the pinned released_data split files; table IDs are question fields and tables_tok/request_tok file stems; linked document IDs are request_tok object keys.",
+    "canonical_set_hash_algorithm": "Deduplicate IDs; reject CR/LF; sort by unsigned UTF-8 byte sequence; concatenate each UTF-8 ID followed by LF; SHA-256 the resulting bytes.",
+    "question_id_sets": {
+      "train": {
+        "count": 62682,
+        "canonical_sha256": "fede3106c7430f731a15bb466ebb4e1c7c74e7e9b11df0d3565ab989c1f68dd2"
+      },
+      "dev": {
+        "count": 3466,
+        "canonical_sha256": "70ee935abae8409251e0858a46d7a92f7875e2bfa0d8084f8ab3bb1cd591f584"
+      },
+      "test": {
+        "count": 3463,
+        "canonical_sha256": "7c9ff4e36c0de51356e35836b5427d0a8146376f2b3735305551e2dc521d25d6"
+      },
+      "combined": {
+        "count": 69611,
+        "canonical_sha256": "b8000d85c1b96e32c771c91b1ec94d15fb601a950deee312c7c2308b5d92c8f9"
+      }
+    },
+    "question_referenced_table_id_set": {
+      "count": 12378,
+      "canonical_sha256": "64b8f99e273fa66589734f2d1419445ce5e1eeac63712ff2af1c606f198ce51c"
+    },
+    "available_table_file_id_set": {
+      "count": 15316,
+      "canonical_sha256": "e36fbed6ad96a119dd5aa9d1625a4dad6ab3eff69bb6f376df3cf45caa096c77"
+    },
+    "linked_document_id_set": {
+      "count": 286270,
+      "canonical_sha256": "09eb0fda4fada010d2afa719673d9b5d34678ac49182d2665c28951f16152bbf"
+    },
+    "selected_new_corpus_question_ids": [],
+    "selection_status": "not_selected_historical_disjointness_blocked",
+    "selection_manifest_policy": "After historical recovery, store every selected question ID and assigned role in split_manifest_v0_1.json; linked table/document IDs remain reproducibly resolved from the pinned source by table_id and request_tok keys."
+  },
+  "data_availability": {
+    "official_dev_question_count": 3466,
+    "official_dev_questions_with_answer_text": 3466,
+    "official_dev_questions_with_table_and_request_files": 3466,
+    "requested_150_to_200_source_capacity": "sufficient",
+    "historical_disjointness_verified": false,
+    "currently_release_eligible_fresh_question_count": null,
+    "reason": "The official dev source is available, but the required Week 1-3 exposed-ID artifacts are missing, so freshness cannot yet be proven."
+  },
+  "split_policy": {
+    "train": "available, but not the preferred fresh-dev source for this reset",
+    "dev": "candidate pool only after historical exposed-ID exclusion succeeds",
+    "test": "retain as official held-out test; answers are absent and it must not be repurposed for tuning",
+    "traced_files": "exclude from question-only semantic-skeleton annotation and other early-layer prediction inputs because answer-node is weak oracle-style evidence"
+  },
+  "local_materialization": {
+    "repository_tracked": false,
+    "location_kind": "machine_local_cache_outside_project_repository",
+    "portable_locator": "<machine-local-cache>/pj1-hybridqa-source-audit/{HybridQA-db22fda,WikiTables-WithLinks-dc066e1}",
+    "observed_checkout_sizes_bytes": {
+      "HybridQA-db22fda": 98846585,
+      "WikiTables-WithLinks-dc066e1": 763676181
+    },
+    "reacquisition_command": "bash data_construction/tools/fetch_official_hybridqa_sources.sh --dest <machine-local-cache>/pj1-hybridqa-source-audit"
+  },
+  "license_evidence": {
+    "dataset": {
+      "statement": "The official HybridQA project site states Creative Commons Attribution 4.0 International.",
+      "url": "https://hybridqa.github.io/"
+    },
+    "hybridqa_repository": {
+      "statement": "The pinned repository contains an MIT LICENSE file.",
+      "url": "https://github.com/wenhuchen/HybridQA/blob/db22fda8c5951438fade3c69d75b350335ba93b3/LICENSE"
+    },
+    "linked_environment_repository": {
+      "statement": "No top-level LICENSE file was present at the pinned WikiTables-WithLinks commit; the dataset-site statement is the available official license evidence. Confirm scope with the researcher before redistribution beyond the project.",
+      "url": "https://github.com/wenhuchen/WikiTables-WithLinks/tree/dc066e1a6d5281511d8b73a6107d5ad2824cc2b2"
+    }
+  }
+}
