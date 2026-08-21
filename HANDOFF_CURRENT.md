@@ -6,7 +6,7 @@ Current research phase: Phase 0 historical-provenance recovery gate, with a prov
 
 Current branch: `main`
 
-Current HEAD commit: `43118ad20b4bc8fe990df3502140ff1b9598bdc6` (`Update cross-device handoff after repository setup`)
+Current HEAD commit: `6fd427c97b8a3f656e98604f4895031dbd5705f7` (`Update cross-device handoff after repository setup`)
 Remote: `origin` → `https://github.com/kgh0720kgh-boop/pj.git`; `main` tracks `origin/main`.
 
 Last completed task: Audited the official HybridQA question and linked table/document sources at pinned commits; created truthful blocked historical/split manifests; integrated eight v0.1 schemas, three candidate operator vocabularies, deterministic tools/tests, the pinned Python contract, and a fail-closed cross-device preflight.
