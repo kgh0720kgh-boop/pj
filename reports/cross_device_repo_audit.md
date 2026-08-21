@@ -2,23 +2,23 @@
 
 Audit date: 2026-08-21
 
-Scope: current project directory, continuity metadata, integrated research scaffold, and a bounded read-only search for relevant Git metadata/source material. No repository was initialized, no remote was added, no commit was created, and no push was attempted.
+Scope: current project directory, continuity metadata, integrated research scaffold, and a bounded read-only search for relevant Git metadata/source material. This audit was superseded by the initial repository snapshot at `1616684f8505c1b0ee90b956adb292193c172338`, pushed to `origin/main`.
 
 ## Repository state
 
 | Field | Observed value |
 | --- | --- |
-| Git root | `NOT_A_GIT_REPOSITORY` |
-| Current branch | `NOT_A_GIT_REPOSITORY` |
-| HEAD | `unknown` |
-| Remotes | `REMOTE_NOT_CONFIGURED` |
-| Working-tree status | `unknown_without_git_metadata` |
-| Git-untracked files | `unknown_without_git_metadata` |
-| Unpushed commits | `unknown_without_git_metadata` |
-| Stash state | `unknown_without_git_metadata` |
-| Synchronization state | `REMOTE_NOT_CONFIGURED` |
+| Git root | repository root |
+| Current branch | `main` |
+| HEAD | `1616684f8505c1b0ee90b956adb292193c172338` |
+| Remotes | `origin` → `https://github.com/kgh0720kgh-boop/pj.git` |
+| Working-tree status | clean |
+| Git-untracked files | none |
+| Unpushed commits | none known; tracks `origin/main` |
+| Stash state | empty |
+| Synchronization state | `SYNCED_TO_REMOTE` |
 
-`git rev-parse --show-toplevel`, `git status --short --branch`, and `git remote -v` fail because this project directory is not inside a Git work tree. Consequently, current files cannot be classified as Git-tracked/untracked, branch ancestry cannot be checked, and push status cannot be inferred.
+The earlier non-repository observation is historical. The current project is a clean Git work tree on `main`, synchronized with `origin/main`.
 
 A separate upstream HybridQA source-audit checkout exists in a machine-local cache outside the project. It supports source verification but contains neither approved project history nor the five historical Week 1-3 artifacts. It is not the canonical project repository and is deliberately excluded from Git continuity.
 
@@ -79,9 +79,7 @@ The preflight also understands the future complete strict historical state and a
 
 ## Decision gates
 
-- `REQUIRES_RESEARCHER_DECISION`: recover the authoritative project repository/history, or explicitly authorize a preservation-first new repository migration.
-- `REQUIRES_RESEARCHER_DECISION`: choose the remote provider, repository identity, and visibility.
-- `REMOTE_NOT_CONFIGURED`: no synchronization target exists.
+- The repository/remote decision is resolved for the current handoff: `main` tracks `origin/main`.
 - `AUTHORITATIVE_PROJECT_PROVENANCE_NOT_AVAILABLE`.
 - `HISTORICAL_ARTIFACTS_NOT_AVAILABLE`.
 - `PROJECT_LOCAL_PINNED_ENVIRONMENT_NOT_RECONSTRUCTED`.
@@ -105,8 +103,8 @@ Concurrent workstations must use separate task branches and an explicit integrat
 
 ## Remaining acceptance gaps
 
-- No clone-equivalent reconstruction is possible without canonical history and a remote.
-- No branch or commit identity exists for handoff comparison.
+- Clone-equivalent reconstruction is possible from `origin/main`.
+- The canonical current handoff commit is `1616684f8505c1b0ee90b956adb292193c172338`.
 - The five historical inputs and approved recovery provenance are absent.
 - No fresh split can be proven disjoint or release-eligible.
 - The pinned project-local dependency environment has not been created on this machine, although equivalent ephemeral exact-pin full validation passed.

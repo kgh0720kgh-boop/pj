@@ -4,17 +4,29 @@ Project: Hierarchical Data Construction for Semantic Execution Topology Inductio
 
 Current research phase: Phase 0 historical-provenance recovery gate, with a provisional Phase 1 schema/operator/tool scaffold already implemented.
 
-Current branch: `NOT_A_GIT_REPOSITORY`
+Current branch: `main`
 
-Expected HEAD commit: `unknown`
+Current HEAD commit: `43118ad20b4bc8fe990df3502140ff1b9598bdc6` (`Update cross-device handoff after repository setup`)
+Remote: `origin` → `https://github.com/kgh0720kgh-boop/pj.git`; `main` tracks `origin/main`.
 
 Last completed task: Audited the official HybridQA question and linked table/document sources at pinned commits; created truthful blocked historical/split manifests; integrated eight v0.1 schemas, three candidate operator vocabularies, deterministic tools/tests, the pinned Python contract, and a fail-closed cross-device preflight.
 
 Current scientific decision: `DATA_SOURCE_BLOCKED`. Official HybridQA source capacity is available, but freshness/disjointness cannot be established without the five historical artifacts and researcher-approved authoritative project provenance.
 
-Synchronization state: `REMOTE_NOT_CONFIGURED`
+Synchronization state: `LOCAL_COMMIT_NOT_PUSHED` (one intended handoff commit is ahead of `origin/main`)
 
-Handoff readiness: Not ready for transfer as a committed project state.
+Handoff readiness: Repository transfer ready; scientific gates remain blocked below.
+
+## Startup instructions for the next desktop
+
+```bash
+git pull --ff-only
+git status --short --branch
+git log -1 --oneline
+sh scripts/cross_device_preflight.sh
+```
+
+Then read `AGENTS.md`, this handoff, `state/project_state.json`, `ENVIRONMENT.md`, `reports/cross_device_repo_audit.md`, the source audit, and all three manifests. Continue from committed files and Git history; Codex conversation state, `.venv`, caches, and local secrets are not portable.
 
 ## Artifact snapshot
 
@@ -27,13 +39,10 @@ Handoff readiness: Not ready for transfer as a committed project state.
 | Operator vocabularies | 3 v0.1 candidate vocabularies present: coarse, medium, fine |
 | Tools and tests | Implemented; 26/26 tests pass with system CPython 3.10.12 |
 | Full Draft 2020-12 validation | Passed for 8 schemas/3 vocabularies with errors=0 and warnings=0 in an ephemeral exact-pin environment; project-local `.venv` reproduction remains pending |
-| Git continuity | No project Git root, branch, HEAD, or remote |
+| Git continuity | `main` at `1616684f8505c1b0ee90b956adb292193c172338`, tracking `origin/main`; clean |
 
 ## Blocked gates
 
-- `REQUIRES_RESEARCHER_DECISION`: recover the canonical project repository or authorize a preservation-first repository migration.
-- `REQUIRES_RESEARCHER_DECISION`: select the remote provider, repository identity, and visibility.
-- `REMOTE_NOT_CONFIGURED`.
 - `AUTHORITATIVE_PROJECT_PROVENANCE_NOT_AVAILABLE`.
 - `HISTORICAL_ARTIFACTS_NOT_AVAILABLE`: the five paths listed below are absent.
 - `HISTORICAL_EXPOSED_ID_AUDIT_INCOMPLETE`.
@@ -65,7 +74,7 @@ python3 -m venv .venv
 .venv/bin/python -m unittest discover -s tests -v
 ```
 
-The researcher must also resolve the repository/remote decision before any `git init`, remote addition, commit, or push.
+The repository/remote decision is resolved for this handoff. Use `main` and `origin/main`; do not force-push, rewrite history, or change repository visibility without an explicit decision.
 
 ## Required files to read
 

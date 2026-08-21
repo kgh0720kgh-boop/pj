@@ -3,18 +3,15 @@
   "state_updated_date": "2026-08-21",
   "project": "hierarchical_data_construction_for_semantic_execution_topology_induction",
   "active_phase": "phase_0_historical_provenance_recovery_gate",
-  "active_branch": "NOT_A_GIT_REPOSITORY",
-  "expected_head": "unknown",
+  "active_branch": "main",
+  "expected_head": "43118ad20b4bc8fe990df3502140ff1b9598bdc6",
   "last_completed_task": "official_source_audit_v0_1_scaffold_and_hardened_cross_device_preflight_integration",
   "next_task": "recover_the_five_historical_artifacts_with_authoritative_provenance_then_regenerate_the_historical_manifest_before_any_split_allocation",
   "current_scientific_decision": "DATA_SOURCE_BLOCKED",
   "scientific_decision_status": "provisional_pending_historical_exposure_recovery",
-  "synchronization_state": "REMOTE_NOT_CONFIGURED",
-  "handoff_readiness": "not_ready",
+  "synchronization_state": "LOCAL_COMMIT_NOT_PUSHED",
+  "handoff_readiness": "repository_transfer_ready_scientific_gates_blocked",
   "blocked_gates": [
-    "REQUIRES_RESEARCHER_DECISION: recover the canonical project repository or authorize a preservation-first repository migration",
-    "REQUIRES_RESEARCHER_DECISION: select the remote provider, repository identity, and visibility",
-    "REMOTE_NOT_CONFIGURED",
     "AUTHORITATIVE_PROJECT_PROVENANCE_NOT_AVAILABLE",
     "HISTORICAL_ARTIFACTS_NOT_AVAILABLE",
     "HISTORICAL_EXPOSED_ID_AUDIT_INCOMPLETE",
@@ -23,14 +20,14 @@
     "PROJECT_LOCAL_PINNED_ENVIRONMENT_NOT_RECONSTRUCTED"
   ],
   "repository": {
-    "git_root": "NOT_A_GIT_REPOSITORY",
-    "current_branch": "NOT_A_GIT_REPOSITORY",
-    "head": "unknown",
-    "remotes": [],
-    "working_tree_status": "unknown_without_git_metadata",
-    "untracked_files": "unknown_without_git_metadata",
-    "unpushed_commits": "unknown_without_git_metadata",
-    "stash_state": "unknown_without_git_metadata"
+    "git_root": "repository root (resolve with git rev-parse --show-toplevel)",
+    "current_branch": "main",
+    "head": "43118ad20b4bc8fe990df3502140ff1b9598bdc6",
+    "remotes": ["origin https://github.com/kgh0720kgh-boop/pj.git"],
+    "working_tree_status": "clean",
+    "untracked_files": 0,
+    "unpushed_commits": 0,
+    "stash_state": "empty"
   },
   "artifact_status": {
     "official_source_audit": {
