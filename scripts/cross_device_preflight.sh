@@ -74,7 +74,19 @@ for required_file in \
     data_construction/manifests/source_manifest_v0_1.json \
     data_construction/manifests/source_question_ids.json \
     data_construction/manifests/split_manifest_v0_1.json \
+    data_construction/pilot/README.md \
     data_construction/pilot/questions.jsonl \
+    data_construction/pilot/granularity_representation_plan_v0_1.json \
+    data_construction/pilot/granularity_input_views.jsonl \
+    data_construction/pilot/granularity_input_views_manifest_v0_1.json \
+    data_construction/pilot/granularity_representations.jsonl \
+    data_construction/pilot/granularity_deterministic_checks.jsonl \
+    data_construction/pilot/review_packets/operator_granularity_coarse_v0_1.html \
+    data_construction/pilot/review_packets/operator_granularity_coarse_v0_1_manifest.json \
+    data_construction/pilot/review_packets/operator_granularity_medium_v0_1.html \
+    data_construction/pilot/review_packets/operator_granularity_medium_v0_1_manifest.json \
+    data_construction/pilot/review_packets/operator_granularity_fine_v0_1.html \
+    data_construction/pilot/review_packets/operator_granularity_fine_v0_1_manifest.json \
     data_construction/schemas/common_definitions_v0_1.json \
     data_construction/schemas/semantic_skeleton_v0_1.json \
     data_construction/schemas/information_obligation_v0_1.json \
@@ -83,6 +95,7 @@ for required_file in \
     data_construction/schemas/grounding_v0_1.json \
     data_construction/schemas/hierarchical_annotation_v0_1.json \
     data_construction/schemas/operator_vocabulary_schema_v0_1.json \
+    data_construction/schemas/operator_granularity_pilot_v0_1.json \
     data_construction/operator_design/operator_vocabulary_coarse_v0_1.json \
     data_construction/operator_design/operator_vocabulary_medium_v0_1.json \
     data_construction/operator_design/operator_vocabulary_fine_v0_1.json \
@@ -92,6 +105,7 @@ for required_file in \
     data_construction/reports/pilot_annotation_report.md \
     data_construction/reports/corpus_statistics.md \
     data_construction/reports/DATA_CONSTRUCTION_RESEARCH_REPORT.md \
+    data_construction/reports/operator_granularity_metrics_v0_1.json \
     data_construction/tools/_common.py \
     data_construction/tools/build_historical_manifest.py \
     data_construction/tools/build_sample.py \
@@ -100,6 +114,10 @@ for required_file in \
     data_construction/tools/validate_annotation.py \
     data_construction/tools/validate_ir_v0_2_reference.py \
     data_construction/tools/build_review_packet.py \
+    data_construction/tools/build_granularity_views.py \
+    data_construction/tools/build_granularity_representations.py \
+    data_construction/tools/build_granularity_review_packet.py \
+    data_construction/tools/validate_operator_granularity.py \
     data_construction/tools/compare_operator_granularity.py \
     data_construction/tools/compute_annotation_stats.py \
     tests/test_data_construction_tools.py \
@@ -164,6 +182,12 @@ paths = [
     Path("data_construction/manifests/source_question_ids.json"),
     Path("data_construction/manifests/split_manifest_v0_1.json"),
     Path("historical/ir_v0_2/recovery_manifest_v0_1.json"),
+    Path("data_construction/pilot/granularity_representation_plan_v0_1.json"),
+    Path("data_construction/pilot/granularity_input_views_manifest_v0_1.json"),
+    Path("data_construction/reports/operator_granularity_metrics_v0_1.json"),
+    Path("data_construction/pilot/review_packets/operator_granularity_coarse_v0_1_manifest.json"),
+    Path("data_construction/pilot/review_packets/operator_granularity_medium_v0_1_manifest.json"),
+    Path("data_construction/pilot/review_packets/operator_granularity_fine_v0_1_manifest.json"),
 ]
 paths.extend(sorted(Path("data_construction/schemas").glob("*.json")))
 paths.extend(sorted(Path("data_construction/operator_design").glob("*.json")))
@@ -739,7 +763,10 @@ if state.get("current_scientific_decision") == "DATA_SOURCE_BLOCKED":
     for required_gate in required_source_gates:
         if required_gate not in state_gates:
             errors.append(f"DATA_SOURCE_BLOCKED state missing {required_gate}")
-elif state.get("current_scientific_decision") == "DATA_SOURCE_READY_FOR_ANNOTATION_PILOT":
+elif state.get("current_scientific_decision") in {
+    "DATA_SOURCE_READY_FOR_ANNOTATION_PILOT",
+    "UNDECIDED_NEEDS_ANNOTATION_EVIDENCE",
+}:
     if history_complete is not True or historical_shape != "strict_builder":
         errors.append("pilot-ready state requires a complete strict historical audit")
     if split_shape != "allocated_builder" or split.get("release_eligible") is not True:
@@ -762,6 +789,38 @@ elif state.get("current_scientific_decision") == "DATA_SOURCE_READY_FOR_ANNOTATI
     }
     if state_gates & resolved_gate_codes:
         errors.append("pilot-ready state retains a resolved recovery/environment gate")
+    if state.get("current_scientific_decision") == "UNDECIDED_NEEDS_ANNOTATION_EVIDENCE":
+        if state.get("scientific_decision_status") != (
+            "structural_integrity_complete_human_calibration_pending"
+        ):
+            errors.append("granularity-pilot state has an unexpected scientific_decision_status")
+        pilot = state.get("artifact_status", {}).get("operator_granularity_pilot", {})
+        expected_pilot_summary = {
+            "status": "structural_integrity_complete_human_calibration_pending",
+            "question_count": 30,
+            "representation_count": 90,
+            "deterministic_check_count": 90,
+            "deterministic_pass_count": 90,
+            "deterministic_error_count": 0,
+            "deterministic_warning_count": 0,
+            "review_packet_count": 3,
+            "human_review_record_count": 0,
+            "integrity_complete": True,
+            "human_calibration_complete": False,
+            "semantic_confirmation_complete": False,
+            "selection_ready": False,
+        }
+        for key, expected_value in expected_pilot_summary.items():
+            if pilot.get(key) != expected_value:
+                errors.append(f"operator-granularity pilot state mismatch for {key}")
+        for stale_gate in (
+            "OPERATOR_GRANULARITY_PILOT_NOT_RUN",
+            "ANNOTATION_PROPOSALS_NOT_CREATED",
+        ):
+            if stale_gate in state_gates:
+                errors.append(f"completed pilot state retains stale gate {stale_gate}")
+        if "HUMAN_REVIEW_NOT_PERFORMED" not in state_gates:
+            errors.append("human-calibration-pending state lacks HUMAN_REVIEW_NOT_PERFORMED")
 else:
     errors.append("project_state has an unsupported current scientific decision")
 
@@ -784,7 +843,7 @@ elif draft_status == "complete_in_project_local_pinned_environment":
     if draft_contract.get("project_local_environment_status") != "reconstructed":
         errors.append("project-local full validation lacks reconstructed environment status")
     expected_result = {
-        "schemas_checked": 8,
+        "schemas_checked": 9,
         "vocabularies_checked": 3,
         "errors": 0,
         "warnings": 0,
@@ -897,7 +956,7 @@ PY
     schema_rc=$?
     printf '[INFO] SCHEMA_BUNDLE_CHECK_OUTPUT: %s\n' "$schema_output"
     if [ "$schema_rc" -eq 0 ]; then
-        pass_check 'SCHEMA_BUNDLE_STRUCTURE: 8 schemas and 3 vocabularies passed JSON/local-ref checks'
+        pass_check 'SCHEMA_BUNDLE_STRUCTURE: 9 schemas and 3 vocabularies passed JSON/local-ref checks'
     else
         fail_check 'SCHEMA_BUNDLE_STRUCTURE_FAILED'
     fi
@@ -913,6 +972,203 @@ PY
         fi
     else
         block_check 'PROJECT_LOCAL_PINNED_ENVIRONMENT_NOT_RECONSTRUCTED: recorded ephemeral exact-pin validation was not reproduced by the selected runtime'
+    fi
+
+    granularity_output=$("$PYTHON_BIN" -B - <<'PY' 2>&1
+import hashlib
+import json
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+project_root = Path.cwd().resolve()
+tool_dir = project_root / "data_construction/tools"
+sys.path.insert(0, str(tool_dir))
+
+import compare_operator_granularity as comparator
+
+
+def sha256_file(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def jsonl(path):
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+questions = project_root / "data_construction/pilot/questions.jsonl"
+views = project_root / "data_construction/pilot/granularity_input_views.jsonl"
+view_manifest = project_root / "data_construction/pilot/granularity_input_views_manifest_v0_1.json"
+representations = project_root / "data_construction/pilot/granularity_representations.jsonl"
+committed_checks = project_root / "data_construction/pilot/granularity_deterministic_checks.jsonl"
+committed_metrics_path = project_root / "data_construction/reports/operator_granularity_metrics_v0_1.json"
+schema = project_root / "data_construction/schemas/operator_granularity_pilot_v0_1.json"
+packet_manifests = [
+    project_root / f"data_construction/pilot/review_packets/operator_granularity_{granularity}_v0_1_manifest.json"
+    for granularity in ("coarse", "medium", "fine")
+]
+
+with tempfile.TemporaryDirectory(prefix="granularity-preflight-") as temporary_directory:
+    temporary_root = Path(temporary_directory)
+    reproduced_checks = temporary_root / "checks.jsonl"
+    validator = subprocess.run(
+        [
+            sys.executable,
+            "-B",
+            str(tool_dir / "validate_operator_granularity.py"),
+            str(representations),
+            "--checks-output",
+            str(reproduced_checks),
+        ],
+        cwd=project_root,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if validator.returncode != 0:
+        raise SystemExit(
+            f"validator rc={validator.returncode}; stdout={validator.stdout.strip()}; "
+            f"stderr={validator.stderr.strip()}"
+        )
+    reproduced_records = jsonl(reproduced_checks)
+    if (
+        len(reproduced_records) != 90
+        or any(record.get("status") != "pass" for record in reproduced_records)
+        or any(record.get("errors") != [] for record in reproduced_records)
+        or any(record.get("warnings") != [] for record in reproduced_records)
+    ):
+        raise SystemExit("live validator did not reproduce 90 warning-free pass checks")
+
+    reproduced_metrics_path = temporary_root / "metrics.json"
+    comparison = subprocess.run(
+        [
+            sys.executable,
+            "-B",
+            str(tool_dir / "compare_operator_granularity.py"),
+            str(representations),
+            "--questions",
+            str(questions),
+            "--input-views",
+            str(views),
+            "--input-views-manifest",
+            str(view_manifest),
+            "--validation-checks",
+            str(committed_checks),
+            "--json-output",
+            str(reproduced_metrics_path),
+        ],
+        cwd=project_root,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if comparison.returncode != 2:
+        raise SystemExit(
+            f"human-pending comparator expected rc=2, observed {comparison.returncode}; "
+            f"stdout={comparison.stdout.strip()}; stderr={comparison.stderr.strip()}"
+        )
+    reproduced_metrics = json.loads(reproduced_metrics_path.read_text(encoding="utf-8"))
+
+committed_metrics = json.loads(committed_metrics_path.read_text(encoding="utf-8"))
+expected_status = {
+    "study_status": "structural_integrity_complete_human_calibration_pending",
+    "integrity_complete": True,
+    "human_calibration_complete": False,
+    "evidence_complete": False,
+    "semantic_confirmation_complete": False,
+    "selection_ready": False,
+    "provisional_decision": "UNDECIDED_NEEDS_ANNOTATION_EVIDENCE",
+    "question_count": 30,
+}
+for label, summary in (("committed", committed_metrics), ("reproduced", reproduced_metrics)):
+    for key, expected in expected_status.items():
+        if summary.get(key) != expected:
+            raise SystemExit(f"{label} metrics mismatch for {key}")
+    if summary.get("metrics") != committed_metrics.get("metrics"):
+        raise SystemExit(f"{label} metrics table differs from the committed study result")
+    if summary.get("reviewer_authentication_status") != "procedural_not_machine_verifiable":
+        raise SystemExit(f"{label} metrics overstates reviewer authentication")
+
+for granularity in ("coarse", "medium", "fine"):
+    metric = committed_metrics["metrics"].get(granularity, {})
+    if (
+        metric.get("representation_count") != 30
+        or metric.get("valid_topology_observation_count") != 30
+        or metric.get("human_review_record_count") != 0
+        or metric.get("annotation_disagreement_observation_count") != 0
+        or metric.get("annotation_disagreement_rate") is not None
+    ):
+        raise SystemExit(f"{granularity} metrics do not preserve the 30/0/N/A evidence boundary")
+
+live_bindings = {
+    "questions_artifact_sha256": questions,
+    "input_views_artifact_sha256": views,
+    "input_views_manifest_artifact_sha256": view_manifest,
+    "representations_artifact_sha256": representations,
+    "validation_checks_artifact_sha256": committed_checks,
+    "operator_granularity_schema_artifact_sha256": schema,
+}
+provenance = committed_metrics.get("provenance", {})
+for field, path in live_bindings.items():
+    if provenance.get(field) != sha256_file(path):
+        raise SystemExit(f"committed metrics live hash mismatch for {field}")
+if (
+    provenance.get("validation_checks_record_count") != 90
+    or provenance.get("validation_checks_verified") is not True
+    or provenance.get("human_review_artifacts") != []
+    or provenance.get("review_packet_artifacts") != []
+):
+    raise SystemExit("committed metrics provenance overstates review evidence or checks")
+
+records = jsonl(representations)
+input_views = jsonl(views)
+packet_errors, payload_hashes, packet_provenance = comparator.validate_review_packet_manifests(
+    packet_manifests,
+    records,
+    input_views,
+    {
+        "questions": questions,
+        "input_views": views,
+        "input_views_manifest": view_manifest,
+        "representations": representations,
+        "validation_checks": committed_checks,
+    },
+    project_root,
+)
+if packet_errors:
+    raise SystemExit("review packet validation failed: " + " | ".join(packet_errors))
+if set(payload_hashes) != {"coarse", "medium", "fine"} or len(packet_provenance) != 3:
+    raise SystemExit("review packets do not cover exactly three granularities")
+
+state = json.loads((project_root / "state/project_state.json").read_text(encoding="utf-8"))
+pilot = state.get("artifact_status", {}).get("operator_granularity_pilot", {})
+state_artifacts = pilot.get("artifacts", {})
+expected_state_artifacts = {
+    "input_views": views,
+    "input_views_manifest": view_manifest,
+    "representations": representations,
+    "deterministic_checks": committed_checks,
+    "metrics": committed_metrics_path,
+}
+for label, path in expected_state_artifacts.items():
+    reference = state_artifacts.get(label)
+    if not isinstance(reference, dict) or reference.get("path") != path.relative_to(project_root).as_posix():
+        raise SystemExit(f"project state lacks canonical pilot artifact {label}")
+    if reference.get("sha256") != sha256_file(path):
+        raise SystemExit(f"project state hash mismatch for pilot artifact {label}")
+
+print(
+    "questions=30;representations=90;checks=90_pass_0_error_0_warning;"
+    "packets=3;human_reviews=0;disagreement=N/A;selection_ready=false"
+)
+PY
+    )
+    granularity_rc=$?
+    if [ "$granularity_rc" -eq 0 ]; then
+        pass_check "OPERATOR_GRANULARITY_PILOT: $granularity_output"
+    else
+        fail_check "OPERATOR_GRANULARITY_PILOT_FAILED: $granularity_output"
     fi
 
     ir_reference_output=$("$PYTHON_BIN" -B - <<'PY' 2>&1
@@ -1112,7 +1368,7 @@ else
     block_check "HISTORICAL_ARTIFACTS_MISSING:$missing_historical"
 fi
 
-printf '%s\n' '[INFO] MODEL_IDENTITY: no model is required for the completed recovery, validation, or pilot-input allocation'
+printf '%s\n' '[INFO] MODEL_IDENTITY: deterministic validation requires no model runtime; pilot representations are llm_proposed with model_id=codex_gpt-5, while exact revision and raw model output were not exposed by the interface'
 
 local_secret_present=0
 for secret_file in .env .env.local

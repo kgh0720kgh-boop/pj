@@ -1,8 +1,8 @@
 # Corpus statistics
 
-## 2026-08-23 현재 상태 addendum
+## 2026-08-23 Phase 2 실행 결과 addendum
 
-현재 in-progress 상태는 `DATA_SOURCE_READY_FOR_ANNOTATION_PILOT`이며, corpus는 아직 구축하지 않았다. 아래 수치는 질문 역할 배정과 역사 audit의 현재 사실을 annotation/corpus 산출물과 구분한다.
+현재 study 상태는 `structural_integrity_complete_human_calibration_pending`이고 잠정 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`다. Pilot proposal과 결정론 검사는 생성됐지만, resolved annotation corpus는 여전히 구축하지 않았다. 아래에서 pilot 구조 통계와 corpus 건수를 분리한다.
 
 | 항목 | 현재 값 |
 |---|---:|
@@ -12,19 +12,32 @@
 | 새 `annotation_train` 질문 | 0 |
 | 새 `annotation_dev` 질문 | 0 |
 | 새 `locked_eval` 질문 | 0 |
-| coarse/medium/fine representation | 0 — NOT_RUN |
-| LLM proposal | 0 — NOT_RUN |
-| human review/adjudication | 0 — NOT_RUN |
-| resolved annotation | 0 — NOT_RUN |
+| model-assisted proposal record | 30 — `llm_proposed` |
+| coarse/medium/fine representation | 30 / 30 / 30 — 총 90 |
+| deterministic check | 90 pass, 0 error, 0 warning |
+| review packet | 3 — 사람 판정 미포함 |
+| human review record | 0 — pending |
+| adjudication / resolved annotation | 0 / 0 — pending/not_created |
 | corpus record | 0 — NOT_BUILT |
 
-30문항 배정은 핀된 source와 source-ID inventory를 검증하고 역사 노출 100개를 제외해 결정론적으로 수행했다. Manifest는 `release_eligible=true`, `override_used=false`, `zero_overlap_verified=true`이고 질문 view에 금지된 answer/trace 필드가 없다. 이 30은 “release 가능한 annotation 30개”가 아니라 주석을 시작할 수 있는 질문 30개다.
+### Pilot proposal 진단 통계
 
-역사 파일 5개는 commit `1995c0cf79ab8e987773041d456d4a1b8df19793`에 byte-for-byte 보존됐고 verified strict manifest는 오류 없이 complete다. IR v0.2 10-file quarantine과 condition C graph 50개는 commit `dcc5ac5c14e9acb5c689b400a4046708b6837ac3`에 보존됐다. Current-side adapter baseline은 50 records/520 nodes를 parse/schema/v0.2 validator 오류 0개로 검증하고 `DEAD_NODE` 경고 455개를 재현했다. 이는 역사 validation 통계이므로 50개 graph를 새 corpus record나 현재 annotation 통계에 합산하지 않는다.
+| 지표 | Coarse | Medium | Fine |
+|---|---:|---:|---:|
+| coverage | 14/30 (46.67%) | 13/30 (43.33%) | 13/30 (43.33%) |
+| graph 길이 평균 / 중앙값 / 범위 | 2.57 / 3 / 2–3 | 4.83 / 5 / 4–8 | 6.87 / 7 / 6–9 |
+| 평균 고유 연산자 수 | 2.57 | 4.60 | 6.70 |
+| 새 연산자 필요 | 16/30 (53.33%) | 17/30 (56.67%) | 17/30 (56.67%) |
+| ambiguity | 19/30 (63.33%) | 19/30 (63.33%) | 19/30 (63.33%) |
+| hidden reasoning | 30/30 (100%) | 0/30 (0%) | 0/30 (0%) |
+| excessive fragmentation | 0/30 (0%) | 0/30 (0%) | 19/30 (63.33%) |
+| human disagreement | N/A (관측 0) | N/A (관측 0) | N/A (관측 0) |
 
-프로젝트 로컬 exact-pin `.venv`는 8개 schema/3개 vocabulary 검증을 통과했고, IR adapter hardening과 live annotation-reference bridge를 포함한 최종 pinned suite는 `43/43` 통과했다. Granularity 표현과 결정론 검사, human calibration이 완료되기 전에는 모호성·대안 계획·topology 길이·합의율을 계산하지 않는다.
+이 표는 `operator_granularity_metrics_v0_1.json`의 model-assisted proposal 집계다. Coverage, ambiguity, hidden reasoning, fragmentation은 human-confirmed corpus statistics가 아니며, 90개 표현을 90개 resolved annotation 또는 corpus record로 합산해서는 안 된다. 사람 검토가 없으므로 disagreement는 N/A이고 암묵적 100% 합의가 아니다.
 
-다음 exact task는 같은 30문항의 leakage-safe coarse/medium/fine representation을 만들고 결정론 검사 후 human calibration을 수행하는 것이다.
+30문항 배정은 핀된 source와 역사 노출 100개의 비중복을 검증했고, input view는 answer/trace/grounding을 노출하지 않는다. 90개 deterministic pass는 schema, DAG, vocabulary, source/view/artifact hash 결속의 구조적 무결성을 뜻할 뿐 semantic correctness를 뜻하지 않는다. 현재 `human_calibration_complete=false`, `semantic_confirmation_complete=false`, `evidence_complete=false`, `selection_ready=false`이며 어떤 vocabulary도 선택·동결하지 않았다. Gold corpus와 modeling-ready 상태도 없다.
+
+다음 exact task는 각 granularity에 두 독립 reviewer ID를 배정해 총 180개 판정을 수집하고 hash 검증 후 필요한 adjudication을 완료하는 것이다. 그 전에는 pilot proposal 수치를 corpus-level 확정 통계로 승격하지 않는다.
 
 아래는 역사 gate 해제 및 pilot 배정 전인 2026-08-21의 snapshot이다.
 

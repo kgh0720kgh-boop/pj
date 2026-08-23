@@ -1,17 +1,36 @@
 # Data Construction Research Report
 
-## 2026-08-23 현재 상태 addendum
+## 2026-08-23 Phase 2 실행 결과 addendum
 
-현재 활성 작업은 strict-complete 역사 감사와 source-verified pilot 배정을 바탕으로 하는 operator-granularity pilot 준비다. In-progress 과학 상태는 `DATA_SOURCE_READY_FOR_ANNOTATION_PILOT`이며, 이는 아래 최종 modeling decision 집합 중 하나가 아니고 modeling-ready 선언도 아니다.
+현재 활성 단계는 operator-granularity annotation pilot이고 study 상태는 `structural_integrity_complete_human_calibration_pending`이다. 잠정 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`이며, 최종 modeling decision이나 modeling-ready 선언이 아니다.
 
-### 이번에 해제되거나 완료된 gate
+### 이번 단계에서 완료한 항목
 
-- 연구자가 승인한 역사 작업공간에서 Week 1–3 파일 5개를 byte-for-byte 복구해 보존 commit `1995c0cf79ab8e987773041d456d4a1b8df19793`에 고정했다.
-- `state/historical_recovery_provenance_v0_1.json`은 researcher-approved authoritative provenance로 검증됐다. Strict manifest는 `complete`, 노출 고유 ID 100개, 역사 locked-eval 15개, 누락/건수 불일치/release-contract 오류 0개다.
-- 핀된 공식 HybridQA dev source와 역사 금지 ID를 대조해 30문항 `annotation_schema_pilot`을 결정론적으로 배정했다. `release_eligible=true`, override 없음, zero overlap이며 question-only artifact에 forbidden answer/trace 필드가 없다. 새 train/dev/locked 역할은 모두 0개다.
-- 역사 IR v0.2 원본 10개를 read-only quarantine과 recovery manifest로 commit `dcc5ac5c14e9acb5c689b400a4046708b6837ac3`에 보존했다. Current-side adapter baseline은 condition C의 50 records/520 nodes를 parse/schema/v0.2 validator 오류 0개로 검증했고, 알려진 역사 planner 실패 증거인 `DEAD_NODE` 경고 455개를 재현했다.
-- 프로젝트 로컬 exact-pin `.venv`에서 8개 schema와 3개 vocabulary의 Draft 2020-12 검증이 통과했고, IR adapter hardening과 live annotation-reference bridge를 포함한 최종 pinned suite는 `43/43` 통과했다.
-- Git은 `main`에서 `origin/main`보다 여러 local commit 앞서 있고 remote push는 승인되지 않았다. 동기화 상태는 `LOCAL_COMMIT_NOT_PUSHED`다.
+- 연구자 승인 provenance의 Week 1–3 파일 5개와 100개 역사 노출 ID/15개 역사 locked-eval ID에 대한 strict audit는 계속 complete이고 오류는 0개다.
+- 핀된 공식 HybridQA dev source에서 역사 노출과 겹치지 않는 30개 `annotation_schema_pilot` 질문을 유지했다. 새 train/dev/locked 역할은 모두 0개다.
+- 질문과 table/document 환경의 허용된 schema/capability만 담고 answer, row/cell value, document text/ID, trace, grounding을 배제한 operator input view 30개를 생성했다.
+- 같은 30문항에 coarse/medium/fine 표현을 각각 하나씩 생성해 30 records/90 representations를 보존했다. 상태는 model-assisted `llm_proposed`이며 exact model revision과 raw model output이 인터페이스에서 노출되지 않았다는 provenance 한계를 명시했다.
+- 90개 representation의 Draft 2020-12, DAG, operator-vocabulary, source/view/artifact hash 결속 검사가 모두 통과했다. Deterministic check 결과는 90 pass, 0 error, 0 warning이다.
+- 세 granularity review packet을 각각 30항목으로 만들었다. Packet은 review UI와 hash contract일 뿐 사람 검토를 생성하지 않았으며 manifest의 review count는 모두 0이다.
+- 프로젝트 로컬 exact-pin 환경에서 현재 9개 schema와 3개 vocabulary 검증이 통과했고 write-once output 보호를 포함한 표준 테스트는 `51/51` 통과했다.
+- 역사 IR v0.2 10-file quarantine과 adapter baseline은 계속 50 records/520 nodes, parse/schema/v0.2 validator errors 0, 역사적 `DEAD_NODE` warnings 455로 보존된다. 이는 현재 granularity 우수성 증거가 아니다.
+
+### Proposal-level 비교 결과
+
+| 지표 | Coarse | Medium | Fine |
+|---|---:|---:|---:|
+| representation | 30 | 30 | 30 |
+| coverage | 14/30 (46.67%) | 13/30 (43.33%) | 13/30 (43.33%) |
+| graph 길이 평균 / 중앙값 / 범위 | 2.57 / 3 / 2–3 | 4.83 / 5 / 4–8 | 6.87 / 7 / 6–9 |
+| 평균 고유 연산자 수 | 2.57 | 4.60 | 6.70 |
+| 새 연산자 필요 | 16/30 (53.33%) | 17/30 (56.67%) | 17/30 (56.67%) |
+| ambiguity | 19/30 (63.33%) | 19/30 (63.33%) | 19/30 (63.33%) |
+| hidden reasoning | 30/30 (100%) | 0/30 (0%) | 0/30 (0%) |
+| excessive fragmentation | 0/30 (0%) | 0/30 (0%) | 19/30 (63.33%) |
+| human review record | 0 | 0 | 0 |
+| human disagreement | N/A (관측 0) | N/A (관측 0) | N/A (관측 0) |
+
+위 coverage·ambiguity·hidden reasoning·fragmentation은 proposal 자기평가의 집계이며 사람 확인값이 아니다. 구조적 결과는 coarse의 reasoning 은닉과 fine의 파편화 trade-off를 보여 주지만, medium의 coverage도 43.33%이고 새 연산자 필요율도 56.67%다. Coverage alone is not a sufficient selection criterion. 사람 검토 없이 이 표만으로 어휘를 선택할 수 없다.
 
 ### 현재 수용 기준과 연구 해석
 
@@ -21,17 +40,19 @@
 | 과거 노출 ID 명시 추적 | PASS — exposed 100, historical locked 15, strict errors 0 |
 | Pilot 역할 source/history 비중복 | PASS — 30 questions, deterministic, no override |
 | 새 train/dev/locked 분할 | NOT_ALLOCATED — 모두 0 |
-| 프로젝트 로컬 schema/vocabulary 재현 | PASS — 8 schemas/3 vocabularies |
+| 프로젝트 로컬 schema/vocabulary 재현 | PASS — 9 schemas/3 vocabularies |
 | IR v0.2 원본 보존/validator 연결 | PASS — 10-file quarantine; 50 records/520 nodes, errors 0, `DEAD_NODE` warnings 455 |
-| coarse/medium/fine empirical pilot | NOT_RUN |
-| LLM proposal 및 deterministic annotation checks | NOT_RUN |
-| 사람 calibration/review/adjudication | NOT_RUN |
-| resolved annotation/corpus | NOT_RUN/NOT_BUILT |
+| coarse/medium/fine proposal 생성 | COMPLETE — 30 records/90 representations, `llm_proposed` |
+| deterministic representation validation | PASS — 90/90, errors 0, warnings 0 |
+| human calibration | PENDING — 0 review records, disagreement N/A |
+| semantic confirmation / evidence complete | FALSE / FALSE |
+| vocabulary selection | NOT_SELECTED |
+| resolved annotation/corpus | NOT_CREATED/NOT_BUILT |
 | factorized modeling readiness | NOT_CLAIMED |
 
-두 핵심 연구 질문의 답은 여전히 “판단 불가”다. Schema/계층 분리 계약과 안전한 표본은 준비됐지만 annotation stability와 granularity trade-off의 경험적 근거가 없다. 최종 과학 결정(`READY_FOR_FACTORIZED_MODELING`, `REVISE_ANNOTATION_SCHEMA`, `REVISE_OPERATOR_VOCABULARY`, `NEED_MORE_HUMAN_REVIEW`, `DATA_SOURCE_BLOCKED`, `STOP_OR_REFRAME`)은 아직 선택하지 않는다.
+두 핵심 연구 질문은 아직 최종 답을 낼 수 없다. Leakage-safe 계층 표현 후보를 30문항에서 구조적으로 생성하고 검증할 수 있음은 확인했지만, 의미 정답성과 주석 안정성은 확인하지 못했다. 어떤 primitive granularity가 가장 좋은지도 human calibration 전에는 판단하지 않는다. 따라서 어떤 vocabulary도 선택·동결하지 않고, `llm_proposed`를 gold로 승격하지 않으며, corpus/modeling readiness를 주장하지 않는다. Comparator의 상태는 `human_calibration_complete=false`, `semantic_confirmation_complete=false`, `evidence_complete=false`, `selection_ready=false`다.
 
-다음 exact task는 같은 30개 pilot 질문에 leakage-safe coarse/medium/fine representation을 구축하고 결정론 검사를 실행한 뒤 human calibration을 수행하는 것이다.
+다음 exact task는 granularity마다 서로 다른 안정적 pseudonymous reviewer ID 두 개 이상으로 독립 검토하는 것이다. Reviewer×granularity 파일 6개와 총 180개 판정에서 다섯 실질 평가 필드를 모두 채우고, raw record·packet payload·representation hash 결속을 검증한다. 이후 reject, `accept_with_edits`, 실질 평가 불일치를 adjudicate한 뒤에만 granularity 선택이나 schema/vocabulary 개정 결정을 내린다. Reviewer authentication은 `procedural_not_machine_verifiable`이므로 절차적으로 확인해야 한다.
 
 아래는 2026-08-21 당시의 감사·설계 snapshot이다. 당시의 부재/차단 주장은 그 시점의 증거를 보존하기 위해 유지하며, 현재 상태 판단에는 위 addendum을 우선한다.
 

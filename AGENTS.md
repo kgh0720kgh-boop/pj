@@ -38,10 +38,12 @@ The project is in the operator-granularity annotation-pilot phase:
 - the strict historical manifest is complete for the five byte-preserved Week 1–3 files: 100 unique exposed IDs, including 15 locked-evaluation IDs, with zero errors;
 - the ten-file historical IR v0.2 bundle is quarantined read-only under `historical/ir_v0_2/`, with a recovery manifest and a current-side adapter outside that tree;
 - the adapter validates all 50 historical condition-C graphs and 520 nodes with zero parse, Draft 2020-12 schema, or IR-validator errors; its 455 `DEAD_NODE` warnings are historical planner evidence, not successful-pipeline or operator-granularity evidence;
-- a project-local exact-pin `.venv` reproduced full validation of all eight schemas and three vocabularies with zero errors/warnings;
+- a project-local exact-pin `.venv` reproduced full validation of all nine schemas and three vocabularies with zero errors/warnings;
 - 30 fresh questions were allocated from the pinned official dev source to `annotation_schema_pilot`, with zero historical overlap and no diagnostic override; train/dev/locked-eval remain unallocated at zero;
-- the current in-progress scientific state is `DATA_SOURCE_READY_FOR_ANNOTATION_PILOT`, not a final modeling-ready or gold-corpus decision;
-- the next exact task is to build leakage-safe coarse, medium, and fine representations for the same 30 questions, then run deterministic checks and human calibration.
+- leakage-safe operator views and model-assisted coarse, medium, and fine representations now cover the same 30 questions; all 90 representation checks pass the Draft 2020-12, structural, live-artifact, and vocabulary contract;
+- three hash-bound offline review packets exist, but they contain zero human reviews; the proposals remain `llm_proposed`, never `gold`;
+- the current study state is `structural_integrity_complete_human_calibration_pending`, with decision `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`; no operator vocabulary is selected or frozen and the corpus is not modeling-ready;
+- the next exact task is to obtain two independent substantive human review sets per granularity: at least two distinct stable pseudonymous reviewer IDs for each of coarse, medium, and fine, represented as six reviewer-by-granularity files and 180 total decisions. Then rerun the comparator and adjudicate every reject, edit, or substantive disagreement before any vocabulary-selection request. Reviewer identity and independence are procedural, not machine-verifiable.
 
 The authoritative phase/next task is always the current handoff, not this summary.
 
@@ -77,6 +79,8 @@ Full schema validation has also passed in the reconstructed project-local pinned
 .venv/bin/python -m unittest discover -s tests -v
 ```
 
+The current exact-pin result is nine schemas, three vocabulary instances, zero schema errors/warnings, and 51 passing deterministic tests. The granularity comparator intentionally exits `2` while real human calibration or adjudication is pending; that readiness result is not a structural-validation failure.
+
 The preflight selects `.venv/bin/python` when present, otherwise `python3`. It parses the core JSON set, validates state/manifest meaning, compares installed packages with every exact requirements pin, runs the schema and IR-reference checks plus the current test suite, and verifies Git/historical gates. Exit `0` means ready, exit `1` means a validation failure, and exit `2` means checks ran without validation failure but a declared readiness blocker remains.
 
 ## Data-construction commands
@@ -102,9 +106,15 @@ Annotation/tool entry points are documented in `data_construction/README.md`. Do
 - `data_construction/manifests/source_manifest_v0_1.json`: audited official source identities, hashes, counts, and reacquisition contract.
 - `data_construction/manifests/split_manifest_v0_1.json`: release-eligible 30-question annotation-pilot allocation; train/dev/locked-eval counts remain zero.
 - `data_construction/pilot/questions.jsonl`: leakage-safe source records for the 30-question pilot.
+- `data_construction/pilot/granularity_input_views.jsonl` and `granularity_input_views_manifest_v0_1.json`: hash-bound question/operator views that expose table schema and capabilities but no row/cell or linked-document content.
+- `data_construction/pilot/granularity_representation_plan_v0_1.json`: structured model-assisted proposal plan; its exact model revision and raw model output were not exposed by the interface, and those limitations are recorded explicitly.
+- `data_construction/pilot/granularity_representations.jsonl`: 30 `llm_proposed` records with coarse, medium, and fine candidate DAGs.
+- `data_construction/pilot/granularity_deterministic_checks.jsonl`: 90 passing checks bound to live artifacts and validator implementation provenance.
+- `data_construction/pilot/review_packets/`: three deterministic HTML packets and manifests; packet creation does not constitute human review, and downloaded review arrays remain external to the representation artifact.
+- `data_construction/reports/operator_granularity_metrics_v0_1.json`: current structural metrics with human-calibration observations at zero.
 - `historical/ir_v0_2/`: quarantined, byte-preserved historical IR contract/runtime and condition-C evidence; never use condition C as an early-layer input.
 - `data_construction/tools/validate_ir_v0_2_reference.py`: current-side adapter that validates references without modifying the preserved IR bundle.
-- `data_construction/schemas/`: eight versioned schema files.
+- `data_construction/schemas/`: nine versioned schema files.
 - `data_construction/operator_design/`: coarse, medium, and fine v0.1 candidate vocabularies.
 - `data_construction/tools/`: deterministic audit, sampling, validation, review, comparison, and statistics tools.
 - `tests/test_data_construction_tools.py`: current standard-library test suite.
@@ -126,7 +136,7 @@ Annotation/tool entry points are documented in `data_construction/README.md`. Do
 - Use `semantic_schema_v0_1`, `obligation_schema_v0_1`, `operator_vocabulary_v0_1`, `grounding_schema_v0_1`, and `annotation_bundle_v0_1` as the initial version family.
 - Never overwrite a released schema, manifest, vocabulary, annotation bundle, or historical artifact.
 - If pilot evidence requires a change, create a new version and migration notes.
-- Record schema/operator versions, source identity and hashes, IDs, model ID and exact revision, seed, code commit, raw-output hashes, and run status for every research run.
+- Record schema/operator versions, source identity and hashes, IDs, model ID and exact revision, seed, code commit, raw-output hashes, and run status for every research run. If an interface does not expose an exact model revision, seed, or raw output, record the explicit unavailable/not-supported status and treat that as a reproducibility limitation; never invent a value or claim complete model provenance.
 - Do not change IR v0.2 for convenience; require repeated annotation evidence and a separately documented version decision.
 
 ## Locked-evaluation rules

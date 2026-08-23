@@ -1,18 +1,30 @@
 # Operator granularity study v0.1
 
-## 2026-08-23 현재 상태 addendum
+## 2026-08-23 Phase 2 실행 결과 addendum
 
-현재 in-progress 상태: `DATA_SOURCE_READY_FOR_ANNOTATION_PILOT`
+현재 study 상태는 `structural_integrity_complete_human_calibration_pending`이고 잠정 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`다. 고정된 30개 `annotation_schema_pilot` 질문에 대해 coarse/medium/fine 표현을 각각 하나씩, 총 90개 만들었다. 이 표현은 model-assisted `llm_proposed` 산출물이며 사람이 확인한 annotation이나 gold가 아니다. 기록된 model ID는 `codex_gpt-5`이고, exact model revision과 raw model output은 실행 인터페이스에서 노출되지 않았다는 한계도 provenance에 명시했다.
 
-Week 1–3 파일 5개는 researcher-approved workspace에서 byte-for-byte 복구되어 commit `1995c0cf79ab8e987773041d456d4a1b8df19793`에 보존됐고 provenance receipt가 검증됐다. 과거 노출 audit는 exposed 100/locked 15, 오류 0으로 strict-complete가 되었다. 핀된 공식 source에서 이 역사 노출 100개를 제외한 `annotation_schema_pilot` 30문항도 결정론적으로 배정됐다. 배정은 `release_eligible=true`, override 없음, 역할 간 overlap 없음이며 질문 view에는 answer/weak trace 등 금지 필드가 없다. 따라서 이전의 표본 확정 차단은 해제됐다.
+`granularity_deterministic_checks.jsonl`의 90개 검사는 모두 통과했고 오류와 경고는 각각 0개다. Comparator도 30개 질문과 세 granularity의 완전한 ID 대응, live artifact hash, vocabulary/schema 결속을 검증해 `integrity_complete=true`로 기록했다. 이는 구조 및 provenance 무결성 결과일 뿐 표현의 의미적 정답성을 입증하지 않는다.
 
-다만 coarse/medium/fine representation 자체는 아직 작성하지 않았다. Coverage, graph 길이, 연산자 수, 새 연산자 필요율, 추론 은닉, 과도한 파편화, 사람 간 불일치는 모두 계속 `N/A/NOT_RUN`이며, 어떤 vocabulary도 경험적으로 선택하거나 동결하지 않았다. LLM proposal, human review, resolved annotation, corpus도 `NOT_RUN`이다.
+| 지표 | Coarse | Medium | Fine |
+|---|---:|---:|---:|
+| representation 수 | 30 | 30 | 30 |
+| proposal coverage | 14/30 (46.67%) | 13/30 (43.33%) | 13/30 (43.33%) |
+| graph 길이 평균 / 중앙값 | 2.57 / 3 | 4.83 / 5 | 6.87 / 7 |
+| graph 길이 범위 | 2–3 | 4–8 | 6–9 |
+| 질문당 평균 고유 연산자 수 | 2.57 | 4.60 | 6.70 |
+| 새 연산자 필요 | 16/30 (53.33%) | 17/30 (56.67%) | 17/30 (56.67%) |
+| proposal ambiguity | 19/30 (63.33%) | 19/30 (63.33%) | 19/30 (63.33%) |
+| 추론 은닉 | 30/30 (100%) | 0/30 (0%) | 0/30 (0%) |
+| 과도한 파편화 | 0/30 (0%) | 0/30 (0%) | 19/30 (63.33%) |
+| human review record | 0 | 0 | 0 |
+| 사람 간 불일치 | N/A (관측 0) | N/A (관측 0) | N/A (관측 0) |
 
-역사 IR v0.2 계약과 condition C graph 50개는 10-file read-only quarantine 및 recovery manifest와 함께 commit `dcc5ac5c14e9acb5c689b400a4046708b6837ac3`에 보존됐다. Current-side adapter baseline은 50 records/520 nodes에 대해 parse/schema/v0.2 validator 오류 0개와 `DEAD_NODE` 경고 455개를 재현했다. 이는 역사 artifact 무결성/validator 연결 증거이지 현재 어휘의 granularity 우수성 증거가 아니다.
+Coverage·ambiguity·추론 은닉·파편화 값은 proposal에 기록된 자기평가를 집계한 값이므로 human-confirmed 측정값이 아니다. 특히 사람 판정이 0개라서 disagreement를 0%로 해석할 수 없다. 세 leakage-safe review packet은 granularity별 30개 항목으로 생성됐지만 각 manifest는 `packet_created_no_human_reviews`와 `reviews_included=0`을 명시한다. 따라서 `human_calibration_complete=false`, `semantic_confirmation_complete=false`, `evidence_complete=false`, `selection_ready=false`다.
 
-프로젝트 로컬 exact-pin `.venv`는 8개 schema/3개 vocabulary 검증을 통과했고, IR adapter hardening과 live annotation-reference bridge를 포함한 최종 pinned suite는 `43/43` 통과했다.
+구조적 결과만 보면 coarse는 모든 질문에서 reasoning을 숨기고 fine은 19개 질문에서 과도하게 파편화된다는 trade-off가 나타난다. 그러나 medium의 proposal coverage도 43.33%에 불과하고 실제 사람 검토가 없으므로, 이 비교만으로 medium 또는 다른 어휘를 선택할 수 없다. Coverage alone is not a sufficient selection criterion. 어떤 vocabulary도 선택·동결하지 않았고 resolved annotation, gold corpus, modeling readiness도 주장하지 않는다.
 
-다음 exact task는 배정된 같은 30문항 각각에 대해 leakage-safe coarse/medium/fine 표현을 만들고 결정론 검사를 실행하는 것이다. 그 다음 raw 판정과 대상 hash를 보존하는 human calibration을 수행한다. 현재 결정 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`는 유지되며, `DATA_SOURCE_READY_FOR_ANNOTATION_PILOT`는 최종 modeling decision이나 modeling-ready 선언이 아니다.
+다음 exact task는 각 granularity마다 서로 다른 안정적 pseudonymous reviewer ID 두 개 이상을 사용해 독립 검토하는 것이다. 즉 reviewer×granularity 입력 파일 6개와 총 180개 판정이 필요하며, 각 판정은 `semantic_validity`, `coverage_status`, `ambiguity_present`, `hides_reasoning`, `excessive_fragmentation`을 모두 채워야 한다. Review hash와 packet/representation 결속을 검증한 뒤 reject, `accept_with_edits`, 실질 평가 불일치를 adjudicate해야 한다. Reviewer identity 인증은 현재 `procedural_not_machine_verifiable`이므로 절차적으로 확인해야 한다.
 
 아래는 표본 배정 전인 2026-08-21의 역사적 상태 기록이다.
 

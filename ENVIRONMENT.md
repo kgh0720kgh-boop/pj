@@ -2,7 +2,7 @@
 
 ## Current reproducibility status
 
-The continuity scaffold, canonical project Git history, official HybridQA source identities, Python version, exact pip requirements, schema/vocabulary bundle, tools, tests, historical-exposure audit, and recovered IR v0.2 evidence are portable. On 2026-08-23 the project-local pinned virtual environment was reconstructed and reproduced full Draft 2020-12 validation for all eight schemas and three vocabularies with zero errors/warnings.
+The continuity scaffold, canonical project Git history, official HybridQA source identities, Python version, exact pip requirements, schema/vocabulary bundle, tools, tests, historical-exposure audit, and recovered IR v0.2 evidence are portable. On 2026-08-23 the project-local pinned virtual environment was reconstructed; against the current bundle it reproduces full Draft 2020-12 validation for all nine schemas and three vocabularies with zero errors/warnings.
 
 The canonical project repository decision is resolved. The researcher authorized a preservation-first migration from the recovered historical workspace on 2026-08-23. This reset scaffold uses one dependency mechanism: pip requirements pinned in `requirements.txt`.
 
@@ -48,17 +48,17 @@ sh scripts/cross_device_preflight.sh
 
 The earlier workstation observation lacked `ensurepip`/the matching `python3-venv` OS package. On 2026-08-23 this workstation was rechecked: CPython 3.10.12, `ensurepip`, `python3-venv`, and `python3.10-venv` were available, and a fresh project-local `.venv` was created from the exact pins. Recreate it independently on every workstation; never copy a virtual environment between workstations.
 
-The earlier exact-pin ephemeral result remains historical evidence. The same `check_schema_bundle.py --require-jsonschema` result is now reproduced in the project-local `.venv`: eight schemas and three vocabulary instances, errors=0 and warnings=0.
+The earlier exact-pin ephemeral validation of the then-current eight-schema/three-vocabulary bundle remains historical evidence and must not be rewritten as if it covered the later schema. The current project-local `.venv` result is nine schemas and three vocabulary instances, errors=0 and warnings=0.
 
 ## Validation levels
 
 The checks intentionally have different meanings:
 
 1. `python3 -m json.tool` and the preflight core-JSON loop prove UTF-8 JSON parseability.
-2. `python3 data_construction/tools/check_schema_bundle.py` checks all eight schemas, all three vocabularies, expected identities, portable `$id`/local `$ref` resolution, and available validator behavior. Under the 2026-08-21 system `jsonschema==3.2.0` it used a warned Draft 7 fallback; the 2026-08-23 system has `4.26.0`, but an unpinned system result is still not the project reproduction result.
+2. `python3 data_construction/tools/check_schema_bundle.py` checks all nine schemas, all three vocabularies, expected identities, portable `$id`/local `$ref` resolution, and available validator behavior. Under the 2026-08-21 system `jsonschema==3.2.0` it used a warned Draft 7 fallback; the 2026-08-23 system has `4.26.0`, but an unpinned system result is still not the project reproduction result.
 3. `.venv/bin/python data_construction/tools/check_schema_bundle.py --require-jsonschema` is the required project-local reproduction check. It now passes with every installed version matching `requirements.txt` and `pip check` passing.
 4. `.venv/bin/python data_construction/tools/validate_ir_v0_2_reference.py --all` authenticates the ten preserved files against their recovery manifest and immutable Git authority, loads the recovered runtime in isolation, and validates all 50 condition-C graphs. The current result is 50/50 graphs, 520 nodes, zero parse/schema/IR-validator errors, and 455 `DEAD_NODE` warnings.
-5. `.venv/bin/python -m unittest discover -s tests -v` runs the current deterministic regression suite covering history/source gates, sampling, leakage checks, review-packet redaction, schema hardening, IR references, and operator-granularity/statistics behavior.
+5. `.venv/bin/python -m unittest discover -s tests -v` runs the deterministic regression suite covering history/source gates, sampling, leakage checks, exact review-packet rendering, write-once output protection, schema hardening, IR references, and operator-granularity/statistics behavior. The current observed result is 51 tests passed.
 
 A lower validation level must never be reported as the full Draft 2020-12 result.
 
@@ -70,9 +70,13 @@ The five historical Week 1–3 artifacts were preserved byte-for-byte with resea
 
 The ten-file IR v0.2 evidence bundle is quarantined read-only under `historical/ir_v0_2/` and bound to its recovery manifest. Its condition-C JSONL contains answers and evaluator outputs, so it is late-stage historical evidence only and must never enter question-only semantic, obligation, abstract-topology, or operator-topology views. The current-side adapter lives outside the historical tree.
 
+The 30-question granularity pilot is now materialized as a committed, hash-bound input-view contract plus 30 model-assisted representation records, each containing coarse, medium, and fine candidates. The corresponding 90 deterministic checks pass. The three self-contained HTML review packets and their manifests contain zero human reviews: they only provide a leakage-reduced operator view, candidate representation, deterministic packet payload SHA-256, and an export format for external raw review arrays. Human review arrays must remain separate inputs bound to the packet payload and reviewed-representation hashes.
+
+The current proposal provenance truthfully records `model_id=codex_gpt-5`, but the interface exposed neither an exact model revision nor raw model output, and did not support a seed. The plan and representations record `revision_not_exposed`, `not_exposed_by_interface`, and `not_supported` rather than fabricating those values. This is a reproducibility limitation: the structured proposal artifact and its hashes are portable, but the original model generation cannot be claimed as exactly replayable.
+
 If official sources must be reacquired, use the manifest-recorded command and pinned commits. Do not commit the source cache. If future artifacts are too large for normal Git, obtain researcher approval for an external artifact store and commit content identities, hashes, and retrieval instructions.
 
-No model runtime, Java, Neo4j, Docker, GPU driver, or additional system library is currently evidenced as required. The recovered Python IR runtime is historical validation evidence loaded in isolation by the adapter, not a model runtime or authorization to execute condition-C data in early layers. Future experiments must identify every model by stable model ID plus exact revision, never a cache directory.
+No model runtime, Java, Neo4j, Docker, GPU driver, or additional system library is currently evidenced as required. The recovered Python IR runtime is historical validation evidence loaded in isolation by the adapter, not a model runtime or authorization to execute condition-C data in early layers. Future experiments must identify every model by stable model ID plus exact revision, never a cache directory; when an interface does not expose a required identity or raw-output artifact, record that fact explicitly and do not claim complete replayability.
 
 ## Machine-local resources
 

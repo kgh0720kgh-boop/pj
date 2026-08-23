@@ -1,26 +1,31 @@
 # Pilot annotation report
 
-## 2026-08-23 현재 상태 addendum
+## 2026-08-23 Phase 2 실행 결과 addendum
 
-현재 in-progress 상태: `DATA_SOURCE_READY_FOR_ANNOTATION_PILOT`
+현재 study 상태: `structural_integrity_complete_human_calibration_pending`
 
-역사 노출 gate가 해제되어 핀된 공식 HybridQA dev 원본에서 30개 질문을 `annotation_schema_pilot` 역할로 결정론적으로 배정했다. `split_manifest_v0_1.json`은 source hash/ID inventory를 검증했고, `release_eligible=true`, `override_used=false`, `zero_overlap_verified=true`다. Pilot 질문 view에는 answer, answer-node/trace, oracle document ID 등 question-only 단계의 금지 필드가 없다. 새 `annotation_train`, `annotation_dev`, `locked_eval` 역할은 각각 0개다.
+잠정 결정: `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`
+
+역사 노출과 비중복인 고정 30문항에 대해 leakage-safe operator input view와 coarse/medium/fine 후보 표현을 만들었다. 생성 record 30개에는 질문당 세 표현, 총 90개 representation이 들어 있으며 provenance 상태는 `llm_proposed`다. Exact model revision과 raw model output은 인터페이스에서 제공되지 않았다고 명시했으므로, 재현 가능한 구조화 proposal artifact는 보존했지만 이를 human annotation으로 승격하지 않는다.
 
 | 단계 | 현재 상태 | 건수 |
 |---|---|---:|
-| 질문 역할 배정 및 source/history 비중복 검사 | complete | 30 |
-| coarse/medium/fine representation | not_run | 0 |
-| LLM 제안 | not_run | 0 |
-| annotation deterministic checks | not_run | 0 |
-| 사람 단일/이중 검토 | not_run | 0 |
-| adjudication | not_run | 0 |
-| resolved annotation | not_run | 0 |
+| 질문 역할 배정 및 source/history 비중복 검사 | complete | 30 questions |
+| leakage-safe operator input view | complete | 30 views |
+| model-assisted coarse/medium/fine proposal | complete, `llm_proposed` | 30 records / 90 representations |
+| deterministic representation checks | complete | 90 pass, 0 error, 0 warning |
+| granularity별 review packet | packet only | 3 packets / 90 review items |
+| 실제 human review | pending | 0 records |
+| adjudication | pending | 0 |
+| resolved annotation | not_created | 0 |
 
-역사 파일 5개는 researcher-approved workspace에서 byte-for-byte 복구되어 commit `1995c0cf79ab8e987773041d456d4a1b8df19793`에 보존됐다. Verified provenance를 사용한 strict manifest 결과는 노출 고유 ID 100개, 역사 locked-eval 15개, 오류 0개다. IR v0.2 원본 10개와 condition C graph 50개도 commit `dcc5ac5c14e9acb5c689b400a4046708b6837ac3`의 read-only quarantine에 보존했다. Current-side adapter baseline은 50 records/520 nodes를 parse/schema/v0.2 validator 오류 0개로 검증했고, 알려진 역사 실패 신호인 `DEAD_NODE` 경고 455개를 재현했다.
+Comparator가 집계한 proposal-level 결과는 coarse/medium/fine coverage가 각각 14/30(46.67%), 13/30(43.33%), 13/30(43.33%)이고 평균 graph 길이는 2.57, 4.83, 6.87이다. 새 연산자가 필요하다고 표시된 질문은 각각 16, 17, 17개다. 세 granularity 모두 ambiguity 19/30을 기록했다. Coarse는 hidden reasoning 30/30, fine은 excessive fragmentation 19/30이고 medium은 두 항목 모두 0/30이다. 이 값은 아직 사람이 확인하지 않은 proposal 자기평가다.
 
-프로젝트 로컬 exact-pin `.venv`는 8개 schema/3개 vocabulary 검증을 통과했고, IR adapter hardening과 live annotation-reference bridge를 포함한 최종 pinned suite는 `43/43` 통과했다. 이 결과와 질문 배정은 annotation 완료나 modeling readiness를 뜻하지 않는다.
+Human review record는 세 granularity 모두 0개이고 disagreement observation도 0개다. 따라서 사람 간 불일치는 `N/A`이며 0% 합의 또는 0% 불일치로 보고하지 않는다. Review packet manifest 세 개 모두 `packet_created_no_human_reviews`, `reviews_included=0`, `human_reviews_created_by_builder=false`를 기록한다. Comparator 결과도 `human_calibration_complete=false`, `semantic_confirmation_complete=false`, `evidence_complete=false`, `selection_ready=false`다.
 
-다음 exact task는 동일한 30문항에 leakage-safe coarse/medium/fine 표현을 작성하고 각 표현에 결정론 검사를 실행한 뒤, 결과를 보존해 human calibration을 수행하는 것이다.
+프로젝트 로컬 exact-pin 환경에서 현재 9개 schema와 3개 vocabulary 검증이 통과했고 write-once output 보호를 포함한 표준 테스트는 `51/51` 통과했다. 그러나 어떤 vocabulary도 선택하거나 동결하지 않았고 proposal을 gold로 바꾸지 않았으며, resolved corpus나 modeling readiness도 없다.
+
+다음 exact task는 granularity마다 서로 다른 두 reviewer ID로 30개 항목을 독립 검토해 reviewer×granularity 파일 6개와 총 180개 판정을 수집하는 것이다. 다섯 실질 평가 필드를 모두 채우고 대상 representation 및 packet payload hash를 검증한 뒤 reject, `accept_with_edits`, 실질 평가 불일치를 adjudicate해야 한다. Reviewer 인증은 절차적으로 확인해야 하며 기계적으로 검증됐다고 주장하지 않는다.
 
 아래는 gate 해제 전인 2026-08-21의 역사적 상태 기록이다.
 

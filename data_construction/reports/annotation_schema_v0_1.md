@@ -396,12 +396,13 @@ python3 data_construction/tools/check_schema_bundle.py --root . --require-jsonsc
 
 - 다섯 Week 1–3 역사 파일을 byte-for-byte 복구하고 strict manifest를 완성했다: 100 unique exposed IDs, 15 locked-eval IDs, errors 0.
 - pinned official dev source에서 역사 ID와 겹치지 않는 30개 질문을 `annotation_schema_pilot`에 할당했다. override는 없고 train/dev/locked-eval은 모두 0이다.
-- project-local exact-pin `.venv`에서 schema 8개와 vocabulary 3개가 full Draft 2020-12 validation을 errors=0, warnings=0으로 통과했다.
+- project-local exact-pin `.venv`에서 현재 schema 9개와 vocabulary 3개가 full Draft 2020-12 validation을 errors=0, warnings=0으로 통과했다.
 - 복구 IR adapter는 50/50 graph와 520 node를 error 없이 검증했으며 455 `DEAD_NODE` warning을 역사 planner evidence로 보존했다.
+- 같은 30개 질문의 leakage-safe operator view와 coarse/medium/fine `llm_proposed` 표현 90개를 생성했고, 결정론 검사는 90/90 pass, errors=0, warnings=0이다. 세 review packet은 사람 판정을 포함하지 않으며 실제 human review count는 0이다.
 
-따라서 현재 진행 중인 과학 상태는 `DATA_SOURCE_READY_FOR_ANNOTATION_PILOT`이다. 이는 source/history/환경 gate가 파일럿 입력에 대해 열렸다는 뜻일 뿐, final modeling decision, gold annotation, final vocabulary, modeling-ready corpus를 뜻하지 않는다.
+따라서 현재 study 상태는 `structural_integrity_complete_human_calibration_pending`, 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`다. 구조적 pass는 semantic correctness를 뜻하지 않으며 final modeling decision, gold annotation, final vocabulary, modeling-ready corpus를 뜻하지 않는다.
 
-다음 exact task는 `data_construction/pilot/questions.jsonl`의 동일한 30개 질문 각각에 대해 answer/evaluator/grounding을 보이지 않는 leakage-safe coarse, medium, fine 표현을 만들고, 그 결과에 deterministic validation을 실행한 뒤 사람 calibration을 수행하는 것이다. 이 단계 전후에도 condition-C answer와 evaluator output은 early-layer view에 들어가면 안 된다.
+다음 exact task는 granularity마다 서로 다른 stable pseudonymous reviewer ID 두 개 이상으로 30개 항목을 독립 검토해 reviewer×granularity 파일 6개와 총 180개 판정을 수집하는 것이다. Packet/representation hash를 검증하고 모든 reject/edit/실질 평가 불일치를 adjudicate해야 한다. Reviewer 정체성과 독립성은 연구자가 절차적으로 확인·승인해야 하며, 이 단계 전후에도 condition-C answer와 evaluator output은 early-layer view에 들어가면 안 된다.
 
 현재 정식 재현 명령은 다음과 같다.
 

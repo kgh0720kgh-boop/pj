@@ -1,0 +1,73 @@
+{
+  "builder_version": "operator_granularity_review_packet_builder_v0_1",
+  "granularity": "coarse",
+  "human_reviews_created_by_builder": false,
+  "inputs": {
+    "input_views": {
+      "repository_relative_path": "data_construction/pilot/granularity_input_views.jsonl",
+      "sha256": "d4c57bc94e4747b380a37e7802975a81688d3e51af606520b71bc90ae18af345"
+    },
+    "input_views_manifest": {
+      "repository_relative_path": "data_construction/pilot/granularity_input_views_manifest_v0_1.json",
+      "sha256": "838451ae674274d33f60adcbba71c2e9fe8f799a5c528a671a30ec6e69449353"
+    },
+    "questions": {
+      "repository_relative_path": "data_construction/pilot/questions.jsonl",
+      "sha256": "6d09bf7f3f7b9285cad7ca38da8e7f395789eb59fd2ee0af86ba931062e33cdb"
+    },
+    "representations": {
+      "repository_relative_path": "data_construction/pilot/granularity_representations.jsonl",
+      "sha256": "75cb1b5ae1c03d1f931acf720c37f52686d247046389e982ffbe43a610a44583"
+    },
+    "validation_checks": {
+      "repository_relative_path": "data_construction/pilot/granularity_deterministic_checks.jsonl",
+      "sha256": "9500afcb6d529e2b8b5f8842d2170bdc5dc1c34d39b299f18b4c531b70a55c05"
+    }
+  },
+  "packet_artifact": {
+    "repository_relative_path": "data_construction/pilot/review_packets/operator_granularity_coarse_v0_1.html",
+    "sha256": "78625d167528c256e2d5103111e621513b173904c52b07e3fa3f33cb30f38870"
+  },
+  "packet_payload": {
+    "canonicalization": "sorted_compact_json_utf8_sha256_v0_1",
+    "contains_only_operator_view_and_candidate_representation": true,
+    "reviewed_view": "operator_granularity_representation",
+    "sha256": "a45e4e6fd1dbdefa2b6a8faedc3f9de90cabed7b61a2011e99e9e1c985fbcc97"
+  },
+  "provenance": {
+    "builder_does_not_claim_human_review": true,
+    "code_commit": "52aa21c434404b154395c2b5f75a233954908e77"
+  },
+  "question_count": 30,
+  "review_record_contract": {
+    "assessment_fields": [
+      "ambiguity_present",
+      "coverage_status",
+      "excessive_fragmentation",
+      "hides_reasoning",
+      "semantic_validity"
+    ],
+    "canonicalization": "sorted_compact_json_utf8_sha256_v0_1",
+    "decisions": [
+      "accept",
+      "accept_with_edits",
+      "reject",
+      "abstain"
+    ],
+    "reviewer_authentication": "procedural_not_machine_verifiable",
+    "reviewer_identity": "stable_pseudonymous_id",
+    "reviews_included": 0,
+    "schema_version": "operator_representation_review_v0_1"
+  },
+  "review_status": "packet_created_no_human_reviews",
+  "schema_version": "operator_granularity_review_packet_manifest_v0_1",
+  "validation": {
+    "exact_question_id_order_verified": true,
+    "leakage_projection_verified": true,
+    "live_artifact_hashes_verified": true,
+    "selected_granularity_pass_check_count": 30,
+    "validation_mode": "draft_2020_12_plus_structural_plus_live_artifacts",
+    "validation_record_version": "operator_granularity_validation_record_v0_1",
+    "validator_version": "operator_granularity_validator_v0_1"
+  }
+}
