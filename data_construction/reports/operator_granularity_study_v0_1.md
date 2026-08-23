@@ -1,6 +1,16 @@
 # Operator granularity study v0.1
 
-## 2026-08-23 Phase 2 실행 결과 addendum
+## 2026-08-23 sequencing revision — Phase B deferred
+
+이 연구의 active gate는 operator proposal 평가가 아니라 question-only structure discovery다. 실행 순서는 raw open coding → 별도 blinded alignment/freeze → held-out confirmation → environment-aware operator granularity → representative grounding/execution이다. 아래 v0.1 실행 결과와 30 record/90 representation/90 deterministic check/3 HTML packet/v0.1 metric은 byte-for-byte 보존된 feasibility evidence이며 삭제·재해석하지 않는다. 그러나 기존 packet은 현재 Phase A 또는 미래 blinded Phase B human UI로 승인되지 않았고, proposal 자기평가를 reviewer에게 미리 보여 주므로 지금 사람 검토에 사용하지 않는다.
+
+이전 six reviewer-by-granularity file/180-decision task는 철회됐다. Phase B 진입에는 Phase A2의 eligible held-out confirmation, frozen semantic evidence normalization, 결과를 보기 전에 commit한 six-stratum taxonomy와 exact sample manifest, 새 blind projection이 필요하다. Base는 12 questions × 3 granularities × 2 substantive reviewers = 72 decisions다. Precommitted disagreement/tie/new-reusable-gap trigger가 발동하면 15 questions/90 decisions, 다시 발동하면 18 questions/108 decisions로 확장하고 거기서 중단한다. Exact ID와 stratum은 A2 normalization 전에는 배정하지 않는다.
+
+새 Phase B UI는 independent assessment를 commit하기 전에 proposal의 coverage, gap, new-operator suggestion, ambiguity, hidden-reasoning, fragmentation, rationale를 숨기고, partial sketch의 진실성과 full-plan completeness를 구분해야 한다. Reviewer identity·independence·approval은 수동 절차이며 machine-authenticated가 아니다. 현재 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`; 어떤 vocabulary도 선택·동결하지 않는다.
+
+현재 immediate human task는 A0 packet/raw validator가 commit·검증된 뒤, 연구자 승인·상호 독립·무노출 실제 사람 2명이 첫 committed-order 10문항을 question text만 보고 open-code하여 2파일/20 raw record를 만드는 것이다. Q1 대화는 zero human evidence이고 later-layer exposure가 있는 사람은 영향받은 작업에서 제외된다. Raw validity 뒤 별도 blinded alignment/adjudication contract와 comparator를 freeze하기 전에는 agreement나 Phase A2 readiness를 주장하지 않는다.
+
+## 2026-08-23 이전 Phase 2 실행 결과 addendum — 보존된 snapshot
 
 현재 study 상태는 `structural_integrity_complete_human_calibration_pending`이고 잠정 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`다. 고정된 30개 `annotation_schema_pilot` 질문에 대해 coarse/medium/fine 표현을 각각 하나씩, 총 90개 만들었다. 이 표현은 model-assisted `llm_proposed` 산출물이며 사람이 확인한 annotation이나 gold가 아니다. 기록된 model ID는 `codex_gpt-5`이고, exact model revision과 raw model output은 실행 인터페이스에서 노출되지 않았다는 한계도 provenance에 명시했다.
 
@@ -24,7 +34,7 @@ Coverage·ambiguity·추론 은닉·파편화 값은 proposal에 기록된 자�
 
 구조적 결과만 보면 coarse는 모든 질문에서 reasoning을 숨기고 fine은 19개 질문에서 과도하게 파편화된다는 trade-off가 나타난다. 그러나 medium의 proposal coverage도 43.33%에 불과하고 실제 사람 검토가 없으므로, 이 비교만으로 medium 또는 다른 어휘를 선택할 수 없다. Coverage alone is not a sufficient selection criterion. 어떤 vocabulary도 선택·동결하지 않았고 resolved annotation, gold corpus, modeling readiness도 주장하지 않는다.
 
-다음 exact task는 각 granularity마다 서로 다른 안정적 pseudonymous reviewer ID 두 개 이상을 사용해 독립 검토하는 것이다. 즉 reviewer×granularity 입력 파일 6개와 총 180개 판정이 필요하며, 각 판정은 `semantic_validity`, `coverage_status`, `ambiguity_present`, `hides_reasoning`, `excessive_fragmentation`을 모두 채워야 한다. Review hash와 packet/representation 결속을 검증한 뒤 reject, `accept_with_edits`, 실질 평가 불일치를 adjudicate해야 한다. Reviewer identity 인증은 현재 `procedural_not_machine_verifiable`이므로 절차적으로 확인해야 한다.
+당시 exact task는 각 granularity마다 서로 다른 안정적 pseudonymous reviewer ID 두 개 이상으로 reviewer×granularity 입력 파일 6개와 총 180개 판정을 수집하는 것이었다. 이 task는 위 sequencing revision으로 철회되었다. 당시 comparator 입력 및 hash 계약을 재현하는 역사 설명으로만 보존한다.
 
 아래는 표본 배정 전인 2026-08-21의 역사적 상태 기록이다.
 

@@ -32,18 +32,19 @@ The historical exposure audit is now complete: the five Week 1–3 files were re
 
 ## Current phase
 
-The project is in the operator-granularity annotation-pilot phase:
+The project is in Phase A0 of a question-first research sequence. The core sequence is question-only raw open coding, separately versioned blinded alignment/freeze, held-out confirmation, deferred environment-aware operator granularity, and only then representative grounding/execution:
 
 - the official HybridQA questions and linked table/document environment remain pinned and audited;
 - the strict historical manifest is complete for the five byte-preserved Week 1–3 files: 100 unique exposed IDs, including 15 locked-evaluation IDs, with zero errors;
 - the ten-file historical IR v0.2 bundle is quarantined read-only under `historical/ir_v0_2/`, with a recovery manifest and a current-side adapter outside that tree;
 - the adapter validates all 50 historical condition-C graphs and 520 nodes with zero parse, Draft 2020-12 schema, or IR-validator errors; its 455 `DEAD_NODE` warnings are historical planner evidence, not successful-pipeline or operator-granularity evidence;
-- a project-local exact-pin `.venv` reproduced full validation of all nine schemas and three vocabularies with zero errors/warnings;
+- the schema bundle now contains eleven versioned schemas and three candidate vocabularies; the authoritative result for the current bundle is the latest project-local exact-pin check recorded in the handoff;
 - 30 fresh questions were allocated from the pinned official dev source to `annotation_schema_pilot`, with zero historical overlap and no diagnostic override; train/dev/locked-eval remain unallocated at zero;
-- leakage-safe operator views and model-assisted coarse, medium, and fine representations now cover the same 30 questions; all 90 representation checks pass the Draft 2020-12, structural, live-artifact, and vocabulary contract;
-- three hash-bound offline review packets exist, but they contain zero human reviews; the proposals remain `llm_proposed`, never `gold`;
-- the current study state is `structural_integrity_complete_human_calibration_pending`, with decision `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`; no operator vocabulary is selected or frozen and the corpus is not modeling-ready;
-- the next exact task is to obtain two independent substantive human review sets per granularity: at least two distinct stable pseudonymous reviewer IDs for each of coarse, medium, and fine, represented as six reviewer-by-granularity files and 180 total decisions. Then rerun the comparator and adjudicate every reject, edit, or substantive disagreement before any vocabulary-selection request. Reviewer identity and independence are procedural, not machine-verifiable.
+- the existing leakage-safe operator views, 30 model-assisted records/90 coarse-medium-fine representations, 90 deterministic checks, three hash-bound HTML packets, and v0.1 metrics are byte-preserved as deferred Phase B feasibility evidence; the existing packets are not an approved Phase B human interface and must not be used for current Phase A review;
+- the old six-file/180-decision next task is revoked. Future Phase B starts only after Phase A2 and a frozen six-stratum taxonomy: 12 questions × 3 granularities × 2 reviewers = 72 decisions, with precommitted trigger-based expansion to 90 and at most 108 decisions;
+- the current decision remains `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`; no semantic instrument, operator vocabulary, or corpus is selected, frozen as empirically supported, gold, or modeling-ready merely because a schema or packet exists;
+- once the Phase A0 question-only packet and raw validator are committed and pass their checks, the next exact human task is for two researcher-approved, mutually independent, exposure-naive real humans to annotate the first committed-order ten questions independently, producing two immutable files and 20 raw records. The earlier discussion of question 1 is protocol analysis and counts as zero human evidence; anyone exposed to later-layer material is excluded from the affected exposure-naive work;
+- reviewer identity, independence, approval, and prior-exposure sign-off remain procedural/manual rather than machine-authenticated. The single-file batch lock is normal-UI staging, not server-enforced/adversarial blinding, and forbidden-key checks do not detect arbitrary later-layer content pasted into allowed free text. Raw schema/hash validity proves only structural record integrity, not contamination absence or semantic agreement. A separate blinded alignment/adjudication contract and comparator must be versioned and frozen before Phase A1 agreement or Phase A2 readiness can be claimed.
 
 The authoritative phase/next task is always the current handoff, not this summary.
 
@@ -79,7 +80,7 @@ Full schema validation has also passed in the reconstructed project-local pinned
 .venv/bin/python -m unittest discover -s tests -v
 ```
 
-The current exact-pin result is nine schemas, three vocabulary instances, zero schema errors/warnings, and 51 passing deterministic tests. The granularity comparator intentionally exits `2` while real human calibration or adjudication is pending; that readiness result is not a structural-validation failure.
+The current bundle contains eleven schemas and three vocabulary instances. Use the latest exact-pin schema-check and test counts recorded in `HANDOFF_CURRENT.md`; historical nine-schema/51-test observations cover an earlier committed bundle and must not be presented as validation of the new Phase A0 artifacts. The granularity comparator may still exit `2`, but that preserved Phase B evidence is no longer the active Phase A gate.
 
 The preflight selects `.venv/bin/python` when present, otherwise `python3`. It parses the core JSON set, validates state/manifest meaning, compares installed packages with every exact requirements pin, runs the schema and IR-reference checks plus the current test suite, and verifies Git/historical gates. Exit `0` means ready, exit `1` means a validation failure, and exit `2` means checks ran without validation failure but a declared readiness blocker remains.
 
@@ -106,15 +107,18 @@ Annotation/tool entry points are documented in `data_construction/README.md`. Do
 - `data_construction/manifests/source_manifest_v0_1.json`: audited official source identities, hashes, counts, and reacquisition contract.
 - `data_construction/manifests/split_manifest_v0_1.json`: release-eligible 30-question annotation-pilot allocation; train/dev/locked-eval counts remain zero.
 - `data_construction/pilot/questions.jsonl`: leakage-safe source records for the 30-question pilot.
+- `data_construction/pilot/question_structure_study_plan_v0_1.json`: frozen phase order, three committed-order ten-question batches, stopping branches, and deferred Phase B sampling contract.
+- `data_construction/reports/research_sequencing_decision_v0_1.md`: human-readable rationale and evidence boundaries for the revised sequence.
+- `data_construction/schemas/question_only_semantic_view_v0_1.json` and `question_structure_annotation_v0_1.json`: isolated question projection and raw open-coding record contracts. Their scaffold is a tested structural hypothesis, not established semantic truth.
 - `data_construction/pilot/granularity_input_views.jsonl` and `granularity_input_views_manifest_v0_1.json`: hash-bound question/operator views that expose table schema and capabilities but no row/cell or linked-document content.
 - `data_construction/pilot/granularity_representation_plan_v0_1.json`: structured model-assisted proposal plan; its exact model revision and raw model output were not exposed by the interface, and those limitations are recorded explicitly.
 - `data_construction/pilot/granularity_representations.jsonl`: 30 `llm_proposed` records with coarse, medium, and fine candidate DAGs.
 - `data_construction/pilot/granularity_deterministic_checks.jsonl`: 90 passing checks bound to live artifacts and validator implementation provenance.
-- `data_construction/pilot/review_packets/`: three deterministic HTML packets and manifests; packet creation does not constitute human review, and downloaded review arrays remain external to the representation artifact.
+- `data_construction/pilot/review_packets/`: three deterministic legacy Phase B candidate packets and manifests; packet creation does not constitute human review, downloaded review arrays remain external, and these packets are not approved for current Phase A or future blinded Phase B assessment.
 - `data_construction/reports/operator_granularity_metrics_v0_1.json`: current structural metrics with human-calibration observations at zero.
 - `historical/ir_v0_2/`: quarantined, byte-preserved historical IR contract/runtime and condition-C evidence; never use condition C as an early-layer input.
 - `data_construction/tools/validate_ir_v0_2_reference.py`: current-side adapter that validates references without modifying the preserved IR bundle.
-- `data_construction/schemas/`: nine versioned schema files.
+- `data_construction/schemas/`: eleven versioned schema files.
 - `data_construction/operator_design/`: coarse, medium, and fine v0.1 candidate vocabularies.
 - `data_construction/tools/`: deterministic audit, sampling, validation, review, comparison, and statistics tools.
 - `tests/test_data_construction_tools.py`: current standard-library test suite.

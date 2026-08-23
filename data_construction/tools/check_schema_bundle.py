@@ -24,6 +24,8 @@ EXPECTED_SCHEMAS = (
     "hierarchical_annotation_v0_1.json",
     "operator_vocabulary_schema_v0_1.json",
     "operator_granularity_pilot_v0_1.json",
+    "question_only_semantic_view_v0_1.json",
+    "question_structure_annotation_v0_1.json",
 )
 EXPECTED_VOCABULARIES = (
     "operator_vocabulary_coarse_v0_1.json",

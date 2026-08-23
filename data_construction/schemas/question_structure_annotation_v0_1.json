@@ -1,0 +1,1025 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "question_structure_annotation_v0_1.json",
+  "title": "Question-only structure annotation raw record v0.1",
+  "description": "A hash-bound raw human observation made from a question-only view. This is deliberately smaller than the canonical semantic-skeleton, obligation, and abstract-topology triple and is never itself a gold claim.",
+  "type": "object",
+  "required": [
+    "annotation",
+    "annotation_sha256"
+  ],
+  "properties": {
+    "annotation": {
+      "$ref": "#/$defs/annotation"
+    },
+    "annotation_sha256": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "pseudonym": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{2,127}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "nonempty_text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096,
+      "pattern": "\\S"
+    },
+    "source_cues": {
+      "type": "array",
+      "description": "Minimal, local, exact case-sensitive non-empty substrings copied from the bound question text; the whole question is appropriate only when all wording genuinely supports the observation. An empty array means the observation is implicit. Substring validity establishes localization integrity, not semantic alignment or correctness.",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1024,
+        "pattern": "^[^\\r\\n]*\\S[^\\r\\n]*$"
+      },
+      "uniqueItems": true
+    },
+    "attestation": {
+      "type": "object",
+      "description": "Procedural declarations by the annotator. A validator can check their values but cannot authenticate a person's identity or independence.",
+      "required": [
+        "human_authored",
+        "worked_independently",
+        "used_only_packet_question_view",
+        "did_not_use_answers_grounding_environment_or_proposals",
+        "locked_free_observation_before_scaffold"
+      ],
+      "properties": {
+        "human_authored": {
+          "const": true
+        },
+        "worked_independently": {
+          "const": true
+        },
+        "used_only_packet_question_view": {
+          "const": true
+        },
+        "did_not_use_answers_grounding_environment_or_proposals": {
+          "const": true
+        },
+        "locked_free_observation_before_scaffold": {
+          "const": true,
+          "description": "The annotator declares that all ten non-empty free observations were locked read-only together before any stage-two scaffold was revealed. The validator checks the declaration but cannot authenticate browser interaction."
+        }
+      },
+      "additionalProperties": false
+    },
+    "described_cue": {
+      "type": "object",
+      "required": [
+        "description",
+        "source_cues",
+        "implicit_rationale"
+      ],
+      "properties": {
+        "description": {
+          "$ref": "#/$defs/nonempty_text"
+        },
+        "source_cues": {
+          "$ref": "#/$defs/source_cues"
+        },
+        "implicit_rationale": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/nonempty_text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "source_cues": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "source_cues"
+            ]
+          },
+          "then": {
+            "properties": {
+              "implicit_rationale": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "implicit_rationale": {
+                "$ref": "#/$defs/nonempty_text"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "answer_target": {
+      "$ref": "#/$defs/described_cue"
+    },
+    "candidate_structure": {
+      "$ref": "#/$defs/described_cue"
+    },
+    "information_requirement": {
+      "type": "object",
+      "required": [
+        "unit_id",
+        "description",
+        "source_cues",
+        "implicit_rationale"
+      ],
+      "properties": {
+        "unit_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "description": {
+          "$ref": "#/$defs/nonempty_text"
+        },
+        "source_cues": {
+          "$ref": "#/$defs/source_cues"
+        },
+        "implicit_rationale": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/nonempty_text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "source_cues": {
+                "minItems": 1
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "implicit_rationale": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "implicit_rationale": {
+                "$ref": "#/$defs/nonempty_text"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "semantic_skeleton": {
+      "type": "object",
+      "required": [
+        "answer_target",
+        "answer_shape_description",
+        "answer_shape_source_cues",
+        "answer_shape_implicit_rationale",
+        "candidate_structure",
+        "required_information_units",
+        "selection_requirement",
+        "back_mapping_requirement"
+      ],
+      "properties": {
+        "answer_target": {
+          "$ref": "#/$defs/answer_target"
+        },
+        "answer_shape_description": {
+          "$ref": "#/$defs/nonempty_text",
+          "description": "Free-text description of the expected answer's semantic form and cardinality; no canonical type or cardinality labels are shown during blind discovery."
+        },
+        "answer_shape_source_cues": {
+          "$ref": "#/$defs/source_cues"
+        },
+        "answer_shape_implicit_rationale": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/nonempty_text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "candidate_structure": {
+          "$ref": "#/$defs/candidate_structure"
+        },
+        "required_information_units": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/information_requirement"
+          }
+        },
+        "selection_requirement": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/described_cue"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "back_mapping_requirement": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/described_cue"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "answer_shape_source_cues": {
+                "minItems": 1
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "answer_shape_implicit_rationale": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "answer_shape_implicit_rationale": {
+                "$ref": "#/$defs/nonempty_text"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "information_obligation": {
+      "type": "object",
+      "required": [
+        "obligation_id",
+        "description",
+        "depends_on",
+        "source_cues",
+        "implicit_rationale"
+      ],
+      "properties": {
+        "obligation_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "description": {
+          "$ref": "#/$defs/nonempty_text"
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "source_cues": {
+          "$ref": "#/$defs/source_cues"
+        },
+        "implicit_rationale": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/nonempty_text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "source_cues": {
+                "minItems": 1
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "implicit_rationale": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "implicit_rationale": {
+                "$ref": "#/$defs/nonempty_text"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "semantic_node": {
+      "type": "object",
+      "required": [
+        "node_id",
+        "operation_description",
+        "depends_on",
+        "fulfills_obligation_ids",
+        "source_cues",
+        "implicit_rationale"
+      ],
+      "properties": {
+        "node_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "operation_description": {
+          "$ref": "#/$defs/nonempty_text",
+          "description": "Annotator-authored storage-neutral semantic operation in free text. No canonical semantic-function or executable-operator vocabulary is supplied in the blind pass."
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "fulfills_obligation_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "source_cues": {
+          "$ref": "#/$defs/source_cues"
+        },
+        "implicit_rationale": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/nonempty_text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "source_cues": {
+                "minItems": 1
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "implicit_rationale": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "implicit_rationale": {
+                "$ref": "#/$defs/nonempty_text"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "topology": {
+      "type": "object",
+      "required": [
+        "nodes",
+        "entry_node_ids",
+        "output_node_ids"
+      ],
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/semantic_node"
+          }
+        },
+        "entry_node_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "output_node_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "ambiguity": {
+      "type": "object",
+      "required": [
+        "present",
+        "description",
+        "alternative_interpretations"
+      ],
+      "properties": {
+        "present": {
+          "type": "boolean"
+        },
+        "description": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/nonempty_text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "alternative_interpretations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonempty_text"
+          },
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "present": {
+                "const": true
+              }
+            },
+            "required": [
+              "present"
+            ]
+          },
+          "then": {
+            "properties": {
+              "description": {
+                "$ref": "#/$defs/nonempty_text"
+              },
+              "alternative_interpretations": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "description": {
+                "type": "null"
+              },
+              "alternative_interpretations": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "alternative_topology_plan": {
+      "type": "object",
+      "required": [
+        "plan_id",
+        "condition",
+        "rationale",
+        "topology"
+      ],
+      "properties": {
+        "plan_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "condition": {
+          "$ref": "#/$defs/nonempty_text"
+        },
+        "rationale": {
+          "$ref": "#/$defs/nonempty_text"
+        },
+        "topology": {
+          "$ref": "#/$defs/topology"
+        }
+      },
+      "additionalProperties": false
+    },
+    "representation_assessment": {
+      "type": "object",
+      "required": [
+        "outcome",
+        "rationale",
+        "schema_gap_descriptions"
+      ],
+      "properties": {
+        "outcome": {
+          "enum": [
+            "complete",
+            "incomplete_schema_gap",
+            "not_annotatable"
+          ]
+        },
+        "rationale": {
+          "$ref": "#/$defs/nonempty_text"
+        },
+        "schema_gap_descriptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonempty_text"
+          },
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "complete"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "schema_gap_descriptions": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "incomplete_schema_gap"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "schema_gap_descriptions": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "not_annotatable"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "schema_gap_descriptions": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "instrument_issue": {
+      "type": "object",
+      "required": [
+        "type",
+        "severity",
+        "rationale"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "cannot_express",
+            "multiple_equally_valid_encodings",
+            "rubric_unclear",
+            "burden",
+            "other"
+          ]
+        },
+        "severity": {
+          "enum": [
+            "minor",
+            "major",
+            "critical"
+          ]
+        },
+        "rationale": {
+          "$ref": "#/$defs/nonempty_text"
+        }
+      },
+      "additionalProperties": false
+    },
+    "annotation": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "annotator_id",
+        "batch_id",
+        "question_id",
+        "question",
+        "question_view_sha256",
+        "annotation_packet_payload_sha256",
+        "completed_at",
+        "prior_exposure_declared",
+        "researcher_approval_self_claimed",
+        "submission_status",
+        "abstention_reason",
+        "attestation",
+        "unconstrained_question_paraphrase",
+        "representation_assessment",
+        "instrument_issues",
+        "semantic_skeleton",
+        "information_obligations",
+        "abstract_topology",
+        "ambiguity",
+        "alternative_topology_plans",
+        "notes",
+        "gold_claimed"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "question_structure_annotation_v0_1"
+        },
+        "annotator_id": {
+          "$ref": "#/$defs/pseudonym"
+        },
+        "batch_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "question_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "question": {
+          "$ref": "#/$defs/nonempty_text"
+        },
+        "question_view_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "annotation_packet_payload_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "completed_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "RFC 3339 UTC timestamp ending in Z. The UTC requirement is enforced by the deterministic validator."
+        },
+        "prior_exposure_declared": {
+          "const": false,
+          "description": "The annotator declared no disqualifying prior exposure at packet start. A true declaration invalidates submission and is not exportable by the packet."
+        },
+        "researcher_approval_self_claimed": {
+          "const": false,
+          "description": "Raw annotators cannot approve themselves. Researcher approval is authoritative only in a separately managed registry or manifest."
+        },
+        "submission_status": {
+          "enum": [
+            "annotated",
+            "abstained"
+          ]
+        },
+        "abstention_reason": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/nonempty_text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attestation": {
+          "$ref": "#/$defs/attestation"
+        },
+        "unconstrained_question_paraphrase": {
+          "$ref": "#/$defs/nonempty_text",
+          "description": "A non-empty free observation recorded and batch-locked before the annotator sees the open-coding scaffold, including when the later scaffold submission is abstained."
+        },
+        "representation_assessment": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/representation_assessment"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "instrument_issues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/instrument_issue"
+          }
+        },
+        "semantic_skeleton": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/semantic_skeleton"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "information_obligations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/information_obligation"
+          }
+        },
+        "abstract_topology": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/topology"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ambiguity": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/ambiguity"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "alternative_topology_plans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/alternative_topology_plan"
+          }
+        },
+        "notes": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/nonempty_text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "gold_claimed": {
+          "const": false
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "submission_status": {
+                "const": "annotated"
+              }
+            },
+            "required": [
+              "submission_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "abstention_reason": {
+                "type": "null"
+              },
+              "unconstrained_question_paraphrase": {
+                "$ref": "#/$defs/nonempty_text"
+              },
+              "representation_assessment": {
+                "$ref": "#/$defs/representation_assessment"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "abstention_reason": {
+                "$ref": "#/$defs/nonempty_text"
+              },
+              "representation_assessment": {
+                "type": "null"
+              },
+              "instrument_issues": {
+                "maxItems": 0
+              },
+              "semantic_skeleton": {
+                "type": "null"
+              },
+              "information_obligations": {
+                "maxItems": 0
+              },
+              "abstract_topology": {
+                "type": "null"
+              },
+              "ambiguity": {
+                "type": "null"
+              },
+              "alternative_topology_plans": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "submission_status": {
+                "const": "annotated"
+              },
+              "representation_assessment": {
+                "type": "object",
+                "properties": {
+                  "outcome": {
+                    "const": "complete"
+                  }
+                },
+                "required": [
+                  "outcome"
+                ]
+              }
+            },
+            "required": [
+              "submission_status",
+              "representation_assessment"
+            ]
+          },
+          "then": {
+            "properties": {
+              "semantic_skeleton": {
+                "$ref": "#/$defs/semantic_skeleton"
+              },
+              "information_obligations": {
+                "minItems": 1
+              },
+              "abstract_topology": {
+                "$ref": "#/$defs/topology"
+              },
+              "ambiguity": {
+                "$ref": "#/$defs/ambiguity"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "submission_status": {
+                "const": "annotated"
+              },
+              "representation_assessment": {
+                "type": "object",
+                "properties": {
+                  "outcome": {
+                    "const": "not_annotatable"
+                  }
+                },
+                "required": [
+                  "outcome"
+                ]
+              }
+            },
+            "required": [
+              "submission_status",
+              "representation_assessment"
+            ]
+          },
+          "then": {
+            "properties": {
+              "semantic_skeleton": {
+                "type": "null"
+              },
+              "information_obligations": {
+                "maxItems": 0
+              },
+              "abstract_topology": {
+                "type": "null"
+              },
+              "ambiguity": {
+                "type": "null"
+              },
+              "alternative_topology_plans": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "representation_assessment": {
+                "type": "object",
+                "properties": {
+                  "outcome": {
+                    "const": "complete"
+                  }
+                },
+                "required": [
+                  "outcome"
+                ]
+              }
+            },
+            "required": [
+              "representation_assessment"
+            ]
+          },
+          "then": {
+            "properties": {
+              "instrument_issues": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "representation_assessment": {
+                "type": "object",
+                "properties": {
+                  "outcome": {
+                    "const": "incomplete_schema_gap"
+                  }
+                },
+                "required": [
+                  "outcome"
+                ]
+              }
+            },
+            "required": [
+              "representation_assessment"
+            ]
+          },
+          "then": {
+            "properties": {
+              "instrument_issues": {
+                "minItems": 1,
+                "contains": {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "cannot_express",
+                        "rubric_unclear"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

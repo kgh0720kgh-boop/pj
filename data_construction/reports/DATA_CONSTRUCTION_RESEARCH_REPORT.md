@@ -1,8 +1,22 @@
 # Data Construction Research Report
 
-## 2026-08-23 Phase 2 실행 결과 addendum
+## 2026-08-23 question-first sequencing decision
 
-현재 활성 단계는 operator-granularity annotation pilot이고 study 상태는 `structural_integrity_complete_human_calibration_pending`이다. 잠정 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`이며, 최종 modeling decision이나 modeling-ready 선언이 아니다.
+핵심 연구 대상을 다시 분리했다. 먼저 질문 문장만으로 semantic obligation과 environment-independent topology를 open-code하고, 별도 blinded alignment/freeze와 held-out confirmation으로 구조 안정성을 확인한다. 그 다음에만 환경 capability를 반영한 operator topology granularity를 비교하고, 마지막에 대표 사례 grounding과 execution을 별도 signal로 평가한다.
+
+기존 30 model-assisted record/90 coarse-medium-fine representation/90 deterministic check/3 HTML packet/v0.1 metric은 byte-preserved Phase B feasibility evidence다. 삭제하거나 결과를 무효화하지 않지만, proposal/self-assessment anchoring 때문에 기존 packet은 현재 Phase A 또는 미래 blinded Phase B human UI로 승인되지 않았다. 이전 six reviewer-by-granularity file/180-decision task는 철회됐다.
+
+현재 A0 raw instrument는 opaque question ID와 question text만 보여 주고 answer request, candidate structure, required information unit, dependency를 free text로 받는다. Closed semantic/operator enum은 없지만 scaffold 자체가 시험할 structural hypothesis다. Packet과 raw validator가 commit·검증된 뒤 연구자 승인·상호 독립·무노출 실제 사람 2명이 첫 committed-order 10문항을 각각 open-code해 2파일/20 raw record를 만든다. Q1 대화는 protocol analysis이고 human evidence는 0이다. Later-layer exposure가 있는 사람은 영향받은 exposure-naive work에서 제외한다. Identity, independence, approval, exposure attestation은 procedural/manual이고 machine-authenticated가 아니다.
+
+Raw schema/hash/leakage validity는 observation integrity일 뿐 semantic agreement가 아니다. 두 raw set 뒤 blinded alignment/adjudication artifact와 deterministic comparator를 별도 version으로 만들고 결과를 보기 전에 freeze해야 한다. Held-out confirmation을 통과한 뒤 Phase B는 A2-derived six-stratum taxonomy와 exact manifest를 먼저 commit하고 12×3×2=72 decisions로 시작한다. Precommitted disagreement/tie/new-reusable-gap trigger에 따라 90, 최대 108까지 확장한다. Exact IDs는 A2 normalization 전에 배정하지 않는다. Phase C representatives도 Phase B 결과와 무관하게 stratum별 한 개씩 사전 고정한다.
+
+같은 reviewer와 scaffold가 skeleton→obligation→topology 연결을 직접 작성하므로 이 raw triple은 `elicited_linked_representation`, 즉 representability·instrument-operability evidence일 뿐 질문 구조가 graph 구조를 예측한다는 독립 증거가 아니다. 그런 cross-level claim이나 Phase B normalization 전에 upstream mapping을 보지 않는 별도 versioned/frozen topology pass와 held-out 평가가 필요하다. 또한 현재 한-file stage transition은 정상 UI/attestation 기반이지 source·DOM inspection에 맞선 server-enforced blinding이 아니고, forbidden-key validator는 허용 free-text의 의미 contamination을 탐지하지 못한다.
+
+결정은 계속 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`다. 어떤 semantic instrument나 operator vocabulary도 empirically frozen, gold, modeling-ready로 선언하지 않는다. 현재 bundle은 11 schemas와 3 candidate vocabularies이고, 최신 exact-pin 및 regression 결과는 handoff를 따른다.
+
+## 2026-08-23 이전 Phase 2 실행 결과 addendum — 보존된 snapshot
+
+당시 활성 단계는 operator-granularity annotation pilot이었고 보존된 artifact의 study 상태는 `structural_integrity_complete_human_calibration_pending`이다. 잠정 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`이며, 최종 modeling decision이나 modeling-ready 선언이 아니다.
 
 ### 이번 단계에서 완료한 항목
 
@@ -52,7 +66,7 @@
 
 두 핵심 연구 질문은 아직 최종 답을 낼 수 없다. Leakage-safe 계층 표현 후보를 30문항에서 구조적으로 생성하고 검증할 수 있음은 확인했지만, 의미 정답성과 주석 안정성은 확인하지 못했다. 어떤 primitive granularity가 가장 좋은지도 human calibration 전에는 판단하지 않는다. 따라서 어떤 vocabulary도 선택·동결하지 않고, `llm_proposed`를 gold로 승격하지 않으며, corpus/modeling readiness를 주장하지 않는다. Comparator의 상태는 `human_calibration_complete=false`, `semantic_confirmation_complete=false`, `evidence_complete=false`, `selection_ready=false`다.
 
-다음 exact task는 granularity마다 서로 다른 안정적 pseudonymous reviewer ID 두 개 이상으로 독립 검토하는 것이다. Reviewer×granularity 파일 6개와 총 180개 판정에서 다섯 실질 평가 필드를 모두 채우고, raw record·packet payload·representation hash 결속을 검증한다. 이후 reject, `accept_with_edits`, 실질 평가 불일치를 adjudicate한 뒤에만 granularity 선택이나 schema/vocabulary 개정 결정을 내린다. Reviewer authentication은 `procedural_not_machine_verifiable`이므로 절차적으로 확인해야 한다.
+당시 exact task는 granularity마다 서로 다른 안정적 pseudonymous reviewer ID 두 개 이상으로 reviewer×granularity 파일 6개와 총 180개 판정을 수집하는 것이었다. 이 task는 위 question-first sequencing 결정으로 철회됐으며, 아래 수치와 해석은 당시 v0.1 snapshot으로만 보존한다.
 
 아래는 2026-08-21 당시의 감사·설계 snapshot이다. 당시의 부재/차단 주장은 그 시점의 증거를 보존하기 위해 유지하며, 현재 상태 판단에는 위 addendum을 우선한다.
 

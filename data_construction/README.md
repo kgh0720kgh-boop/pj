@@ -1,17 +1,18 @@
 # Hierarchical HybridQA data construction
 
-이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 데이터 구축용 **v0.1 계약과 도구**이며 gold corpus가 아니다.
+이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 데이터 구축용 **v0.1 계약과 도구**이며 gold corpus가 아니다. 현재 연구 순서는 question-only raw open coding → 별도 blinded alignment/freeze → held-out confirmation → 환경 의존 operator granularity → 대표 사례 grounding/execution이다.
 
 ## 현재 상태
 
 - 공식 HybridQA 소스의 이식 가능한 식별자와 해시는 `manifests/source_manifest_v0_1.json`에 기록되어 있다.
 - 과거 Week 1–3 파일 다섯 개는 연구자 승인 provenance에서 byte-for-byte로 복구되었다. strict manifest는 과거 노출 100개, locked-eval 15개를 기록하며 오류가 없다.
 - 역사적 IR v0.2 열 개 파일은 `../historical/ir_v0_2/`에 read-only로 격리되며, 현재 코드의 adapter가 50/50 graph와 520 node를 검증한다. parse/schema/IR-validator error는 0이고 `DEAD_NODE` warning 455개는 과거 planner의 증거이다.
-- exact-pin `.venv`에서 Draft 2020-12 schema 9개와 후보 vocabulary 3개가 errors=0, warnings=0으로 통과했고, write-once output 보호를 포함한 현재 회귀 테스트 51개도 모두 통과했다.
+- 현재 bundle은 Draft 2020-12 schema 11개와 후보 vocabulary 3개다. 정확한 최신 exact-pin 및 회귀 테스트 결과는 `../HANDOFF_CURRENT.md`를 기준으로 하며, 이전 9-schema/51-test 관측을 새 Phase A0 artifact의 검증 결과로 소급하지 않는다.
 - pinned official dev에서 30개 질문을 `annotation_schema_pilot`에 결정론적으로 할당했다. 역사 노출과 overlap은 0, override는 없고 train/dev/locked-eval은 각각 0이다.
-- 같은 30개 질문의 leakage-safe operator view와 coarse/medium/fine 표현 90개를 만들었고, Draft 2020-12·DAG·live-artifact·vocabulary 검사가 90/90 통과했다.
-- 현재 상태는 `structural_integrity_complete_human_calibration_pending`, 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`이다. 세 review packet은 생성됐지만 사람 검토는 0건이므로 최종 어휘 선택, gold, modeling-ready corpus를 뜻하지 않는다.
-- 다음 exact task는 granularity마다 서로 다른 stable pseudonymous reviewer ID 두 개 이상으로 30건씩 검토하는 것이다. 최소 산출량은 reviewer×granularity 파일 6개와 decision 180개이며, reject/edit/실질 평가 불일치는 모두 adjudication해야 한다. reviewer의 실제 정체성과 독립성은 절차 사항이며 기계적으로 인증되지 않는다.
+- 기존 30개 model-assisted record/90 coarse-medium-fine 표현, 90개 deterministic check, HTML packet 3개, v0.1 metric은 byte-preserved Phase B 선행 가능성 증거로 남긴다. 기존 packet은 현재 Phase A나 미래 blinded Phase B의 승인된 UI가 아니며 사용하지 않는다.
+- 이전의 reviewer×granularity 6파일/180판정 task는 철회됐다. 미래 Phase B는 Phase A2 뒤 동결한 6개 stratum에서 12문항×3 granularity×2 reviewer=72판정으로 시작하고, 사전 선언 trigger에 따라 90, 최대 108판정까지만 확장한다. 정확한 ID는 A2 normalization 전에는 배정하지 않는다.
+- 현재 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`이다. A0 packet과 raw validator가 commit되고 검사를 통과한 뒤, 연구자가 승인한 상호 독립·무노출 실제 사람 2명이 committed order의 첫 10문항만 question-only로 독립 open-code하여 2개 파일/20개 raw record를 만든다.
+- 1번 질문을 둘러싼 기존 대화는 protocol 분석일 뿐 human evidence는 0건이다. Later-layer 자료에 노출된 사람은 영향받은 exposure-naive 작업에서 제외한다. Reviewer 정체성·독립성·승인·노출 여부는 수동 절차이고 기계 인증이 아니다. Raw schema/hash validity는 semantic agreement를 뜻하지 않으며, 별도 blinded alignment/adjudication 계약과 comparator를 version/freeze하기 전에는 Phase A1 agreement나 A2 readiness를 주장하지 않는다.
 - `locked_eval`은 prompt, rubric, schema, 연산자 어휘 조정에 사용하지 않는다.
 - LLM 생성물의 최초 상태는 `llm_proposed`이며 `gold`가 아니다.
 
@@ -33,9 +34,9 @@
 ## 디렉터리
 
 - `manifests/`: 과거 노출 ID, 공식 소스 identity/hash, 결정론적 역할 분할
-- `schemas/`: Draft 2020-12 계층형 JSON Schema v0.1 9개
+- `schemas/`: Draft 2020-12 계층형 JSON Schema v0.1 11개
 - `operator_design/`: coarse/medium/fine 후보 어휘; 파일럿 전에는 어느 것도 gold/final이 아님
-- `pilot/`: 질문, hash-bound input view, `llm_proposed` granularity 표현, 결정론 검사, review packet, 외부 사람 검토, 해결 주석
+- `pilot/`: 질문, question-only view/study plan, raw open-coding packet, 보존된 `llm_proposed` granularity 표현, 결정론 검사, 외부 사람 관측, 해결 주석
 - `corpus/`: 검토가 끝난 train/dev/locked-eval 번들만 저장
 - `tools/`: 샘플링, 검증, 세분성 비교, 리뷰 패킷, 통계 도구
 - `reports/`: 근거·차단점·측정값·최종 연구 결론
@@ -103,7 +104,44 @@ python3 data_construction/tools/build_review_packet.py \
 
 리뷰 패킷은 질문/제안 ID 집합이 정확히 같고, 제안 bytes에 1:1로 결속된 full-schema+structural validator pass가 있어야 한다. 허용된 review view 안에서 금지 키가 발견되면 삭제 후 계속하지 않고 실패한다. topology 단계에는 환경 schema·capability metadata만 투영하고 row/cell/passage 값은 숨긴다. 다운로드 시 익명 reviewer ID, 완료 시각, schema-compatible decision, 검토 view와 packet payload SHA-256을 기록한다. 이것은 리뷰를 수행할 수 있는 형식일 뿐 실제 사람 검토가 수행됐다는 주장이 아니다.
 
-## Operator-granularity 파일럿
+## Phase A question-only 구조 발견
+
+`pilot/question_structure_study_plan_v0_1.json`과 `reports/research_sequencing_decision_v0_1.md`가 현재 phase order, 세 개의 committed-order 10문항 batch, 중단 분기, Phase B 72→90→108 규칙을 고정한다. A0 instrument의 첫 화면에는 opaque question ID, question text, unconstrained free-observation field만 보인다. 열 질문의 자유 관찰이 모두 nonempty가 된 뒤 한 번의 batch-wide action으로 열 개를 모두 read-only로 잠그고 나서야 정상 UI가 stage-2 scaffold 전체를 표시한다. Answer request, candidate structure, required information unit, dependency scaffold는 정답 ontology가 아니라 검증할 구조 가설이다. Closed semantic label, answer/cardinality/candidate kind enum, semantic-function enum, operator vocabulary, 표·열·capability·연결 문서·answer·trace·proposal·metric은 정상 view에 보이지 않는다.
+
+이 전환은 하나의 self-contained HTML 안에서 구현한 procedural UI staging이다. Stage 2 bytes는 같은 파일에 있으므로 source/devtools/DOM 조작에 맞선 server-enforced blinding이 아니며, validator도 browser history를 인증하지 못한다. Reviewer는 이를 우회하지 않았다고 attestation한다. 또한 later-layer 금지 검사는 key 구조를 탐지할 뿐 허용된 notes/description/free-text에 붙여 넣은 의미 내용을 판별하지 못한다. 따라서 packet-only/raw pass를 stage-transition 또는 free-text contamination의 기계적 무결성 증명으로 해석하지 않는다.
+
+구현 artifact를 먼저 commit한 뒤 question-only 30개 view와 active batch packet을 만드는 실제 CLI는 다음과 같다. Builder는 tracked implementation identity에 결속되므로 uncommitted implementation으로 canonical output을 만들지 않는다.
+
+```sh
+python3 data_construction/tools/build_question_only_semantic_views.py
+python3 data_construction/tools/build_question_structure_annotation_packet.py \
+  --batch-id phase_a1_batch_01
+```
+
+기본 output은 각각 `pilot/question_only_semantic_views_v0_1.jsonl`, 그 manifest, 그리고 `pilot/question_structure_review_packets/question_structure_calibration_batch_1_v0_1.html`, 그 manifest다. Packet 생성은 human annotation 생성이 아니다. Builder·validator와 결속 입력을 먼저 commit하고 packet/manifest를 생성한 뒤, exact rendering·hash·batch/order 계약만 검사하는 packet-only 명령은 다음과 같다.
+
+```sh
+python3 data_construction/tools/validate_question_structure_annotations.py \
+  --batch-id phase_a1_batch_01 \
+  --packet-only
+```
+
+한 reviewer가 packet에서 export한 정확히 10-record JSON array는 다음처럼 검증한다. `--checks-output`은 write-once이며 다른 bytes를 명시적으로 교체할 때만 `--overwrite`를 추가한다.
+
+```sh
+python3 data_construction/tools/validate_question_structure_annotations.py \
+  /path/to/question_structure_annotations_phase_a1_batch_01_reviewer-pseudonym.json \
+  --batch-id phase_a1_batch_01 \
+  --checks-output /path/to/question_structure_checks_phase_a1_batch_01_reviewer-pseudonym.jsonl
+```
+
+Validator는 exact packet reconstruction, schema/canonical hash, UTC·pseudonym·attestation, batch/order/single-reviewer, exposure=false, 최소·국소 source-cue substring의 localization integrity, ID/reference/DAG/root/sink, complete topology의 obligation coverage, later-layer 금지 key를 검사한다. 이 검사는 자유문장의 의미 contamination, cue의 semantic alignment, reviewer identity/approval, browser 조작 이력, 사람 간 agreement를 인증하지 않는다. 연구자 승인은 아직 별도 machine-authenticatable registry가 없는 procedural manual gate다.
+
+Packet과 validator가 준비되면 연구자 수동 승인을 받은 서로 다른 실제 사람 2명이 상담·외부 lookup 없이 첫 10문항을 독립 작성한다. 각자 한 개의 immutable 10-record 파일을 제출해 총 20 raw record가 된다. Q1 대화는 evidence가 아니며, proposal/환경/answer 등 금지 입력을 본 사람은 영향받은 무노출 작업에서 제외한다. Raw validity는 observation integrity일 뿐 semantic confirmation이 아니다. 같은 scaffold 안에서 semantic skeleton, obligations, topology를 연결해 유도한 raw triple은 `elicited_linked_representation`이며 질문 구조에서 common executable graph로 가는 독립 evidence가 아니다. 두 raw set을 얻은 다음 exact technical task는 두 파일에 결속되는 별도 blinded alignment/adjudication schema·artifact·comparator를 만들고 결과를 보기 전에 version을 동결하는 것이다. Phase B normalization이나 cross-level claim 전에 upstream mapping reference를 보지 않는 별도 pass·다른 annotator의 versioned frozen independent/blinded topology elicitation 또는 prediction과 held-out evaluation gate가 추가로 필요하다.
+
+## 보존된 Operator-granularity 파일럿 — Phase B로 연기
+
+아래 명령과 artifact 설명은 기존 v0.1 evidence를 재현·감사하기 위한 기록이다. 현재 사람 작업으로 실행하지 않으며 기존 HTML은 미래 Phase B blind UI로 승인되지 않았다. Phase B sample ID와 6-stratum taxonomy는 A2 question-only evidence normalization 뒤 별도 versioned manifest에서만 정한다.
 
 현재 committed input view를 원래 pinned WikiTables-WithLinks checkout에서 재구성하는 CLI 계약은 다음과 같다. checkout은 source manifest의 exact commit에 있어야 하며 machine-local cache이지 canonical project state가 아니다. builder는 질문 30개와 선택된 `tables_tok`/`request_tok` 60개 파일을 hash-bound manifest에 결속한다. review view에는 질문, table identity/title/section, column label·index·link capability, 환경 capability만 있으며 row/cell 값, linked-document ID/text, answer, trace, grounding은 없다.
 
@@ -171,7 +209,7 @@ python3 data_construction/tools/compare_operator_granularity.py \
   --validation-checks data_construction/pilot/granularity_deterministic_checks.jsonl
 ```
 
-실제 calibration에는 각 granularity마다 서로 다른 reviewer ID가 최소 두 개 필요하다. 아래 여섯 review 파일은 경로 예시이며, 세 packet manifest와 함께 제공한다.
+아래는 보존된 comparator가 요구했던 legacy full-30 calibration 입력 예시다. 이는 현재 next task가 아니며 180개 판정을 수집하라는 지시로 사용하지 않는다. 미래 Phase B는 새 blind projection과 72→90→108 stopping rule을 구현해야 한다.
 
 ```sh
 python3 data_construction/tools/compare_operator_granularity.py \

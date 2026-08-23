@@ -1,0 +1,360 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "question_only_semantic_view_v0_1.json",
+  "title": "Blind question-only semantic view schema v0.1",
+  "description": "An exact question-only record for independent semantic discovery. Environment, answer, proposal, historical-label, and later-layer fields are absent by construction.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "visibility",
+    "question_id",
+    "question"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "question_only_semantic_view_v0_1"
+    },
+    "visibility": {
+      "const": "question_only_no_environment_answer_or_proposals"
+    },
+    "question_id": {
+      "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "full_git_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "hash_bound_artifact": {
+      "type": "object",
+      "required": [
+        "repository_relative_path",
+        "sha256"
+      ],
+      "properties": {
+        "repository_relative_path": {
+          "$ref": "common_definitions_v0_1.json#/$defs/repository_relative_path"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "hash_bound_record_artifact": {
+      "type": "object",
+      "required": [
+        "repository_relative_path",
+        "record_count",
+        "sha256"
+      ],
+      "properties": {
+        "repository_relative_path": {
+          "$ref": "common_definitions_v0_1.json#/$defs/repository_relative_path"
+        },
+        "record_count": {
+          "const": 30
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "implementation_artifact": {
+      "$ref": "#/$defs/hash_bound_artifact"
+    },
+    "record_hash": {
+      "type": "object",
+      "required": [
+        "question_id",
+        "canonical_sha256"
+      ],
+      "properties": {
+        "question_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "canonical_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "manifest": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "builder_version",
+        "provenance",
+        "views_artifact",
+        "questions_artifact",
+        "split_manifest_artifact",
+        "allocation_contract",
+        "record_hash_contract",
+        "view_contract"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "question_only_semantic_view_manifest_v0_1"
+        },
+        "builder_version": {
+          "const": "question_only_semantic_view_builder_v0_1"
+        },
+        "provenance": {
+          "type": "object",
+          "required": [
+            "code_commit",
+            "implementation_artifacts",
+            "implementation_artifact_set_sha256"
+          ],
+          "properties": {
+            "code_commit": {
+              "$ref": "#/$defs/full_git_commit"
+            },
+            "implementation_artifacts": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": {
+                "$ref": "#/$defs/implementation_artifact"
+              },
+              "allOf": [
+                {
+                  "contains": {
+                    "properties": {
+                      "repository_relative_path": {
+                        "const": "data_construction/schemas/question_only_semantic_view_v0_1.json"
+                      }
+                    },
+                    "required": [
+                      "repository_relative_path"
+                    ]
+                  },
+                  "minContains": 1,
+                  "maxContains": 1
+                },
+                {
+                  "contains": {
+                    "properties": {
+                      "repository_relative_path": {
+                        "const": "data_construction/tools/_common.py"
+                      }
+                    },
+                    "required": [
+                      "repository_relative_path"
+                    ]
+                  },
+                  "minContains": 1,
+                  "maxContains": 1
+                },
+                {
+                  "contains": {
+                    "properties": {
+                      "repository_relative_path": {
+                        "const": "data_construction/tools/build_question_only_semantic_views.py"
+                      }
+                    },
+                    "required": [
+                      "repository_relative_path"
+                    ]
+                  },
+                  "minContains": 1,
+                  "maxContains": 1
+                }
+              ]
+            },
+            "implementation_artifact_set_sha256": {
+              "$ref": "#/$defs/sha256"
+            }
+          },
+          "additionalProperties": false
+        },
+        "views_artifact": {
+          "$ref": "#/$defs/hash_bound_record_artifact"
+        },
+        "questions_artifact": {
+          "$ref": "#/$defs/hash_bound_record_artifact"
+        },
+        "split_manifest_artifact": {
+          "$ref": "#/$defs/hash_bound_artifact"
+        },
+        "allocation_contract": {
+          "type": "object",
+          "required": [
+            "dataset_role",
+            "source_split",
+            "question_count",
+            "release_eligible",
+            "zero_overlap_verified",
+            "override_used",
+            "question_order_matches_split_manifest"
+          ],
+          "properties": {
+            "dataset_role": {
+              "const": "annotation_schema_pilot"
+            },
+            "source_split": {
+              "const": "dev"
+            },
+            "question_count": {
+              "const": 30
+            },
+            "release_eligible": {
+              "const": true
+            },
+            "zero_overlap_verified": {
+              "const": true
+            },
+            "override_used": {
+              "const": false
+            },
+            "question_order_matches_split_manifest": {
+              "const": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "record_hash_contract": {
+          "type": "object",
+          "required": [
+            "canonicalization",
+            "ordered_question_ids_sha256",
+            "ordered_record_hashes_sha256",
+            "records"
+          ],
+          "properties": {
+            "canonicalization": {
+              "const": "sorted_compact_json_utf8_sha256_v0_1"
+            },
+            "ordered_question_ids_sha256": {
+              "$ref": "#/$defs/sha256"
+            },
+            "ordered_record_hashes_sha256": {
+              "$ref": "#/$defs/sha256"
+            },
+            "records": {
+              "type": "array",
+              "minItems": 30,
+              "maxItems": 30,
+              "items": {
+                "$ref": "#/$defs/record_hash"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "view_contract": {
+          "type": "object",
+          "required": [
+            "allowed_fields",
+            "visible_input_categories",
+            "excluded_categories",
+            "environment_exposed",
+            "answer_or_execution_evidence_exposed",
+            "proposal_or_historical_label_exposed",
+            "other_annotator_output_exposed",
+            "leakage_audit_status"
+          ],
+          "properties": {
+            "allowed_fields": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "const": "schema_version"
+                },
+                {
+                  "const": "visibility"
+                },
+                {
+                  "const": "question_id"
+                },
+                {
+                  "const": "question"
+                }
+              ],
+              "items": false,
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "visible_input_categories": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "const": "question_id"
+                },
+                {
+                  "const": "question_text"
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "excluded_categories": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "const": "dataset_role_or_source_split"
+                },
+                {
+                  "const": "table_identity_schema_rows_cells_or_values"
+                },
+                {
+                  "const": "environment_identity_schema_or_capabilities"
+                },
+                {
+                  "const": "linked_document_identity_text_or_capabilities"
+                },
+                {
+                  "const": "answer_text_span_or_execution_trace"
+                },
+                {
+                  "const": "operator_vocabulary_topology_or_grounding"
+                },
+                {
+                  "const": "llm_proposals_or_historical_labels"
+                },
+                {
+                  "const": "other_annotator_or_adjudicated_outputs"
+                },
+                {
+                  "const": "machine_local_paths"
+                }
+              ],
+              "items": false,
+              "minItems": 9,
+              "maxItems": 9
+            },
+            "environment_exposed": {
+              "const": false
+            },
+            "answer_or_execution_evidence_exposed": {
+              "const": false
+            },
+            "proposal_or_historical_label_exposed": {
+              "const": false
+            },
+            "other_annotator_output_exposed": {
+              "const": false
+            },
+            "leakage_audit_status": {
+              "const": "pass_by_exact_projection"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

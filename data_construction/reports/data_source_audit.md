@@ -11,12 +11,12 @@
 - 연구자 승인 provenance receipt `state/historical_recovery_provenance_v0_1.json`을 검증한 뒤 strict builder를 실행했다. `historical_exposed_ids.json`은 `audit_status=complete`, `exposed_unique=100`, `locked_eval_unique=15`, 누락 파일 0, 예상 건수 불일치 0, provenance/release-contract 오류 0이다.
 - 핀된 공식 HybridQA dev 원본과 위 100개 금지 ID를 대조해 30개 `annotation_schema_pilot` 질문을 결정론적으로 배정했다. Split manifest는 `release_eligible=true`, `override_used=false`, `zero_overlap_verified=true`이며 새 `annotation_train`, `annotation_dev`, `locked_eval`은 모두 0개다. 질문 전용 pilot artifact에는 금지된 answer/weak-trace 필드가 없다.
 - 별도의 역사 IR v0.2 격리 영역에는 원본 10개 파일이 보존 commit `dcc5ac5c14e9acb5c689b400a4046708b6837ac3`과 recovery manifest로 고정됐다. Current-side adapter baseline은 Week 2 condition C의 50 records/520 nodes를 대상으로 JSONL parse, Draft 2020-12 graph schema, 명시적으로 주입한 v0.2 registry validator를 실행해 오류 0개를 확인했다. `DEAD_NODE` 경고 455개는 알려진 역사 planner 실패 증거로 그대로 보존한다.
-- 프로젝트 로컬 exact-pin `.venv`는 현재 9개 schema와 3개 vocabulary의 Draft 2020-12 검증을 통과했고, write-once pilot-output 보호까지 포함한 pinned suite는 `51/51` 통과했다.
-- 같은 30개 질문에서 leakage-safe input view 30개와 coarse/medium/fine `llm_proposed` 표현 90개를 만들었다. 결정론 검사는 90/90 pass, errors=0, warnings=0이고 세 review packet은 생성됐지만 실제 human review는 0건이다.
+- 현재 bundle은 11개 schema와 3개 vocabulary를 포함한다. 이전 9-schema/51-test exact-pin 결과는 그 당시 bundle의 역사적 검증으로 보존하며, 현재 bundle의 최신 결과는 handoff에 별도로 기록한다.
+- 같은 30개 질문에서 만든 environment-aware input view 30개, coarse/medium/fine `llm_proposed` 표현 90개, deterministic check 90개, review packet 3개, v0.1 metric은 변경 없이 Phase B 선행 가능성 증거로 보존한다. 실제 human review는 0건이고, 기존 packet은 현재 Phase A나 미래 blinded Phase B human UI로 승인되지 않았다.
 
-따라서 현재 study 상태는 `structural_integrity_complete_human_calibration_pending`, 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`다. 이 상태는 proposal의 구조·provenance 무결성만 뜻하며 의미 정답, 최종 vocabulary, gold corpus, modeling readiness를 뜻하지 않는다. `human_calibration_complete`, `semantic_confirmation_complete`, `evidence_complete`, `selection_ready`는 모두 false다.
+현재 연구 순서는 question-only raw open coding, 별도 blinded alignment/freeze, held-out confirmation, 환경 의존 operator granularity, 대표 grounding/execution으로 수정됐다. 결정은 계속 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`다. 기존 granularity artifact의 `structural_integrity_complete_human_calibration_pending`은 보존된 Phase B artifact 상태일 뿐 현재 human task가 아니다. 의미 정답, final vocabulary, gold corpus, modeling readiness를 뜻하지 않으며 `human_calibration_complete`, `semantic_confirmation_complete`, `evidence_complete`, `selection_ready`는 모두 false다.
 
-다음 exact task는 granularity별로 서로 다른 stable pseudonymous reviewer ID 두 개 이상의 독립 검토를 수집하는 것이다. 최소 reviewer×granularity 파일 6개와 총 180개 판정을 hash 검증하고, 모든 reject/edit/실질 평가 불일치를 adjudicate해야 한다. Reviewer 정체성과 독립성은 연구자가 절차적으로 확인·승인해야 하며 기계적으로 인증됐다고 주장하지 않는다.
+기존 6파일/180판정 task는 철회됐다. Phase A0 question-only packet과 raw validator가 commit되고 검사를 통과하면, 연구자 승인·상호 독립·무노출 실제 사람 2명이 첫 committed-order 10문항을 question text만 보고 독립 open-code해 2파일/20 raw record를 만든다. Q1 대화는 protocol 분석이고 human evidence는 0이며, later-layer 자료에 노출된 사람은 영향받은 exposure-naive 작업에서 제외한다. Reviewer identity·독립성·승인·prior exposure는 수동 절차이지 machine-authenticated evidence가 아니다. Raw validity 뒤에도 별도 blinded alignment/adjudication contract와 comparator를 version/freeze하기 전에는 agreement나 Phase A2 readiness를 주장할 수 없다. 미래 Phase B는 A2 뒤 6-stratum 72판정에서 시작하고 trigger에 따라 90, 최대 108판정으로 확장한다.
 
 ## 결론
 

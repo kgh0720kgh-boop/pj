@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import copy
 import json
 import hashlib
+import io
 import shutil
 import subprocess
 import sys
@@ -17,10 +19,13 @@ sys.path.insert(0, str(TOOLS))
 
 import build_sample
 import build_granularity_views
+import build_question_only_semantic_views as question_only_semantic_views
+import build_question_structure_annotation_packet as question_structure_packet
 import compare_operator_granularity
 import _common
 import validate_annotation
 import validate_ir_v0_2_reference as ir_v0_2_reference_adapter
+import validate_question_structure_annotations as question_structure_validator
 
 
 def write_json(path: Path, value: object) -> None:
@@ -40,6 +45,161 @@ def canonical_sha256(value: object) -> str:
     return hashlib.sha256(
         json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
     ).hexdigest()
+
+
+def question_structure_annotation(
+    *,
+    question_id: str = "q1",
+    question: str = "Which city opened first?",
+    annotator_id: str = "reviewer-001",
+    batch_id: str = "phase_a1_batch_01",
+    question_view_sha256: str = "a" * 64,
+    packet_payload_sha256: str = "b" * 64,
+    status: str = "complete",
+) -> dict[str, object]:
+    annotation: dict[str, object] = {
+        "schema_version": "question_structure_annotation_v0_1",
+        "annotator_id": annotator_id,
+        "batch_id": batch_id,
+        "question_id": question_id,
+        "question": question,
+        "question_view_sha256": question_view_sha256,
+        "annotation_packet_payload_sha256": packet_payload_sha256,
+        "completed_at": "2026-08-23T12:34:56Z",
+        "prior_exposure_declared": False,
+        "researcher_approval_self_claimed": False,
+        "submission_status": "annotated",
+        "abstention_reason": None,
+        "attestation": {
+            "human_authored": True,
+            "worked_independently": True,
+            "used_only_packet_question_view": True,
+            "did_not_use_answers_grounding_environment_or_proposals": True,
+            "locked_free_observation_before_scaffold": True,
+        },
+        "unconstrained_question_paraphrase": "Find the city selected by opening order.",
+        "representation_assessment": {
+            "outcome": "complete",
+            "rationale": "The scaffold expresses the observation.",
+            "schema_gap_descriptions": [],
+        },
+        "instrument_issues": [],
+        "semantic_skeleton": {
+            "answer_target": {
+                "description": "the requested city",
+                "source_cues": [question],
+                "implicit_rationale": None,
+            },
+            "answer_shape_description": "one city name",
+            "answer_shape_source_cues": [question],
+            "answer_shape_implicit_rationale": None,
+            "candidate_structure": {
+                "description": "cities with an opening relation",
+                "source_cues": [question],
+                "implicit_rationale": None,
+            },
+            "required_information_units": [
+                {
+                    "unit_id": "u1",
+                    "description": "opening order for each candidate",
+                    "source_cues": [question],
+                    "implicit_rationale": None,
+                }
+            ],
+            "selection_requirement": {
+                "description": "select the earliest opening",
+                "source_cues": [question],
+                "implicit_rationale": None,
+            },
+            "back_mapping_requirement": None,
+        },
+        "information_obligations": [
+            {
+                "obligation_id": "o1",
+                "description": "obtain opening order",
+                "depends_on": [],
+                "source_cues": [question],
+                "implicit_rationale": None,
+            },
+            {
+                "obligation_id": "o2",
+                "description": "identify the earliest candidate",
+                "depends_on": ["o1"],
+                "source_cues": [question],
+                "implicit_rationale": None,
+            },
+        ],
+        "abstract_topology": {
+            "nodes": [
+                {
+                    "node_id": "n1",
+                    "operation_description": "obtain opening order for the candidates",
+                    "depends_on": [],
+                    "fulfills_obligation_ids": ["o1"],
+                    "source_cues": [question],
+                    "implicit_rationale": None,
+                },
+                {
+                    "node_id": "n2",
+                    "operation_description": "select the earliest candidate",
+                    "depends_on": ["n1"],
+                    "fulfills_obligation_ids": ["o2"],
+                    "source_cues": [question],
+                    "implicit_rationale": None,
+                },
+            ],
+            "entry_node_ids": ["n1"],
+            "output_node_ids": ["n2"],
+        },
+        "ambiguity": {
+            "present": False,
+            "description": None,
+            "alternative_interpretations": [],
+        },
+        "alternative_topology_plans": [],
+        "notes": None,
+        "gold_claimed": False,
+    }
+    if status == "abstained":
+        annotation.update(
+            {
+                "submission_status": "abstained",
+                "abstention_reason": "The wording is not interpretable without guessing.",
+                "representation_assessment": None,
+                "instrument_issues": [],
+                "semantic_skeleton": None,
+                "information_obligations": [],
+                "abstract_topology": None,
+                "ambiguity": None,
+                "alternative_topology_plans": [],
+            }
+        )
+    elif status == "incomplete_schema_gap":
+        annotation.update(
+            {
+                "representation_assessment": {
+                    "outcome": "incomplete_schema_gap",
+                    "rationale": "The scaffold cannot express a necessary distinction.",
+                    "schema_gap_descriptions": ["A necessary distinction has no field."],
+                },
+                "instrument_issues": [
+                    {
+                        "type": "cannot_express",
+                        "severity": "major",
+                        "rationale": "Forcing a topology would erase the observation.",
+                    }
+                ],
+                "semantic_skeleton": None,
+                "information_obligations": [],
+                "abstract_topology": None,
+                "ambiguity": None,
+                "alternative_topology_plans": [],
+            }
+        )
+    return {
+        "annotation": annotation,
+        "annotation_sha256": canonical_sha256(annotation),
+    }
 
 
 def write_pass_validation_checks(
@@ -2120,6 +2280,780 @@ class GranularityTests(unittest.TestCase):
         self.assertEqual(tampered.returncode, 2)
         self.assertFalse(tampered_metrics.exists())
         self.assertIn("deterministic approved rendering", tampered.stderr)
+
+
+class QuestionOnlyStructurePhaseATests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.questions_path = ROOT / "data_construction/pilot/questions.jsonl"
+        self.split_path = ROOT / "data_construction/manifests/split_manifest_v0_1.json"
+        self.schema_path = (
+            ROOT / "data_construction/schemas/question_structure_annotation_v0_1.json"
+        )
+        self.questions = list(_common.iter_json_records(self.questions_path))
+        self.views = question_only_semantic_views.build_records(self.questions)
+        self.plan = json.loads(
+            (
+                ROOT
+                / "data_construction/pilot/question_structure_study_plan_v0_1.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.batch_id = self.plan["phase_a1"]["active_batch_id"]
+        self.selected_ids = question_structure_packet.validate_study_plan(
+            self.plan,
+            self.batch_id,
+            [view["question_id"] for view in self.views],
+            {
+                "repository_relative_path": self.plan["source_questions"][
+                    "repository_relative_path"
+                ],
+                "record_count": 30,
+                "sha256": self.plan["source_questions"]["sha256"],
+            },
+        )
+        self.payload = question_structure_packet.build_payload(
+            self.views,
+            self.selected_ids,
+            self.batch_id,
+            hashlib.sha256(self.schema_path.read_bytes()).hexdigest(),
+        )
+
+    def packet_context(self) -> dict[str, object]:
+        return {
+            "selected_ids": self.selected_ids,
+            "selected_views": self.views[:10],
+            "payload": self.payload,
+            "payload_sha256": canonical_sha256(self.payload),
+        }
+
+    def raw_records(self) -> list[dict[str, object]]:
+        payload_sha256 = canonical_sha256(self.payload)
+        return [
+            question_structure_annotation(
+                question_id=item["question_view"]["question_id"],
+                question=item["question_view"]["question"],
+                batch_id=self.batch_id,
+                question_view_sha256=item["question_view_sha256"],
+                packet_payload_sha256=payload_sha256,
+            )
+            for item in self.payload["items"]
+        ]
+
+    def view_manifest_fixture(
+        self,
+        views_path: Path,
+        views: list[dict[str, object]],
+    ) -> dict[str, object]:
+        implementation_paths = [
+            ROOT
+            / "data_construction/schemas/question_only_semantic_view_v0_1.json",
+            ROOT / "data_construction/tools/_common.py",
+            ROOT
+            / "data_construction/tools/build_question_only_semantic_views.py",
+        ]
+        implementation_artifacts = sorted(
+            [
+                {
+                    "repository_relative_path": path.relative_to(ROOT).as_posix(),
+                    "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                }
+                for path in implementation_paths
+            ],
+            key=lambda item: item["repository_relative_path"].encode("utf-8"),
+        )
+        record_hashes = [
+            {
+                "question_id": view["question_id"],
+                "canonical_sha256": canonical_sha256(view),
+            }
+            for view in views
+        ]
+        return {
+            "schema_version": "question_only_semantic_view_manifest_v0_1",
+            "builder_version": "question_only_semantic_view_builder_v0_1",
+            "provenance": {
+                "code_commit": "a" * 40,
+                "implementation_artifacts": implementation_artifacts,
+                "implementation_artifact_set_sha256": canonical_sha256(
+                    implementation_artifacts
+                ),
+            },
+            "views_artifact": {
+                "repository_relative_path": views_path.relative_to(ROOT).as_posix(),
+                "record_count": 30,
+                "sha256": hashlib.sha256(views_path.read_bytes()).hexdigest(),
+            },
+            "questions_artifact": {
+                "repository_relative_path": self.questions_path.relative_to(ROOT).as_posix(),
+                "record_count": 30,
+                "sha256": hashlib.sha256(self.questions_path.read_bytes()).hexdigest(),
+            },
+            "split_manifest_artifact": {
+                "repository_relative_path": self.split_path.relative_to(ROOT).as_posix(),
+                "sha256": hashlib.sha256(self.split_path.read_bytes()).hexdigest(),
+            },
+            "allocation_contract": {
+                "dataset_role": "annotation_schema_pilot",
+                "source_split": "dev",
+                "question_count": 30,
+                "release_eligible": True,
+                "zero_overlap_verified": True,
+                "override_used": False,
+                "question_order_matches_split_manifest": True,
+            },
+            "record_hash_contract": {
+                "canonicalization": "sorted_compact_json_utf8_sha256_v0_1",
+                "ordered_question_ids_sha256": canonical_sha256(
+                    [view["question_id"] for view in views]
+                ),
+                "ordered_record_hashes_sha256": canonical_sha256(record_hashes),
+                "records": record_hashes,
+            },
+            "view_contract": {
+                "allowed_fields": [
+                    "schema_version",
+                    "visibility",
+                    "question_id",
+                    "question",
+                ],
+                "visible_input_categories": ["question_id", "question_text"],
+                "excluded_categories": question_only_semantic_views.EXCLUDED_CATEGORIES,
+                "environment_exposed": False,
+                "answer_or_execution_evidence_exposed": False,
+                "proposal_or_historical_label_exposed": False,
+                "other_annotator_output_exposed": False,
+                "leakage_audit_status": "pass_by_exact_projection",
+            },
+        }
+
+    def schema_errors(self, record: dict[str, object]) -> list[object]:
+        from jsonschema import Draft202012Validator, FormatChecker
+
+        schema = json.loads(self.schema_path.read_text(encoding="utf-8"))
+        Draft202012Validator.check_schema(schema)
+        return list(
+            Draft202012Validator(
+                schema,
+                format_checker=FormatChecker(),
+            ).iter_errors(record)
+        )
+
+    def test_question_only_views_are_the_exact_canonical_four_field_projection(self) -> None:
+        split_manifest = json.loads(self.split_path.read_text(encoding="utf-8"))
+        question_only_semantic_views.validate_split_provenance(split_manifest, ROOT)
+        allocated_ids = question_only_semantic_views.validate_questions(
+            self.questions,
+            self.questions_path,
+            split_manifest,
+        )
+        self.assertEqual(len(self.views), 30)
+        self.assertEqual(allocated_ids, [view["question_id"] for view in self.views])
+        for source, view in zip(self.questions, self.views, strict=True):
+            self.assertEqual(
+                set(view),
+                {"schema_version", "visibility", "question_id", "question"},
+            )
+            self.assertEqual(view["question_id"], source["question_id"])
+            self.assertEqual(view["question"], source["question"])
+            self.assertNotIn("table_id", view)
+            self.assertNotIn("dataset_role", view)
+            self.assertNotIn("source_split", view)
+
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            alternate_questions = base / "questions.jsonl"
+            shutil.copyfile(self.questions_path, alternate_questions)
+            output = base / "views.jsonl"
+            manifest = base / "manifest.json"
+            refused = run_tool(
+                "build_question_only_semantic_views.py",
+                "--questions",
+                alternate_questions,
+                "--output",
+                output,
+                "--manifest-output",
+                manifest,
+            )
+            self.assertEqual(refused.returncode, 2)
+            self.assertIn("canonical release inputs are required", refused.stderr)
+            self.assertFalse(output.exists())
+            self.assertFalse(manifest.exists())
+
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            refused_external_output = run_tool(
+                "build_question_only_semantic_views.py",
+                "--output",
+                base / "views.jsonl",
+                "--manifest-output",
+                base / "manifest.json",
+            )
+            self.assertEqual(refused_external_output.returncode, 2)
+            self.assertIn(
+                "canonical outputs must remain inside the repository",
+                refused_external_output.stderr,
+            )
+
+    def test_view_manifest_reconstructs_exact_source_projection(self) -> None:
+        with tempfile.TemporaryDirectory(
+            dir=ROOT / "data_construction/pilot"
+        ) as directory:
+            views_path = Path(directory) / "views.jsonl"
+            write_jsonl(views_path, self.views)
+            manifest = self.view_manifest_fixture(views_path, self.views)
+
+            def committed_blob_sha256(
+                project_root: Path,
+                commit: str,
+                relative_path: str,
+            ) -> str:
+                self.assertEqual(commit, "a" * 40)
+                return hashlib.sha256((project_root / relative_path).read_bytes()).hexdigest()
+
+            with mock.patch.object(
+                question_structure_packet,
+                "_git_commit_exists",
+                return_value=True,
+            ), mock.patch.object(
+                question_structure_packet,
+                "_git_blob_sha256",
+                side_effect=committed_blob_sha256,
+            ):
+                bindings = question_structure_packet.validate_views_manifest(
+                    manifest,
+                    views_path,
+                    self.views,
+                    [view["question_id"] for view in self.views],
+                    ROOT,
+                )
+                self.assertEqual(bindings["questions_path"], self.questions_path)
+
+                tampered_views = copy.deepcopy(self.views)
+                tampered_views[0]["question"] += " TAMPERED"
+                write_jsonl(views_path, tampered_views)
+                tampered_manifest = self.view_manifest_fixture(
+                    views_path,
+                    tampered_views,
+                )
+                with self.assertRaisesRegex(
+                    ValueError,
+                    "exact ordered four-field projection",
+                ):
+                    question_structure_packet.validate_views_manifest(
+                        tampered_manifest,
+                        views_path,
+                        tampered_views,
+                        [view["question_id"] for view in tampered_views],
+                        ROOT,
+                    )
+
+    def test_phase_a_question_view_bytes_obey_atomic_write_once(self) -> None:
+        payload = _common.jsonl_file_bytes(self.views)
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "views.jsonl"
+            self.assertEqual(
+                _common.write_output_batch({"views": (output, payload)}),
+                {"views": "written"},
+            )
+            self.assertEqual(
+                _common.write_output_batch({"views": (output, payload)}),
+                {"views": "unchanged"},
+            )
+            output.write_bytes(b"preserve prior phase-a views\n")
+            with self.assertRaisesRegex(ValueError, "pass --overwrite"):
+                _common.write_output_batch({"views": (output, payload)})
+            self.assertEqual(output.read_bytes(), b"preserve prior phase-a views\n")
+            self.assertEqual(
+                _common.write_output_batch(
+                    {"views": (output, payload)},
+                    overwrite=True,
+                ),
+                {"views": "overwritten"},
+            )
+            self.assertEqual(output.read_bytes(), payload)
+
+    def test_raw_schema_accepts_complete_abstained_and_partial_gap_records(self) -> None:
+        for status in ("complete", "abstained", "incomplete_schema_gap"):
+            with self.subTest(status=status):
+                record = question_structure_annotation(status=status)
+                self.assertEqual(self.schema_errors(record), [])
+
+        multiline = question_structure_annotation()
+        multiline["annotation"]["unconstrained_question_paraphrase"] = (
+            "First line of the free observation.\nSecond line remains valid."
+        )
+        multiline["annotation_sha256"] = canonical_sha256(multiline["annotation"])
+        self.assertEqual(self.schema_errors(multiline), [])
+
+    def test_raw_schema_rejects_closed_ontology_fields_and_inconsistent_completion(self) -> None:
+        closed_ontology = question_structure_annotation()
+        closed_ontology["annotation"]["abstract_topology"]["nodes"][0][
+            "semantic_function"
+        ] = "SELECT_CANDIDATES"
+        closed_ontology["annotation_sha256"] = canonical_sha256(
+            closed_ontology["annotation"]
+        )
+
+        forbidden_extra = question_structure_annotation()
+        forbidden_extra["annotation"]["table_id"] = "later-layer-identity"
+        forbidden_extra["annotation_sha256"] = canonical_sha256(
+            forbidden_extra["annotation"]
+        )
+
+        complete_with_issue = question_structure_annotation()
+        complete_with_issue["annotation"]["instrument_issues"] = [
+            {
+                "type": "rubric_unclear",
+                "severity": "minor",
+                "rationale": "This contradicts a complete assessment.",
+            }
+        ]
+        complete_with_issue["annotation_sha256"] = canonical_sha256(
+            complete_with_issue["annotation"]
+        )
+
+        empty_obligation_mapping = question_structure_annotation()
+        empty_obligation_mapping["annotation"]["abstract_topology"]["nodes"][0][
+            "fulfills_obligation_ids"
+        ] = []
+        empty_obligation_mapping["annotation_sha256"] = canonical_sha256(
+            empty_obligation_mapping["annotation"]
+        )
+
+        for label, record in (
+            ("closed_ontology", closed_ontology),
+            ("forbidden_extra", forbidden_extra),
+            ("complete_with_issue", complete_with_issue),
+            ("empty_obligation_mapping", empty_obligation_mapping),
+        ):
+            with self.subTest(label=label):
+                self.assertTrue(self.schema_errors(record))
+
+    def test_packet_payload_is_exactly_ordered_blank_and_rubric_bound(self) -> None:
+        self.assertEqual(self.payload["batch_id"], self.batch_id)
+        self.assertEqual(
+            [item["question_view"]["question_id"] for item in self.payload["items"]],
+            self.selected_ids,
+        )
+        self.assertEqual(len(self.payload["items"]), 10)
+        for item in self.payload["items"]:
+            self.assertEqual(
+                set(item["question_view"]),
+                {"schema_version", "visibility", "question_id", "question"},
+            )
+            self.assertEqual(
+                item["question_view_sha256"],
+                canonical_sha256(item["question_view"]),
+            )
+        instrument = self.payload["instrument_contract"]
+        self.assertEqual(
+            instrument["annotation_schema_sha256"],
+            hashlib.sha256(self.schema_path.read_bytes()).hexdigest(),
+        )
+        self.assertTrue(instrument["stage1_visible_instructions"])
+        self.assertTrue(instrument["stage2_visible_instructions"])
+        self.assertEqual(
+            instrument["stage_transition_contract"],
+            "all_ten_nonempty_then_normal_ui_readonly_lock_before_scaffold_display_"
+            "procedural_attestation_not_adversarial_blinding",
+        )
+        self.assertEqual(
+            instrument["rubric_version"],
+            "question_structure_open_coding_rubric_v0_1",
+        )
+        self.assertFalse(instrument["closed_semantic_label_ontology_exposed"])
+        self.assertFalse(instrument["prefilled_semantic_decomposition_exposed"])
+
+        blank = self.payload["blank_annotation_form"]
+        self.assertEqual(blank["information_obligations"], [])
+        self.assertEqual(blank["abstract_topology"]["nodes"], [])
+        self.assertEqual(blank["semantic_skeleton"]["required_information_units"], [])
+        self.assertEqual(blank["semantic_skeleton"]["answer_target"]["description"], "")
+
+        payload_text = json.dumps(self.payload, ensure_ascii=False, sort_keys=True)
+        html_text = question_structure_packet.render_html(
+            self.payload,
+            canonical_sha256(self.payload),
+        )
+        self.assertIn('<section id="stage-2" hidden>', html_text)
+        self.assertIn('id="lock-observations"', html_text)
+        self.assertLess(
+            html_text.index('id="prior-exposure"'),
+            html_text.index('id="stage1-items"'),
+        )
+        self.assertIn("paraphrase.disabled = true", html_text)
+        self.assertIn("priorExposureControl.addEventListener('change'", html_text)
+        self.assertIn("priorExposureControl.disabled = true", html_text)
+        self.assertIn("locked_free_observation_before_scaffold", html_text)
+        for question in self.questions:
+            self.assertNotIn(question["table_id"], payload_text)
+            self.assertNotIn(question["table_id"], html_text)
+        for forbidden in (
+            "TABLE_LOOKUP",
+            "DOCUMENT_QA",
+            "COMPARE_VALUES",
+            "ARG_SELECT",
+            "operator_topology",
+            "granularity_representation",
+            "llm_proposed",
+        ):
+            self.assertNotIn(forbidden, payload_text)
+            self.assertNotIn(forbidden, html_text)
+        self.assertEqual(
+            question_structure_packet.render_html(
+                self.payload,
+                canonical_sha256(self.payload),
+            ),
+            html_text,
+        )
+
+    def test_packet_only_contract_reconstructs_exact_render_hash_and_order(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            views_path = base / "views.jsonl"
+            views_manifest_path = base / "views-manifest.json"
+            study_plan_path = base / "study-plan.json"
+            packet_path = base / "packet.html"
+            packet_manifest_path = base / "packet-manifest.json"
+            write_jsonl(views_path, self.views)
+            write_json(views_manifest_path, {"fixture": True})
+            write_json(study_plan_path, self.plan)
+
+            payload_sha256 = canonical_sha256(self.payload)
+            packet_bytes = question_structure_packet.render_html(
+                self.payload,
+                payload_sha256,
+            ).encode("utf-8")
+            packet_path.write_bytes(packet_bytes)
+            inputs = {
+                "views": views_path,
+                "views_manifest": views_manifest_path,
+                "study_plan": study_plan_path,
+                "annotation_schema": self.schema_path,
+                "view_schema": (
+                    ROOT
+                    / "data_construction/schemas/question_only_semantic_view_v0_1.json"
+                ),
+            }
+            live_hashes = {
+                label: hashlib.sha256(path.read_bytes()).hexdigest()
+                for label, path in inputs.items()
+            }
+            builder_commit = "c" * 40
+            manifest = question_structure_packet.build_manifest(
+                payload=self.payload,
+                payload_sha256=payload_sha256,
+                packet_bytes=packet_bytes,
+                batch_id=self.batch_id,
+                selected_ids=self.selected_ids,
+                inputs=inputs,
+                live_hashes=live_hashes,
+                output_path=packet_path,
+                project_root=ROOT,
+                code_commit=builder_commit,
+                paths=question_structure_packet.implementation_paths(ROOT),
+            )
+            write_json(packet_manifest_path, manifest)
+            questions_artifact = {
+                "repository_relative_path": self.plan["source_questions"][
+                    "repository_relative_path"
+                ],
+                "record_count": 30,
+                "sha256": self.plan["source_questions"]["sha256"],
+            }
+            with mock.patch.object(
+                question_structure_packet,
+                "validate_views_manifest",
+                return_value={"questions_artifact": questions_artifact},
+            ), mock.patch.object(
+                question_structure_validator,
+                "_validate_builder_commit_bindings",
+                return_value=builder_commit,
+            ):
+                context = question_structure_validator.validate_packet_contract(
+                    views_path=views_path,
+                    views_manifest_path=views_manifest_path,
+                    study_plan_path=study_plan_path,
+                    schema_path=self.schema_path,
+                    packet_path=packet_path,
+                    packet_manifest_path=packet_manifest_path,
+                    batch_id=self.batch_id,
+                    project_root=ROOT,
+                )
+                self.assertEqual(context["selected_ids"], self.selected_ids)
+                self.assertEqual(context["payload_sha256"], payload_sha256)
+                self.assertEqual(
+                    context["packet_sha256"],
+                    hashlib.sha256(packet_bytes).hexdigest(),
+                )
+
+                packet_path.write_bytes(packet_bytes + b"\n")
+                with self.assertRaisesRegex(
+                    ValueError,
+                    "exact deterministic rendering",
+                ):
+                    question_structure_validator.validate_packet_contract(
+                        views_path=views_path,
+                        views_manifest_path=views_manifest_path,
+                        study_plan_path=study_plan_path,
+                        schema_path=self.schema_path,
+                        packet_path=packet_path,
+                        packet_manifest_path=packet_manifest_path,
+                        batch_id=self.batch_id,
+                        project_root=ROOT,
+                    )
+
+    def test_raw_validator_accepts_one_complete_ordered_ten_record_array(self) -> None:
+        records = self.raw_records()
+        validator = question_structure_validator.load_schema_validator(self.schema_path)
+        results, global_errors = question_structure_validator.validate_raw_records(
+            records,
+            self.packet_context(),
+            validator,
+        )
+        self.assertEqual(global_errors, [])
+        self.assertEqual(len(results), 10)
+        self.assertTrue(all(result["errors"] == [] for result in results))
+        self.assertTrue(
+            all(
+                question_structure_validator.raw_gate_eligible(result["annotation"])
+                for result in results
+            )
+        )
+
+    def test_raw_validator_rejects_hash_cue_reference_cycle_exposure_and_batch_defects(
+        self,
+    ) -> None:
+        validator = question_structure_validator.load_schema_validator(self.schema_path)
+
+        wrong_hash = self.raw_records()
+        wrong_hash[0]["annotation_sha256"] = "0" * 64
+
+        wrong_cue = self.raw_records()
+        wrong_cue[0]["annotation"]["semantic_skeleton"]["answer_target"][
+            "source_cues"
+        ] = ["NOT AN EXACT QUESTION SUBSTRING"]
+        wrong_cue[0]["annotation_sha256"] = canonical_sha256(wrong_cue[0]["annotation"])
+
+        missing_reference = self.raw_records()
+        missing_reference[0]["annotation"]["information_obligations"][1][
+            "depends_on"
+        ] = ["missing-obligation"]
+        missing_reference[0]["annotation_sha256"] = canonical_sha256(
+            missing_reference[0]["annotation"]
+        )
+
+        cycle = self.raw_records()
+        cycle[0]["annotation"]["abstract_topology"]["nodes"][0]["depends_on"] = [
+            "n2"
+        ]
+        cycle[0]["annotation_sha256"] = canonical_sha256(cycle[0]["annotation"])
+
+        exposed = self.raw_records()
+        exposed[0]["annotation"]["prior_exposure_declared"] = True
+        exposed[0]["annotation_sha256"] = canonical_sha256(exposed[0]["annotation"])
+
+        uncovered_obligation = self.raw_records()
+        uncovered_obligation[0]["annotation"]["abstract_topology"]["nodes"][1][
+            "fulfills_obligation_ids"
+        ] = ["o1"]
+        uncovered_obligation[0]["annotation_sha256"] = canonical_sha256(
+            uncovered_obligation[0]["annotation"]
+        )
+
+        mixed_annotators = self.raw_records()
+        mixed_annotators[-1]["annotation"]["annotator_id"] = "reviewer-002"
+        mixed_annotators[-1]["annotation_sha256"] = canonical_sha256(
+            mixed_annotators[-1]["annotation"]
+        )
+
+        short_batch = self.raw_records()[:-1]
+        empty_batch: list[dict[str, object]] = []
+
+        cases = (
+            ("wrong_hash", wrong_hash, "annotation_sha256"),
+            ("wrong_cue", wrong_cue, "exact case-sensitive question substring"),
+            ("missing_reference", missing_reference, "missing dependency"),
+            ("cycle", cycle, "cycle"),
+            ("exposure", exposed, "prior exposure"),
+            ("uncovered_obligation", uncovered_obligation, "does not cover every"),
+            ("mixed_annotators", mixed_annotators, "one stable annotator"),
+            ("short_batch", short_batch, "exactly 10 records"),
+            ("empty_batch", empty_batch, "exactly 10 records"),
+        )
+        for label, records, expected_error in cases:
+            with self.subTest(label=label):
+                results, global_errors = (
+                    question_structure_validator.validate_raw_records(
+                        records,
+                        self.packet_context(),
+                        validator,
+                    )
+                )
+                all_errors = [
+                    *global_errors,
+                    *[
+                        error
+                        for result in results
+                        for error in result["errors"]
+                    ],
+                ]
+                self.assertTrue(all_errors)
+                self.assertTrue(
+                    any(expected_error in error for error in all_errors),
+                    all_errors,
+                )
+
+    def test_empty_raw_cli_writes_one_batch_scope_failure_check(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            annotations = base / "empty.json"
+            checks = base / "checks.jsonl"
+            write_json(annotations, [])
+            packet_context = {
+                **self.packet_context(),
+                "packet_sha256": "c" * 64,
+                "packet_manifest_sha256": "d" * 64,
+                "live_hashes": {
+                    "views": "e" * 64,
+                    "views_manifest": "f" * 64,
+                    "study_plan": "0" * 64,
+                    "annotation_schema": "1" * 64,
+                },
+            }
+            stdout = io.StringIO()
+            with mock.patch.object(
+                sys,
+                "argv",
+                [
+                    "validate_question_structure_annotations.py",
+                    str(annotations),
+                    "--batch-id",
+                    self.batch_id,
+                    "--checks-output",
+                    str(checks),
+                ],
+            ), mock.patch.object(
+                question_structure_validator,
+                "git_tracked_commit_identity",
+                return_value="a" * 40,
+            ), mock.patch.object(
+                question_structure_validator,
+                "validate_packet_contract",
+                return_value=packet_context,
+            ), mock.patch.object(sys, "stdout", stdout):
+                result = question_structure_validator.main()
+
+            self.assertEqual(result, 1)
+            output = json.loads(stdout.getvalue())
+            self.assertEqual(output["raw_records"], 0)
+            self.assertEqual(output["batch_fail_checks"], 1)
+            self.assertGreater(output["global_error_count"], 0)
+            self.assertEqual(output["record_error_count"], 0)
+            check_records = list(_common.iter_json_records(checks))
+            self.assertEqual(len(check_records), 1)
+            self.assertEqual(check_records[0]["validation_scope"], "batch")
+            self.assertEqual(check_records[0]["status"], "fail")
+            self.assertTrue(check_records[0]["errors"])
+
+    def test_phase_a_clis_refuse_overwrite_of_provenance_and_implementation_inputs(
+        self,
+    ) -> None:
+        targets = {
+            "historical_manifest": (
+                ROOT / "data_construction/manifests/historical_exposed_ids.json"
+            ),
+            "historical_tree_artifact": (
+                ROOT / "historical/ir_v0_2/recovery_manifest_v0_1.json"
+            ),
+            "view_builder": (
+                ROOT / "data_construction/tools/build_question_only_semantic_views.py"
+            ),
+            "packet_builder": (
+                ROOT / "data_construction/tools/build_question_structure_annotation_packet.py"
+            ),
+            "validator": (
+                ROOT / "data_construction/tools/validate_question_structure_annotations.py"
+            ),
+        }
+        before = {label: path.read_bytes() for label, path in targets.items()}
+        with tempfile.TemporaryDirectory(
+            dir=ROOT / "data_construction/pilot"
+        ) as directory:
+            base = Path(directory)
+            empty_annotations = base / "empty.json"
+            write_json(empty_annotations, [])
+            cases = (
+                (
+                    "view_historical_manifest",
+                    "build_question_only_semantic_views.py",
+                    (
+                        "--output",
+                        targets["historical_manifest"],
+                        "--manifest-output",
+                        base / "view-manifest.json",
+                        "--overwrite",
+                    ),
+                    "collides with input",
+                ),
+                (
+                    "view_historical_tree",
+                    "build_question_only_semantic_views.py",
+                    (
+                        "--output",
+                        targets["historical_tree_artifact"],
+                        "--manifest-output",
+                        base / "historical-tree-view-manifest.json",
+                        "--overwrite",
+                    ),
+                    "read-only historical tree",
+                ),
+                (
+                    "view_builder_self",
+                    "build_question_only_semantic_views.py",
+                    (
+                        "--output",
+                        base / "views.jsonl",
+                        "--manifest-output",
+                        targets["view_builder"],
+                        "--overwrite",
+                    ),
+                    "collides with input",
+                ),
+                (
+                    "packet_builder_self",
+                    "build_question_structure_annotation_packet.py",
+                    (
+                        "--batch-id",
+                        self.batch_id,
+                        "--output",
+                        targets["packet_builder"],
+                        "--manifest-output",
+                        base / "packet-manifest.json",
+                        "--overwrite",
+                    ),
+                    "collides with input",
+                ),
+                (
+                    "validator_self",
+                    "validate_question_structure_annotations.py",
+                    (
+                        empty_annotations,
+                        "--batch-id",
+                        self.batch_id,
+                        "--checks-output",
+                        targets["validator"],
+                        "--overwrite",
+                    ),
+                    "collides with input",
+                ),
+            )
+            for label, tool, arguments, expected_error in cases:
+                with self.subTest(label=label):
+                    refused = run_tool(tool, *arguments)
+                    self.assertEqual(refused.returncode, 2, refused.stderr)
+                    self.assertIn(expected_error, refused.stderr)
+        for label, path in targets.items():
+            self.assertEqual(path.read_bytes(), before[label])
 
 
 class CorpusStatisticsTests(unittest.TestCase):

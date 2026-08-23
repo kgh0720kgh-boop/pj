@@ -1,0 +1,469 @@
+{
+  "schema_version": "question_structure_study_plan_v0_1",
+  "status": "phase_a0_instrument_contract_frozen_human_evidence_not_collected",
+  "decision_date": "2026-08-23",
+  "decision_artifact": "data_construction/reports/research_sequencing_decision_v0_1.md",
+  "source_questions": {
+    "repository_relative_path": "data_construction/pilot/questions.jsonl",
+    "sha256": "6d09bf7f3f7b9285cad7ca38da8e7f395789eb59fd2ee0af86ba931062e33cdb",
+    "question_count": 30,
+    "order_contract": "exact_committed_jsonl_order"
+  },
+  "truthfulness_contract": {
+    "question_one_discussion_status": "protocol_analysis_only_not_human_evidence",
+    "human_annotation_record_count": 0,
+    "human_review_record_count": 0,
+    "semantic_alignment_artifact_status": "not_created",
+    "semantic_alignment_comparator_status": "not_implemented",
+    "semantic_agreement_claimed": false,
+    "gold_claimed": false,
+    "semantic_confirmation_claimed": false,
+    "raw_phase_a_representation_kind": "elicited_linked_representation",
+    "raw_phase_a_cross_level_evidence_scope": "representability_and_instrument_operability_only",
+    "question_structure_to_graph_relationship_claimed": false,
+    "independent_blinded_topology_protocol_status": "not_created",
+    "source_cue_evidence_scope": "minimal_localization_integrity_only_not_semantic_correctness_agreement_or_cross_level_prediction",
+    "stage_transition_enforcement_scope": "single_self_contained_html_normal_ui_staging_and_attestation_only_not_server_enforced_or_adversarial_blinding",
+    "raw_free_text_leakage_detection_scope": "structural_forbidden_key_scan_and_attestation_only_not_semantic_content_detection",
+    "prior_exposure_policy": "declare_and_exclude_from_affected_exposure_naive_phase_a_work",
+    "reviewer_identity_policy": "procedural_manual_researcher_sign_off_not_machine_executable_or_authenticatable_no_hash_bound_reviewer_registry"
+  },
+  "phase_order": [
+    "phase_a0_raw_proposal_free_open_coding_instrument",
+    "phase_a1_open_coding_calibration_and_separate_blinded_alignment",
+    "phase_a2_frozen_held_out_confirmation_and_census",
+    "phase_b_deferred_operator_granularity",
+    "phase_c_precommitted_representative_grounding_execution"
+  ],
+  "phase_a0": {
+    "status": "raw_instrument_contract_frozen_packet_materialization_pending_or_complete",
+    "hypothesis": "A blank hash-bound instrument can collect storage-neutral open-coded question structure without proposal anchoring, closed semantic-label enums, or later-layer leakage.",
+    "structural_hypothesis_under_test": "The answer-request, candidate-structure, required-information-unit, and dependency scaffolds are adequate and expressive for question-only structure discovery.",
+    "scope": "raw_open_coding_instrument_projection_schema_validator_hash_binding_and_attestation_only",
+    "out_of_scope": [
+      "semantic_unit_normalization",
+      "cross_reviewer_alignment",
+      "agreement_scoring",
+      "adjudication_artifact",
+      "alignment_comparator",
+      "independent_cross_level_structure_to_graph_evidence"
+    ],
+    "required_outputs": [
+      "versioned_blank_proposal_free_question_only_open_coding_instrument",
+      "versioned_raw_question_structure_record_contract",
+      "deterministic_raw_schema_hash_and_layer_separation_validator",
+      "immutable_raw_record_hash_contract",
+      "reviewer_real_human_independence_and_prior_exposure_attestation_contract",
+      "batch_wide_pre_scaffold_free_observation_lock_and_attestation_contract"
+    ],
+    "shown_inputs": [
+      "opaque_question_id",
+      "question_text",
+      "pre_observation_prior_exposure_screen_that_blocks_ineligible_reviewers",
+      "ten_question_unconstrained_free_observation_fields_before_scaffold",
+      "single_batch_wide_lock_action_after_all_ten_observations_are_nonempty",
+      "all_ten_free_observations_readonly_after_lock",
+      "stage_two_free_text_answer_request_candidate_structure_required_information_unit_and_dependency_scaffolds_for_all_ten_displayed_by_the_normal_ui_only_after_batch_wide_lock",
+      "stable_local_id_and_dependency_reference_controls_without_semantic_category_menu"
+    ],
+    "reviewer_hidden_category_systems": [
+      "closed_semantic_label_ontology",
+      "closed_answer_type_enum",
+      "closed_answer_cardinality_enum",
+      "closed_candidate_structure_kind_enum",
+      "closed_semantic_function_enum",
+      "operator_vocabulary"
+    ],
+    "hidden_inputs": [
+      "table_id_title_section_schema_rows_cells_or_values",
+      "environment_or_linked_document_identity_schema_capabilities_or_text",
+      "candidate_operator_graphs",
+      "model_proposals_assessments_or_rationales",
+      "official_answers_spans_or_execution_traces",
+      "weak_traces_or_answer_nodes",
+      "historical_graphs_or_labels",
+      "grounding_or_execution_graphs",
+      "granularity_metrics",
+      "other_annotator_or_adjudicated_outputs"
+    ],
+    "gate": {
+      "exact_input_allowlist_required": true,
+      "prefilled_model_content_allowed": false,
+      "reviewer_visible_semantic_enum_allowed": false,
+      "raw_record_schema_validation_required": true,
+      "layer_separation_validation_required": true,
+      "hash_binding_required": true,
+      "reviewer_attestation_required": true,
+      "locked_free_observation_before_scaffold_attestation_required": true,
+      "free_observation_lock_scope": "single_html_normal_ui_batch_wide_lock_after_all_ten_nonempty_then_display_all_stage_two_scaffolds_procedural_not_adversarial_blinding",
+      "locked_free_observation_editable_after_scaffold_reveal": false,
+      "stage_transition_machine_enforced_against_source_or_dom_inspection": false,
+      "free_text_semantic_leakage_detection_claimed": false,
+      "source_cue_check_may_claim_semantic_correctness_or_agreement": false,
+      "raw_validation_may_claim_semantic_agreement": false
+    }
+  },
+  "phase_a1": {
+    "status": "planned_raw_collection_then_alignment_contract_pending",
+    "hypothesis": "Two exposure-naive humans can independently produce complete elicited linked representations from question text alone, testing scaffold representability and operability rather than a structure-to-graph predictive relationship.",
+    "active_batch_id": "phase_a1_batch_01",
+    "reviewer_count_per_question": 2,
+    "reviewer_contract": {
+      "real_human_required": true,
+      "mutual_independence_required": true,
+      "stable_pseudonymous_id_required": true,
+      "researcher_approval_required": true,
+      "researcher_approval_verification": "procedural_manual_sign_off_not_machine_executable_or_authenticatable_no_hash_bound_registry",
+      "external_lookup_allowed": false,
+      "reviewer_consultation_allowed": false,
+      "prior_phase_b_artifact_exposure_allowed": false,
+      "locked_free_observation_before_scaffold_attestation_required": true,
+      "undeclared_prior_exposure_disposition": "invalidate_and_exclude_affected_submission"
+    },
+    "open_coding_components": [
+      "unconstrained_question_paraphrase",
+      "semantic_skeleton",
+      "information_obligations",
+      "abstract_topology",
+      "ambiguity",
+      "alternative_topology_plans",
+      "representation_assessment",
+      "instrument_issues"
+    ],
+    "reviewer_visible_enum_prohibition": [
+      "closed_semantic_label_ontology",
+      "closed_answer_type_enum",
+      "closed_answer_cardinality_enum",
+      "closed_candidate_structure_kind_enum",
+      "closed_semantic_function_enum"
+    ],
+    "calibration_batches": [
+      {
+        "batch_id": "phase_a1_batch_01",
+        "role": "primary_calibration",
+        "committed_order_start": 1,
+        "committed_order_end": 10,
+        "question_ids": [
+          "8259c70c392c5b75",
+          "1d48a5ffb05c7de2",
+          "743c4e765fcd76e5",
+          "ab5eb9535349cd7a",
+          "b3550375a684a870",
+          "f36270c917a195c7",
+          "8524304318e5f09a",
+          "c26cafcd706efe0d",
+          "3d207ccb8be56fd9",
+          "b16c668f54c230e7"
+        ],
+        "expected_record_count": 20
+      },
+      {
+        "batch_id": "phase_a1_batch_02",
+        "role": "held_out_confirmation_if_batch_01_freezes_else_first_calibration_retry",
+        "committed_order_start": 11,
+        "committed_order_end": 20,
+        "question_ids": [
+          "f7426693930a6ab2",
+          "fb5717774d243073",
+          "1e674ae4b655c1a1",
+          "bd8704d4254c01c6",
+          "0503a6ef0129abd8",
+          "254c5c25421f60da",
+          "1518b9d0da2d3711",
+          "be6ebff950e35063",
+          "5ee2a90fe9a3cd56",
+          "6926f4190bebd390"
+        ],
+        "expected_record_count": 20
+      },
+      {
+        "batch_id": "phase_a1_batch_03",
+        "role": "held_out_confirmation_if_prior_batch_freezes_else_final_calibration",
+        "committed_order_start": 21,
+        "committed_order_end": 30,
+        "question_ids": [
+          "d8b4bad4f5a73509",
+          "6a9c00243f104ad3",
+          "e650aba3f1a9239e",
+          "c597434242009fe6",
+          "86245b7523f7a645",
+          "1754cff04f90d4ba",
+          "2e4366c597bbfb87",
+          "639da22b64b0a499",
+          "fc9605cb355ae05c",
+          "f08d137b8650f452"
+        ],
+        "expected_record_count": 20
+      }
+    ],
+    "raw_collection_gate": {
+      "expected_records_complete": "20_of_20",
+      "schema_valid_rate": 1.0,
+      "hash_bound_rate": 1.0,
+      "substantive_rate": 1.0,
+      "forbidden_input_violation_count": 0,
+      "layer_separation_violation_count": 0,
+      "required_representation_assessment_outcome": "complete",
+      "required_representation_assessment_schema_gap_descriptions": [],
+      "required_instrument_issues": [],
+      "required_attestation_values": {
+        "locked_free_observation_before_scaffold": true
+      },
+      "source_cue_check_scope": "minimal_localization_integrity_only_not_semantic_correctness_agreement_or_cross_level_prediction",
+      "procedural_manual_signoff": {
+        "required": true,
+        "machine_executable": false,
+        "machine_authenticatable": false,
+        "reason": "no_hash_bound_reviewer_identity_or_approval_registry",
+        "covers": [
+          "real_human_identity",
+          "mutual_independence",
+          "prior_exposure_attestation"
+        ],
+        "accepted_affected_prior_exposure_record_count": 0
+      },
+      "semantic_agreement_pass_allowed": false
+    },
+    "post_raw_collection_exact_task": {
+      "task": "create_version_freeze_and_validate_a_separate_blinded_alignment_adjudication_artifact_contract_and_deterministic_comparator_bound_to_both_raw_reviewer_sets",
+      "status": "not_implemented",
+      "must_freeze_before_interpreting_alignment_results": true,
+      "phase_a1_pass_claim_allowed_before_completion": false,
+      "phase_a2_entry_allowed_before_completion": false
+    },
+    "removed_non_executable_gates": [
+      "categorical_8_of_10_agreement",
+      "semantic_unit_f1_threshold",
+      "dependency_invariant_f1_threshold",
+      "recurring_defect_count_threshold"
+    ],
+    "stopping_rules": [
+      "Any forbidden-input leak, undeclared prior exposure, reviewer non-independence, or fabricated identity invalidates the affected submission.",
+      "Raw gate completion alone never establishes semantic agreement or a Phase A1 pass.",
+      "A batch may pass and freeze only under the later versioned blinded-alignment and adjudication contract.",
+      "On a failed calibration version, preserve raw and alignment artifacts and change the instrument only through a new version.",
+      "Never count a previously used question as untouched held-out confirmation for a later version.",
+      "If batch 03 is used for calibration, no current-pilot held-out questions remain and Phase B entry is prohibited."
+    ]
+  },
+  "phase_a2": {
+    "phase_name": "frozen_held_out_confirmation_and_census",
+    "status": "blocked_on_phase_a1_alignment_and_freeze",
+    "hypothesis": "A frozen question-only instrument remains stable on questions untouched by calibration.",
+    "stability_evidence_scope": "untouched_questions_only",
+    "branch_contracts": [
+      {
+        "condition": "batch_01_passes_and_freezes",
+        "calibration_batch_ids": [
+          "phase_a1_batch_01"
+        ],
+        "held_out_confirmation_batch_ids": [
+          "phase_a1_batch_02",
+          "phase_a1_batch_03"
+        ],
+        "held_out_question_count": 20,
+        "held_out_record_count": 40,
+        "same_version_census_question_count": 30,
+        "same_version_census_record_count": 60,
+        "phase_b_entry_possible_after_confirmation_gate": true
+      },
+      {
+        "condition": "batch_01_fails_version_changes_and_batch_02_passes_and_freezes",
+        "calibration_batch_ids": [
+          "phase_a1_batch_02"
+        ],
+        "held_out_confirmation_batch_ids": [
+          "phase_a1_batch_03"
+        ],
+        "held_out_question_count": 10,
+        "held_out_record_count": 20,
+        "earlier_batch_reannotation_role": "optional_same_version_census_only_never_held_out_stability",
+        "phase_b_entry_possible_after_confirmation_gate": true
+      },
+      {
+        "condition": "batches_01_and_02_fail_and_batch_03_is_calibration",
+        "calibration_batch_ids": [
+          "phase_a1_batch_03"
+        ],
+        "held_out_confirmation_batch_ids": [],
+        "held_out_question_count": 0,
+        "held_out_record_count": 0,
+        "phase_b_entry_possible_after_confirmation_gate": false,
+        "required_disposition": "allocate_new_researcher_authorized_fresh_questions_or_stop_or_reframe"
+      }
+    ],
+    "confirmation_gate": {
+      "single_frozen_instrument_alignment_and_comparator_version_required": true,
+      "all_expected_held_out_records_valid_hash_bound_substantive_and_leakage_free": true,
+      "all_expected_blinded_alignment_and_adjudication_outputs_complete": true,
+      "semantic_stability_claim_must_exclude_calibration_and_reannotated_questions": true,
+      "cross_version_pooling_allowed": false,
+      "phase_b_entry_requires_positive_held_out_question_count": true
+    }
+  },
+  "phase_b": {
+    "status": "deferred_blocked_on_eligible_phase_a2_held_out_confirmation",
+    "hypothesis": "Conditional on frozen question-only evidence, humans can compare coarse, medium, and fine environment-aware realizations without treating model self-assessments as evidence.",
+    "preserved_artifacts": {
+      "representations": {
+        "repository_relative_path": "data_construction/pilot/granularity_representations.jsonl",
+        "sha256": "75cb1b5ae1c03d1f931acf720c37f52686d247046389e982ffbe43a610a44583"
+      },
+      "deterministic_checks": {
+        "repository_relative_path": "data_construction/pilot/granularity_deterministic_checks.jsonl",
+        "sha256": "9500afcb6d529e2b8b5f8842d2170bdc5dc1c34d39b299f18b4c531b70a55c05"
+      },
+      "metrics": {
+        "repository_relative_path": "data_construction/reports/operator_granularity_metrics_v0_1.json",
+        "sha256": "271f773bab77b5a49368944dc4b5131c88d41a8791fe7fe2154f58e31d2cf8ec"
+      },
+      "existing_review_packets_status": "preserved_not_authorized_as_phase_b_human_interface"
+    },
+    "entry_gate": [
+      "eligible_phase_a2_held_out_confirmation_passed",
+      "frozen_question_only_raw_alignment_and_adjudication_hashes_recorded",
+      "independent_blinded_topology_elicitation_or_prediction_protocol_versioned_frozen_and_evaluated_on_held_out_questions_before_phase_b_normalization_or_cross_level_claim",
+      "six_stratum_motif_taxonomy_versioned_and_frozen_from_frozen_phase_a_evidence_only",
+      "exact_phase_b_sample_manifest_and_phase_c_representatives_precommitted",
+      "new_versioned_blind_phase_b_projection_validated",
+      "reviewer_prior_exposure_declared_and_affected_reviewers_excluded"
+    ],
+    "cross_level_claim_gate": {
+      "phase_a_raw_representation_kind": "elicited_linked_representation",
+      "supported_evidence_scope": [
+        "scaffold_representability",
+        "instrument_operability"
+      ],
+      "unsupported_claim": "question_structure_or_motif_predicts_or_is_independently_associated_with_graph_structure",
+      "required_protocol": {
+        "status": "not_created",
+        "versioned_and_frozen_before_evaluation": true,
+        "collection_separation": "different_pass_or_annotator_under_a_predeclared_independence_rule",
+        "upstream_skeleton_obligation_content_ids_or_mapping_references_visible": false,
+        "held_out_question_evaluation_required": true
+      },
+      "phase_b_normalization_allowed_before_gate": false,
+      "motif_or_structure_to_graph_relationship_claim_allowed_before_gate": false
+    },
+    "review_contract": {
+      "granularities": [
+        "coarse",
+        "medium",
+        "fine"
+      ],
+      "substantive_reviewers_per_question_granularity": 2,
+      "granularity_order": "randomized_or_counterbalanced",
+      "proposal_self_assessments_and_rationales_hidden_until_independent_judgment": true,
+      "abstention_policy": "preserve_but_obtain_replacement_or_third_review_until_two_substantive_judgments_exist"
+    },
+    "sampling": {
+      "motif_taxonomy_status": "not_allocated_until_phase_a2_normalization",
+      "exact_question_ids_status": "not_allocated_until_phase_a2_normalization",
+      "phase_c_representative_ids_status": "not_allocated_until_phase_a2_normalization",
+      "taxonomy_allowed_inputs": [
+        "frozen_phase_a2_question_only_raw_records",
+        "frozen_phase_a2_blinded_alignment_and_adjudication_artifacts",
+        "frozen_held_out_outputs_from_the_independent_blinded_topology_protocol",
+        "committed_question_order"
+      ],
+      "taxonomy_forbidden_inputs": [
+        "granularity_representations",
+        "granularity_proposal_gaps_or_metrics",
+        "phase_b_human_reviews",
+        "answers_grounding_execution_or_historical_labels"
+      ],
+      "taxonomy_author_contract": {
+        "input_scope": "frozen_phase_a_evidence_only",
+        "existing_model_proposals_acknowledged": true,
+        "question_one_proposal_discussion_acknowledged": true,
+        "prior_proposal_exposure_declaration_required": true,
+        "affected_exposure_disposition": "exclude_the_author_or_affected_question_as_predeclared_and_applicable",
+        "selected_proposal_judgments_self_assessments_and_phase_b_human_results_hidden_until_taxonomy_and_sample_manifest_commit": true
+      },
+      "taxonomy_contract": {
+        "primary_stratum_count": 6,
+        "assignment": "one_mutually_exclusive_primary_frozen_stratum_per_eligible_question",
+        "minimum_eligible_questions_per_stratum": 3,
+        "stratum_names_and_rules": "defined_only_in_future_versioned_taxonomy_artifact",
+        "insufficient_stratum_disposition": "do_not_enter_phase_b_until_taxonomy_or_authorized_question_pool_is_revised"
+      },
+      "future_exact_sample_manifest": {
+        "status": "not_created",
+        "must_commit_before_opening_selected_proposal_judgments_self_assessments_or_phase_b_human_results": true,
+        "must_record": [
+          "taxonomy_artifact_and_sha256",
+          "eligible_question_to_stratum_assignments",
+          "deterministic_within_stratum_order",
+          "base_12_exact_question_ids",
+          "expansion_block_01_exact_question_ids",
+          "expansion_block_02_exact_question_ids",
+          "phase_c_six_exact_representative_question_ids"
+        ]
+      },
+      "allocation_algorithm": {
+        "base": "select_first_two_eligible_questions_under_the_manifest_frozen_order_from_each_of_six_strata",
+        "base_question_count": 12,
+        "base_substantive_decision_count": 72,
+        "expansion_block_01": "add_next_one_unused_question_from_each_of_the_first_three_manifest_ordered_frozen_strata",
+        "expansion_block_01_cumulative_question_count": 15,
+        "expansion_block_01_cumulative_substantive_decision_count": 90,
+        "expansion_block_02": "add_next_one_unused_question_from_each_of_the_remaining_three_manifest_ordered_frozen_strata",
+        "expansion_block_02_cumulative_question_count": 18,
+        "expansion_block_02_cumulative_substantive_decision_count": 108
+      }
+    },
+    "expansion_triggers": {
+      "evaluation_timing": "after_base_12_and_again_cumulatively_after_15",
+      "disagreement": {
+        "definition": "Within any granularity, at least 25 percent of sampled question cells have different substantive assessment vectors between the reviewer pair.",
+        "minimum_cells_at_12": 3,
+        "minimum_cells_at_15": 4
+      },
+      "tie": {
+        "paired_usable_definition": "Both reviewers independently mark the candidate full plan semantically valid and covered.",
+        "trigger": "The two best granularities differ by at most one question in paired-usable count."
+      },
+      "new_reusable_gap": {
+        "trigger": "A reusable semantic-operation or typed-contract gap absent from the committed candidate gap set is independently identified in at least two different sampled questions."
+      }
+    },
+    "stopping_rules": [
+      "Stop at 12 questions and 72 substantive decisions when no expansion trigger fires.",
+      "Add the manifest-precommitted expansion block 01 when any trigger fires after 12.",
+      "Add the manifest-precommitted expansion block 02 when any trigger remains after cumulative evaluation at 15.",
+      "Stop at 18 questions and 108 substantive decisions regardless of remaining uncertainty.",
+      "Never expand automatically to 30 questions or 180 decisions.",
+      "At the hard stop, unresolved evidence yields vocabulary or schema revision, NEED_MORE_HUMAN_REVIEW, or STOP_OR_REFRAME rather than silent expansion."
+    ]
+  },
+  "phase_c": {
+    "status": "representatives_not_allocated_until_future_phase_b_sample_manifest",
+    "hypothesis": "Grounding and execution can be measured separately from semantic-plan correctness on result-independent frozen-stratum representatives.",
+    "representative_count": 6,
+    "allocation_algorithm": "precommit_one_base_sample_question_per_frozen_stratum_in_the_phase_b_sample_manifest_before_any_phase_b_operator_review_result_is_opened",
+    "selection_independence": "representative_ids_do_not_depend_on_phase_b_operator_selection_validity_coverage_disagreement_or_execution_results",
+    "negative_case_policy": "retain_unsupported_or_ambiguous_precommitted_representatives_without_post_hoc_replacement",
+    "withheld_until_execution_reference": [
+      "expected_answer",
+      "execution_trace"
+    ],
+    "gate": [
+      "grounding_schema_validation",
+      "ir_parse_registry_type_dependency_and_reachability_validation",
+      "semantic_plan_assessment_recorded_separately_from_execution_success",
+      "grounding_tool_runtime_and_source_failures_reported_separately"
+    ]
+  },
+  "immediate_next_human_task": {
+    "authorization": "blocked_until_phase_a0_raw_instrument_and_validator_are_committed_and_pass_then_requires_procedural_manual_researcher_sign_off",
+    "batch_id": "phase_a1_batch_01",
+    "question_count": 10,
+    "reviewer_count": 2,
+    "expected_raw_artifacts": 2,
+    "records_per_artifact": 10,
+    "instruction": "Each procedurally researcher-signed-off exposure-naive real-human reviewer independently open-codes the exact first committed-order 10 questions from question text only, without closed semantic-label ontology or enums, consultation, or external lookup, then submits one immutable hash-bound raw artifact and prior-exposure/independence attestation.",
+    "researcher_signoff_limit": "procedural_manual_sign_off_not_machine_executable_or_authenticatable_without_a_hash_bound_registry",
+    "evidence_limitation": "Raw collection creates human observations but no semantic agreement claim.",
+    "next_exact_technical_task_after_collection": "create_version_freeze_and_validate_the_separate_blinded_alignment_adjudication_artifact_contract_and_deterministic_comparator"
+  }
+}

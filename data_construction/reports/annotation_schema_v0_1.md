@@ -1,5 +1,17 @@
 # 계층형 주석 스키마 v0.1
 
+## 2026-08-23 question-first sequencing addendum
+
+이 addendum이 현재 실행 순서를 정하며 아래 v0.1 설계 본문과 이전 Phase 2 addendum은 당시 계약·증거로 보존한다. 현재 순서는 question-only raw open coding → 별도 blinded alignment/freeze → held-out confirmation → 환경 의존 operator granularity → 대표 grounding/execution이다. 기존 30 model-assisted record/90 coarse-medium-fine representation/90 check/3 packet/v0.1 metric은 byte-preserved Phase B 선행 가능성 증거이고, 기존 packet은 현재 Phase A 또는 미래 blinded Phase B human UI로 승인되지 않았다.
+
+Phase A0용 `question_only_semantic_view_v0_1`은 opaque question ID와 exact question text만 허용한다. `question_structure_annotation_v0_1`의 answer-request, candidate-structure, required-information-unit, dependency scaffold는 closed semantic ontology나 확정된 truth가 아니라 경험적으로 시험할 구조 가설이다. Reviewer에게 closed semantic label, answer type/cardinality, candidate kind, semantic function, operator enum을 주지 않는다. 표·열·capability·linked document·answer·trace·proposal·metric·grounding·execution도 숨긴다.
+
+Raw record schema/hash/leakage validation은 observation integrity만 뜻한다. Semantic-unit normalization, cross-reviewer alignment, agreement scoring, adjudication은 A0에 구현되지 않았고 두 독립 raw set 뒤 별도 versioned blind contract와 comparator를 결과 해석 전에 동결해야 한다. 따라서 raw valid를 semantic confirmation이나 Phase A1 pass로 해석하지 않는다.
+
+Packet과 raw validator가 commit·검증된 뒤 다음 human task는 연구자 승인·상호 독립·무노출 실제 사람 2명이 committed order의 첫 10문항을 question-only로 독립 작성해 2파일/20 raw record를 만드는 것이다. Q1 대화는 protocol 분석이고 human evidence는 0이다. Later-layer 자료에 노출된 사람은 영향받은 exposure-naive 작업에서 제외한다. Identity, independence, approval, prior-exposure attestation은 procedural/manual이며 machine-authenticated가 아니다.
+
+이전 6 reviewer×granularity 파일/180판정 task는 철회됐다. 미래 Phase B는 A2 evidence로 동결한 6-stratum taxonomy에서 `12 × 3 × 2 = 72`판정으로 시작하고 사전 선언 trigger에 따라 90, 최대 108판정까지 확장한다. Exact question ID는 A2 normalization 전에 배정하지 않는다. 현재 bundle은 schema 11개와 vocabulary 3개이며, 최신 exact-pin 및 test 결과는 handoff를 따른다.
+
 ## 상태와 범위
 
 이 문서는 HybridQA 질문을 다음 여섯 계층으로 분리하는 `annotation_bundle_v0_1` 계약을 설명한다.
@@ -390,7 +402,7 @@ python3 data_construction/tools/check_schema_bundle.py --root . --require-jsonsc
 
 **Schema-design candidate와 정식 bundle validation은 준비되었지만 실제 pilot 투입은 여전히 차단되어 있다.** historical exposure ID를 복구해 fresh question 분리를 입증해야 한다. 따라서 전체 phase의 현재 결정 `DATA_SOURCE_BLOCKED`는 바뀌지 않는다. 이 gate가 해소된 뒤 20–30개의 fresh HybridQA pilot에서 세 granularity를 실제로 주석하고 schema 부담, coverage, graph 길이, 대안 계획, 모호성, reviewer agreement를 측정한다. 인간 검토 전에는 이 bundle을 gold 또는 모델링-ready corpus로 부르지 않는다.
 
-## 2026-08-23 현재 상태 addendum
+## 2026-08-23 이전 Phase 2 상태 addendum — 위 sequencing 결정으로 superseded
 
 위 `DATA_SOURCE_BLOCKED` 결정은 당시 스냅샷이며 현재 상태를 덮어쓰지 않는다. 이후 다음 gate가 실제로 해소되었다.
 
@@ -400,9 +412,9 @@ python3 data_construction/tools/check_schema_bundle.py --root . --require-jsonsc
 - 복구 IR adapter는 50/50 graph와 520 node를 error 없이 검증했으며 455 `DEAD_NODE` warning을 역사 planner evidence로 보존했다.
 - 같은 30개 질문의 leakage-safe operator view와 coarse/medium/fine `llm_proposed` 표현 90개를 생성했고, 결정론 검사는 90/90 pass, errors=0, warnings=0이다. 세 review packet은 사람 판정을 포함하지 않으며 실제 human review count는 0이다.
 
-따라서 현재 study 상태는 `structural_integrity_complete_human_calibration_pending`, 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`다. 구조적 pass는 semantic correctness를 뜻하지 않으며 final modeling decision, gold annotation, final vocabulary, modeling-ready corpus를 뜻하지 않는다.
+따라서 당시 granularity artifact 상태는 `structural_integrity_complete_human_calibration_pending`, 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`였다. 구조적 pass는 semantic correctness를 뜻하지 않으며 final modeling decision, gold annotation, final vocabulary, modeling-ready corpus를 뜻하지 않는다.
 
-다음 exact task는 granularity마다 서로 다른 stable pseudonymous reviewer ID 두 개 이상으로 30개 항목을 독립 검토해 reviewer×granularity 파일 6개와 총 180개 판정을 수집하는 것이다. Packet/representation hash를 검증하고 모든 reject/edit/실질 평가 불일치를 adjudicate해야 한다. Reviewer 정체성과 독립성은 연구자가 절차적으로 확인·승인해야 하며, 이 단계 전후에도 condition-C answer와 evaluator output은 early-layer view에 들어가면 안 된다.
+당시 next task는 granularity마다 서로 다른 stable pseudonymous reviewer ID 두 개 이상으로 30개 항목을 독립 검토해 reviewer×granularity 파일 6개와 총 180개 판정을 수집하는 것이었다. 이 task는 현재 철회됐으며 위 question-first 순서가 우선한다. Condition-C answer와 evaluator output이 early-layer view에 들어가면 안 된다는 누출 금지는 계속 유효하다.
 
 현재 정식 재현 명령은 다음과 같다.
 

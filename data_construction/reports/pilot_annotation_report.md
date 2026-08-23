@@ -1,8 +1,18 @@
 # Pilot annotation report
 
-## 2026-08-23 Phase 2 실행 결과 addendum
+## 2026-08-23 question-first sequencing addendum
 
-현재 study 상태: `structural_integrity_complete_human_calibration_pending`
+현재 active pilot은 question-only raw open coding이다. 순서는 raw observation → 별도 blinded alignment/freeze → held-out confirmation → deferred environment-aware operator granularity → representative grounding/execution이다. 아래 Phase 2 결과의 30 record/90 representation/90 check/3 packet/v0.1 metric은 그대로 보존하지만, 기존 packet은 현재 Phase A 또는 미래 blind Phase B human UI로 승인되지 않았다. 이전 6파일/180판정 task도 철회됐다.
+
+Phase A0 scaffold는 answer request, candidate structure, required information unit, dependency를 open text로 받는다. Closed semantic/operator enum은 없지만 scaffold 자체는 테스트할 구조 가설이다. Packet과 raw validator가 commit·검증된 뒤, 연구자 승인·상호 독립·무노출 실제 사람 2명이 첫 committed-order 10문항을 question-only로 독립 작성해 2파일/20 raw record를 만든다. Q1 대화는 human evidence 0건이며, later-layer exposure가 있는 사람은 영향받은 작업에서 제외한다. Reviewer identity·independence·approval·exposure 확인은 procedural/manual이고 machine-authenticated가 아니다.
+
+Raw schema/hash/leakage pass는 semantic agreement가 아니다. 두 raw set 뒤 별도 blinded alignment/adjudication artifact와 comparator를 만들고 결과 해석 전에 version/freeze해야 한다. Future Phase B는 A2-derived six strata에서 72 decisions로 시작해 precommitted trigger에 따라 90, 최대 108로 확장한다. Exact IDs는 A2 normalization 전에는 배정하지 않는다. 현재 bundle은 11 schemas/3 vocabularies이며 정확한 최신 validation/test 결과는 handoff를 따른다.
+
+한 scaffold에서 세 층을 직접 연결한 raw triple은 `elicited_linked_representation`이며 cross-level 예측 증거가 아니다. Phase B normalization 또는 구조→graph claim 전에 별도 independent/blinded held-out topology pass가 필요하다. 현재 단일 HTML의 lock은 정상 UI와 attestation에 의존하고, raw key scan은 허용 free-text의 의미 contamination을 검출하지 못한다.
+
+## 2026-08-23 이전 Phase 2 실행 결과 addendum — 보존된 snapshot
+
+당시 granularity artifact 상태: `structural_integrity_complete_human_calibration_pending`
 
 잠정 결정: `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`
 
@@ -25,7 +35,7 @@ Human review record는 세 granularity 모두 0개이고 disagreement observatio
 
 프로젝트 로컬 exact-pin 환경에서 현재 9개 schema와 3개 vocabulary 검증이 통과했고 write-once output 보호를 포함한 표준 테스트는 `51/51` 통과했다. 그러나 어떤 vocabulary도 선택하거나 동결하지 않았고 proposal을 gold로 바꾸지 않았으며, resolved corpus나 modeling readiness도 없다.
 
-다음 exact task는 granularity마다 서로 다른 두 reviewer ID로 30개 항목을 독립 검토해 reviewer×granularity 파일 6개와 총 180개 판정을 수집하는 것이다. 다섯 실질 평가 필드를 모두 채우고 대상 representation 및 packet payload hash를 검증한 뒤 reject, `accept_with_edits`, 실질 평가 불일치를 adjudicate해야 한다. Reviewer 인증은 절차적으로 확인해야 하며 기계적으로 검증됐다고 주장하지 않는다.
+당시 exact task는 granularity마다 서로 다른 두 reviewer ID로 reviewer×granularity 파일 6개와 총 180개 판정을 수집하는 것이었다. 이 task는 위 question-first sequencing 결정으로 철회됐으며, 아래 내용은 v0.1 evidence 해석 기록으로만 남긴다.
 
 아래는 gate 해제 전인 2026-08-21의 역사적 상태 기록이다.
 

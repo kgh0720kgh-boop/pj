@@ -2,7 +2,7 @@
 
 ## Current reproducibility status
 
-The continuity scaffold, canonical project Git history, official HybridQA source identities, Python version, exact pip requirements, schema/vocabulary bundle, tools, tests, historical-exposure audit, and recovered IR v0.2 evidence are portable. On 2026-08-23 the project-local pinned virtual environment was reconstructed; against the current bundle it reproduces full Draft 2020-12 validation for all nine schemas and three vocabularies with zero errors/warnings.
+The continuity scaffold, canonical project Git history, official HybridQA source identities, Python version, exact pip requirements, schema/vocabulary bundle, tools, tests, historical-exposure audit, and recovered IR v0.2 evidence are portable. On 2026-08-23 the project-local pinned virtual environment was reconstructed. The current bundle contains eleven schemas and three vocabularies; the latest authoritative exact-pin result and test count are recorded in `HANDOFF_CURRENT.md` after each bundle change.
 
 The canonical project repository decision is resolved. The researcher authorized a preservation-first migration from the recovered historical workspace on 2026-08-23. This reset scaffold uses one dependency mechanism: pip requirements pinned in `requirements.txt`.
 
@@ -48,17 +48,17 @@ sh scripts/cross_device_preflight.sh
 
 The earlier workstation observation lacked `ensurepip`/the matching `python3-venv` OS package. On 2026-08-23 this workstation was rechecked: CPython 3.10.12, `ensurepip`, `python3-venv`, and `python3.10-venv` were available, and a fresh project-local `.venv` was created from the exact pins. Recreate it independently on every workstation; never copy a virtual environment between workstations.
 
-The earlier exact-pin ephemeral validation of the then-current eight-schema/three-vocabulary bundle remains historical evidence and must not be rewritten as if it covered the later schema. The current project-local `.venv` result is nine schemas and three vocabulary instances, errors=0 and warnings=0.
+The earlier exact-pin ephemeral validation of the then-current eight-schema/three-vocabulary bundle and the later nine-schema/three-vocabulary project-local result remain historical evidence. Neither may be rewritten as if it covered the current eleven-schema Phase A0 bundle; rerun the exact-pin command after changing the bundle and record that result separately.
 
 ## Validation levels
 
 The checks intentionally have different meanings:
 
 1. `python3 -m json.tool` and the preflight core-JSON loop prove UTF-8 JSON parseability.
-2. `python3 data_construction/tools/check_schema_bundle.py` checks all nine schemas, all three vocabularies, expected identities, portable `$id`/local `$ref` resolution, and available validator behavior. Under the 2026-08-21 system `jsonschema==3.2.0` it used a warned Draft 7 fallback; the 2026-08-23 system has `4.26.0`, but an unpinned system result is still not the project reproduction result.
+2. `python3 data_construction/tools/check_schema_bundle.py` checks all eleven schemas, all three vocabularies, expected identities, portable `$id`/local `$ref` resolution, and available validator behavior. Under the 2026-08-21 system `jsonschema==3.2.0` it used a warned Draft 7 fallback; the 2026-08-23 system has `4.26.0`, but an unpinned system result is still not the project reproduction result.
 3. `.venv/bin/python data_construction/tools/check_schema_bundle.py --require-jsonschema` is the required project-local reproduction check. It now passes with every installed version matching `requirements.txt` and `pip check` passing.
 4. `.venv/bin/python data_construction/tools/validate_ir_v0_2_reference.py --all` authenticates the ten preserved files against their recovery manifest and immutable Git authority, loads the recovered runtime in isolation, and validates all 50 condition-C graphs. The current result is 50/50 graphs, 520 nodes, zero parse/schema/IR-validator errors, and 455 `DEAD_NODE` warnings.
-5. `.venv/bin/python -m unittest discover -s tests -v` runs the deterministic regression suite covering history/source gates, sampling, leakage checks, exact review-packet rendering, write-once output protection, schema hardening, IR references, and operator-granularity/statistics behavior. The current observed result is 51 tests passed.
+5. `.venv/bin/python -m unittest discover -s tests -v` runs the deterministic regression suite covering history/source gates, sampling, leakage checks, exact review-packet rendering, write-once output protection, schema hardening, IR references, question-only Phase A0 contracts, and deferred operator-granularity/statistics behavior. Use the latest count recorded in the handoff; the earlier 51-test result predates the Phase A0 additions.
 
 A lower validation level must never be reported as the full Draft 2020-12 result.
 
@@ -70,7 +70,11 @@ The five historical Week 1–3 artifacts were preserved byte-for-byte with resea
 
 The ten-file IR v0.2 evidence bundle is quarantined read-only under `historical/ir_v0_2/` and bound to its recovery manifest. Its condition-C JSONL contains answers and evaluator outputs, so it is late-stage historical evidence only and must never enter question-only semantic, obligation, abstract-topology, or operator-topology views. The current-side adapter lives outside the historical tree.
 
-The 30-question granularity pilot is now materialized as a committed, hash-bound input-view contract plus 30 model-assisted representation records, each containing coarse, medium, and fine candidates. The corresponding 90 deterministic checks pass. The three self-contained HTML review packets and their manifests contain zero human reviews: they only provide a leakage-reduced operator view, candidate representation, deterministic packet payload SHA-256, and an export format for external raw review arrays. Human review arrays must remain separate inputs bound to the packet payload and reviewed-representation hashes.
+The active sequence now begins with question-only raw open coding. Its view contract permits exactly opaque question ID and question text; its raw scaffold is a structural hypothesis under test and supplies no closed semantic-label or operator enum. The single self-contained HTML enforces its batch lock only through the normal UI and attestation, not against source/DOM inspection, and the forbidden-key audit does not semantically inspect allowed free text. Raw schema, hash, and structural leakage checks therefore establish limited record integrity only. Cross-reviewer semantic alignment, adjudication, and agreement remain a separately versioned contract to be built and frozen after two independent raw sets exist.
+
+The 30-question granularity pilot remains materialized as a committed, hash-bound input-view contract plus 30 model-assisted records containing 90 coarse/medium/fine candidates, 90 deterministic checks, three self-contained HTML packets, and v0.1 metrics. These bytes are preserved as deferred Phase B feasibility evidence. The packets contain zero human reviews and are not approved for current Phase A or future blinded Phase B assessment. The old 180-decision task is revoked; future Phase B uses a six-stratum, Phase-A-derived sample of 72 decisions with precommitted trigger-based expansion to 90 and at most 108.
+
+The immediate human task begins only after the question-only packet and its raw validator are committed and pass: two researcher-approved, mutually independent, exposure-naive real humans independently annotate the first committed-order ten questions, producing two files and 20 raw records. Reviewer identity, independence, approval, and prior-exposure status are manual procedural sign-offs, not machine-authenticated facts. The earlier question-1 discussion contributes zero human evidence, and exposed reviewers are excluded from affected exposure-naive work.
 
 The current proposal provenance truthfully records `model_id=codex_gpt-5`, but the interface exposed neither an exact model revision nor raw model output, and did not support a seed. The plan and representations record `revision_not_exposed`, `not_exposed_by_interface`, and `not_supported` rather than fabricating those values. This is a reproducibility limitation: the structured proposal artifact and its hashes are portable, but the original model generation cannot be claimed as exactly replayable.
 
