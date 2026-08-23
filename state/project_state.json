@@ -1,72 +1,103 @@
 {
   "schema_version": "project_state_v0_1",
-  "state_updated_date": "2026-08-21",
+  "state_updated_date": "2026-08-23",
   "project": "hierarchical_data_construction_for_semantic_execution_topology_induction",
-  "active_phase": "phase_0_historical_provenance_recovery_gate",
+  "active_phase": "phase_2_operator_granularity_annotation_pilot",
   "active_branch": "main",
-  "expected_head": "c337e9a67c15cd68fbb53eefb79bef90a6f9f242",
-  "last_completed_task": "official_source_audit_v0_1_scaffold_and_hardened_cross_device_preflight_integration",
-  "next_task": "recover_the_five_historical_artifacts_with_authoritative_provenance_then_regenerate_the_historical_manifest_before_any_split_allocation",
-  "current_scientific_decision": "DATA_SOURCE_BLOCKED",
-  "scientific_decision_status": "provisional_pending_historical_exposure_recovery",
-  "synchronization_state": "SYNCED_TO_REMOTE",
+  "expected_head": "bedfd1f4feeb48f78cea86a9b0deef88e5d34ddc",
+  "last_completed_task": "historical_exposure_and_ir_v0_2_recovery_exact_pin_reproduction_and_30_question_pilot_allocation",
+  "next_task": "build_leakage_safe_coarse_medium_fine_representations_for_the_same_30_pilot_questions_then_run_deterministic_checks_and_human_calibration",
+  "current_scientific_decision": "DATA_SOURCE_READY_FOR_ANNOTATION_PILOT",
+  "scientific_decision_status": "in_progress_not_a_final_modeling_decision",
+  "synchronization_state": "LOCAL_COMMIT_NOT_PUSHED",
   "handoff_readiness": "not_ready",
   "blocked_gates": [
-    "AUTHORITATIVE_PROJECT_PROVENANCE_NOT_AVAILABLE",
-    "HISTORICAL_ARTIFACTS_NOT_AVAILABLE",
-    "HISTORICAL_EXPOSED_ID_AUDIT_INCOMPLETE",
-    "FRESH_QUESTION_DISJOINTNESS_NOT_VERIFIABLE",
-    "IR_V0_2_DEFINITION_AND_VALIDATOR_NOT_RECOVERED",
-    "PROJECT_LOCAL_PINNED_ENVIRONMENT_NOT_RECONSTRUCTED"
+    "LOCAL_COMMIT_NOT_PUSHED: eight local commits are ahead of origin/main and remote writes are not authorized",
+    "OPERATOR_GRANULARITY_PILOT_NOT_RUN: coarse medium and fine representations have not been created or compared for the 30 questions",
+    "ANNOTATION_PROPOSALS_NOT_CREATED: no LLM or human annotation proposals exist for the 30 questions",
+    "HUMAN_REVIEW_NOT_PERFORMED: calibration review adjudication and resolved annotations are not available"
   ],
   "repository": {
     "git_root": "repository root (resolve with git rev-parse --show-toplevel)",
     "current_branch": "main",
-    "head": "c337e9a67c15cd68fbb53eefb79bef90a6f9f242",
-    "head_role": "expected_handoff_baseline",
+    "head": "bedfd1f4feeb48f78cea86a9b0deef88e5d34ddc",
+    "head_role": "expected_handoff_baseline_parent_of_metadata_commit",
     "remotes": ["origin https://github.com/kgh0720kgh-boop/pj.git"],
     "working_tree_status": "clean",
     "untracked_files": 0,
-    "unpushed_commits": 0,
+    "unpushed_commits": 8,
     "stash_state": "empty"
   },
   "artifact_status": {
     "official_source_audit": {
       "status": "complete_at_pinned_upstream_commits",
       "manifest": "data_construction/manifests/source_manifest_v0_1.json",
-      "official_source_materialization": "machine_local_cache_reacquirable_from_manifest"
+      "official_source_materialization": "machine_local_cache_reacquirable_from_manifest",
+      "current_role_allocation_authority": "data_construction/manifests/split_manifest_v0_1.json"
     },
     "historical_exposure_audit": {
-      "status": "incomplete_missing_historical_artifacts_and_authoritative_provenance",
+      "status": "complete_strict_verified",
       "manifest": "data_construction/manifests/historical_exposed_ids.json",
+      "recovery_provenance": "state/historical_recovery_provenance_v0_1.json",
+      "authority_commit": "1995c0cf79ab8e987773041d456d4a1b8df19793",
       "required_file_count": 5,
-      "recovered_file_count": 0
+      "recovered_file_count": 5,
+      "exposed_unique": 100,
+      "locked_eval_unique": 15,
+      "strict_errors": 0
     },
     "split_manifest": {
-      "status": "blocked_not_allocated",
-      "release_eligible": false
+      "status": "allocated_annotation_schema_pilot_only",
+      "manifest": "data_construction/manifests/split_manifest_v0_1.json",
+      "source_question_inventory": "data_construction/manifests/source_question_ids.json",
+      "release_eligible": true,
+      "zero_overlap_verified": true,
+      "override_used": false,
+      "counts": {
+        "annotation_schema_pilot": 30,
+        "annotation_train": 0,
+        "annotation_dev": 0,
+        "locked_eval": 0
+      }
     },
     "schema_bundle": {
       "schema_version": "v0_1",
       "schema_count": 8,
       "operator_vocabulary_count": 3,
-      "portable_structure_check": "passed_with_legacy_validator_warnings",
-      "draft_2020_12_full_validation": "passed_in_ephemeral_exact_pin_environment_with_zero_errors_and_zero_warnings"
+      "portable_structure_check": "passed",
+      "draft_2020_12_full_validation": "passed_in_project_local_exact_pin_environment_with_zero_errors_and_zero_warnings"
+    },
+    "historical_ir_v0_2": {
+      "status": "recovered_read_only_and_live_reference_validated",
+      "recovery_manifest": "historical/ir_v0_2/recovery_manifest_v0_1.json",
+      "authority_commit": "dcc5ac5c14e9acb5c689b400a4046708b6837ac3",
+      "preserved_file_count": 10,
+      "condition_c_artifact": "historical/ir_v0_2/experiments/results/week2_pilot/condition_C.jsonl",
+      "current_side_adapter": "data_construction/tools/validate_ir_v0_2_reference.py",
+      "records_validated": 50,
+      "nodes_validated": 520,
+      "parse_errors": 0,
+      "draft_2020_12_schema_errors": 0,
+      "ir_v0_2_validator_errors": 0,
+      "dead_node_warnings": 455,
+      "warning_interpretation": "historical_planner_failure_evidence_not_current_granularity_evidence"
     },
     "tools": {
       "status": "implemented",
-      "test_entry_point": "python3 -m unittest discover -s tests -v",
-      "final_integration_test_status": "passed_26_tests_with_system_python"
+      "test_entry_point": ".venv/bin/python -B -m unittest discover -s tests -v",
+      "final_integration_test_status": "passed_43_tests_in_project_local_exact_pin_environment"
     }
   },
   "preflight_status": {
-    "last_verified_date": "2026-08-21",
+    "last_verified_date": "2026-08-23",
     "result": "NOT_READY",
     "exit_code": 2,
     "validation_failures": 0,
-    "core_json_files_parsed": 15,
-    "unit_tests_passed": 30,
-    "unit_tests_failed": 0
+    "core_json_files_parsed": 18,
+    "unit_tests_passed": 43,
+    "unit_tests_failed": 0,
+    "ir_v0_2_records_validated": 50,
+    "ir_v0_2_validator_errors": 0
   },
   "canonical_artifacts": [
     "CODEX_DATA_CONSTRUCTION_RESET_PROMPT_V2_MULTI_DEVICE.md",
@@ -74,6 +105,7 @@
     "HANDOFF_CURRENT.md",
     "ENVIRONMENT.md",
     "state/project_state.json",
+    "state/historical_recovery_provenance_v0_1.json",
     "reports/cross_device_repo_audit.md",
     "scripts/cross_device_preflight.sh",
     ".python-version",
@@ -81,19 +113,34 @@
     "data_construction/README.md",
     "data_construction/manifests/historical_exposed_ids.json",
     "data_construction/manifests/source_manifest_v0_1.json",
+    "data_construction/manifests/source_question_ids.json",
     "data_construction/manifests/split_manifest_v0_1.json",
+    "data_construction/pilot/questions.jsonl",
     "data_construction/schemas/",
     "data_construction/operator_design/",
     "data_construction/tools/",
     "data_construction/reports/",
-    "tests/test_data_construction_tools.py"
+    "tests/test_data_construction_tools.py",
+    "tests/test_ir_v0_2_reference.py",
+    "historical/README.md",
+    "historical/ir_v0_2/recovery_manifest_v0_1.json"
   ],
   "historical_read_only_paths": [
     "data_analysis/week1_sample_100.jsonl",
     "evaluation/week2_eval_ids.json",
     "evaluation/week3_engineering_dev_ids.json",
     "evaluation/week3_locked_eval_ids.json",
-    "evaluation/week3_split_manifest.json"
+    "evaluation/week3_split_manifest.json",
+    "historical/ir_v0_2/ir/spec_v0_2.md",
+    "historical/ir_v0_2/ir/execution_graph.schema.json",
+    "historical/ir_v0_2/ir/operator_registry_v0_2.json",
+    "historical/ir_v0_2/ir/type_registry_v0_2.json",
+    "historical/ir_v0_2/src/hybridqa_graph/ir.py",
+    "historical/ir_v0_2/src/hybridqa_graph/planning.py",
+    "historical/ir_v0_2/src/hybridqa_graph/registry.py",
+    "historical/ir_v0_2/src/hybridqa_graph/validator.py",
+    "historical/ir_v0_2/experiments/results/week2_pilot/condition_C.jsonl",
+    "historical/ir_v0_2/experiments/results/week2_pilot/run_manifest.json"
   ],
   "environment_contract": {
     "python": {
@@ -119,16 +166,30 @@
     },
     "draft_2020_12_validation": {
       "required_jsonschema_version": "4.23.0",
-      "observed_system_jsonschema_version": "3.2.0",
-      "status": "passed_in_ephemeral_exact_pin_environment",
+      "observed_system_jsonschema_version": "4.26.0",
+      "status": "complete_in_project_local_pinned_environment",
       "ephemeral_validation_result": {
         "schemas_checked": 8,
         "vocabularies_checked": 3,
         "errors": 0,
         "warnings": 0
       },
-      "project_local_environment_status": "not_reconstructed",
+      "project_local_environment_status": "reconstructed",
+      "project_local_validation_result": {
+        "schemas_checked": 8,
+        "vocabularies_checked": 3,
+        "errors": 0,
+        "warnings": 0
+      },
       "required_command": ".venv/bin/python data_construction/tools/check_schema_bundle.py --require-jsonschema"
+    },
+    "ir_v0_2_reference_validation": {
+      "required_command": ".venv/bin/python data_construction/tools/validate_ir_v0_2_reference.py --all",
+      "status": "passed",
+      "records": 50,
+      "nodes": 520,
+      "errors": 0,
+      "dead_node_warnings": 455
     },
     "project_path_policy": "repository_relative",
     "hostname_dependency": "forbidden",

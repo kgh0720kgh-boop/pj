@@ -187,6 +187,7 @@ PY
     fi
 
     contract_output=$("$PYTHON_BIN" -B - <<'PY'
+import hashlib
 import json
 import re
 import sys
@@ -1106,12 +1107,12 @@ do
     fi
 done
 if [ -z "$missing_historical" ]; then
-    pass_check 'HISTORICAL_ARTIFACT_PATHS: all five present; provenance/content gates still apply'
+    pass_check 'HISTORICAL_ARTIFACT_PATHS: all five present; provenance/content checked separately'
 else
     block_check "HISTORICAL_ARTIFACTS_MISSING:$missing_historical"
 fi
 
-printf '%s\n' '[INFO] MODEL_IDENTITY: no model is required for the current audit/schema phase'
+printf '%s\n' '[INFO] MODEL_IDENTITY: no model is required for the completed recovery, validation, or pilot-input allocation'
 
 local_secret_present=0
 for secret_file in .env .env.local
