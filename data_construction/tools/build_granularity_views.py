@@ -16,11 +16,13 @@ from _common import (
     git_tracked_commit_identity,
     historical_output_collision_errors,
     iter_json_records,
+    json_file_bytes,
+    jsonl_file_bytes,
     output_path_collision_errors,
     read_json,
+    sha256_bytes,
     sha256_file,
-    write_json,
-    write_jsonl,
+    write_output_batch,
 )
 
 
@@ -74,6 +76,11 @@ def parse_args() -> argparse.Namespace:
         "--manifest-output",
         type=Path,
         default=Path("data_construction/pilot/granularity_input_views_manifest_v0_1.json"),
+    )
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="Replace existing view artifacts only when their bytes differ",
     )
     return parser.parse_args()
 
@@ -464,7 +471,8 @@ def main() -> int:
     except (OSError, UnicodeDecodeError, ValueError, json.JSONDecodeError) as exc:
         print(f"cannot build granularity views: {exc}", file=sys.stderr)
         return 2
-    write_jsonl(args.output, records)
+    output_payload = jsonl_file_bytes(records)
+    output_sha256 = sha256_bytes(output_payload)
     manifest = {
         "schema_version": "granularity_input_views_manifest_v0_1",
         "builder_version": VIEW_BUILDER_VERSION,
@@ -481,7 +489,7 @@ def main() -> int:
         "input_views_artifact": {
             "repository_relative_path": portable_path(args.output, project_root),
             "record_count": len(records),
-            "sha256": sha256_file(args.output),
+            "sha256": output_sha256,
         },
         "questions_artifact": {
             "repository_relative_path": portable_path(args.questions, project_root),
@@ -542,16 +550,28 @@ def main() -> int:
             "leakage_audit_status": "pass_by_exact_projection",
         },
     }
-    write_json(args.manifest_output, manifest)
+    manifest_payload = json_file_bytes(manifest)
+    manifest_sha256 = sha256_bytes(manifest_payload)
+    try:
+        write_output_batch(
+            {
+                "output": (args.output, output_payload),
+                "manifest_output": (args.manifest_output, manifest_payload),
+            },
+            overwrite=args.overwrite,
+        )
+    except (OSError, ValueError) as exc:
+        print(f"cannot write granularity views: {exc}", file=sys.stderr)
+        return 2
     print(
         json.dumps(
             {
                 "builder_version": VIEW_BUILDER_VERSION,
                 "questions": len(records),
                 "output": args.output.as_posix(),
-                "output_sha256": sha256_file(args.output),
+                "output_sha256": output_sha256,
                 "manifest_output": args.manifest_output.as_posix(),
-                "manifest_sha256": sha256_file(args.manifest_output),
+                "manifest_sha256": manifest_sha256,
             },
             sort_keys=True,
         )

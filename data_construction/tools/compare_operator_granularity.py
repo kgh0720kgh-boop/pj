@@ -22,10 +22,11 @@ from _common import (
     historical_output_collision_errors,
     implementation_artifact_set_sha256,
     iter_json_records,
+    json_file_bytes,
     output_path_collision_errors,
     read_json,
     sha256_file,
-    write_json,
+    write_output_batch,
 )
 from validate_annotation import topology_errors, vocabulary_names
 
@@ -326,6 +327,11 @@ def parse_args() -> argparse.Namespace:
         "--vocabulary-dir",
         type=Path,
         default=Path("data_construction/operator_design"),
+    )
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="Replace existing metric/report artifacts only when their bytes differ",
     )
     return parser.parse_args()
 
@@ -2342,10 +2348,17 @@ def main() -> int:
             "code_commit": implementation_commit,
         },
     }
-    write_json(args.json_output, summary)
+    output_payloads = {"json_output": (args.json_output, json_file_bytes(summary))}
     if args.report_output is not None:
-        args.report_output.parent.mkdir(parents=True, exist_ok=True)
-        args.report_output.write_text(render_markdown(summary), encoding="utf-8", newline="\n")
+        output_payloads["report_output"] = (
+            args.report_output,
+            render_markdown(summary).encode("utf-8"),
+        )
+    try:
+        write_output_batch(output_payloads, overwrite=args.overwrite)
+    except (OSError, ValueError) as exc:
+        print(f"cannot write operator-granularity comparison: {exc}", file=sys.stderr)
+        return 2
     print(
         json.dumps(
             {

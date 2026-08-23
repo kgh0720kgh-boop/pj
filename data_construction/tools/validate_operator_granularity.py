@@ -19,10 +19,12 @@ from _common import (
     historical_output_collision_errors,
     implementation_artifact_set_sha256,
     iter_json_records,
+    jsonl_file_bytes,
     output_path_collision_errors,
     read_json,
+    sha256_bytes,
     sha256_file,
-    write_jsonl,
+    write_output_batch,
 )
 from validate_annotation import vocabulary_names
 
@@ -114,6 +116,11 @@ def parse_args() -> argparse.Namespace:
         "--checks-output",
         type=Path,
         default=Path("data_construction/pilot/granularity_deterministic_checks.jsonl"),
+    )
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="Replace an existing checks artifact only when its bytes differ",
     )
     return parser.parse_args()
 
@@ -373,7 +380,15 @@ def main() -> int:
                     "warnings": [],
                 }
             )
-    write_jsonl(args.checks_output, checks)
+    checks_payload = jsonl_file_bytes(checks)
+    try:
+        write_output_batch(
+            {"checks_output": (args.checks_output, checks_payload)},
+            overwrite=args.overwrite,
+        )
+    except (OSError, ValueError) as exc:
+        print(f"cannot write operator-granularity checks: {exc}", file=sys.stderr)
+        return 2
     result = {
         "validator_version": VALIDATOR_VERSION,
         "questions": len(records),
@@ -381,7 +396,7 @@ def main() -> int:
         "errors": len(global_errors),
         "warnings": 0,
         "checks_output": args.checks_output.as_posix(),
-        "checks_output_sha256": sha256_file(args.checks_output),
+        "checks_output_sha256": sha256_bytes(checks_payload),
     }
     print(json.dumps(result, sort_keys=True))
     return 1 if global_errors else 0

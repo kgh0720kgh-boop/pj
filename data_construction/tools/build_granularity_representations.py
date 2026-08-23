@@ -13,10 +13,12 @@ from _common import (
     git_tracked_commit_identity,
     historical_output_collision_errors,
     iter_json_records,
+    jsonl_file_bytes,
     output_path_collision_errors,
     read_json,
+    sha256_bytes,
     sha256_file,
-    write_jsonl,
+    write_output_batch,
 )
 
 
@@ -123,6 +125,11 @@ def parse_args() -> argparse.Namespace:
         "--output",
         type=Path,
         default=Path("data_construction/pilot/granularity_representations.jsonl"),
+    )
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="Replace an existing output only when its bytes differ",
     )
     return parser.parse_args()
 
@@ -509,7 +516,15 @@ def main() -> int:
     except (OSError, UnicodeDecodeError, ValueError, json.JSONDecodeError) as exc:
         print(f"cannot build granularity representations: {exc}", file=sys.stderr)
         return 2
-    write_jsonl(args.output, output_records)
+    output_payload = jsonl_file_bytes(output_records)
+    try:
+        write_output_batch(
+            {"output": (args.output, output_payload)},
+            overwrite=args.overwrite,
+        )
+    except (OSError, ValueError) as exc:
+        print(f"cannot write granularity representations: {exc}", file=sys.stderr)
+        return 2
     print(
         json.dumps(
             {
@@ -517,7 +532,7 @@ def main() -> int:
                 "questions": len(output_records),
                 "representations": len(output_records) * len(GRANULARITIES),
                 "output": args.output.as_posix(),
-                "output_sha256": sha256_file(args.output),
+                "output_sha256": sha256_bytes(output_payload),
             },
             sort_keys=True,
         )

@@ -18,10 +18,12 @@ from _common import (
     historical_output_collision_errors,
     implementation_artifact_set_sha256,
     iter_json_records,
+    json_file_bytes,
     output_path_collision_errors,
     read_json,
+    sha256_bytes,
     sha256_file,
-    write_json,
+    write_output_batch,
 )
 
 
@@ -226,6 +228,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--granularity", required=True, choices=GRANULARITIES)
     parser.add_argument("--output", required=True, type=Path, help="Self-contained HTML packet")
     parser.add_argument("--manifest-output", required=True, type=Path)
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="Replace existing packet artifacts only when their bytes differ",
+    )
     return parser.parse_args()
 
 
@@ -1267,8 +1274,8 @@ def main() -> int:
         print(f"cannot build granularity review packet: {exc}", file=sys.stderr)
         return 2
 
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(rendered, encoding="utf-8", newline="\n")
+    packet_payload = rendered.encode("utf-8")
+    packet_sha256 = sha256_bytes(packet_payload)
     manifest = {
         "schema_version": "operator_granularity_review_packet_manifest_v0_1",
         "builder_version": BUILDER_VERSION,
@@ -1284,7 +1291,7 @@ def main() -> int:
         },
         "packet_artifact": {
             "repository_relative_path": portable_path(args.output, project_root),
-            "sha256": sha256_file(args.output),
+            "sha256": packet_sha256,
         },
         "inputs": {
             label: {
@@ -1322,7 +1329,18 @@ def main() -> int:
             "builder_does_not_claim_human_review": True,
         },
     }
-    write_json(args.manifest_output, manifest)
+    manifest_payload = json_file_bytes(manifest)
+    try:
+        write_output_batch(
+            {
+                "output": (args.output, packet_payload),
+                "manifest_output": (args.manifest_output, manifest_payload),
+            },
+            overwrite=args.overwrite,
+        )
+    except (OSError, ValueError) as exc:
+        print(f"cannot write granularity review packet: {exc}", file=sys.stderr)
+        return 2
     print(
         json.dumps(
             {

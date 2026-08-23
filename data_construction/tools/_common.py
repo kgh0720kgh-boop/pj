@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import subprocess
+import tempfile
 from pathlib import Path
 from typing import Any, Iterable, Iterator
 
@@ -117,6 +119,141 @@ def write_jsonl(path: Path, records: Iterable[dict[str, Any]]) -> None:
         for line in lines:
             handle.write(line)
             handle.write("\n")
+
+
+def json_file_bytes(value: Any) -> bytes:
+    """Serialize one canonical project JSON file without touching the filesystem."""
+
+    return (
+        json.dumps(
+            value,
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+            allow_nan=False,
+        )
+        + "\n"
+    ).encode("utf-8")
+
+
+def jsonl_file_bytes(records: Iterable[dict[str, Any]]) -> bytes:
+    """Serialize project JSONL bytes without touching the filesystem."""
+
+    return b"".join(
+        (
+            json.dumps(
+                record,
+                ensure_ascii=False,
+                sort_keys=True,
+                allow_nan=False,
+            )
+            + "\n"
+        ).encode("utf-8")
+        for record in records
+    )
+
+
+def sha256_bytes(payload: bytes) -> str:
+    return hashlib.sha256(payload).hexdigest()
+
+
+def write_output_batch(
+    outputs: dict[str, tuple[Path, bytes]],
+    *,
+    overwrite: bool = False,
+) -> dict[str, str]:
+    """Write a preflighted output batch atomically, one file at a time.
+
+    Existing identical bytes are accepted without rewriting the file. Existing
+    differing bytes are immutable unless the caller received an explicit
+    ``--overwrite`` request. Every target is checked before any temporary file
+    or output is created, which prevents ordinary two-output partial updates.
+    Each changed file is prepared in its destination directory and installed by
+    an atomic link/replace operation.
+    """
+
+    planned: list[tuple[str, Path, bytes, bool, int]] = []
+    seen: dict[Path, str] = {}
+    statuses: dict[str, str] = {}
+    for label, item in outputs.items():
+        if (
+            not isinstance(item, tuple)
+            or len(item) != 2
+            or not isinstance(item[0], Path)
+            or not isinstance(item[1], bytes)
+        ):
+            raise ValueError(f"output {label!r} must be a (Path, bytes) pair")
+        path, payload = item
+        resolved = path.resolve()
+        previous = seen.get(resolved)
+        if previous is not None:
+            raise ValueError(
+                f"outputs {previous!r} and {label!r} resolve to the same path: {resolved}"
+            )
+        seen[resolved] = label
+        if path.is_symlink():
+            raise ValueError(f"output {label!r} must not be a symlink: {path}")
+        exists = path.exists()
+        if exists and not path.is_file():
+            raise ValueError(f"output {label!r} is not a regular file: {path}")
+        mode = (path.stat().st_mode & 0o777) if exists else 0o644
+        if exists and path.read_bytes() == payload:
+            statuses[label] = "unchanged"
+            continue
+        if exists and not overwrite:
+            raise ValueError(
+                f"output {label!r} already exists with different bytes; "
+                f"pass --overwrite to replace it: {path}"
+            )
+        planned.append((label, path, payload, exists, mode))
+
+    temporary_paths: list[Path] = []
+    try:
+        prepared: list[tuple[str, Path, Path, bool]] = []
+        for label, path, payload, existed, mode in planned:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            descriptor, temporary_name = tempfile.mkstemp(
+                prefix=f".{path.name}.",
+                suffix=".tmp",
+                dir=path.parent,
+            )
+            temporary_path = Path(temporary_name)
+            temporary_paths.append(temporary_path)
+            try:
+                with os.fdopen(descriptor, "wb") as handle:
+                    handle.write(payload)
+                    handle.flush()
+                    os.fsync(handle.fileno())
+                os.chmod(temporary_path, mode)
+            except BaseException:
+                try:
+                    os.close(descriptor)
+                except OSError:
+                    pass
+                raise
+            prepared.append((label, path, temporary_path, existed))
+
+        for label, path, temporary_path, existed in prepared:
+            if overwrite:
+                os.replace(temporary_path, path)
+            else:
+                # The batch preflight established that this target was absent.
+                # link() preserves that no-clobber decision if another process
+                # creates the path before installation.
+                os.link(temporary_path, path)
+                temporary_path.unlink()
+            statuses[label] = "overwritten" if existed else "written"
+
+        for label, (path, payload) in outputs.items():
+            if path.is_symlink() or not path.is_file() or path.read_bytes() != payload:
+                raise OSError(f"output {label!r} does not contain the planned bytes: {path}")
+        return statuses
+    finally:
+        for temporary_path in temporary_paths:
+            try:
+                temporary_path.unlink()
+            except FileNotFoundError:
+                pass
 
 
 def sha256_file(path: Path) -> str:

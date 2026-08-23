@@ -18,6 +18,7 @@ sys.path.insert(0, str(TOOLS))
 import build_sample
 import build_granularity_views
 import compare_operator_granularity
+import _common
 import validate_annotation
 import validate_ir_v0_2_reference as ir_v0_2_reference_adapter
 
@@ -2347,6 +2348,202 @@ class SchemaBundleTests(unittest.TestCase):
 
 
 class ToolOutputCollisionTests(unittest.TestCase):
+    def test_atomic_write_once_batch_preflights_before_any_change(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            first = base / "first.json"
+            second = base / "second.jsonl"
+            first.write_bytes(b"original bytes\n")
+
+            with self.assertRaisesRegex(ValueError, "pass --overwrite"):
+                _common.write_output_batch(
+                    {
+                        "first": (first, b"replacement bytes\n"),
+                        "second": (second, b'{"value":1}\n'),
+                    }
+                )
+            self.assertEqual(first.read_bytes(), b"original bytes\n")
+            self.assertFalse(second.exists())
+
+            statuses = _common.write_output_batch(
+                {
+                    "first": (first, b"original bytes\n"),
+                    "second": (second, b'{"value":1}\n'),
+                }
+            )
+            self.assertEqual(statuses, {"first": "unchanged", "second": "written"})
+            self.assertEqual(first.read_bytes(), b"original bytes\n")
+            self.assertEqual(second.read_bytes(), b'{"value":1}\n')
+
+            statuses = _common.write_output_batch(
+                {
+                    "first": (first, b"replacement bytes\n"),
+                    "second": (second, b'{"value":2}\n'),
+                },
+                overwrite=True,
+            )
+            self.assertEqual(statuses, {"first": "overwritten", "second": "overwritten"})
+            self.assertEqual(first.read_bytes(), b"replacement bytes\n")
+            self.assertEqual(second.read_bytes(), b'{"value":2}\n')
+            self.assertEqual(list(base.glob(".*.tmp")), [])
+
+    def test_granularity_writers_require_explicit_overwrite_for_changed_bytes(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            representations = base / "representations.jsonl"
+            checks = base / "checks.jsonl"
+            metrics = base / "metrics.json"
+            packet = base / "coarse.html"
+            packet_manifest = base / "coarse-manifest.json"
+
+            built = run_tool(
+                "build_granularity_representations.py",
+                "--output",
+                representations,
+            )
+            self.assertEqual(built.returncode, 0, built.stderr)
+            representation_bytes = representations.read_bytes()
+            identical = run_tool(
+                "build_granularity_representations.py",
+                "--output",
+                representations,
+            )
+            self.assertEqual(identical.returncode, 0, identical.stderr)
+            self.assertEqual(representations.read_bytes(), representation_bytes)
+
+            representations.write_bytes(b"do not silently truncate\n")
+            refused = run_tool(
+                "build_granularity_representations.py",
+                "--output",
+                representations,
+            )
+            self.assertEqual(refused.returncode, 2)
+            self.assertIn("pass --overwrite", refused.stderr)
+            self.assertEqual(representations.read_bytes(), b"do not silently truncate\n")
+            replaced = run_tool(
+                "build_granularity_representations.py",
+                "--output",
+                representations,
+                "--overwrite",
+            )
+            self.assertEqual(replaced.returncode, 0, replaced.stderr)
+            self.assertEqual(representations.read_bytes(), representation_bytes)
+
+            validated = run_tool(
+                "validate_operator_granularity.py",
+                representations,
+                "--checks-output",
+                checks,
+            )
+            self.assertEqual(validated.returncode, 0, validated.stderr)
+            check_bytes = checks.read_bytes()
+            checks.write_bytes(b"preserve prior checks\n")
+            refused_checks = run_tool(
+                "validate_operator_granularity.py",
+                representations,
+                "--checks-output",
+                checks,
+            )
+            self.assertEqual(refused_checks.returncode, 2)
+            self.assertIn("pass --overwrite", refused_checks.stderr)
+            self.assertEqual(checks.read_bytes(), b"preserve prior checks\n")
+            replaced_checks = run_tool(
+                "validate_operator_granularity.py",
+                representations,
+                "--checks-output",
+                checks,
+                "--overwrite",
+            )
+            self.assertEqual(replaced_checks.returncode, 0, replaced_checks.stderr)
+            self.assertEqual(checks.read_bytes(), check_bytes)
+
+            comparator_arguments = (
+                representations,
+                "--questions",
+                ROOT / "data_construction/pilot/questions.jsonl",
+                "--input-views",
+                ROOT / "data_construction/pilot/granularity_input_views.jsonl",
+                "--input-views-manifest",
+                ROOT / "data_construction/pilot/granularity_input_views_manifest_v0_1.json",
+                "--validation-checks",
+                checks,
+                "--json-output",
+                metrics,
+            )
+            compared = run_tool("compare_operator_granularity.py", *comparator_arguments)
+            self.assertEqual(compared.returncode, 2, compared.stderr)
+            metric_bytes = metrics.read_bytes()
+            metrics.write_bytes(b"preserve prior metrics\n")
+            refused_metrics = run_tool(
+                "compare_operator_granularity.py", *comparator_arguments
+            )
+            self.assertEqual(refused_metrics.returncode, 2)
+            self.assertIn("pass --overwrite", refused_metrics.stderr)
+            self.assertEqual(metrics.read_bytes(), b"preserve prior metrics\n")
+            replaced_metrics = run_tool(
+                "compare_operator_granularity.py",
+                *comparator_arguments,
+                "--overwrite",
+            )
+            self.assertEqual(replaced_metrics.returncode, 2, replaced_metrics.stderr)
+            self.assertEqual(metrics.read_bytes(), metric_bytes)
+
+            packet_arguments = (
+                "--questions",
+                ROOT / "data_construction/pilot/questions.jsonl",
+                "--input-views",
+                ROOT / "data_construction/pilot/granularity_input_views.jsonl",
+                "--input-views-manifest",
+                ROOT / "data_construction/pilot/granularity_input_views_manifest_v0_1.json",
+                "--representations",
+                representations,
+                "--validation-checks",
+                checks,
+                "--granularity",
+                "coarse",
+                "--output",
+                packet,
+                "--manifest-output",
+                packet_manifest,
+            )
+            packet_result = run_tool(
+                "build_granularity_review_packet.py", *packet_arguments
+            )
+            self.assertEqual(packet_result.returncode, 0, packet_result.stderr)
+            packet_bytes = packet.read_bytes()
+            packet_manifest.write_bytes(b"preserve prior packet manifest\n")
+            refused_packet = run_tool(
+                "build_granularity_review_packet.py", *packet_arguments
+            )
+            self.assertEqual(refused_packet.returncode, 2)
+            self.assertIn("pass --overwrite", refused_packet.stderr)
+            self.assertEqual(packet.read_bytes(), packet_bytes)
+            self.assertEqual(
+                packet_manifest.read_bytes(), b"preserve prior packet manifest\n"
+            )
+            replaced_packet = run_tool(
+                "build_granularity_review_packet.py",
+                *packet_arguments,
+                "--overwrite",
+            )
+            self.assertEqual(replaced_packet.returncode, 0, replaced_packet.stderr)
+            self.assertEqual(packet.read_bytes(), packet_bytes)
+            self.assertTrue(packet_manifest.read_bytes().startswith(b"{\n"))
+
+    def test_granularity_view_builder_exposes_explicit_overwrite(self) -> None:
+        with mock.patch.object(
+            sys,
+            "argv",
+            [
+                "build_granularity_views.py",
+                "--wikitables-checkout",
+                "source-checkout",
+                "--overwrite",
+            ],
+        ):
+            args = build_granularity_views.parse_args()
+        self.assertTrue(args.overwrite)
+
     def test_tools_refuse_to_overwrite_inputs_or_alias_outputs(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             base = Path(directory)
