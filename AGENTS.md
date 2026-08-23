@@ -13,7 +13,7 @@ Repository files and Git history are the continuity mechanism. A Codex conversat
 - Treat operator granularity as an empirical design question.
 - Represent valid alternative plans; exact graph match is not the sole correctness target.
 - Treat execution success and semantic-plan correctness as separate signals.
-- Do not release a pilot/train/dev/locked-eval split until historical exposure is authoritatively recovered and disjointness is verified.
+- Do not allocate train/dev/locked-eval roles until the pilot evidence justifies a versioned decision; every role must remain disjoint from the authoritatively recovered historical exposure set.
 
 Before changing research artifacts, read:
 
@@ -22,24 +22,26 @@ Before changing research artifacts, read:
 3. `state/project_state.json`
 4. `ENVIRONMENT.md`
 5. `data_construction/reports/data_source_audit.md`
-6. the three files under `data_construction/manifests/`
+6. the versioned files under `data_construction/manifests/`
 
 ## Historical preservation rule
 
 Historical Week 1-3 artifacts are evidence and feasibility examples, not gold programs. Preserve them byte-for-byte when recovered. Do not delete, rewrite, relabel, or silently move them. Paths under `historical_read_only_paths` in `state/project_state.json` are read-only inputs.
 
-The current empty historical-ID arrays mean “not recovered,” never “zero prior exposure.” Never use recovered locked-evaluation IDs for training, prompt/rubric/schema tuning, or operator-vocabulary tuning.
+The historical exposure audit is now complete: the five Week 1–3 files were recovered byte-for-byte from researcher-approved provenance, yielding 100 unique exposed IDs and 15 locked-evaluation IDs with zero strict-audit errors. Never use any recovered exposed ID for training, and never use recovered locked-evaluation IDs for prompt/rubric/schema tuning or operator-vocabulary tuning.
 
 ## Current phase
 
-The project is at the Phase 0 historical-provenance gate:
+The project is in the operator-granularity annotation-pilot phase:
 
-- the official HybridQA questions and linked table/document environment were audited at pinned upstream commits;
-- the source manifest records stable commits, hashes, counts, and reacquisition instructions;
-- eight Draft 2020-12 schemas, three candidate operator vocabularies, data-construction tools, and tests are present;
-- the five historical Week 1-3 files and authoritative project provenance are absent;
-- no research split is allocated or release-eligible;
-- full Draft 2020-12 validation passed for all eight schemas and three vocabularies in an ephemeral exact-pin environment with zero errors/warnings, but a project-local `.venv` has not reproduced it.
+- the official HybridQA questions and linked table/document environment remain pinned and audited;
+- the strict historical manifest is complete for the five byte-preserved Week 1–3 files: 100 unique exposed IDs, including 15 locked-evaluation IDs, with zero errors;
+- the ten-file historical IR v0.2 bundle is quarantined read-only under `historical/ir_v0_2/`, with a recovery manifest and a current-side adapter outside that tree;
+- the adapter validates all 50 historical condition-C graphs and 520 nodes with zero parse, Draft 2020-12 schema, or IR-validator errors; its 455 `DEAD_NODE` warnings are historical planner evidence, not successful-pipeline or operator-granularity evidence;
+- a project-local exact-pin `.venv` reproduced full validation of all eight schemas and three vocabularies with zero errors/warnings;
+- 30 fresh questions were allocated from the pinned official dev source to `annotation_schema_pilot`, with zero historical overlap and no diagnostic override; train/dev/locked-eval remain unallocated at zero;
+- the current in-progress scientific state is `DATA_SOURCE_READY_FOR_ANNOTATION_PILOT`, not a final modeling-ready or gold-corpus decision;
+- the next exact task is to build leakage-safe coarse, medium, and fine representations for the same 30 questions, then run deterministic checks and human calibration.
 
 The authoritative phase/next task is always the current handoff, not this summary.
 
@@ -65,16 +67,17 @@ python3 -m unittest discover -s tests -v
 sh scripts/cross_device_preflight.sh
 ```
 
-The unqualified schema-bundle command checks JSON, expected files, portable `$id`/local `$ref` resolution, and vocabulary instances. With the currently observed system `jsonschema==3.2.0`, it emits legacy-validator warnings and is not full Draft 2020-12 validation.
+The unqualified schema-bundle command checks JSON, expected files, portable `$id`/local `$ref` resolution, and vocabulary instances with whatever `jsonschema` the system Python provides. The earlier 2026-08-21 system observation was `jsonschema==3.2.0`; the 2026-08-23 system observation is `4.26.0`. Neither substitutes for the exact project pin.
 
-Full schema validation was observed to pass in an ephemeral environment matching every requirements pin. Cross-device reconstruction still requires the same check in the project-local pinned environment:
+Full schema validation has also passed in the reconstructed project-local pinned environment. Use it for the authoritative schema, IR-reference, and test checks:
 
 ```sh
 .venv/bin/python data_construction/tools/check_schema_bundle.py --require-jsonschema
+.venv/bin/python data_construction/tools/validate_ir_v0_2_reference.py --all
 .venv/bin/python -m unittest discover -s tests -v
 ```
 
-The preflight selects `.venv/bin/python` when present, otherwise `python3`. It parses the core JSON set, validates state/manifest meaning, compares installed packages with every exact requirements pin, runs the schema checker and current test suite, and verifies Git/historical gates. Exit `0` means ready, exit `1` means a validation failure, and exit `2` means checks ran without validation failure but a declared readiness blocker remains. Recorded ephemeral validation evidence does not make the current machine reproducible until the project-local environment passes the same command.
+The preflight selects `.venv/bin/python` when present, otherwise `python3`. It parses the core JSON set, validates state/manifest meaning, compares installed packages with every exact requirements pin, runs the schema and IR-reference checks plus the current test suite, and verifies Git/historical gates. Exit `0` means ready, exit `1` means a validation failure, and exit `2` means checks ran without validation failure but a declared readiness blocker remains.
 
 ## Data-construction commands
 
@@ -89,15 +92,18 @@ python3 data_construction/tools/build_historical_manifest.py \
 
 Do not create `state/historical_recovery_provenance_v0_1.json` by inference. The v0.1 release gate requires a researcher-approved full 40-hex canonical Git commit OID and per-file hashes/counts; bytes recovered from a backup/store must first be preserved unchanged in an approved migration commit. `--overwrite` may replace only the current explicitly incomplete v0.1 audit; the builder refuses to replace a complete, released, unknown, or unversioned manifest and never writes to the five historical source paths.
 
-After the strict historical audit passes, use the pinned official source and deterministic sampler. Diagnostic overrides never produce a releaseable corpus.
+The strict historical audit has passed and the pinned official-source sampler allocated the 30-question pilot without overrides. Do not rerun it merely to replace the committed allocation. Diagnostic overrides never produce a releaseable corpus.
 
 Annotation/tool entry points are documented in `data_construction/README.md`. Do not run corpus or review commands against nonexistent inputs merely to create placeholder outputs.
 
 ## Important artifact paths
 
-- `data_construction/manifests/historical_exposed_ids.json`: truthful incomplete historical audit until authoritative recovery.
+- `data_construction/manifests/historical_exposed_ids.json`: complete strict audit of 100 unique historical exposures and 15 locked-evaluation IDs.
 - `data_construction/manifests/source_manifest_v0_1.json`: audited official source identities, hashes, counts, and reacquisition contract.
-- `data_construction/manifests/split_manifest_v0_1.json`: blocked, unallocated split contract.
+- `data_construction/manifests/split_manifest_v0_1.json`: release-eligible 30-question annotation-pilot allocation; train/dev/locked-eval counts remain zero.
+- `data_construction/pilot/questions.jsonl`: leakage-safe source records for the 30-question pilot.
+- `historical/ir_v0_2/`: quarantined, byte-preserved historical IR contract/runtime and condition-C evidence; never use condition C as an early-layer input.
+- `data_construction/tools/validate_ir_v0_2_reference.py`: current-side adapter that validates references without modifying the preserved IR bundle.
 - `data_construction/schemas/`: eight versioned schema files.
 - `data_construction/operator_design/`: coarse, medium, and fine v0.1 candidate vocabularies.
 - `data_construction/tools/`: deterministic audit, sampling, validation, review, comparison, and statistics tools.

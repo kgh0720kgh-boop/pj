@@ -1,5 +1,23 @@
 # Operator granularity study v0.1
 
+## 2026-08-23 현재 상태 addendum
+
+현재 in-progress 상태: `DATA_SOURCE_READY_FOR_ANNOTATION_PILOT`
+
+Week 1–3 파일 5개는 researcher-approved workspace에서 byte-for-byte 복구되어 commit `1995c0cf79ab8e987773041d456d4a1b8df19793`에 보존됐고 provenance receipt가 검증됐다. 과거 노출 audit는 exposed 100/locked 15, 오류 0으로 strict-complete가 되었다. 핀된 공식 source에서 이 역사 노출 100개를 제외한 `annotation_schema_pilot` 30문항도 결정론적으로 배정됐다. 배정은 `release_eligible=true`, override 없음, 역할 간 overlap 없음이며 질문 view에는 answer/weak trace 등 금지 필드가 없다. 따라서 이전의 표본 확정 차단은 해제됐다.
+
+다만 coarse/medium/fine representation 자체는 아직 작성하지 않았다. Coverage, graph 길이, 연산자 수, 새 연산자 필요율, 추론 은닉, 과도한 파편화, 사람 간 불일치는 모두 계속 `N/A/NOT_RUN`이며, 어떤 vocabulary도 경험적으로 선택하거나 동결하지 않았다. LLM proposal, human review, resolved annotation, corpus도 `NOT_RUN`이다.
+
+역사 IR v0.2 계약과 condition C graph 50개는 10-file read-only quarantine 및 recovery manifest와 함께 commit `dcc5ac5c14e9acb5c689b400a4046708b6837ac3`에 보존됐다. Current-side adapter baseline은 50 records/520 nodes에 대해 parse/schema/v0.2 validator 오류 0개와 `DEAD_NODE` 경고 455개를 재현했다. 이는 역사 artifact 무결성/validator 연결 증거이지 현재 어휘의 granularity 우수성 증거가 아니다.
+
+프로젝트 로컬 exact-pin `.venv`는 8개 schema/3개 vocabulary 검증을 통과했고, IR adapter hardening과 live annotation-reference bridge를 포함한 최종 pinned suite는 `43/43` 통과했다.
+
+다음 exact task는 배정된 같은 30문항 각각에 대해 leakage-safe coarse/medium/fine 표현을 만들고 결정론 검사를 실행하는 것이다. 그 다음 raw 판정과 대상 hash를 보존하는 human calibration을 수행한다. 현재 결정 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`는 유지되며, `DATA_SOURCE_READY_FOR_ANNOTATION_PILOT`는 최종 modeling decision이나 modeling-ready 선언이 아니다.
+
+아래는 표본 배정 전인 2026-08-21의 역사적 상태 기록이다.
+
+## 2026-08-21 역사적 snapshot
+
 상태: `PLANNED_NOT_RUN — HISTORICAL_EXPOSURE_GATE_BLOCKED`
 
 ## 결론

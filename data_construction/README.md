@@ -4,12 +4,17 @@
 
 ## 현재 상태
 
-- 공식 HybridQA 소스의 이식 가능한 식별자와 해시는 `manifests/source_manifest_v0_1.json`에 기록한다.
-- 과거 Week 1–3 파일이 없으면 `historical_exposed_ids.json`의 빈 ID 목록을 “과거 노출 없음”으로 해석하지 않는다.
-- 과거 노출 ID 감사가 완전하지 않으면 `build_sample.py`는 기본적으로 새 역할 분할을 거부한다.
-- 질문 파일 SHA-256이 핀된 공식 source manifest에 없으면 샘플러는 기본적으로 분할을 거부한다.
+- 공식 HybridQA 소스의 이식 가능한 식별자와 해시는 `manifests/source_manifest_v0_1.json`에 기록되어 있다.
+- 과거 Week 1–3 파일 다섯 개는 연구자 승인 provenance에서 byte-for-byte로 복구되었다. strict manifest는 과거 노출 100개, locked-eval 15개를 기록하며 오류가 없다.
+- 역사적 IR v0.2 열 개 파일은 `../historical/ir_v0_2/`에 read-only로 격리되며, 현재 코드의 adapter가 50/50 graph와 520 node를 검증한다. parse/schema/IR-validator error는 0이고 `DEAD_NODE` warning 455개는 과거 planner의 증거이다.
+- exact-pin `.venv`에서 Draft 2020-12 schema 8개와 후보 vocabulary 3개가 errors=0, warnings=0으로 통과했다.
+- pinned official dev에서 30개 질문을 `annotation_schema_pilot`에 결정론적으로 할당했다. 역사 노출과 overlap은 0, override는 없고 train/dev/locked-eval은 각각 0이다.
+- 현재 진행 중인 과학 상태는 `DATA_SOURCE_READY_FOR_ANNOTATION_PILOT`이다. 이는 gold, 최종 어휘 선택, modeling-ready corpus를 뜻하지 않는다.
+- 다음 exact task는 같은 30개 질문에 leakage-safe coarse/medium/fine 표현을 만들고, 결정론 검사와 사람 calibration을 수행하는 것이다.
 - `locked_eval`은 prompt, rubric, schema, 연산자 어휘 조정에 사용하지 않는다.
 - LLM 생성물의 최초 상태는 `llm_proposed`이며 `gold`가 아니다.
+
+역사적 condition-C 파일에는 answer와 evaluator output이 포함되어 있다. 이를 question-only semantic/obligation/abstract/operator 단계의 입력이나 예시로 사용하지 않는다.
 
 ## 계층
 
@@ -31,6 +36,7 @@
 - `corpus/`: 검토가 끝난 train/dev/locked-eval 번들만 저장
 - `tools/`: 샘플링, 검증, 세분성 비교, 리뷰 패킷, 통계 도구
 - `reports/`: 근거·차단점·측정값·최종 연구 결론
+- `../historical/ir_v0_2/`: 현재 코드와 분리된 byte-preserved IR v0.2 및 condition-C 역사 증거
 
 ## 재현 명령
 
@@ -51,6 +57,14 @@ python3 -m unittest discover -s tests -v
 sh scripts/cross_device_preflight.sh
 ```
 
+프로젝트 로컬 exact-pin 환경의 정식 검사:
+
+```sh
+.venv/bin/python data_construction/tools/check_schema_bundle.py --require-jsonschema
+.venv/bin/python data_construction/tools/validate_ir_v0_2_reference.py --all
+.venv/bin/python -m unittest discover -s tests -v
+```
+
 과거 ID 감사:
 
 ```sh
@@ -60,9 +74,9 @@ python3 data_construction/tools/build_historical_manifest.py \
   --strict
 ```
 
-`--overwrite`는 현재의 명시적 incomplete v0.1 audit만 교체할 수 있다. complete/released/unknown manifest나 다섯 역사 원본은 덮어쓰지 않으며, 이후 공개본 개정은 새 versioned path를 써야 한다. v0.1 release verifier는 full 40-hex Git commit OID와 그 commit의 실제 5개 파일 byte hash만 권위로 인정한다. 백업/아티팩트 보관소에서 복구했다면 연구자 승인 preservation-first Git migration으로 원본 bytes를 그대로 commit한 뒤 그 commit을 provenance authority로 사용한다. `--strict`의 exit 2는 다섯 역사 파일의 부재/빈 ID, 알려진 Week 1·2 규모 불일치, 또는 이 provenance 부재를 뜻한다. 파일이 단순히 존재한다는 이유만으로 gate를 열지 않는다. 이를 해결하기 전에는 release 가능한 split을 만들지 않는다.
+이 명령은 2026-08-23 연구자 승인 preservation commit을 권위로 사용해 통과했다. 결과는 100 unique exposed IDs, 15 locked-eval IDs, missing/count/provenance errors 0이다. `--overwrite`는 명시적 incomplete v0.1 audit만 교체할 수 있으므로 complete manifest를 다시 덮어쓰려 하지 않는다. 다섯 역사 원본은 앞으로도 read-only이며 공개본 개정은 새 versioned path를 써야 한다.
 
-파일럿 split 예시:
+현재 30-question 파일럿을 만든 명령 계약:
 
 ```sh
 python3 data_construction/tools/build_sample.py \
@@ -71,7 +85,7 @@ python3 data_construction/tools/build_sample.py \
   --role-output-dir data_construction/splits/run-v0_1
 ```
 
-실제 경로는 machine-local CLI 입력일 수 있지만, 출력 manifest에는 로컬 절대경로 대신 placeholder와 소스의 URL/commit/artifact hash를 남긴다. 역할은 한 파일에 합치지 않고 pilot/train/dev/locked-eval별 파일로 분리한다. 기존 출력이 하나라도 있거나 입력·출력 경로가 충돌하면 stale locked artifact와 덮어쓰기를 피하기 위해 실패한다. 불완전한 역사 감사에서 `--allow-incomplete-history`를 쓰거나 미검증 소스에 `--allow-unverified-source`를 쓰면 결과는 diagnostic-only이고 corpus release에 사용할 수 없다. Release gate는 매니페스트의 문자열만 믿지 않고 역사 원본 5개와 provenance receipt를 다시 읽어 hash·ID 합집합을 검증한다.
+현재 committed allocation은 `pilot/questions.jsonl` 30건이며 zero overlap, verified source, `override_used=false`, `release_eligible=true`이다. 이 release eligibility는 해당 파일럿 할당의 source/history 계약만 뜻하며 주석이나 modeling readiness를 뜻하지 않는다. 기존 출력을 교체하려고 sampler를 재실행하지 않는다. 일반적으로 실제 입력 경로는 machine-local CLI 값일 수 있지만 manifest에는 로컬 절대경로 대신 placeholder와 source URL/commit/artifact hash를 남긴다. Diagnostic override 결과는 corpus release에 사용할 수 없다.
 
 주석 검증 및 리뷰:
 
@@ -96,7 +110,7 @@ python3 data_construction/tools/compute_annotation_stats.py \
   --validation-checks data_construction/pilot/deterministic_checks.jsonl
 ```
 
-Granularity 비교의 `annotation_disagreement` boolean은 사람 근거로 인정하지 않는다. 각 표현에는 서로 다른 reviewer ID 2개 이상의 versioned review record가 필요하며, review record의 question ID·granularity·packet SHA와 검토 대상 representation SHA가 실제 입력에 결속돼야 불일치가 관측된다. 최소 20개의 서로 다른 질문과 세 어휘에 유효한 DAG가 없으면 study는 incomplete다. 통계는 동일 annotation bytes와 vocabulary에 결속된 full-schema+structural validator pass JSONL 없이는 integrity pass/evidence complete를 주장하지 않는다. 통계 도구의 graph 길이는 operator topology와 호환용 legacy inline graph까지만 계산한다. v0.1 외부 IR execution graph 길이는 IR v0.2 parser/artifact dereference가 복구되기 전에는 N/A다.
+Granularity 비교의 `annotation_disagreement` boolean은 사람 근거로 인정하지 않는다. 각 표현에는 서로 다른 reviewer ID 2개 이상의 versioned review record가 필요하며, review record의 question ID·granularity·packet SHA와 검토 대상 representation SHA가 실제 입력에 결속돼야 불일치가 관측된다. 최소 20개의 서로 다른 질문과 세 어휘에 유효한 DAG가 없으면 study는 incomplete다. 통계는 동일 annotation bytes와 vocabulary에 결속된 full-schema+structural validator pass JSONL 없이는 integrity pass/evidence complete를 주장하지 않는다. 복구된 condition-C의 520 node와 455 `DEAD_NODE` warning은 과거 planner artifact의 진단값이지 현재 30-question granularity pilot의 graph-length, coverage, 또는 quality 측정값이 아니다.
 
 ## 상태 의미
 

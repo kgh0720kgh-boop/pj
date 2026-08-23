@@ -1,5 +1,42 @@
 # Data Construction Research Report
 
+## 2026-08-23 현재 상태 addendum
+
+현재 활성 작업은 strict-complete 역사 감사와 source-verified pilot 배정을 바탕으로 하는 operator-granularity pilot 준비다. In-progress 과학 상태는 `DATA_SOURCE_READY_FOR_ANNOTATION_PILOT`이며, 이는 아래 최종 modeling decision 집합 중 하나가 아니고 modeling-ready 선언도 아니다.
+
+### 이번에 해제되거나 완료된 gate
+
+- 연구자가 승인한 역사 작업공간에서 Week 1–3 파일 5개를 byte-for-byte 복구해 보존 commit `1995c0cf79ab8e987773041d456d4a1b8df19793`에 고정했다.
+- `state/historical_recovery_provenance_v0_1.json`은 researcher-approved authoritative provenance로 검증됐다. Strict manifest는 `complete`, 노출 고유 ID 100개, 역사 locked-eval 15개, 누락/건수 불일치/release-contract 오류 0개다.
+- 핀된 공식 HybridQA dev source와 역사 금지 ID를 대조해 30문항 `annotation_schema_pilot`을 결정론적으로 배정했다. `release_eligible=true`, override 없음, zero overlap이며 question-only artifact에 forbidden answer/trace 필드가 없다. 새 train/dev/locked 역할은 모두 0개다.
+- 역사 IR v0.2 원본 10개를 read-only quarantine과 recovery manifest로 commit `dcc5ac5c14e9acb5c689b400a4046708b6837ac3`에 보존했다. Current-side adapter baseline은 condition C의 50 records/520 nodes를 parse/schema/v0.2 validator 오류 0개로 검증했고, 알려진 역사 planner 실패 증거인 `DEAD_NODE` 경고 455개를 재현했다.
+- 프로젝트 로컬 exact-pin `.venv`에서 8개 schema와 3개 vocabulary의 Draft 2020-12 검증이 통과했고, IR adapter hardening과 live annotation-reference bridge를 포함한 최종 pinned suite는 `43/43` 통과했다.
+- Git은 `main`에서 `origin/main`보다 여러 local commit 앞서 있고 remote push는 승인되지 않았다. 동기화 상태는 `LOCAL_COMMIT_NOT_PUSHED`다.
+
+### 현재 수용 기준과 연구 해석
+
+| 기준 | 2026-08-23 상태 |
+|---|---|
+| 역사 Week 1–3 파일 보존 | PASS — 5 files, byte-for-byte preservation commit |
+| 과거 노출 ID 명시 추적 | PASS — exposed 100, historical locked 15, strict errors 0 |
+| Pilot 역할 source/history 비중복 | PASS — 30 questions, deterministic, no override |
+| 새 train/dev/locked 분할 | NOT_ALLOCATED — 모두 0 |
+| 프로젝트 로컬 schema/vocabulary 재현 | PASS — 8 schemas/3 vocabularies |
+| IR v0.2 원본 보존/validator 연결 | PASS — 10-file quarantine; 50 records/520 nodes, errors 0, `DEAD_NODE` warnings 455 |
+| coarse/medium/fine empirical pilot | NOT_RUN |
+| LLM proposal 및 deterministic annotation checks | NOT_RUN |
+| 사람 calibration/review/adjudication | NOT_RUN |
+| resolved annotation/corpus | NOT_RUN/NOT_BUILT |
+| factorized modeling readiness | NOT_CLAIMED |
+
+두 핵심 연구 질문의 답은 여전히 “판단 불가”다. Schema/계층 분리 계약과 안전한 표본은 준비됐지만 annotation stability와 granularity trade-off의 경험적 근거가 없다. 최종 과학 결정(`READY_FOR_FACTORIZED_MODELING`, `REVISE_ANNOTATION_SCHEMA`, `REVISE_OPERATOR_VOCABULARY`, `NEED_MORE_HUMAN_REVIEW`, `DATA_SOURCE_BLOCKED`, `STOP_OR_REFRAME`)은 아직 선택하지 않는다.
+
+다음 exact task는 같은 30개 pilot 질문에 leakage-safe coarse/medium/fine representation을 구축하고 결정론 검사를 실행한 뒤 human calibration을 수행하는 것이다.
+
+아래는 2026-08-21 당시의 감사·설계 snapshot이다. 당시의 부재/차단 주장은 그 시점의 증거를 보존하기 위해 유지하며, 현재 상태 판단에는 위 addendum을 우선한다.
+
+## 2026-08-21 역사적 snapshot
+
 보고일: 2026-08-21  
 현재 활성 단계: Phase 0 historical-provenance recovery gate  
 보조 scaffold 상태: Phase -1 continuity scaffold는 구현됐지만 Git/remote gate가 미완료이며, Phase 1 schema/operator/tool 계약은 provisional 상태로 선행 구현됨  

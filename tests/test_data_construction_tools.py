@@ -18,6 +18,7 @@ sys.path.insert(0, str(TOOLS))
 import build_sample
 import compare_operator_granularity
 import validate_annotation
+import validate_ir_v0_2_reference as ir_v0_2_reference_adapter
 
 
 def write_json(path: Path, value: object) -> None:
@@ -721,6 +722,178 @@ class AnnotationValidatorTests(unittest.TestCase):
             },
         }
 
+    def ir_v0_2_reference_envelope(self) -> dict[str, object]:
+        return {
+            "declared_target_ir_version": "IR_v0.2",
+            "local_ir_definition_status": "available",
+            "graph_status": "referenced_validated",
+            "ir_schema_artifact": {
+                "artifact_id": "preserved-ir-v0.2-schema",
+                "artifact_type": "json_schema",
+                "repository_relative_path": validate_annotation.IR_V0_2_SCHEMA_REPOSITORY_PATH,
+                "sha256": validate_annotation.IR_V0_2_SCHEMA_SHA256,
+            },
+            "graph_artifact": {
+                "artifact_id": "preserved-condition-c",
+                "artifact_type": "jsonl",
+                "repository_relative_path": "historical/ir_v0_2/condition-c.jsonl",
+                "sha256": "a" * 64,
+            },
+            "graph_id": "graph-q1",
+            "executable_status": "not_tested",
+            "semantic_plan_assessment": "unassessed",
+            "validation_checks": [
+                {"check": check, "status": "passed"}
+                for check in validate_annotation.IR_V0_2_REQUIRED_VALIDATION_CHECKS
+            ],
+        }
+
+    def test_ir_v0_2_reference_bridge_accepts_a_hash_bound_matching_graph(self) -> None:
+        adapter_result = {
+            "status": "pass",
+            "errors": [],
+            "warnings": [{"code": "DEAD_NODE", "message": "unused node"}],
+            "graphs": [
+                {
+                    "graph_id": "graph-q1",
+                    "question_id": "q1",
+                    "table_id": "t1",
+                    "status": "pass",
+                    "errors": [],
+                }
+            ],
+        }
+        with mock.patch.object(
+            validate_annotation,
+            "validate_ir_v0_2_reference",
+            return_value=adapter_result,
+        ) as adapter:
+            errors, warnings, checks = (
+                validate_annotation.validate_ir_v0_2_execution_graph_reference(
+                    self.ir_v0_2_reference_envelope(),
+                    "q1",
+                    "t1",
+                    ROOT,
+                )
+            )
+
+        self.assertEqual(errors, [])
+        self.assertTrue(any("DEAD_NODE=1" in warning for warning in warnings))
+        self.assertIn("execution_graph_ir_v0_2_reference_declarations", checks)
+        self.assertIn("execution_graph_ir_v0_2_live_reference", checks)
+        adapter.assert_called_once_with(
+            artifact="historical/ir_v0_2/condition-c.jsonl",
+            sha256="a" * 64,
+            graph_id="graph-q1",
+            all_graphs=False,
+            project_root=ROOT,
+        )
+
+    def test_ir_v0_2_reference_bridge_validates_the_live_preserved_first_graph(self) -> None:
+        artifact_path = ROOT / ir_v0_2_reference_adapter.DEFAULT_ARTIFACT
+        first_row = json.loads(
+            artifact_path.read_text(encoding="utf-8").splitlines()[0]
+        )
+        graph = first_row["graph"]
+        question_ref = graph["question_ref"]
+        envelope = self.ir_v0_2_reference_envelope()
+        envelope["graph_artifact"] = {
+            "artifact_id": "preserved-condition-c",
+            "artifact_type": "jsonl",
+            "repository_relative_path": ir_v0_2_reference_adapter.DEFAULT_ARTIFACT,
+            "sha256": ir_v0_2_reference_adapter.DEFAULT_ARTIFACT_SHA256,
+        }
+        envelope["graph_id"] = graph["graph_id"]
+
+        errors, _, checks = (
+            validate_annotation.validate_ir_v0_2_execution_graph_reference(
+                envelope,
+                question_ref["question_id"],
+                question_ref["table_id"],
+                ROOT,
+            )
+        )
+
+        self.assertEqual(errors, [])
+        self.assertIn("execution_graph_ir_v0_2_live_reference", checks)
+
+    def test_ir_v0_2_reference_bridge_rejects_question_and_table_mismatches(self) -> None:
+        adapter_result = {
+            "status": "pass",
+            "errors": [],
+            "warnings": [],
+            "graphs": [
+                {
+                    "graph_id": "graph-q1",
+                    "question_id": "other-question",
+                    "table_id": "other-table",
+                    "status": "pass",
+                    "errors": [],
+                }
+            ],
+        }
+        with mock.patch.object(
+            validate_annotation,
+            "validate_ir_v0_2_reference",
+            return_value=adapter_result,
+        ):
+            errors, _, checks = (
+                validate_annotation.validate_ir_v0_2_execution_graph_reference(
+                    self.ir_v0_2_reference_envelope(),
+                    "q1",
+                    "t1",
+                    ROOT,
+                )
+            )
+
+        self.assertTrue(any("adapter question_id" in error for error in errors))
+        self.assertTrue(any("adapter table_id" in error for error in errors))
+        self.assertNotIn("execution_graph_ir_v0_2_live_reference", checks)
+
+    def test_ir_v0_2_reference_bridge_rejects_invalid_declarations_before_adapter(self) -> None:
+        envelope = self.ir_v0_2_reference_envelope()
+        envelope["declared_target_ir_version"] = "unresolved"
+        envelope["local_ir_definition_status"] = "not_checked"
+        envelope["ir_schema_artifact"] = {
+            "repository_relative_path": "wrong/schema.json",
+            "sha256": "b" * 64,
+        }
+        envelope["graph_artifact"] = {
+            "repository_relative_path": "../outside/graph.jsonl",
+            "sha256": "UPPERCASE",
+        }
+        envelope["graph_id"] = ""
+        checks = envelope["validation_checks"]
+        assert isinstance(checks, list)
+        checks.pop()
+        checks.append({"check": "parse", "status": "failed"})
+
+        with mock.patch.object(
+            validate_annotation,
+            "validate_ir_v0_2_reference",
+        ) as adapter:
+            errors, _, passed_checks = (
+                validate_annotation.validate_ir_v0_2_execution_graph_reference(
+                    envelope,
+                    "q1",
+                    "t1",
+                    ROOT,
+                )
+            )
+
+        adapter.assert_not_called()
+        self.assertTrue(any("declared_target_ir_version" in error for error in errors))
+        self.assertTrue(any("local_ir_definition_status" in error for error in errors))
+        self.assertTrue(any("ir_schema_artifact.repository_relative_path" in error for error in errors))
+        self.assertTrue(
+            any("graph_artifact.repository_relative_path escapes" in error for error in errors)
+        )
+        self.assertTrue(any("graph_artifact.sha256" in error for error in errors))
+        self.assertTrue(any("graph_id" in error for error in errors))
+        self.assertTrue(any("'parse' exactly once; found 2" in error for error in errors))
+        self.assertTrue(any("'source_reachability' exactly once; found 0" in error for error in errors))
+        self.assertEqual(passed_checks, [])
+
     def test_passed_leakage_audit_is_bound_to_live_input_and_result_artifacts(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             base = Path(directory)
@@ -975,7 +1148,9 @@ class AnnotationValidatorTests(unittest.TestCase):
             self.assertTrue(any("input_paths" in error and "not allowed" in error for error in errors))
             self.assertTrue(any("failed audit requires bundle_status" in error for error in errors))
             self.assertTrue(any("input_view_artifact" in error for error in errors))
-            self.assertTrue(any("referenced_validated is unsupported" in error for error in errors))
+            self.assertTrue(
+                any("declared_target_ir_version must be exactly" in error for error in errors)
+            )
             self.assertTrue(any("executable is unsupported" in error for error in errors))
 
     def test_grounding_binding_and_plan_references_are_cross_checked(self) -> None:

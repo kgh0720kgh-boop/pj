@@ -3,6 +3,20 @@
 감사 시각: 2026-08-21T12:50:32+09:00  
 범위: 공식 HybridQA 질문 데이터, 공식 연결 테이블/문서 환경, Week 1–3 지정 ID 파일의 정확 경로 확인 및 사용 가능한 홈 영역의 깊이 제한 검색
 
+## 2026-08-23 현재 상태 addendum
+
+이 절은 아래 2026-08-21 감사 본문을 삭제하거나 소급 수정하지 않고, 당시 차단 조건이 이후 어떻게 해제됐는지를 기록한다. 아래 본문의 “역사 파일 부재”, “비중복 증명 불가”, “새 split 차단”은 2026-08-21 당시에는 참인 관찰이었지만 현재 상태는 아니다.
+
+- 연구자가 승인한 역사 작업공간에서 Week 1–3 지정 파일 5개를 byte-for-byte로 복구했고, 변경 없는 보존 commit `1995c0cf79ab8e987773041d456d4a1b8df19793`에 고정했다.
+- 연구자 승인 provenance receipt `state/historical_recovery_provenance_v0_1.json`을 검증한 뒤 strict builder를 실행했다. `historical_exposed_ids.json`은 `audit_status=complete`, `exposed_unique=100`, `locked_eval_unique=15`, 누락 파일 0, 예상 건수 불일치 0, provenance/release-contract 오류 0이다.
+- 핀된 공식 HybridQA dev 원본과 위 100개 금지 ID를 대조해 30개 `annotation_schema_pilot` 질문을 결정론적으로 배정했다. Split manifest는 `release_eligible=true`, `override_used=false`, `zero_overlap_verified=true`이며 새 `annotation_train`, `annotation_dev`, `locked_eval`은 모두 0개다. 질문 전용 pilot artifact에는 금지된 answer/weak-trace 필드가 없다.
+- 별도의 역사 IR v0.2 격리 영역에는 원본 10개 파일이 보존 commit `dcc5ac5c14e9acb5c689b400a4046708b6837ac3`과 recovery manifest로 고정됐다. Current-side adapter baseline은 Week 2 condition C의 50 records/520 nodes를 대상으로 JSONL parse, Draft 2020-12 graph schema, 명시적으로 주입한 v0.2 registry validator를 실행해 오류 0개를 확인했다. `DEAD_NODE` 경고 455개는 알려진 역사 planner 실패 증거로 그대로 보존한다.
+- 프로젝트 로컬 exact-pin `.venv`는 8개 schema와 3개 vocabulary의 Draft 2020-12 검증을 통과했고, IR adapter hardening과 live annotation-reference bridge를 포함한 최종 pinned suite는 `43/43` 통과했다.
+
+따라서 현재 in-progress 과학 상태는 `DATA_SOURCE_READY_FOR_ANNOTATION_PILOT`이다. 이는 최종 modeling decision vocabulary에 속하는 결론도, modeling-ready 선언도 아니다. Granularity representation, LLM proposal, human review, resolved annotation, corpus는 모두 아직 `NOT_RUN`이다.
+
+다음 exact task는 같은 30개 질문에 대해 leakage-safe view만 사용해 coarse/medium/fine 표현을 만들고 결정론 검사를 실행한 뒤 human calibration으로 넘기는 것이다.
+
 ## 결론
 
 공식 원본 자체는 사용할 수 있다. 저자 공식 저장소의 질문 데이터와 연결 테이블/문서 환경을 각각 변경 불가능한 Git 커밋으로 핀했고, 작업공간 밖 machine-local 캐시에 완전히 체크아웃하여 해시·JSON 파싱·질문-환경 참조를 검증했다. 공식 dev에는 답이 있는 질문 3,466개가 있으므로 요청된 150–200개 규모를 공급할 물리적 용량은 충분하다.

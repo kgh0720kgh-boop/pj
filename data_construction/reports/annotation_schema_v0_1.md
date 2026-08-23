@@ -16,7 +16,7 @@
 
 모든 스키마 문서는 JSON Schema Draft 2020-12를 선언한다. 파일 간 `$ref`는 같은 디렉터리를 기준으로 한 상대 경로만 사용한다. 저장소나 데스크톱의 절대 경로는 스키마와 후보 어휘에 기록하지 않는다.
 
-이 버전은 **설계 후보**이다. 주석 파일럿, 인간 간 일치도, 실행 통계가 아직 없으므로 gold, 안정성, 최종 연산자 어휘를 주장하지 않는다.
+이 버전은 **설계 후보**이다. 2026-08-23에 30-question 주석 파일럿 입력은 할당되었지만 coarse/medium/fine 표현, 인간 간 일치도, 실행 통계는 아직 없으므로 gold, 안정성, 최종 연산자 어휘를 주장하지 않는다.
 
 ## 파일과 버전
 
@@ -317,7 +317,7 @@
 
 이 개수와 목록은 coverage 결과가 아니다. 파일럿에서 새 연산자 필요 비율, graph 길이, schema 수, 의미 context 수, 모호성, reviewer disagreement를 측정해야 한다.
 
-## IR v0.2 처리
+## IR v0.2 처리 (2026-08-21 설계 시점 기록)
 
 현재 로컬 workspace에는 역사적 IR v0.2 schema와 operator registry가 없다. 따라서 이 작업은 IR node/edge/type를 추측해 새로 정의하지 않았다.
 
@@ -327,6 +327,14 @@
 2. 이후 실제 IR v0.2 정의가 복구되면 `ir_schema_artifact`와 `graph_artifact`를 함께 참조하고 별도 IR validator의 결과를 기록한다.
 
 실제 IR이 복구되기 전에는 grounded executable graph가 schema-validated되었다고 주장하면 안 된다. 반복 주석 증거가 IR 한계를 보이더라도 v0.1에서 편의상 새 IR을 만들지 말고 별도 변경 제안과 migration을 작성해야 한다.
+
+### 2026-08-23 복구 업데이트
+
+위 문단은 IR이 없던 설계 시점의 판단을 보존한 것이다. 이후 연구자 승인 provenance로 IR v0.2의 schema, operator/type registries, 네 Python module, condition-C JSONL, run manifest 등 열 개 파일을 byte-for-byte 복구해 `historical/ir_v0_2/`에 read-only로 격리했다. `historical/ir_v0_2/recovery_manifest_v0_1.json`이 파일별 hash와 Git authority를 고정하며, current-side adapter `data_construction/tools/validate_ir_v0_2_reference.py`는 역사 파일을 수정하지 않고 참조를 검증한다.
+
+Exact-pin `.venv`에서 adapter의 `--all` 검사는 condition-C graph 50/50, node 520개에 대해 parse error 0, Draft 2020-12 schema error 0, IR v0.2 validator error 0을 확인했다. `DEAD_NODE` warning 455개는 숨기거나 성공으로 재분류하지 않는다. 이는 과거 planner의 reachability/dead-output 동작을 보여 주는 진단 증거이며, 현재 후보 granularity의 coverage나 품질을 입증하지 않는다.
+
+Condition-C artifact에는 answer와 evaluator output이 포함된다. 따라서 execution-reference 검증 외에는 late-stage historical evidence로만 취급하고, question-only semantic skeleton, information obligations, abstract topology, operator topology의 입력·few-shot 예시·rubric tuning에 절대 노출하지 않는다.
 
 ## Schema가 강제하는 누출·검토·locked-eval 조건
 
@@ -360,7 +368,7 @@
 
 따라서 schema 통과는 의미 정답이나 executable graph 정답을 뜻하지 않는다.
 
-## 검증 결과
+## 검증 결과 (2026-08-21 설계 시점 기록)
 
 작성 시점 검증은 다음과 같다.
 
@@ -378,6 +386,28 @@ python3 data_construction/tools/check_schema_bundle.py --root . --require-jsonsc
 
 임시 환경은 schema bundle 검증 근거이지만 기기 간 복사할 project `.venv`가 아니다. 이 머신은 `python3-venv`가 없어 저장소 로컬 `.venv`를 만들지 못했으므로, 다른 기기에서는 새 `.venv`를 만들고 같은 명령을 다시 실행해야 한다.
 
-## 파일럿 전 결정
+## 파일럿 전 결정 (2026-08-21 설계 시점 기록)
 
 **Schema-design candidate와 정식 bundle validation은 준비되었지만 실제 pilot 투입은 여전히 차단되어 있다.** historical exposure ID를 복구해 fresh question 분리를 입증해야 한다. 따라서 전체 phase의 현재 결정 `DATA_SOURCE_BLOCKED`는 바뀌지 않는다. 이 gate가 해소된 뒤 20–30개의 fresh HybridQA pilot에서 세 granularity를 실제로 주석하고 schema 부담, coverage, graph 길이, 대안 계획, 모호성, reviewer agreement를 측정한다. 인간 검토 전에는 이 bundle을 gold 또는 모델링-ready corpus로 부르지 않는다.
+
+## 2026-08-23 현재 상태 addendum
+
+위 `DATA_SOURCE_BLOCKED` 결정은 당시 스냅샷이며 현재 상태를 덮어쓰지 않는다. 이후 다음 gate가 실제로 해소되었다.
+
+- 다섯 Week 1–3 역사 파일을 byte-for-byte 복구하고 strict manifest를 완성했다: 100 unique exposed IDs, 15 locked-eval IDs, errors 0.
+- pinned official dev source에서 역사 ID와 겹치지 않는 30개 질문을 `annotation_schema_pilot`에 할당했다. override는 없고 train/dev/locked-eval은 모두 0이다.
+- project-local exact-pin `.venv`에서 schema 8개와 vocabulary 3개가 full Draft 2020-12 validation을 errors=0, warnings=0으로 통과했다.
+- 복구 IR adapter는 50/50 graph와 520 node를 error 없이 검증했으며 455 `DEAD_NODE` warning을 역사 planner evidence로 보존했다.
+
+따라서 현재 진행 중인 과학 상태는 `DATA_SOURCE_READY_FOR_ANNOTATION_PILOT`이다. 이는 source/history/환경 gate가 파일럿 입력에 대해 열렸다는 뜻일 뿐, final modeling decision, gold annotation, final vocabulary, modeling-ready corpus를 뜻하지 않는다.
+
+다음 exact task는 `data_construction/pilot/questions.jsonl`의 동일한 30개 질문 각각에 대해 answer/evaluator/grounding을 보이지 않는 leakage-safe coarse, medium, fine 표현을 만들고, 그 결과에 deterministic validation을 실행한 뒤 사람 calibration을 수행하는 것이다. 이 단계 전후에도 condition-C answer와 evaluator output은 early-layer view에 들어가면 안 된다.
+
+현재 정식 재현 명령은 다음과 같다.
+
+```sh
+.venv/bin/python data_construction/tools/check_schema_bundle.py --require-jsonschema
+.venv/bin/python data_construction/tools/validate_ir_v0_2_reference.py --all
+.venv/bin/python -m unittest discover -s tests -v
+sh scripts/cross_device_preflight.sh
+```

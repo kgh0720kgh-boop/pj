@@ -1,5 +1,30 @@
 # Cross-Device Repository Audit
 
+## Current-state addendum — 2026-08-23
+
+This addendum records the state after the dated 2026-08-21 audit below. The older absence/blocking observations remain intact as historical evidence; they no longer describe the current repository.
+
+| Field | Current state |
+| --- | --- |
+| Git root | resolved repository root |
+| Branch | `main` |
+| Upstream baseline | `origin/main` at `c337e9a67c15cd68fbb53eefb79bef90a6f9f242` |
+| Local history | multiple linear local commits ahead of `origin/main` |
+| Remote-write authorization | not granted |
+| Synchronization state | `LOCAL_COMMIT_NOT_PUSHED` |
+
+The five required Week 1–3 files were recovered byte-for-byte from the researcher-approved historical workspace and preserved in commit `1995c0cf79ab8e987773041d456d4a1b8df19793`. The verified researcher-approved receipt is `state/historical_recovery_provenance_v0_1.json`. The strict manifest is complete with 100 unique exposed IDs, 15 historical locked-evaluation IDs, no missing files, no expected-count mismatches, and no provenance/release-contract errors.
+
+Ten authoritative IR v0.2 files were separately preserved as read-only evidence in commit `dcc5ac5c14e9acb5c689b400a4046708b6837ac3`, together with a recovery manifest. A current-side adapter baseline validated all 50 condition C records and 520 nodes with zero JSONL parse, Draft 2020-12 graph-schema, or explicitly injected v0.2-registry validator errors. It reproduced 455 `DEAD_NODE` warnings; those warnings are retained as known historical planner-failure evidence.
+
+The project-local exact-pin `.venv` now passes full Draft 2020-12 validation for 8 schemas and 3 vocabulary instances. The final pinned suite, including IR-adapter hardening and the live annotation-reference bridge, passes `43/43` tests.
+
+A deterministic, source-verified 30-question `annotation_schema_pilot` is allocated with `release_eligible=true`, no diagnostic override, zero overlap with the recovered 100-ID historical exclusion set, and no forbidden answer/trace fields in the question-only artifact. New annotation train, dev, and locked-evaluation roles each remain at zero. Coarse/medium/fine representations, LLM proposals, human reviews, resolved annotations, and the corpus are all `NOT_RUN`.
+
+The current in-progress scientific status is `DATA_SOURCE_READY_FOR_ANNOTATION_PILOT`. It is not one of the final modeling decisions and is not a modeling-ready claim. The next exact task is to construct leakage-safe coarse/medium/fine representations for the same 30 pilot questions, run deterministic checks, and then perform human calibration.
+
+## Historical audit snapshot — 2026-08-21
+
 Audit date: 2026-08-21
 
 Scope: current project directory, continuity metadata, integrated research scaffold, and a bounded read-only search for relevant Git metadata/source material. This audit was superseded by the initial repository snapshot at `1616684f8505c1b0ee90b956adb292193c172338`, pushed to `origin/main`.

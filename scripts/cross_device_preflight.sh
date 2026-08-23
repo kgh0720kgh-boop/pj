@@ -63,6 +63,7 @@ for required_file in \
     HANDOFF_CURRENT.md \
     ENVIRONMENT.md \
     state/project_state.json \
+    state/historical_recovery_provenance_v0_1.json \
     reports/cross_device_repo_audit.md \
     scripts/classify_handoff_head.sh \
     scripts/cross_device_preflight.sh \
@@ -71,7 +72,9 @@ for required_file in \
     data_construction/README.md \
     data_construction/manifests/historical_exposed_ids.json \
     data_construction/manifests/source_manifest_v0_1.json \
+    data_construction/manifests/source_question_ids.json \
     data_construction/manifests/split_manifest_v0_1.json \
+    data_construction/pilot/questions.jsonl \
     data_construction/schemas/common_definitions_v0_1.json \
     data_construction/schemas/semantic_skeleton_v0_1.json \
     data_construction/schemas/information_obligation_v0_1.json \
@@ -95,10 +98,29 @@ for required_file in \
     data_construction/tools/check_schema_bundle.py \
     data_construction/tools/fetch_official_hybridqa_sources.sh \
     data_construction/tools/validate_annotation.py \
+    data_construction/tools/validate_ir_v0_2_reference.py \
     data_construction/tools/build_review_packet.py \
     data_construction/tools/compare_operator_granularity.py \
     data_construction/tools/compute_annotation_stats.py \
-    tests/test_data_construction_tools.py
+    tests/test_data_construction_tools.py \
+    tests/test_ir_v0_2_reference.py \
+    historical/README.md \
+    historical/ir_v0_2/recovery_manifest_v0_1.json \
+    historical/ir_v0_2/ir/spec_v0_2.md \
+    historical/ir_v0_2/ir/execution_graph.schema.json \
+    historical/ir_v0_2/ir/operator_registry_v0_2.json \
+    historical/ir_v0_2/ir/type_registry_v0_2.json \
+    historical/ir_v0_2/src/hybridqa_graph/ir.py \
+    historical/ir_v0_2/src/hybridqa_graph/planning.py \
+    historical/ir_v0_2/src/hybridqa_graph/registry.py \
+    historical/ir_v0_2/src/hybridqa_graph/validator.py \
+    historical/ir_v0_2/experiments/results/week2_pilot/condition_C.jsonl \
+    historical/ir_v0_2/experiments/results/week2_pilot/run_manifest.json \
+    data_analysis/week1_sample_100.jsonl \
+    evaluation/week2_eval_ids.json \
+    evaluation/week3_engineering_dev_ids.json \
+    evaluation/week3_locked_eval_ids.json \
+    evaluation/week3_split_manifest.json
 do
     check_required_file "$required_file"
 done
@@ -136,9 +158,12 @@ from pathlib import Path
 
 paths = [
     Path("state/project_state.json"),
+    Path("state/historical_recovery_provenance_v0_1.json"),
     Path("data_construction/manifests/historical_exposed_ids.json"),
     Path("data_construction/manifests/source_manifest_v0_1.json"),
+    Path("data_construction/manifests/source_question_ids.json"),
     Path("data_construction/manifests/split_manifest_v0_1.json"),
+    Path("historical/ir_v0_2/recovery_manifest_v0_1.json"),
 ]
 paths.extend(sorted(Path("data_construction/schemas").glob("*.json")))
 paths.extend(sorted(Path("data_construction/operator_design").glob("*.json")))
@@ -175,9 +200,11 @@ def gate_codes(values):
 
 errors = []
 state = load("state/project_state.json")
+history_provenance = load("state/historical_recovery_provenance_v0_1.json")
 history = load("data_construction/manifests/historical_exposed_ids.json")
 source = load("data_construction/manifests/source_manifest_v0_1.json")
 split = load("data_construction/manifests/split_manifest_v0_1.json")
+ir_recovery = load("historical/ir_v0_2/recovery_manifest_v0_1.json")
 handoff = Path("HANDOFF_CURRENT.md").read_text(encoding="utf-8")
 state_gates = gate_codes(state.get("blocked_gates", []))
 
@@ -236,6 +263,36 @@ expected_historical_paths = [
     "evaluation/week3_locked_eval_ids.json",
     "evaluation/week3_split_manifest.json",
 ]
+expected_ir_paths = [
+    "historical/ir_v0_2/ir/spec_v0_2.md",
+    "historical/ir_v0_2/ir/execution_graph.schema.json",
+    "historical/ir_v0_2/ir/operator_registry_v0_2.json",
+    "historical/ir_v0_2/ir/type_registry_v0_2.json",
+    "historical/ir_v0_2/src/hybridqa_graph/ir.py",
+    "historical/ir_v0_2/src/hybridqa_graph/planning.py",
+    "historical/ir_v0_2/src/hybridqa_graph/registry.py",
+    "historical/ir_v0_2/src/hybridqa_graph/validator.py",
+    "historical/ir_v0_2/experiments/results/week2_pilot/condition_C.jsonl",
+    "historical/ir_v0_2/experiments/results/week2_pilot/run_manifest.json",
+]
+if state.get("historical_read_only_paths") != expected_historical_paths + expected_ir_paths:
+    errors.append("project_state historical_read_only_paths mismatch")
+if (
+    history_provenance.get("schema_version") != "historical_recovery_provenance_v0_1"
+    or history_provenance.get("status") != "researcher_approved_authoritative"
+    or history_provenance.get("authority_kind") != "git_commit"
+    or history_provenance.get("authority_identity") != "1995c0cf79ab8e987773041d456d4a1b8df19793"
+    or [item.get("path") for item in history_provenance.get("files", [])] != expected_historical_paths
+):
+    errors.append("historical recovery provenance identity/inventory mismatch")
+if (
+    ir_recovery.get("schema_version") != "historical_ir_v0_2_recovery_manifest_v0_1"
+    or ir_recovery.get("status") != "researcher_approved_authoritative"
+    or ir_recovery.get("authority_kind") != "git_commit"
+    or ir_recovery.get("authority_identity") != "dcc5ac5c14e9acb5c689b400a4046708b6837ac3"
+    or [item.get("repository_relative_path") for item in ir_recovery.get("files", [])] != expected_ir_paths
+):
+    errors.append("IR v0.2 recovery identity/inventory mismatch")
 if history.get("schema_version") != "historical_exposed_ids_v0_1":
     errors.append("historical manifest schema_version mismatch")
 raw_source_files = history.get("source_files")
@@ -681,6 +738,31 @@ if state.get("current_scientific_decision") == "DATA_SOURCE_BLOCKED":
     for required_gate in required_source_gates:
         if required_gate not in state_gates:
             errors.append(f"DATA_SOURCE_BLOCKED state missing {required_gate}")
+elif state.get("current_scientific_decision") == "DATA_SOURCE_READY_FOR_ANNOTATION_PILOT":
+    if history_complete is not True or historical_shape != "strict_builder":
+        errors.append("pilot-ready state requires a complete strict historical audit")
+    if split_shape != "allocated_builder" or split.get("release_eligible") is not True:
+        errors.append("pilot-ready state requires a release-eligible allocated split")
+    expected_pilot_counts = {
+        "annotation_schema_pilot": 30,
+        "annotation_train": 0,
+        "annotation_dev": 0,
+        "locked_eval": 0,
+    }
+    if split.get("counts") != expected_pilot_counts:
+        errors.append("pilot-ready split counts mismatch")
+    resolved_gate_codes = {
+        "AUTHORITATIVE_PROJECT_PROVENANCE_NOT_AVAILABLE",
+        "HISTORICAL_ARTIFACTS_NOT_AVAILABLE",
+        "HISTORICAL_EXPOSED_ID_AUDIT_INCOMPLETE",
+        "FRESH_QUESTION_DISJOINTNESS_NOT_VERIFIABLE",
+        "IR_V0_2_DEFINITION_AND_VALIDATOR_NOT_RECOVERED",
+        "PROJECT_LOCAL_PINNED_ENVIRONMENT_NOT_RECONSTRUCTED",
+    }
+    if state_gates & resolved_gate_codes:
+        errors.append("pilot-ready state retains a resolved recovery/environment gate")
+else:
+    errors.append("project_state has an unsupported current scientific decision")
 
 draft_status = environment.get("draft_2020_12_validation", {}).get("status")
 draft_contract = environment.get("draft_2020_12_validation", {})
@@ -700,6 +782,14 @@ if draft_status == "passed_in_ephemeral_exact_pin_environment":
 elif draft_status == "complete_in_project_local_pinned_environment":
     if draft_contract.get("project_local_environment_status") != "reconstructed":
         errors.append("project-local full validation lacks reconstructed environment status")
+    expected_result = {
+        "schemas_checked": 8,
+        "vocabularies_checked": 3,
+        "errors": 0,
+        "warnings": 0,
+    }
+    if draft_contract.get("project_local_validation_result") != expected_result:
+        errors.append("project-local Draft 2020-12 result summary mismatch")
 else:
     if "DRAFT_2020_12_FULL_VALIDATION_NOT_RUN_IN_PINNED_ENVIRONMENT" not in state_gates:
         errors.append("unvalidated Draft 2020-12 state is absent from blocked_gates")
@@ -822,6 +912,51 @@ PY
         fi
     else
         block_check 'PROJECT_LOCAL_PINNED_ENVIRONMENT_NOT_RECONSTRUCTED: recorded ephemeral exact-pin validation was not reproduced by the selected runtime'
+    fi
+
+    ir_reference_output=$("$PYTHON_BIN" -B - <<'PY' 2>&1
+import json
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path("data_construction/tools").resolve()))
+from validate_ir_v0_2_reference import validate_ir_v0_2_reference
+
+result = validate_ir_v0_2_reference(all_graphs=True)
+expected_counts = {
+    "records": 50,
+    "graphs_selected": 50,
+    "graphs_validated": 50,
+    "preserved_files_verified": 10,
+    "nodes": 520,
+    "parse_errors": 0,
+    "schema_errors": 0,
+    "validator_errors": 0,
+    "validator_warnings": 455,
+    "dead_node_warnings": 455,
+}
+compact = {
+    "status": result.get("status"),
+    "counts": result.get("counts"),
+    "error_code_counts": result.get("error_code_counts"),
+    "warning_code_counts": result.get("warning_code_counts"),
+}
+print(json.dumps(compact, sort_keys=True))
+if (
+    result.get("status") != "pass"
+    or result.get("counts") != expected_counts
+    or result.get("error_code_counts") != {}
+    or result.get("warning_code_counts") != {"DEAD_NODE": 455}
+    or "preserved_bundle_git_authority" not in result.get("checks", [])
+):
+    raise SystemExit(1)
+PY
+    )
+    ir_reference_rc=$?
+    if [ "$ir_reference_rc" -eq 0 ]; then
+        pass_check "IR_V0_2_REFERENCE_VALIDATION: $ir_reference_output"
+    else
+        fail_check "IR_V0_2_REFERENCE_VALIDATION_FAILED: $ir_reference_output"
     fi
 
     printf '%s\n' '[INFO] UNIT_TEST_COMMAND: python -B -m unittest discover -s tests -v'

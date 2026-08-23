@@ -25,9 +25,26 @@ from _common import (
     sha256_file,
     write_jsonl,
 )
+from validate_ir_v0_2_reference import validate_ir_v0_2_reference
 
 
 VALIDATOR_VERSION = "annotation_validator_v0_1"
+IR_V0_2_SCHEMA_REPOSITORY_PATH = (
+    "historical/ir_v0_2/ir/execution_graph.schema.json"
+)
+IR_V0_2_SCHEMA_SHA256 = (
+    "55ccc7721cccba570a94cea94452eccbb6409a45606adf2d79764df783bbbb63"
+)
+IR_V0_2_REQUIRED_VALIDATION_CHECKS = (
+    "parse",
+    "json_schema",
+    "operator_registry",
+    "type_contract",
+    "dependency_references",
+    "acyclicity",
+    "source_reachability",
+)
+LOWERCASE_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 EARLY_LAYER_FORBIDDEN_KEYS = {
     "answer",
     "answer_node",
@@ -1248,6 +1265,211 @@ def jsonschema_errors(record: dict[str, Any], schema: dict[str, Any], schema_pat
     return errors
 
 
+def validate_ir_v0_2_execution_graph_reference(
+    execution_graph: Any,
+    question_id: str | None,
+    table_id: str | None,
+    project_root: Path,
+) -> tuple[list[str], list[str], list[str]]:
+    """Validate a ``referenced_validated`` envelope against preserved IR v0.2.
+
+    Declaration failures stop before historical code or graph bytes are loaded.
+    A passing declaration is still only a reference claim: the hash-bound graph
+    is selected and validated live by the current-side IR adapter, then its
+    question/table identity is tied back to the annotation.
+    """
+
+    errors: list[str] = []
+    warnings: list[str] = []
+    checks: list[str] = []
+    label = "execution_graph"
+
+    if not isinstance(execution_graph, dict):
+        return [f"{label}: referenced IR v0.2 envelope must be an object"], warnings, checks
+    if execution_graph.get("graph_status") != "referenced_validated":
+        errors.append(
+            f"{label}.graph_status must be exactly 'referenced_validated' for live IR v0.2 validation"
+        )
+    if execution_graph.get("declared_target_ir_version") != "IR_v0.2":
+        errors.append(
+            f"{label}.declared_target_ir_version must be exactly 'IR_v0.2'"
+        )
+    if execution_graph.get("local_ir_definition_status") != "available":
+        errors.append(
+            f"{label}.local_ir_definition_status must be exactly 'available'"
+        )
+    if execution_graph.get("executable_status") == "executable":
+        errors.append(
+            f"{label}: executable is unsupported until live execution evidence validation is restored"
+        )
+
+    schema_artifact = execution_graph.get("ir_schema_artifact")
+    if not isinstance(schema_artifact, dict):
+        errors.append(f"{label}.ir_schema_artifact must be an object")
+    else:
+        if (
+            schema_artifact.get("repository_relative_path")
+            != IR_V0_2_SCHEMA_REPOSITORY_PATH
+        ):
+            errors.append(
+                f"{label}.ir_schema_artifact.repository_relative_path must be exactly "
+                f"{IR_V0_2_SCHEMA_REPOSITORY_PATH!r}"
+            )
+        if schema_artifact.get("sha256") != IR_V0_2_SCHEMA_SHA256:
+            errors.append(
+                f"{label}.ir_schema_artifact.sha256 must be exactly the preserved IR v0.2 schema digest"
+            )
+
+    graph_artifact = execution_graph.get("graph_artifact")
+    graph_path: str | None = None
+    graph_sha256: str | None = None
+    if not isinstance(graph_artifact, dict):
+        errors.append(f"{label}.graph_artifact must be an object")
+    else:
+        raw_path = graph_artifact.get("repository_relative_path")
+        if not isinstance(raw_path, str) or not raw_path:
+            errors.append(
+                f"{label}.graph_artifact.repository_relative_path must be a non-empty repository path"
+            )
+        elif Path(raw_path).is_absolute():
+            errors.append(
+                f"{label}.graph_artifact.repository_relative_path must be repository-relative"
+            )
+        else:
+            try:
+                resolved_root = project_root.resolve()
+                (resolved_root / raw_path).resolve().relative_to(resolved_root)
+            except (OSError, RuntimeError, ValueError):
+                errors.append(
+                    f"{label}.graph_artifact.repository_relative_path escapes the project root"
+                )
+            else:
+                graph_path = raw_path
+        raw_sha256 = graph_artifact.get("sha256")
+        if not isinstance(raw_sha256, str) or LOWERCASE_SHA256_RE.fullmatch(raw_sha256) is None:
+            errors.append(
+                f"{label}.graph_artifact.sha256 must be exactly 64 lowercase hexadecimal characters"
+            )
+        else:
+            graph_sha256 = raw_sha256
+
+    graph_id = execution_graph.get("graph_id")
+    if not isinstance(graph_id, str) or not graph_id:
+        errors.append(f"{label}.graph_id must be a non-empty string")
+
+    raw_validation_checks = execution_graph.get("validation_checks")
+    check_entries: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    if not isinstance(raw_validation_checks, list):
+        errors.append(f"{label}.validation_checks must be an array")
+    else:
+        for index, validation_check in enumerate(raw_validation_checks):
+            if not isinstance(validation_check, dict):
+                errors.append(
+                    f"{label}.validation_checks[{index}] must be an object"
+                )
+                continue
+            check_name = validation_check.get("check")
+            if check_name in IR_V0_2_REQUIRED_VALIDATION_CHECKS:
+                check_entries[check_name].append(validation_check)
+        for required_check in IR_V0_2_REQUIRED_VALIDATION_CHECKS:
+            entries = check_entries[required_check]
+            if len(entries) != 1:
+                errors.append(
+                    f"{label}.validation_checks must contain {required_check!r} exactly once; "
+                    f"found {len(entries)}"
+                )
+            elif entries[0].get("status") != "passed":
+                errors.append(
+                    f"{label}.validation_checks[{required_check!r}] must have status 'passed'"
+                )
+
+    if errors:
+        return errors, warnings, checks
+    checks.append("execution_graph_ir_v0_2_reference_declarations")
+
+    try:
+        adapter_result = validate_ir_v0_2_reference(
+            artifact=graph_path,
+            sha256=graph_sha256,
+            graph_id=graph_id,
+            all_graphs=False,
+            project_root=project_root,
+        )
+    except Exception as exc:
+        errors.append(
+            f"{label}: IR v0.2 reference adapter raised {type(exc).__name__}: {exc}"
+        )
+        return errors, warnings, checks
+
+    if not isinstance(adapter_result, dict):
+        errors.append(f"{label}: IR v0.2 reference adapter returned a non-object result")
+        return errors, warnings, checks
+    adapter_errors = adapter_result.get("errors")
+    if not isinstance(adapter_errors, list):
+        errors.append(f"{label}: IR v0.2 reference adapter returned malformed errors")
+        return errors, warnings, checks
+    for adapter_error in adapter_errors:
+        if isinstance(adapter_error, dict):
+            code = adapter_error.get("code", "UNKNOWN")
+            message = adapter_error.get("message", "unspecified adapter error")
+            errors.append(f"{label}: IR v0.2 adapter {code}: {message}")
+        else:
+            errors.append(f"{label}: IR v0.2 adapter error: {adapter_error!r}")
+    if adapter_result.get("status") != "pass" and not adapter_errors:
+        errors.append(f"{label}: IR v0.2 reference adapter status is not 'pass'")
+    if errors:
+        return errors, warnings, checks
+
+    adapter_graphs = adapter_result.get("graphs")
+    if not isinstance(adapter_graphs, list) or len(adapter_graphs) != 1:
+        errors.append(
+            f"{label}: IR v0.2 reference adapter must return exactly one selected graph"
+        )
+        return errors, warnings, checks
+    adapter_graph = adapter_graphs[0]
+    if not isinstance(adapter_graph, dict):
+        errors.append(f"{label}: IR v0.2 reference adapter graph result must be an object")
+        return errors, warnings, checks
+    if adapter_graph.get("status") != "pass" or adapter_graph.get("errors"):
+        errors.append(
+            f"{label}: selected IR v0.2 graph did not pass live reference validation"
+        )
+    if adapter_graph.get("graph_id") != graph_id:
+        errors.append(f"{label}: adapter graph_id does not match the declared graph_id")
+    if adapter_graph.get("question_id") != question_id:
+        errors.append(
+            f"{label}: adapter question_id {adapter_graph.get('question_id')!r} does not match "
+            f"annotation question_id {question_id!r}"
+        )
+    if adapter_graph.get("table_id") != table_id:
+        errors.append(
+            f"{label}: adapter table_id {adapter_graph.get('table_id')!r} does not match "
+            f"annotation table_id {table_id!r}"
+        )
+
+    adapter_warnings = adapter_result.get("warnings")
+    if isinstance(adapter_warnings, list) and adapter_warnings:
+        warning_codes: dict[str, int] = defaultdict(int)
+        for adapter_warning in adapter_warnings:
+            code = (
+                adapter_warning.get("code", "UNKNOWN")
+                if isinstance(adapter_warning, dict)
+                else "UNKNOWN"
+            )
+            warning_codes[str(code)] += 1
+        warning_summary = ", ".join(
+            f"{code}={count}" for code, count in sorted(warning_codes.items())
+        )
+        warnings.append(
+            f"{label}: live IR v0.2 adapter reported {len(adapter_warnings)} warning(s): "
+            f"{warning_summary}"
+        )
+
+    if not errors:
+        checks.append("execution_graph_ir_v0_2_live_reference")
+    return errors, warnings, checks
+
+
 def validate_record(
     record: dict[str, Any],
     allowed_operators: set[str],
@@ -1795,19 +2017,27 @@ def validate_record(
 
     execution_graph = record.get("execution_graph")
     if isinstance(execution_graph, dict):
-        if execution_graph.get("nodes") is not None:
+        graph_status = execution_graph.get("graph_status")
+        if graph_status == "referenced_validated":
+            reference_errors, reference_warnings, reference_checks = (
+                validate_ir_v0_2_execution_graph_reference(
+                    execution_graph,
+                    question_id,
+                    first_string(record, ("table_id",)),
+                    Path(__file__).resolve().parents[2],
+                )
+            )
+            errors.extend(reference_errors)
+            warnings.extend(reference_warnings)
+            checks.extend(reference_checks)
+            checks.append("execution_graph_reference_envelope")
+        elif execution_graph.get("nodes") is not None:
             # Backward-compatible inline graph check; v0.1 normally uses an IR reference envelope.
             errors.extend(topology_errors(execution_graph, "execution_graph", allowed_operators))
             checks.append("execution_graph_dependency_dag")
         elif "graph_status" in execution_graph:
-            graph_status = execution_graph.get("graph_status")
             if graph_status in {"not_constructed", "blocked_missing_ir_definition"}:
                 warnings.append(f"execution graph envelope status is {graph_status}")
-            if graph_status == "referenced_validated":
-                errors.append(
-                    "execution_graph: referenced_validated is unsupported until the IR v0.2 definition "
-                    "and live artifact validator are restored"
-                )
             if execution_graph.get("executable_status") == "executable":
                 errors.append(
                     "execution_graph: executable is unsupported until live execution evidence validation is restored"
