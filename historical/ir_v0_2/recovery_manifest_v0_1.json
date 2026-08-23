@@ -1,0 +1,62 @@
+{
+  "schema_version": "historical_ir_v0_2_recovery_manifest_v0_1",
+  "status": "researcher_approved_authoritative",
+  "authority_kind": "git_commit",
+  "authority_identity": "dcc5ac5c14e9acb5c689b400a4046708b6837ac3",
+  "recovery_source_kind": "researcher_approved_historical_workspace",
+  "preservation_policy": "All listed recovered files are byte-for-byte read-only evidence. Current-side adapters and reports must live outside this historical tree.",
+  "leakage_policy": "The condition C artifact contains answers and evaluator outputs and must never be exposed to question-only semantic or topology annotation/prediction.",
+  "files": [
+    {
+      "original_path": "ir/spec_v0_2.md",
+      "repository_relative_path": "historical/ir_v0_2/ir/spec_v0_2.md",
+      "sha256": "d6b9bdae4b673ec7c756728bb343f4e99d43d5d3caa3332c408d8f682d84cd8e"
+    },
+    {
+      "original_path": "ir/execution_graph.schema.json",
+      "repository_relative_path": "historical/ir_v0_2/ir/execution_graph.schema.json",
+      "sha256": "55ccc7721cccba570a94cea94452eccbb6409a45606adf2d79764df783bbbb63"
+    },
+    {
+      "original_path": "ir/operator_registry_v0_2.json",
+      "repository_relative_path": "historical/ir_v0_2/ir/operator_registry_v0_2.json",
+      "sha256": "964eae96dd1942b904b5e6395bf9818dc3bc7d074f0d2523ef10263c609fea39"
+    },
+    {
+      "original_path": "ir/type_registry_v0_2.json",
+      "repository_relative_path": "historical/ir_v0_2/ir/type_registry_v0_2.json",
+      "sha256": "c4d9e55851bd3d22274aeb89581d125673c90bb9db34fc3f3ace075538c21f80"
+    },
+    {
+      "original_path": "src/hybridqa_graph/ir.py",
+      "repository_relative_path": "historical/ir_v0_2/src/hybridqa_graph/ir.py",
+      "sha256": "1dc669cfd7dadf6d646299c991db0f8f82dc2e64d5a61552f4686ee1d3da6e51"
+    },
+    {
+      "original_path": "src/hybridqa_graph/planning.py",
+      "repository_relative_path": "historical/ir_v0_2/src/hybridqa_graph/planning.py",
+      "sha256": "19d9685b8133fa421bc54f73ecad3c80ff769ea574072b1d2f541d6be8e89cc1"
+    },
+    {
+      "original_path": "src/hybridqa_graph/registry.py",
+      "repository_relative_path": "historical/ir_v0_2/src/hybridqa_graph/registry.py",
+      "sha256": "ec466b5647394053f360182fdb430a23b159386962c9e6b678845cd130230f40"
+    },
+    {
+      "original_path": "src/hybridqa_graph/validator.py",
+      "repository_relative_path": "historical/ir_v0_2/src/hybridqa_graph/validator.py",
+      "sha256": "a8970505f1f31504753e6c6f0726129bc27acd59799eb8289ed09bb45562f871"
+    },
+    {
+      "original_path": "experiments/results/week2_pilot/condition_C.jsonl",
+      "repository_relative_path": "historical/ir_v0_2/experiments/results/week2_pilot/condition_C.jsonl",
+      "sha256": "62d806c69bf30125a25dab8fb4f0682f279b4cf3d6559de477dd888c0393757a",
+      "record_count": 50
+    },
+    {
+      "original_path": "experiments/results/week2_pilot/run_manifest.json",
+      "repository_relative_path": "historical/ir_v0_2/experiments/results/week2_pilot/run_manifest.json",
+      "sha256": "8ae5a7a84a35d5c9d50ce479b90bc6e487a3d2eaed2396f5af35cd5a5b93316a"
+    }
+  ]
+}
