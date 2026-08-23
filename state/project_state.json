@@ -4,28 +4,28 @@
   "project": "hierarchical_data_construction_for_semantic_execution_topology_induction",
   "active_phase": "phase_2_operator_granularity_annotation_pilot",
   "active_branch": "main",
-  "expected_head": "bedfd1f4feeb48f78cea86a9b0deef88e5d34ddc",
-  "last_completed_task": "historical_exposure_and_ir_v0_2_recovery_exact_pin_reproduction_and_30_question_pilot_allocation",
-  "next_task": "build_leakage_safe_coarse_medium_fine_representations_for_the_same_30_pilot_questions_then_run_deterministic_checks_and_human_calibration",
-  "current_scientific_decision": "DATA_SOURCE_READY_FOR_ANNOTATION_PILOT",
-  "scientific_decision_status": "in_progress_not_a_final_modeling_decision",
+  "expected_head": "7f808d5d1bf75c00c0572b6f3cab6b10d211a94b",
+  "last_completed_task": "completed_hash_bound_30_question_three_granularity_structural_pilot_and_write_once_output_hardening",
+  "next_task": "collect_six_real_independent_reviewer_by_granularity_files_with_180_substantive_decisions_verify_researcher_approved_reviewer_attestation_and_hashes_then_adjudicate_rejects_edits_and_disagreements",
+  "current_scientific_decision": "UNDECIDED_NEEDS_ANNOTATION_EVIDENCE",
+  "scientific_decision_status": "structural_integrity_complete_human_calibration_pending",
   "synchronization_state": "LOCAL_COMMIT_NOT_PUSHED",
   "handoff_readiness": "not_ready",
   "blocked_gates": [
-    "LOCAL_COMMIT_NOT_PUSHED: eight local commits are ahead of origin/main and remote writes are not authorized",
-    "OPERATOR_GRANULARITY_PILOT_NOT_RUN: coarse medium and fine representations have not been created or compared for the 30 questions",
-    "ANNOTATION_PROPOSALS_NOT_CREATED: no LLM or human annotation proposals exist for the 30 questions",
-    "HUMAN_REVIEW_NOT_PERFORMED: calibration review adjudication and resolved annotations are not available"
+    "LOCAL_COMMIT_NOT_PUSHED: fourteen local commits are ahead of origin/main and remote writes are not authorized",
+    "HUMAN_REVIEW_NOT_PERFORMED: no real independent reviewer decisions or researcher-approved reviewer attestation exists; calibration disagreement adjudication and resolved annotations are unavailable"
   ],
   "repository": {
     "git_root": "repository root (resolve with git rev-parse --show-toplevel)",
     "current_branch": "main",
-    "head": "bedfd1f4feeb48f78cea86a9b0deef88e5d34ddc",
+    "head": "7f808d5d1bf75c00c0572b6f3cab6b10d211a94b",
     "head_role": "expected_handoff_baseline_parent_of_metadata_commit",
-    "remotes": ["origin https://github.com/kgh0720kgh-boop/pj.git"],
+    "remotes": [
+      "origin https://github.com/kgh0720kgh-boop/pj.git"
+    ],
     "working_tree_status": "clean",
     "untracked_files": 0,
-    "unpushed_commits": 8,
+    "unpushed_commits": 14,
     "stash_state": "empty"
   },
   "artifact_status": {
@@ -62,7 +62,7 @@
     },
     "schema_bundle": {
       "schema_version": "v0_1",
-      "schema_count": 8,
+      "schema_count": 9,
       "operator_vocabulary_count": 3,
       "portable_structure_check": "passed",
       "draft_2020_12_full_validation": "passed_in_project_local_exact_pin_environment_with_zero_errors_and_zero_warnings"
@@ -82,10 +82,83 @@
       "dead_node_warnings": 455,
       "warning_interpretation": "historical_planner_failure_evidence_not_current_granularity_evidence"
     },
+    "operator_granularity_pilot": {
+      "status": "structural_integrity_complete_human_calibration_pending",
+      "question_count": 30,
+      "representation_record_count": 30,
+      "representation_count": 90,
+      "deterministic_check_count": 90,
+      "deterministic_pass_count": 90,
+      "deterministic_error_count": 0,
+      "deterministic_warning_count": 0,
+      "review_packet_count": 3,
+      "human_review_record_count": 0,
+      "annotation_disagreement_observation_count": 0,
+      "annotation_disagreement_rate": null,
+      "integrity_complete": true,
+      "human_calibration_complete": false,
+      "evidence_complete": false,
+      "semantic_confirmation_complete": false,
+      "selection_ready": false,
+      "selected_vocabulary": null,
+      "proposal_status": "llm_proposed_not_gold",
+      "reviewer_authentication_status": "procedural_not_machine_verifiable",
+      "researcher_approved_reviewer_attestation": "not_recorded",
+      "model_provenance": {
+        "model_id": "codex_gpt-5",
+        "model_revision_status": "revision_not_exposed",
+        "raw_model_output_status": "not_exposed_by_interface",
+        "seed_status": "not_supported",
+        "exact_generation_replayability": false
+      },
+      "artifacts": {
+        "representation_plan": {
+          "path": "data_construction/pilot/granularity_representation_plan_v0_1.json",
+          "sha256": "0ad699896dd6b1dab9af3b9dae068b19be26009372c75492c070db35fbf1cde9"
+        },
+        "input_views": {
+          "path": "data_construction/pilot/granularity_input_views.jsonl",
+          "sha256": "d4c57bc94e4747b380a37e7802975a81688d3e51af606520b71bc90ae18af345"
+        },
+        "input_views_manifest": {
+          "path": "data_construction/pilot/granularity_input_views_manifest_v0_1.json",
+          "sha256": "838451ae674274d33f60adcbba71c2e9fe8f799a5c528a671a30ec6e69449353"
+        },
+        "representations": {
+          "path": "data_construction/pilot/granularity_representations.jsonl",
+          "sha256": "75cb1b5ae1c03d1f931acf720c37f52686d247046389e982ffbe43a610a44583"
+        },
+        "deterministic_checks": {
+          "path": "data_construction/pilot/granularity_deterministic_checks.jsonl",
+          "sha256": "9500afcb6d529e2b8b5f8842d2170bdc5dc1c34d39b299f18b4c531b70a55c05"
+        },
+        "metrics": {
+          "path": "data_construction/reports/operator_granularity_metrics_v0_1.json",
+          "sha256": "271f773bab77b5a49368944dc4b5131c88d41a8791fe7fe2154f58e31d2cf8ec"
+        }
+      },
+      "review_packets": {
+        "coarse": {
+          "html_sha256": "78625d167528c256e2d5103111e621513b173904c52b07e3fa3f33cb30f38870",
+          "manifest_sha256": "ee4b3cdc7750143edac4c41d996c4131093688f9ea9940f2bf16039bc8b97c16",
+          "payload_sha256": "a45e4e6fd1dbdefa2b6a8faedc3f9de90cabed7b61a2011e99e9e1c985fbcc97"
+        },
+        "medium": {
+          "html_sha256": "bef30a57f7f307314a0f23bf2cee18e076b179f6d77d1fd5825c989f2d0d2357",
+          "manifest_sha256": "547e4c077f3d8fec76bc3f63220a67bc6ac2c699a2b00c697ab8b02773f0e8ff",
+          "payload_sha256": "28308bb26172a959645e37532a1162a0bed7dbc846cc81181cb2fa7b715b98ef"
+        },
+        "fine": {
+          "html_sha256": "fe4e8b6062ea3150bcac994db0cba3b394fa10bcee4ec78b77733aee40b884fd",
+          "manifest_sha256": "a1cf52fc73c47ea0d36cdbd6eac14eec1a1b5f59f90c253cd417b10c3243c626",
+          "payload_sha256": "de0c3df1d12a49b54e6f43dfe450159dfeacad1e9977a85b32ba046724309c96"
+        }
+      }
+    },
     "tools": {
       "status": "implemented",
       "test_entry_point": ".venv/bin/python -B -m unittest discover -s tests -v",
-      "final_integration_test_status": "passed_43_tests_in_project_local_exact_pin_environment"
+      "final_integration_test_status": "passed_51_tests_in_project_local_exact_pin_environment"
     }
   },
   "preflight_status": {
@@ -93,8 +166,8 @@
     "result": "NOT_READY",
     "exit_code": 2,
     "validation_failures": 0,
-    "core_json_files_parsed": 18,
-    "unit_tests_passed": 43,
+    "core_json_files_parsed": 25,
+    "unit_tests_passed": 51,
     "unit_tests_failed": 0,
     "ir_v0_2_records_validated": 50,
     "ir_v0_2_validator_errors": 0
@@ -116,6 +189,13 @@
     "data_construction/manifests/source_question_ids.json",
     "data_construction/manifests/split_manifest_v0_1.json",
     "data_construction/pilot/questions.jsonl",
+    "data_construction/pilot/granularity_representation_plan_v0_1.json",
+    "data_construction/pilot/granularity_input_views.jsonl",
+    "data_construction/pilot/granularity_input_views_manifest_v0_1.json",
+    "data_construction/pilot/granularity_representations.jsonl",
+    "data_construction/pilot/granularity_deterministic_checks.jsonl",
+    "data_construction/pilot/review_packets/",
+    "data_construction/reports/operator_granularity_metrics_v0_1.json",
     "data_construction/schemas/",
     "data_construction/operator_design/",
     "data_construction/tools/",
@@ -176,7 +256,7 @@
       },
       "project_local_environment_status": "reconstructed",
       "project_local_validation_result": {
-        "schemas_checked": 8,
+        "schemas_checked": 9,
         "vocabularies_checked": 3,
         "errors": 0,
         "warnings": 0
@@ -194,7 +274,7 @@
     "project_path_policy": "repository_relative",
     "hostname_dependency": "forbidden",
     "secret_policy": "machine_local_only",
-    "model_identity_policy": "stable_model_id_plus_exact_revision",
+    "model_identity_policy": "stable_model_id_plus_exact_revision_or_explicit_unavailable_status",
     "consumer_folder_sync_for_active_worktree": "forbidden",
     "preflight_command": "sh scripts/cross_device_preflight.sh"
   },

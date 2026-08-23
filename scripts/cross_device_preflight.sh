@@ -807,8 +807,12 @@ elif state.get("current_scientific_decision") in {
             "human_review_record_count": 0,
             "integrity_complete": True,
             "human_calibration_complete": False,
+            "evidence_complete": False,
             "semantic_confirmation_complete": False,
             "selection_ready": False,
+            "selected_vocabulary": None,
+            "reviewer_authentication_status": "procedural_not_machine_verifiable",
+            "researcher_approved_reviewer_attestation": "not_recorded",
         }
         for key, expected_value in expected_pilot_summary.items():
             if pilot.get(key) != expected_value:
@@ -998,6 +1002,7 @@ def jsonl(path):
 
 
 questions = project_root / "data_construction/pilot/questions.jsonl"
+plan = project_root / "data_construction/pilot/granularity_representation_plan_v0_1.json"
 views = project_root / "data_construction/pilot/granularity_input_views.jsonl"
 view_manifest = project_root / "data_construction/pilot/granularity_input_views_manifest_v0_1.json"
 representations = project_root / "data_construction/pilot/granularity_representations.jsonl"
@@ -1145,6 +1150,7 @@ state = json.loads((project_root / "state/project_state.json").read_text(encodin
 pilot = state.get("artifact_status", {}).get("operator_granularity_pilot", {})
 state_artifacts = pilot.get("artifacts", {})
 expected_state_artifacts = {
+    "representation_plan": plan,
     "input_views": views,
     "input_views_manifest": view_manifest,
     "representations": representations,
@@ -1157,6 +1163,17 @@ for label, path in expected_state_artifacts.items():
         raise SystemExit(f"project state lacks canonical pilot artifact {label}")
     if reference.get("sha256") != sha256_file(path):
         raise SystemExit(f"project state hash mismatch for pilot artifact {label}")
+
+state_packets = pilot.get("review_packets", {})
+for reference in packet_provenance:
+    granularity = reference["granularity"]
+    expected_reference = {
+        "html_sha256": reference["packet_artifact_sha256"],
+        "manifest_sha256": reference["manifest_artifact_sha256"],
+        "payload_sha256": reference["packet_payload_sha256"],
+    }
+    if state_packets.get(granularity) != expected_reference:
+        raise SystemExit(f"project state hash mismatch for {granularity} review packet")
 
 print(
     "questions=30;representations=90;checks=90_pass_0_error_0_warning;"
