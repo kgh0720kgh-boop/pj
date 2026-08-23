@@ -1,0 +1,517 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/hybridqa/execution_graph.schema.json",
+  "title": "HybridQA model-generated execution graph IR v0.2",
+  "description": "Syntactic schema for a gold-free generated plan. Stateful dependency, type, schema-identity, and semantic checks remain registry-validator responsibilities.",
+  "type": "object",
+  "required": ["ir_version", "graph_id", "question_ref", "schema_ref", "sources", "nodes", "answer"],
+  "additionalProperties": false,
+  "properties": {
+    "ir_version": {"const": "0.2"},
+    "graph_id": {"type": "string", "minLength": 1},
+    "question_ref": {"$ref": "#/$defs/questionRef"},
+    "schema_ref": {"$ref": "#/$defs/schemaRef"},
+    "sources": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {"pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"},
+      "additionalProperties": {"$ref": "#/$defs/tableSource"}
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {"$ref": "#/$defs/filterNode"},
+          {"$ref": "#/$defs/projectNode"},
+          {"$ref": "#/$defs/retrieveNode"},
+          {"$ref": "#/$defs/extractNode"},
+          {"$ref": "#/$defs/joinNode"},
+          {"$ref": "#/$defs/aggregateNode"},
+          {"$ref": "#/$defs/compareNode"},
+          {"$ref": "#/$defs/parseNode"},
+          {"$ref": "#/$defs/argExtremeNode"},
+          {"$ref": "#/$defs/arithmeticNode"},
+          {"$ref": "#/$defs/distinctNode"}
+        ]
+      }
+    },
+    "answer": {"$ref": "#/$defs/nodeRef"}
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+    },
+    "questionRef": {
+      "type": "object",
+      "required": ["split", "question_id", "table_id", "question"],
+      "additionalProperties": false,
+      "properties": {
+        "split": {"enum": ["train", "dev", "test"]},
+        "question_id": {"type": "string", "minLength": 1},
+        "table_id": {"type": "string", "minLength": 1},
+        "question": {"type": "string", "minLength": 1}
+      }
+    },
+    "schemaRef": {
+      "type": "object",
+      "required": ["table_id", "columns"],
+      "additionalProperties": false,
+      "properties": {
+        "table_id": {"type": "string", "minLength": 1},
+        "columns": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/columnRef"}
+        }
+      }
+    },
+    "columnRef": {
+      "type": "object",
+      "required": ["index", "label"],
+      "additionalProperties": false,
+      "properties": {
+        "index": {"type": "integer", "minimum": 0},
+        "label": {"type": "string"}
+      }
+    },
+    "tableSource": {
+      "type": "object",
+      "required": ["type", "locator"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {"const": "Table"},
+        "locator": {
+          "type": "object",
+          "required": ["kind", "table_id"],
+          "additionalProperties": false,
+          "properties": {
+            "kind": {"const": "hybridqa_table"},
+            "table_id": {"type": "string", "minLength": 1}
+          }
+        }
+      }
+    },
+    "sourceRef": {
+      "type": "object",
+      "required": ["kind", "source_id"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {"const": "source"},
+        "source_id": {"$ref": "#/$defs/identifier"}
+      }
+    },
+    "nodeRef": {
+      "type": "object",
+      "required": ["kind", "node_id", "port"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {"const": "node"},
+        "node_id": {"$ref": "#/$defs/identifier"},
+        "port": {"const": "result"}
+      }
+    },
+    "inputRef": {
+      "oneOf": [
+        {"$ref": "#/$defs/sourceRef"},
+        {"$ref": "#/$defs/nodeRef"}
+      ]
+    },
+    "outputBase": {
+      "type": "object",
+      "required": ["port", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "port": {"const": "result"},
+        "type": {
+          "enum": ["Table", "Row", "RowSet", "Entity", "EntitySet", "Document", "DocumentSet", "String", "Number", "Date", "Boolean", "ValueSet"]
+        }
+      }
+    },
+    "nodeBase": {
+      "type": "object",
+      "required": ["id", "operator", "inputs", "arguments", "output", "tool_binding"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"$ref": "#/$defs/identifier"},
+        "operator": {"type": "string"},
+        "inputs": {"type": "object"},
+        "arguments": {"type": "object"},
+        "output": {"$ref": "#/$defs/outputBase"},
+        "tool_binding": {"type": "string", "minLength": 1}
+      }
+    },
+    "predicate": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind", "column", "value"],
+          "additionalProperties": false,
+          "properties": {
+            "kind": {"enum": ["eq", "contains", "numeric_eq", "numeric_gt", "numeric_lt"]},
+            "column": {"$ref": "#/$defs/columnRef"},
+            "value": {"type": ["string", "number", "boolean"]},
+            "case_sensitive": {"type": "boolean"}
+          }
+        },
+        {
+          "type": "object",
+          "required": ["kind", "column", "values"],
+          "additionalProperties": false,
+          "properties": {
+            "kind": {"const": "in"},
+            "column": {"$ref": "#/$defs/columnRef"},
+            "values": {
+              "type": "array",
+              "minItems": 1,
+              "items": {"type": ["string", "number", "boolean"]}
+            },
+            "case_sensitive": {"type": "boolean"}
+          }
+        }
+      ]
+    },
+    "filterNode": {
+      "allOf": [
+        {"$ref": "#/$defs/nodeBase"},
+        {
+          "properties": {
+            "operator": {"const": "FILTER"},
+            "inputs": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "required": ["table"],
+                  "additionalProperties": false,
+                  "properties": {"table": {"$ref": "#/$defs/inputRef"}}
+                },
+                {
+                  "type": "object",
+                  "required": ["rows"],
+                  "additionalProperties": false,
+                  "properties": {"rows": {"$ref": "#/$defs/nodeRef"}}
+                }
+              ]
+            },
+            "arguments": {
+              "type": "object",
+              "required": ["predicate"],
+              "additionalProperties": false,
+              "properties": {"predicate": {"$ref": "#/$defs/predicate"}}
+            },
+            "output": {"$ref": "#/$defs/rowSetOutput"},
+            "tool_binding": {"const": "table.filter"}
+          }
+        }
+      ]
+    },
+    "projectNode": {
+      "allOf": [
+        {"$ref": "#/$defs/nodeBase"},
+        {
+          "properties": {
+            "operator": {"const": "PROJECT"},
+            "inputs": {
+              "type": "object",
+              "required": ["rows"],
+              "additionalProperties": false,
+              "properties": {"rows": {"$ref": "#/$defs/inputRef"}}
+            },
+            "arguments": {
+              "oneOf": [
+                {"$ref": "#/$defs/projectTextOneArgs"},
+                {"$ref": "#/$defs/projectTextManyArgs"},
+                {"$ref": "#/$defs/projectLinksOneArgs"},
+                {"$ref": "#/$defs/projectLinksManyArgs"}
+              ]
+            },
+            "tool_binding": {"const": "table.project"}
+          },
+          "allOf": [
+            {
+              "if": {"properties": {"arguments": {"properties": {"mode": {"const": "text"}, "cardinality": {"const": "one"}}, "required": ["mode", "cardinality"]}}},
+              "then": {"properties": {"output": {"$ref": "#/$defs/stringOutput"}}}
+            },
+            {
+              "if": {"properties": {"arguments": {"properties": {"mode": {"const": "text"}, "cardinality": {"const": "many"}}, "required": ["mode", "cardinality"]}}},
+              "then": {"properties": {"output": {"$ref": "#/$defs/valueSetOutput"}}}
+            },
+            {
+              "if": {"properties": {"arguments": {"properties": {"mode": {"const": "links"}, "cardinality": {"const": "one"}}, "required": ["mode", "cardinality"]}}},
+              "then": {"properties": {"output": {"$ref": "#/$defs/entityOutput"}}}
+            },
+            {
+              "if": {"properties": {"arguments": {"properties": {"mode": {"const": "links"}, "cardinality": {"const": "many"}}, "required": ["mode", "cardinality"]}}},
+              "then": {"properties": {"output": {"$ref": "#/$defs/entitySetOutput"}}}
+            }
+          ]
+        }
+      ]
+    },
+    "projectTextOneArgs": {"$ref": "#/$defs/projectArgsTextOne"},
+    "projectTextManyArgs": {"$ref": "#/$defs/projectArgsTextMany"},
+    "projectLinksOneArgs": {"$ref": "#/$defs/projectArgsLinksOne"},
+    "projectLinksManyArgs": {"$ref": "#/$defs/projectArgsLinksMany"},
+    "projectArgsTextOne": {
+      "type": "object", "required": ["column", "mode", "cardinality"], "additionalProperties": false,
+      "properties": {"column": {"$ref": "#/$defs/columnRef"}, "mode": {"const": "text"}, "cardinality": {"const": "one"}}
+    },
+    "projectArgsTextMany": {
+      "type": "object", "required": ["column", "mode", "cardinality"], "additionalProperties": false,
+      "properties": {"column": {"$ref": "#/$defs/columnRef"}, "mode": {"const": "text"}, "cardinality": {"const": "many"}}
+    },
+    "projectArgsLinksOne": {
+      "type": "object", "required": ["column", "mode", "cardinality"], "additionalProperties": false,
+      "properties": {"column": {"$ref": "#/$defs/columnRef"}, "mode": {"const": "links"}, "cardinality": {"const": "one"}}
+    },
+    "projectArgsLinksMany": {
+      "type": "object", "required": ["column", "mode", "cardinality"], "additionalProperties": false,
+      "properties": {"column": {"$ref": "#/$defs/columnRef"}, "mode": {"const": "links"}, "cardinality": {"const": "many"}}
+    },
+    "retrieveNode": {
+      "allOf": [
+        {"$ref": "#/$defs/nodeBase"},
+        {
+          "properties": {
+            "operator": {"const": "RETRIEVE"},
+            "inputs": {
+              "type": "object", "required": ["entities"], "additionalProperties": false,
+              "properties": {"entities": {"$ref": "#/$defs/nodeRef"}}
+            },
+            "arguments": {"type": "object", "maxProperties": 0},
+            "output": {"oneOf": [{"$ref": "#/$defs/documentOutput"}, {"$ref": "#/$defs/documentSetOutput"}]},
+            "tool_binding": {"const": "document.retrieve"}
+          }
+        }
+      ]
+    },
+    "extractNode": {
+      "allOf": [
+        {"$ref": "#/$defs/nodeBase"},
+        {
+          "properties": {
+            "operator": {"const": "EXTRACT"},
+            "inputs": {
+              "type": "object", "required": ["documents"], "additionalProperties": false,
+              "properties": {"documents": {"$ref": "#/$defs/nodeRef"}}
+            },
+            "arguments": {
+              "type": "object",
+              "required": ["attribute", "value_type", "cardinality"],
+              "additionalProperties": false,
+              "properties": {
+                "attribute": {"type": "string", "minLength": 1},
+                "value_type": {"enum": ["String", "Number", "Date", "Boolean", "Entity"]},
+                "cardinality": {"enum": ["one", "many"]}
+              }
+            },
+            "output": {
+              "oneOf": [
+                {"$ref": "#/$defs/stringOutput"}, {"$ref": "#/$defs/numberOutput"},
+                {"$ref": "#/$defs/dateOutput"}, {"$ref": "#/$defs/booleanOutput"},
+                {"$ref": "#/$defs/entityOutput"}, {"$ref": "#/$defs/valueSetOutput"},
+                {"$ref": "#/$defs/entitySetOutput"}
+              ]
+            },
+            "tool_binding": {"const": "document.extract"}
+          },
+          "allOf": [
+            {"$ref": "#/$defs/extractOutputRules"}
+          ]
+        }
+      ]
+    },
+    "extractOutputRules": {
+      "allOf": [
+        {"if": {"properties": {"arguments": {"properties": {"cardinality": {"const": "one"}, "value_type": {"const": "String"}}, "required": ["cardinality", "value_type"]}}}, "then": {"properties": {"output": {"$ref": "#/$defs/stringOutput"}}}},
+        {"if": {"properties": {"arguments": {"properties": {"cardinality": {"const": "one"}, "value_type": {"const": "Number"}}, "required": ["cardinality", "value_type"]}}}, "then": {"properties": {"output": {"$ref": "#/$defs/numberOutput"}}}},
+        {"if": {"properties": {"arguments": {"properties": {"cardinality": {"const": "one"}, "value_type": {"const": "Date"}}, "required": ["cardinality", "value_type"]}}}, "then": {"properties": {"output": {"$ref": "#/$defs/dateOutput"}}}},
+        {"if": {"properties": {"arguments": {"properties": {"cardinality": {"const": "one"}, "value_type": {"const": "Boolean"}}, "required": ["cardinality", "value_type"]}}}, "then": {"properties": {"output": {"$ref": "#/$defs/booleanOutput"}}}},
+        {"if": {"properties": {"arguments": {"properties": {"cardinality": {"const": "one"}, "value_type": {"const": "Entity"}}, "required": ["cardinality", "value_type"]}}}, "then": {"properties": {"output": {"$ref": "#/$defs/entityOutput"}}}},
+        {"if": {"properties": {"arguments": {"properties": {"cardinality": {"const": "many"}, "value_type": {"const": "Entity"}}, "required": ["cardinality", "value_type"]}}}, "then": {"properties": {"output": {"$ref": "#/$defs/entitySetOutput"}}}},
+        {"if": {"properties": {"arguments": {"properties": {"cardinality": {"const": "many"}, "value_type": {"enum": ["String", "Number", "Date", "Boolean"]}}, "required": ["cardinality", "value_type"]}}}, "then": {"properties": {"output": {"$ref": "#/$defs/valueSetOutput"}}}}
+      ]
+    },
+    "joinNode": {
+      "allOf": [
+        {"$ref": "#/$defs/nodeBase"},
+        {
+          "properties": {
+            "operator": {"const": "JOIN"},
+            "inputs": {
+              "type": "object", "required": ["rows", "keys"], "additionalProperties": false,
+              "properties": {"rows": {"$ref": "#/$defs/nodeRef"}, "keys": {"$ref": "#/$defs/nodeRef"}}
+            },
+            "arguments": {
+              "type": "object", "required": ["right_column", "match"], "additionalProperties": false,
+              "properties": {"right_column": {"$ref": "#/$defs/columnRef"}, "match": {"enum": ["exact", "normalized"]}}
+            },
+            "output": {"$ref": "#/$defs/rowSetOutput"},
+            "tool_binding": {"const": "table.join"}
+          }
+        }
+      ]
+    },
+    "aggregateNode": {
+      "allOf": [
+        {"$ref": "#/$defs/nodeBase"},
+        {
+          "properties": {
+            "operator": {"const": "AGGREGATE"},
+            "output": {"$ref": "#/$defs/numberOutput"},
+            "tool_binding": {"const": "calculator.aggregate"}
+          },
+          "oneOf": [
+            {
+              "properties": {
+                "inputs": {"type": "object", "required": ["values"], "additionalProperties": false, "properties": {"values": {"$ref": "#/$defs/nodeRef"}}},
+                "arguments": {"type": "object", "required": ["function"], "additionalProperties": false, "properties": {"function": {"enum": ["count", "sum", "min", "max", "average"]}}}
+              }
+            },
+            {
+              "properties": {
+                "inputs": {"type": "object", "required": ["entities"], "additionalProperties": false, "properties": {"entities": {"$ref": "#/$defs/nodeRef"}}},
+                "arguments": {"type": "object", "required": ["function"], "additionalProperties": false, "properties": {"function": {"const": "count"}}}
+              }
+            },
+            {
+              "properties": {
+                "inputs": {"type": "object", "required": ["rows"], "additionalProperties": false, "properties": {"rows": {"$ref": "#/$defs/nodeRef"}}},
+                "arguments": {"type": "object", "required": ["function"], "additionalProperties": false, "properties": {"function": {"const": "count"}}}
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "compareNode": {
+      "allOf": [
+        {"$ref": "#/$defs/nodeBase"},
+        {
+          "properties": {
+            "operator": {"const": "COMPARE"},
+            "tool_binding": {"const": "calculator.compare"}
+          },
+          "oneOf": [
+            {
+              "properties": {
+                "inputs": {"type": "object", "required": ["values"], "additionalProperties": false, "properties": {"values": {"$ref": "#/$defs/nodeRef"}}},
+                "arguments": {
+                  "type": "object", "required": ["relation", "return", "parse", "tie_policy"], "additionalProperties": false,
+                  "properties": {
+                    "relation": {"enum": ["min", "max", "earlier", "later", "older", "newer"]},
+                    "return": {"enum": ["value", "entity_key"]},
+                    "parse": {"enum": ["String", "Number", "Date"]},
+                    "tie_policy": {"enum": ["error", "all"]}
+                  }
+                },
+                "output": {"oneOf": [{"$ref": "#/$defs/entityOutput"}, {"$ref": "#/$defs/entitySetOutput"}, {"$ref": "#/$defs/stringOutput"}, {"$ref": "#/$defs/numberOutput"}, {"$ref": "#/$defs/dateOutput"}, {"$ref": "#/$defs/valueSetOutput"}]}
+              }
+            },
+            {
+              "properties": {
+                "inputs": {"type": "object", "required": ["left", "right"], "additionalProperties": false, "properties": {"left": {"$ref": "#/$defs/nodeRef"}, "right": {"$ref": "#/$defs/nodeRef"}}},
+                "arguments": {
+                  "type": "object", "required": ["relation", "return", "tie_policy"], "additionalProperties": false,
+                  "properties": {
+                    "relation": {"enum": ["equal", "less", "greater", "earlier", "later", "older", "newer"]},
+                    "return": {"enum": ["boolean", "value"]},
+                    "parse": {"enum": ["String", "Number", "Date"]},
+                    "tie_policy": {"const": "error"}
+                  }
+                },
+                "output": {"oneOf": [{"$ref": "#/$defs/booleanOutput"}, {"$ref": "#/$defs/stringOutput"}, {"$ref": "#/$defs/numberOutput"}, {"$ref": "#/$defs/dateOutput"}, {"$ref": "#/$defs/entityOutput"}]}
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "parseNode": {
+      "allOf": [
+        {"$ref": "#/$defs/nodeBase"},
+        {
+          "properties": {
+            "operator": {"const": "PARSE"},
+            "inputs": {"type": "object", "required": ["values"], "additionalProperties": false, "properties": {"values": {"$ref": "#/$defs/nodeRef"}}},
+            "arguments": {"type": "object", "required": ["target_type"], "additionalProperties": false, "properties": {"target_type": {"enum": ["Number", "Date"]}}},
+            "output": {"oneOf": [{"$ref": "#/$defs/numberOutput"}, {"$ref": "#/$defs/dateOutput"}, {"$ref": "#/$defs/valueSetOutput"}]},
+            "tool_binding": {"const": "calculator.parse"}
+          }
+        }
+      ]
+    },
+    "argExtremeNode": {
+      "allOf": [
+        {"$ref": "#/$defs/nodeBase"},
+        {
+          "properties": {
+            "operator": {"const": "ARG_EXTREME"},
+            "inputs": {"type": "object", "required": ["rows"], "additionalProperties": false, "properties": {"rows": {"$ref": "#/$defs/inputRef"}}},
+            "arguments": {
+              "type": "object", "required": ["column", "mode", "parse", "tie_policy"], "additionalProperties": false,
+              "properties": {"column": {"$ref": "#/$defs/columnRef"}, "mode": {"enum": ["min", "max"]}, "parse": {"enum": ["Number", "Date", "String"]}, "tie_policy": {"const": "error"}}
+            },
+            "output": {"$ref": "#/$defs/rowOutput"},
+            "tool_binding": {"const": "table.arg_extreme"}
+          }
+        }
+      ]
+    },
+    "arithmeticNode": {
+      "allOf": [
+        {"$ref": "#/$defs/nodeBase"},
+        {
+          "properties": {
+            "operator": {"const": "ARITHMETIC"},
+            "inputs": {"type": "object", "required": ["left", "right"], "additionalProperties": false, "properties": {"left": {"$ref": "#/$defs/nodeRef"}, "right": {"$ref": "#/$defs/nodeRef"}}},
+            "arguments": {
+              "oneOf": [
+                {"type": "object", "required": ["function"], "additionalProperties": false, "properties": {"function": {"enum": ["add", "subtract", "absolute_difference", "multiply", "divide"]}}},
+                {"type": "object", "required": ["function", "unit"], "additionalProperties": false, "properties": {"function": {"const": "date_difference"}, "unit": {"enum": ["days", "months", "years"]}}}
+              ]
+            },
+            "output": {"$ref": "#/$defs/numberOutput"},
+            "tool_binding": {"const": "calculator.arithmetic"}
+          }
+        }
+      ]
+    },
+    "distinctNode": {
+      "allOf": [
+        {"$ref": "#/$defs/nodeBase"},
+        {
+          "properties": {
+            "operator": {"const": "DISTINCT"},
+            "inputs": {"type": "object", "required": ["values"], "additionalProperties": false, "properties": {"values": {"$ref": "#/$defs/nodeRef"}}},
+            "arguments": {"type": "object", "required": ["normalization"], "additionalProperties": false, "properties": {"normalization": {"enum": ["exact", "casefold", "numeric"]}}},
+            "output": {"oneOf": [{"$ref": "#/$defs/valueSetOutput"}, {"$ref": "#/$defs/entitySetOutput"}]},
+            "tool_binding": {"const": "calculator.distinct"}
+          }
+        }
+      ]
+    },
+    "rowOutput": {"type": "object", "required": ["port", "type"], "additionalProperties": false, "properties": {"port": {"const": "result"}, "type": {"const": "Row"}}},
+    "rowSetOutput": {"type": "object", "required": ["port", "type"], "additionalProperties": false, "properties": {"port": {"const": "result"}, "type": {"const": "RowSet"}}},
+    "entityOutput": {"type": "object", "required": ["port", "type"], "additionalProperties": false, "properties": {"port": {"const": "result"}, "type": {"const": "Entity"}}},
+    "entitySetOutput": {"type": "object", "required": ["port", "type"], "additionalProperties": false, "properties": {"port": {"const": "result"}, "type": {"const": "EntitySet"}}},
+    "documentOutput": {"type": "object", "required": ["port", "type"], "additionalProperties": false, "properties": {"port": {"const": "result"}, "type": {"const": "Document"}}},
+    "documentSetOutput": {"type": "object", "required": ["port", "type"], "additionalProperties": false, "properties": {"port": {"const": "result"}, "type": {"const": "DocumentSet"}}},
+    "stringOutput": {"type": "object", "required": ["port", "type"], "additionalProperties": false, "properties": {"port": {"const": "result"}, "type": {"const": "String"}}},
+    "numberOutput": {"type": "object", "required": ["port", "type"], "additionalProperties": false, "properties": {"port": {"const": "result"}, "type": {"const": "Number"}}},
+    "dateOutput": {"type": "object", "required": ["port", "type"], "additionalProperties": false, "properties": {"port": {"const": "result"}, "type": {"const": "Date"}}},
+    "booleanOutput": {"type": "object", "required": ["port", "type"], "additionalProperties": false, "properties": {"port": {"const": "result"}, "type": {"const": "Boolean"}}},
+    "valueSetOutput": {"type": "object", "required": ["port", "type"], "additionalProperties": false, "properties": {"port": {"const": "result"}, "type": {"const": "ValueSet"}}}
+  },
+  "x-json-schema-limitations": [
+    "JSON Schema cannot enforce uniqueness of nodes[*].id or schema_ref.columns[*].index by a selected property.",
+    "It cannot resolve references, prohibit forward/self references, prove acyclicity, or prove answer source reachability.",
+    "It cannot infer the type exposed by a referenced node and match that type to a registry signature.",
+    "It cannot verify that a column index/label pair is one of the current planner-input columns or that all serialized table_id values agree.",
+    "It cannot enforce signature-specific argument domains that depend on the resolved input type.",
+    "It cannot establish semantic correctness, document entailment, or prevent a model from placing a guessed answer inside otherwise allowed free text.",
+    "Those properties require the stateful constrained builder and deterministic v0.2 registry validator."
+  ]
+}

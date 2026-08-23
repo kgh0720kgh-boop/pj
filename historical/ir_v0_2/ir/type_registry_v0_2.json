@@ -1,0 +1,95 @@
+{
+  "registry_version": "0.2",
+  "ir_version": "0.2",
+  "description": "Closed value-type registry frozen for the first Week 2 HybridQA planner experiment.",
+  "coercions": [],
+  "type_families": {
+    "structured": ["Table", "Row", "RowSet"],
+    "linked_evidence": ["Entity", "EntitySet", "Document", "DocumentSet"],
+    "scalar": ["String", "Number", "Date", "Boolean", "Entity"],
+    "collection": ["RowSet", "EntitySet", "DocumentSet", "ValueSet"],
+    "answer_eligible": ["String", "Number", "Date", "Boolean", "Entity", "EntitySet", "ValueSet"]
+  },
+  "types": {
+    "Table": {
+      "category": "structured",
+      "source_eligible": true,
+      "answer_eligible": false,
+      "description": "A complete HybridQA table with an ordered declared column schema."
+    },
+    "Row": {
+      "category": "structured",
+      "source_eligible": false,
+      "answer_eligible": false,
+      "description": "One schema-grounded table row."
+    },
+    "RowSet": {
+      "category": "collection",
+      "element_type": "Row",
+      "ordered": "not_guaranteed",
+      "source_eligible": false,
+      "answer_eligible": false,
+      "description": "A collection of table rows; v0.2 does not grant a stable ranking contract."
+    },
+    "Entity": {
+      "category": "scalar",
+      "source_eligible": false,
+      "answer_eligible": true,
+      "description": "One linked-cell entity identity."
+    },
+    "EntitySet": {
+      "category": "collection",
+      "element_type": "Entity",
+      "ordered": "not_guaranteed",
+      "source_eligible": false,
+      "answer_eligible": true,
+      "description": "A collection of linked entity identities."
+    },
+    "Document": {
+      "category": "unstructured",
+      "source_eligible": false,
+      "answer_eligible": false,
+      "description": "One locally linked HybridQA document or passage."
+    },
+    "DocumentSet": {
+      "category": "collection",
+      "element_type": "Document",
+      "ordered": "not_guaranteed",
+      "source_eligible": false,
+      "answer_eligible": false,
+      "description": "A collection of locally linked documents or passages."
+    },
+    "String": {
+      "category": "scalar",
+      "source_eligible": false,
+      "answer_eligible": true,
+      "description": "Text that has not been implicitly parsed as another type."
+    },
+    "Number": {
+      "category": "scalar",
+      "source_eligible": false,
+      "answer_eligible": true,
+      "description": "A numeric value produced by typed extraction, explicit parsing, aggregation, or arithmetic."
+    },
+    "Date": {
+      "category": "scalar",
+      "source_eligible": false,
+      "answer_eligible": true,
+      "description": "A date value produced by typed extraction or explicit parsing."
+    },
+    "Boolean": {
+      "category": "scalar",
+      "source_eligible": false,
+      "answer_eligible": true,
+      "description": "A true or false comparison result."
+    },
+    "ValueSet": {
+      "category": "collection",
+      "element_type": "homogeneous_scalar_unspecified",
+      "ordered": "not_guaranteed",
+      "source_eligible": false,
+      "answer_eligible": true,
+      "description": "A homogeneous scalar collection whose member type is tracked by the producing operator's output rule, not encoded in the base type string."
+    }
+  }
+}

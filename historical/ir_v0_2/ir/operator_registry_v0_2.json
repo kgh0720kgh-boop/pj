@@ -1,0 +1,625 @@
+{
+  "registry_version": "0.2",
+  "ir_version": "0.2",
+  "description": "Machine-readable operator registry frozen for the first Week 2 HybridQA planner experiment. It contains exactly the eleven operators observed in the Week 1 sample taxonomy.",
+  "generation_contract": {
+    "profile": "model_generated_plan",
+    "operator_enumeration": "Use the keys of operators whose generation.enabled is true.",
+    "allowed_source_types": ["Table"],
+    "allowed_source_locator_kinds": ["hybridqa_table"],
+    "fixed_output_port": "result",
+    "forbidden_gold_or_runtime_fields": [
+      "question_ref.answer",
+      "nodes[*].provenance",
+      "nodes[*].status",
+      "nodes[*].execution",
+      "nodes[*].arguments.span",
+      "nodes[*].arguments.pattern",
+      "nodes[*].arguments.oracle_assisted"
+    ],
+    "reference_policy": {
+      "source_references": "Only declared sources may be selected.",
+      "node_references": "Only output ports of previously committed nodes may be selected.",
+      "self_or_forward_reference": false,
+      "effect": "A stepwise builder enforcing this policy constructs an acyclic graph with no dangling dependency reference."
+    },
+    "schema_grounding_policy": {
+      "column_candidate_source": "planner_input.table_schema.columns",
+      "serialized_shape": {"index": "non_negative_integer", "label": "exact_schema_label"},
+      "fuzzy_labels": false
+    },
+    "argument_candidate_sources": {
+      "registry_enum": "A closed list stored in an argument schema or signature argument_domains.",
+      "table_schema_column": "One complete index/label pair from the planner input schema.",
+      "question_derived_literal": "The pilot deterministically proposes a finite, non-gold literal list from the question and the model makes a closed choice; this is not a complete semantic domain.",
+      "question_derived_text": "The pilot deterministically proposes a finite, non-gold attribute-text list from question cues plus generic fallbacks and the model makes a closed choice; the IR itself retains an open string field."
+    },
+    "generation_time_constraints": [
+      "operator identity",
+      "input role set and arity",
+      "input base types",
+      "backward dependency references",
+      "schema column candidate identity",
+      "closed argument enums",
+      "tool binding",
+      "declared output base type",
+      "answer-eligible termination type"
+    ],
+    "not_closed_or_generation_constrained": [
+      "FILTER predicate values are question-derived literals.",
+      "Week 1 established no closed attribute ontology; the pilot's finite question-derived proposal set can omit a valid attribute.",
+      "The registry cannot establish semantic correctness or document entailment for a selected literal or attribute."
+    ],
+    "termination": {
+      "answer_eligible_types": ["String", "Number", "Date", "Boolean", "Entity", "EntitySet", "ValueSet"],
+      "answer_must_reference_existing_node": true,
+      "answer_must_be_source_reachable": true
+    }
+  },
+  "operators": {
+    "FILTER": {
+      "status": "week2_frozen_seed",
+      "week1_question_frequency": 95,
+      "semantic_intent": "Select table rows satisfying one explicit schema-grounded predicate.",
+      "tool_bindings": ["table.filter"],
+      "schema_requirements": [
+        {"argument_path": "predicate.column", "candidate_source": "table_schema_column", "check": "index_and_exact_label"}
+      ],
+      "determinism": {
+        "expectation": "deterministic_given_inputs",
+        "conditions": ["The predicate kind, value, case policy, and table snapshot are fixed."]
+      },
+      "failure_conditions": [
+        {"code": "INVALID_PREDICATE", "when": "The predicate variant is incomplete or unsupported."},
+        {"code": "SCHEMA_COLUMN_MISMATCH", "when": "The column index or label is absent or stale."},
+        {"code": "EMPTY_RESULT", "when": "No row satisfies the predicate; whether this is fatal is an executor policy."}
+      ],
+      "generation": {
+        "enabled": true,
+        "argument_candidate_sources": {
+          "predicate.kind": "registry_enum",
+          "predicate.column": "table_schema_column",
+          "predicate.value": "question_derived_literal",
+          "predicate.values": "question_derived_literal",
+          "predicate.case_sensitive": "registry_enum"
+        },
+        "open_text_arguments": []
+      },
+      "argument_schemas": {
+        "predicate": {
+          "kind": "object",
+          "required": ["kind", "column"],
+          "optional": ["value", "values", "case_sensitive"],
+          "allow_additional": false,
+          "properties": {
+            "kind": {"kind": "enum", "values": ["eq", "contains", "in", "numeric_eq", "numeric_gt", "numeric_lt"]},
+            "column": {"kind": "column_ref"},
+            "value": {"kind": "any"},
+            "values": {"kind": "array", "items": {"kind": "any"}},
+            "case_sensitive": {"kind": "boolean"}
+          },
+          "conditional_requirements": [
+            {"if": {"kind": "in"}, "require": ["values"], "forbid": ["value"]},
+            {"if": {"kind": ["eq", "contains", "numeric_eq", "numeric_gt", "numeric_lt"]}, "require": ["value"], "forbid": ["values"]}
+          ]
+        }
+      },
+      "signatures": [
+        {
+          "id": "filter_table",
+          "inputs": [{"name": "table", "types": ["Table"]}],
+          "required_arguments": ["predicate"],
+          "optional_arguments": [],
+          "output_types": ["RowSet"]
+        },
+        {
+          "id": "filter_rows",
+          "inputs": [{"name": "rows", "types": ["RowSet"]}],
+          "required_arguments": ["predicate"],
+          "optional_arguments": [],
+          "output_types": ["RowSet"]
+        }
+      ],
+      "output_rules": [
+        {"when_signature": ["filter_table", "filter_rows"], "output_type": "RowSet"}
+      ]
+    },
+    "PROJECT": {
+      "status": "week2_frozen_seed",
+      "week1_question_frequency": 100,
+      "semantic_intent": "Project text or linked entities from one schema column. Unlike v0.1, a Table may be projected directly.",
+      "tool_bindings": ["table.project"],
+      "schema_requirements": [
+        {"argument_path": "column", "candidate_source": "table_schema_column", "check": "index_and_exact_label"}
+      ],
+      "determinism": {
+        "expectation": "deterministic_given_inputs",
+        "conditions": ["Column, mode, cardinality declaration, and table snapshot are fixed."]
+      },
+      "failure_conditions": [
+        {"code": "SCHEMA_COLUMN_MISMATCH", "when": "The column index or label is absent or stale."},
+        {"code": "EMPTY_RESULT", "when": "The input contains no projectable row or link."},
+        {"code": "CARDINALITY_MISMATCH", "when": "cardinality=one but projection yields zero or multiple distinct values."}
+      ],
+      "generation": {
+        "enabled": true,
+        "argument_candidate_sources": {
+          "column": "table_schema_column",
+          "mode": "registry_enum",
+          "cardinality": "registry_enum"
+        },
+        "open_text_arguments": []
+      },
+      "argument_schemas": {
+        "column": {"kind": "column_ref"},
+        "mode": {"kind": "enum", "values": ["text", "links"]},
+        "cardinality": {"kind": "enum", "values": ["one", "many"]}
+      },
+      "signatures": [
+        {
+          "id": "project_rows",
+          "inputs": [{"name": "rows", "types": ["Table", "Row", "RowSet"]}],
+          "required_arguments": ["column", "mode", "cardinality"],
+          "optional_arguments": [],
+          "output_types": ["String", "Entity", "ValueSet", "EntitySet"]
+        }
+      ],
+      "output_rules": [
+        {"when_arguments": {"mode": "text", "cardinality": "one"}, "output_type": "String"},
+        {"when_arguments": {"mode": "text", "cardinality": "many"}, "output_type": "ValueSet", "element_type": "String"},
+        {"when_arguments": {"mode": "links", "cardinality": "one"}, "output_type": "Entity"},
+        {"when_arguments": {"mode": "links", "cardinality": "many"}, "output_type": "EntitySet"}
+      ]
+    },
+    "RETRIEVE": {
+      "status": "week2_frozen_seed",
+      "week1_question_frequency": 99,
+      "semantic_intent": "Resolve linked entities to the fixed local HybridQA document snapshot.",
+      "tool_bindings": ["document.retrieve"],
+      "schema_requirements": [],
+      "determinism": {
+        "expectation": "deterministic_given_snapshot",
+        "conditions": ["Entity links and the local request_tok snapshot are fixed; no open-web retrieval is performed."]
+      },
+      "failure_conditions": [
+        {"code": "DOCUMENT_NOT_FOUND", "when": "No input entity link resolves in the fixed local document map."},
+        {"code": "MISSING_LINK", "when": "An entity has no linked-document identifier."}
+      ],
+      "generation": {
+        "enabled": true,
+        "argument_candidate_sources": {},
+        "open_text_arguments": []
+      },
+      "argument_schemas": {},
+      "signatures": [
+        {
+          "id": "retrieve_entity",
+          "inputs": [{"name": "entities", "types": ["Entity"]}],
+          "required_arguments": [],
+          "optional_arguments": [],
+          "output_types": ["Document"]
+        },
+        {
+          "id": "retrieve_entities",
+          "inputs": [{"name": "entities", "types": ["EntitySet"]}],
+          "required_arguments": [],
+          "optional_arguments": [],
+          "output_types": ["DocumentSet"]
+        }
+      ],
+      "output_rules": [
+        {"when_signature": "retrieve_entity", "output_type": "Document"},
+        {"when_signature": "retrieve_entities", "output_type": "DocumentSet"}
+      ]
+    },
+    "EXTRACT": {
+      "status": "week2_frozen_seed",
+      "week1_question_frequency": 99,
+      "semantic_intent": "Use the fixed semantic reader interface to extract a question-specified typed attribute from linked documents without embedding an answer span in the plan.",
+      "tool_bindings": ["document.extract"],
+      "output_type_argument": "value_type",
+      "collection_output_types": ["ValueSet", "EntitySet"],
+      "schema_requirements": [],
+      "determinism": {
+        "expectation": "provider_dependent_then_replayable",
+        "conditions": ["The reader version, decoding configuration, documents, and attribute text must be recorded; a saved result is replayable, but an external model may not be bitwise deterministic."]
+      },
+      "failure_conditions": [
+        {"code": "UNSUPPORTED_EXTRACTION", "when": "No semantic reader is configured for the experiment."},
+        {"code": "ATTRIBUTE_NOT_FOUND", "when": "The reader cannot ground the requested attribute in the supplied documents."},
+        {"code": "EXTRACTION_TYPE_MISMATCH", "when": "The extracted value cannot satisfy value_type."},
+        {"code": "CARDINALITY_MISMATCH", "when": "The reader result conflicts with the declared cardinality."}
+      ],
+      "generation": {
+        "enabled": true,
+        "argument_candidate_sources": {
+          "attribute": "question_derived_text",
+          "value_type": "registry_enum",
+          "cardinality": "registry_enum"
+        },
+        "open_text_arguments": ["attribute"],
+        "caution": "attribute has no closed global ontology. The Week 2 pilot selects from a deterministic question-derived proposal set, so selection is closed within a run but semantic coverage is not guaranteed."
+      },
+      "argument_schemas": {
+        "attribute": {"kind": "nonempty_string"},
+        "value_type": {"kind": "enum", "values": ["String", "Number", "Date", "Boolean", "Entity"]},
+        "cardinality": {"kind": "enum", "values": ["one", "many"]}
+      },
+      "signatures": [
+        {
+          "id": "extract_documents",
+          "inputs": [{"name": "documents", "types": ["Document", "DocumentSet"]}],
+          "required_arguments": ["attribute", "value_type", "cardinality"],
+          "optional_arguments": [],
+          "output_types": ["String", "Number", "Date", "Boolean", "Entity", "ValueSet", "EntitySet"]
+        }
+      ],
+      "output_rules": [
+        {"when_arguments": {"cardinality": "one"}, "output_type_from_argument": "value_type"},
+        {"when_arguments": {"cardinality": "many", "value_type": "Entity"}, "output_type": "EntitySet"},
+        {"when_arguments": {"cardinality": "many", "value_type": ["String", "Number", "Date", "Boolean"]}, "output_type": "ValueSet", "element_type_from_argument": "value_type"}
+      ]
+    },
+    "JOIN": {
+      "status": "week2_frozen_seed",
+      "week1_question_frequency": 43,
+      "semantic_intent": "Match document-derived or projected keys back to rows in one schema-grounded table column.",
+      "tool_bindings": ["table.join"],
+      "schema_requirements": [
+        {"argument_path": "right_column", "candidate_source": "table_schema_column", "check": "index_and_exact_label"}
+      ],
+      "determinism": {
+        "expectation": "deterministic_given_inputs",
+        "conditions": ["The key values, normalization mode, column, and table snapshot are fixed."]
+      },
+      "failure_conditions": [
+        {"code": "SCHEMA_COLUMN_MISMATCH", "when": "right_column is absent or stale."},
+        {"code": "JOIN_NO_MATCH", "when": "No row key matches."},
+        {"code": "JOIN_AMBIGUOUS_MATCH", "when": "A downstream singleton is required but multiple rows match."}
+      ],
+      "generation": {
+        "enabled": true,
+        "argument_candidate_sources": {
+          "right_column": "table_schema_column",
+          "match": "registry_enum"
+        },
+        "open_text_arguments": []
+      },
+      "argument_schemas": {
+        "right_column": {"kind": "column_ref"},
+        "match": {"kind": "enum", "values": ["exact", "normalized"]}
+      },
+      "signatures": [
+        {
+          "id": "join_rows_keys",
+          "inputs": [
+            {"name": "rows", "types": ["RowSet"]},
+            {"name": "keys", "types": ["Entity", "EntitySet", "String", "ValueSet"]}
+          ],
+          "required_arguments": ["right_column", "match"],
+          "optional_arguments": [],
+          "output_types": ["RowSet"]
+        }
+      ],
+      "output_rules": [
+        {"when_signature": "join_rows_keys", "output_type": "RowSet"}
+      ]
+    },
+    "AGGREGATE": {
+      "status": "week2_frozen_seed",
+      "week1_question_frequency": 3,
+      "semantic_intent": "Compute a deterministic count or numeric reduction over an explicit collection.",
+      "tool_bindings": ["calculator.aggregate"],
+      "schema_requirements": [],
+      "determinism": {
+        "expectation": "deterministic_given_inputs",
+        "conditions": ["Input parsing, function, null policy, and collection are fixed."]
+      },
+      "failure_conditions": [
+        {"code": "EMPTY_RESULT", "when": "A non-count reduction receives no values."},
+        {"code": "NON_NUMERIC_VALUE", "when": "sum/min/max/average receives a value that cannot be interpreted as Number."},
+        {"code": "UNSUPPORTED_AGGREGATION", "when": "The function is not admitted for the matched input signature."}
+      ],
+      "generation": {
+        "enabled": true,
+        "argument_candidate_sources": {"function": "registry_enum"},
+        "open_text_arguments": []
+      },
+      "argument_schemas": {
+        "function": {"kind": "enum", "values": ["count", "sum", "min", "max", "average"]}
+      },
+      "signatures": [
+        {
+          "id": "aggregate_values",
+          "inputs": [{"name": "values", "types": ["ValueSet"]}],
+          "required_arguments": ["function"],
+          "optional_arguments": [],
+          "argument_domains": {"function": ["count", "sum", "min", "max", "average"]},
+          "state_constraints": [
+            {"when_arguments": {"function": ["sum", "min", "max", "average"]}, "input_element_types": {"values": ["Number"]}}
+          ],
+          "output_types": ["Number"]
+        },
+        {
+          "id": "count_entities",
+          "inputs": [{"name": "entities", "types": ["EntitySet"]}],
+          "required_arguments": ["function"],
+          "optional_arguments": [],
+          "argument_domains": {"function": ["count"]},
+          "output_types": ["Number"]
+        },
+        {
+          "id": "count_rows",
+          "inputs": [{"name": "rows", "types": ["RowSet"]}],
+          "required_arguments": ["function"],
+          "optional_arguments": [],
+          "argument_domains": {"function": ["count"]},
+          "output_types": ["Number"]
+        }
+      ],
+      "output_rules": [
+        {"when_signature": ["aggregate_values", "count_entities", "count_rows"], "output_type": "Number"}
+      ]
+    },
+    "COMPARE": {
+      "status": "week2_frozen_seed",
+      "week1_question_frequency": 5,
+      "semantic_intent": "Compare a same-typed scalar pair or select a value/entity key from a keyed value collection under a closed relation.",
+      "tool_bindings": ["calculator.compare"],
+      "schema_requirements": [],
+      "determinism": {
+        "expectation": "deterministic_given_inputs",
+        "conditions": ["Relation, parse policy, tie policy, and inputs are fixed."]
+      },
+      "failure_conditions": [
+        {"code": "TYPE_MISMATCH", "when": "Pair inputs have different declared types or values cannot satisfy parse."},
+        {"code": "EMPTY_RESULT", "when": "Selection receives no values."},
+        {"code": "TIE_UNRESOLVED", "when": "Selection has a tie and no unique result under the fixed tie policy."},
+        {"code": "INVALID_RELATION", "when": "The relation is not admitted by the matched signature."}
+      ],
+      "generation": {
+        "enabled": true,
+        "argument_candidate_sources": {
+          "relation": "registry_enum",
+          "return": "registry_enum",
+          "parse": "registry_enum",
+          "tie_policy": "registry_enum"
+        },
+        "open_text_arguments": []
+      },
+      "argument_schemas": {
+        "relation": {"kind": "enum", "values": ["equal", "less", "greater", "earlier", "later", "older", "newer", "min", "max"]},
+        "return": {"kind": "enum", "values": ["boolean", "value", "entity_key"]},
+        "parse": {"kind": "enum", "values": ["String", "Number", "Date"]},
+        "tie_policy": {"kind": "enum", "values": ["error", "all"]}
+      },
+      "signatures": [
+        {
+          "id": "compare_value_set",
+          "inputs": [{"name": "values", "types": ["ValueSet"]}],
+          "required_arguments": ["relation", "return", "parse", "tie_policy"],
+          "optional_arguments": [],
+          "argument_domains": {
+            "relation": ["min", "max", "earlier", "later", "older", "newer"],
+            "return": ["value", "entity_key"]
+          },
+          "output_types": ["Entity", "String", "Number", "Date", "ValueSet", "EntitySet"]
+        },
+        {
+          "id": "compare_pair",
+          "inputs": [
+            {"name": "left", "types": ["String", "Number", "Date", "Boolean", "Entity"]},
+            {"name": "right", "types": ["String", "Number", "Date", "Boolean", "Entity"]}
+          ],
+          "same_type_inputs": ["left", "right"],
+          "required_arguments": ["relation", "return", "tie_policy"],
+          "optional_arguments": ["parse"],
+          "argument_domains": {
+            "relation": ["equal", "less", "greater", "earlier", "later", "older", "newer"],
+            "return": ["boolean", "value"],
+            "tie_policy": ["error"]
+          },
+          "output_types": ["Boolean", "String", "Number", "Date", "Entity"]
+        }
+      ],
+      "output_rules": [
+        {"when_arguments": {"return": "boolean"}, "output_type": "Boolean"},
+        {"when_arguments": {"return": "entity_key", "tie_policy": "error"}, "output_type": "Entity"},
+        {"when_arguments": {"return": "entity_key", "tie_policy": "all"}, "output_type": "EntitySet"},
+        {"when_arguments": {"return": "value", "tie_policy": "error"}, "output_type_from_selected_value": true},
+        {"when_arguments": {"return": "value", "tie_policy": "all"}, "output_type": "ValueSet", "element_type_from_selected_value": true}
+      ]
+    },
+    "PARSE": {
+      "status": "week2_frozen_sample_extension",
+      "week1_question_frequency": 9,
+      "semantic_intent": "Make String-to-Number or String-to-Date conversion explicit; this is the only text coercion path.",
+      "tool_bindings": ["calculator.parse"],
+      "output_type_argument": "target_type",
+      "collection_output_types": ["ValueSet"],
+      "schema_requirements": [],
+      "determinism": {
+        "expectation": "deterministic_given_inputs",
+        "conditions": ["Parser version, target type, optional pattern name, locale, and input are fixed."]
+      },
+      "failure_conditions": [
+        {"code": "PARSE_ERROR", "when": "An input string cannot be converted to target_type under the fixed parser."},
+        {"code": "AMBIGUOUS_DATE", "when": "A date string has no unique interpretation under the fixed locale policy."}
+      ],
+      "generation": {
+        "enabled": true,
+        "argument_candidate_sources": {"target_type": "registry_enum"},
+        "open_text_arguments": []
+      },
+      "argument_schemas": {
+        "target_type": {"kind": "enum", "values": ["Number", "Date"]}
+      },
+      "signatures": [
+        {
+          "id": "parse_scalar",
+          "inputs": [{"name": "values", "types": ["String"]}],
+          "required_arguments": ["target_type"],
+          "optional_arguments": [],
+          "output_types": ["Number", "Date"]
+        },
+        {
+          "id": "parse_collection",
+          "inputs": [{"name": "values", "types": ["ValueSet"]}],
+          "required_arguments": ["target_type"],
+          "optional_arguments": [],
+          "state_constraints": [
+            {"input_element_types": {"values": ["String"]}}
+          ],
+          "output_types": ["ValueSet"]
+        }
+      ],
+      "output_rules": [
+        {"when_signature": "parse_scalar", "output_type_from_argument": "target_type"},
+        {"when_signature": "parse_collection", "output_type": "ValueSet", "element_type_from_argument": "target_type"}
+      ]
+    },
+    "ARG_EXTREME": {
+      "status": "week2_frozen_sample_extension",
+      "week1_question_frequency": 10,
+      "semantic_intent": "Select the one row whose schema-column value is minimal or maximal.",
+      "tool_bindings": ["table.arg_extreme"],
+      "schema_requirements": [
+        {"argument_path": "column", "candidate_source": "table_schema_column", "check": "index_and_exact_label"}
+      ],
+      "determinism": {
+        "expectation": "deterministic_given_inputs",
+        "conditions": ["Column, parse mode, extremum mode, tie policy, and table snapshot are fixed."]
+      },
+      "failure_conditions": [
+        {"code": "EMPTY_RESULT", "when": "No input row is available."},
+        {"code": "PARSE_ERROR", "when": "No candidate cell can satisfy parse."},
+        {"code": "TIE_UNRESOLVED", "when": "Multiple rows share the extremum; v0.2 fixes tie_policy=error."}
+      ],
+      "generation": {
+        "enabled": true,
+        "argument_candidate_sources": {
+          "column": "table_schema_column",
+          "mode": "registry_enum",
+          "parse": "registry_enum",
+          "tie_policy": "registry_enum"
+        },
+        "open_text_arguments": []
+      },
+      "argument_schemas": {
+        "column": {"kind": "column_ref"},
+        "mode": {"kind": "enum", "values": ["min", "max"]},
+        "parse": {"kind": "enum", "values": ["Number", "Date", "String"]},
+        "tie_policy": {"kind": "enum", "values": ["error"]}
+      },
+      "signatures": [
+        {
+          "id": "arg_extreme_row",
+          "inputs": [{"name": "rows", "types": ["Table", "RowSet"]}],
+          "required_arguments": ["column", "mode", "parse", "tie_policy"],
+          "optional_arguments": [],
+          "output_types": ["Row"]
+        }
+      ],
+      "output_rules": [
+        {"when_signature": "arg_extreme_row", "output_type": "Row"}
+      ]
+    },
+    "ARITHMETIC": {
+      "status": "week2_frozen_sample_extension",
+      "week1_question_frequency": 3,
+      "semantic_intent": "Apply one explicit binary numeric operation or compute an absolute difference between two dates.",
+      "tool_bindings": ["calculator.arithmetic"],
+      "schema_requirements": [],
+      "determinism": {
+        "expectation": "deterministic_given_inputs",
+        "conditions": ["Function, unit, numeric precision policy, and operands are fixed."]
+      },
+      "failure_conditions": [
+        {"code": "DIVISION_BY_ZERO", "when": "The right operand is zero for divide."},
+        {"code": "TYPE_MISMATCH", "when": "Operands do not match one registered signature."},
+        {"code": "INVALID_UNIT", "when": "date_difference receives an unsupported unit."}
+      ],
+      "generation": {
+        "enabled": true,
+        "argument_candidate_sources": {"function": "registry_enum", "unit": "registry_enum"},
+        "open_text_arguments": []
+      },
+      "argument_schemas": {
+        "function": {"kind": "enum", "values": ["add", "subtract", "absolute_difference", "multiply", "divide", "date_difference"]},
+        "unit": {"kind": "enum", "values": ["days", "months", "years"]}
+      },
+      "signatures": [
+        {
+          "id": "arithmetic_numbers",
+          "inputs": [
+            {"name": "left", "types": ["Number"]},
+            {"name": "right", "types": ["Number"]}
+          ],
+          "required_arguments": ["function"],
+          "optional_arguments": [],
+          "argument_domains": {"function": ["add", "subtract", "absolute_difference", "multiply", "divide"]},
+          "output_types": ["Number"]
+        },
+        {
+          "id": "date_difference",
+          "inputs": [
+            {"name": "left", "types": ["Date"]},
+            {"name": "right", "types": ["Date"]}
+          ],
+          "required_arguments": ["function", "unit"],
+          "optional_arguments": [],
+          "argument_domains": {"function": ["date_difference"], "unit": ["days", "months", "years"]},
+          "output_types": ["Number"]
+        }
+      ],
+      "output_rules": [
+        {"when_signature": ["arithmetic_numbers", "date_difference"], "output_type": "Number"}
+      ]
+    },
+    "DISTINCT": {
+      "status": "week2_frozen_sample_extension",
+      "week1_question_frequency": 1,
+      "semantic_intent": "Deduplicate an entity or scalar collection under one explicit normalization without changing its base type.",
+      "tool_bindings": ["calculator.distinct"],
+      "schema_requirements": [],
+      "determinism": {
+        "expectation": "deterministic_given_inputs",
+        "conditions": ["Normalization and input order are fixed; first occurrence is retained for provenance."]
+      },
+      "failure_conditions": [
+        {"code": "NORMALIZATION_ERROR", "when": "A value cannot satisfy the selected normalization."}
+      ],
+      "generation": {
+        "enabled": true,
+        "argument_candidate_sources": {"normalization": "registry_enum"},
+        "open_text_arguments": []
+      },
+      "argument_schemas": {
+        "normalization": {"kind": "enum", "values": ["exact", "casefold", "numeric"]}
+      },
+      "signatures": [
+        {
+          "id": "distinct_values",
+          "inputs": [{"name": "values", "types": ["ValueSet"]}],
+          "output_same_as_input": "values",
+          "required_arguments": ["normalization"],
+          "optional_arguments": [],
+          "output_types": ["ValueSet"]
+        },
+        {
+          "id": "distinct_entities",
+          "inputs": [{"name": "values", "types": ["EntitySet"]}],
+          "output_same_as_input": "values",
+          "required_arguments": ["normalization"],
+          "optional_arguments": [],
+          "argument_domains": {"normalization": ["exact", "casefold"]},
+          "output_types": ["EntitySet"]
+        }
+      ],
+      "output_rules": [
+        {"when_signature": "distinct_values", "output_type": "ValueSet", "element_type_from_input": "values"},
+        {"when_signature": "distinct_entities", "output_type": "EntitySet"}
+      ]
+    }
+  }
+}
