@@ -1,0 +1,33 @@
+{
+  "schema_version": "historical_recovery_provenance_v0_1",
+  "status": "researcher_approved_authoritative",
+  "authority_kind": "git_commit",
+  "authority_identity": "1995c0cf79ab8e987773041d456d4a1b8df19793",
+  "files": [
+    {
+      "path": "data_analysis/week1_sample_100.jsonl",
+      "sha256": "8428960e9dc70900f24c5e375e48a8f51418fe37012ff58177ad45a9fba8c818",
+      "question_id_count": 100
+    },
+    {
+      "path": "evaluation/week2_eval_ids.json",
+      "sha256": "835ef9ec24903d1a1fe458b7c6a143bcd246b487336ba213c59ced1128ec2d6f",
+      "question_id_count": 50
+    },
+    {
+      "path": "evaluation/week3_engineering_dev_ids.json",
+      "sha256": "f5500d2e4e7bb3429f2ab9385d59c0597b12da4c76d69ef782cedc92f4b726e7",
+      "question_id_count": 15
+    },
+    {
+      "path": "evaluation/week3_locked_eval_ids.json",
+      "sha256": "ba5f60b445a8e9bcfe8dd3c6987cdcc8350372ad5e1cddf6f987b4618d16207d",
+      "question_id_count": 15
+    },
+    {
+      "path": "evaluation/week3_split_manifest.json",
+      "sha256": "777e8fe25cc01ab0e666ab7f21577214fd5685485bf7843655585337cf22c639",
+      "question_id_count": 30
+    }
+  ]
+}
