@@ -18,15 +18,15 @@
     "tables_tree_sha1": "772e97624b08e0bd5534b8991a8c2dd8fb6b153f"
   },
   "provenance": {
-    "code_commit": "9499ba56c131faaa9d4c901b4e7c86bc6f9cd644",
+    "code_commit": "3ea0330e3e930606f6344f9b7be193df773b75fd",
     "implementation_artifacts": [
       {
         "repository_relative_path": "data_construction/tools/build_granularity_views.py",
-        "sha256": "380a127359af80ed6940201feeff751b49e5f88c05037a024e40fcee381dbba4"
+        "sha256": "ae1c2c5f07da4d52465467f026bd5bf8278d311c6dbd3d2e9c39fa3c69624cc5"
       },
       {
         "repository_relative_path": "data_construction/tools/_common.py",
-        "sha256": "f97989580072284c4c20a70d982b76a7c1382d8fc6510e09b790625c9eff3be6"
+        "sha256": "5e879a163863e3d4e497a57be99f4dc40a0e033d351dfed8da991514c789f64d"
       }
     ]
   },
