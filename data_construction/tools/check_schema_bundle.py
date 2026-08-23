@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import warnings as python_warnings
 from pathlib import Path
 from typing import Any, Iterable
 from urllib.parse import unquote
@@ -22,6 +23,7 @@ EXPECTED_SCHEMAS = (
     "grounding_v0_1.json",
     "hierarchical_annotation_v0_1.json",
     "operator_vocabulary_schema_v0_1.json",
+    "operator_granularity_pilot_v0_1.json",
 )
 EXPECTED_VOCABULARIES = (
     "operator_vocabulary_coarse_v0_1.json",
@@ -271,10 +273,12 @@ def main() -> int:
             None,
         )
         if isinstance(vocabulary_schema, dict):
-            resolver = jsonschema.RefResolver(
-                base_uri=vocabulary_schema_path.resolve().as_uri(),
-                referrer=vocabulary_schema,
-            )
+            with python_warnings.catch_warnings():
+                python_warnings.simplefilter("ignore", DeprecationWarning)
+                resolver = jsonschema.RefResolver(
+                    base_uri=vocabulary_schema_path.resolve().as_uri(),
+                    referrer=vocabulary_schema,
+                )
             if hasattr(jsonschema, "Draft202012Validator"):
                 validator = jsonschema.Draft202012Validator(vocabulary_schema, resolver=resolver)
             else:

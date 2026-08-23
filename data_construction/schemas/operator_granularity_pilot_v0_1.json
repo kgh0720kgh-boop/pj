@@ -1,0 +1,816 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "operator_granularity_pilot_v0_1.json",
+  "title": "Operator granularity pilot representation schema v0.1",
+  "description": "Hash-bound, leakage-safe LLM-proposed coarse, medium, and fine operator representations for one annotation-pilot question. Structural DAG checks that require cross-field reasoning remain deterministic-validator responsibilities.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "question_id",
+    "source_split",
+    "dataset_role",
+    "input_views",
+    "provenance",
+    "representations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "operator_granularity_pilot_v0_1"
+    },
+    "question_id": {
+      "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+    },
+    "source_split": {
+      "const": "dev"
+    },
+    "dataset_role": {
+      "const": "annotation_schema_pilot"
+    },
+    "input_views": {
+      "$ref": "#/$defs/input_views"
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    },
+    "representations": {
+      "type": "object",
+      "required": [
+        "coarse",
+        "medium",
+        "fine"
+      ],
+      "properties": {
+        "coarse": {
+          "$ref": "#/$defs/coarse_representation"
+        },
+        "medium": {
+          "$ref": "#/$defs/medium_representation"
+        },
+        "fine": {
+          "$ref": "#/$defs/fine_representation"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "hash_bound_artifact": {
+      "type": "object",
+      "required": [
+        "repository_relative_path",
+        "sha256"
+      ],
+      "properties": {
+        "repository_relative_path": {
+          "$ref": "common_definitions_v0_1.json#/$defs/repository_relative_path"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "input_views": {
+      "type": "object",
+      "required": [
+        "artifact",
+        "manifest_artifact",
+        "question_view_sha256",
+        "operator_view_sha256",
+        "representation_input"
+      ],
+      "properties": {
+        "artifact": {
+          "$ref": "#/$defs/hash_bound_artifact"
+        },
+        "manifest_artifact": {
+          "$ref": "#/$defs/hash_bound_artifact"
+        },
+        "question_view_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "operator_view_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "representation_input": {
+          "const": "operator_environment"
+        }
+      },
+      "additionalProperties": false
+    },
+    "seed": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "specified",
+            "not_supported",
+            "not_exposed",
+            "not_recorded"
+          ]
+        },
+        "value": {
+          "type": "integer"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "specified"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "value"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "value"
+              ]
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "annotation_status",
+        "creator_kind",
+        "model_id",
+        "model_revision",
+        "model_revision_status",
+        "run_id",
+        "seed",
+        "code_commit",
+        "structured_proposal_artifact",
+        "raw_model_output_status",
+        "generation_status"
+      ],
+      "properties": {
+        "annotation_status": {
+          "const": "llm_proposed"
+        },
+        "creator_kind": {
+          "const": "model_assisted"
+        },
+        "model_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model_revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model_revision_status": {
+          "enum": [
+            "exact_revision_recorded",
+            "revision_not_exposed"
+          ]
+        },
+        "run_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "seed": {
+          "$ref": "#/$defs/seed"
+        },
+        "code_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "structured_proposal_artifact": {
+          "$ref": "#/$defs/hash_bound_artifact"
+        },
+        "raw_model_output_status": {
+          "enum": [
+            "preserved_hash_bound",
+            "not_exposed_by_interface",
+            "not_recorded"
+          ]
+        },
+        "generation_status": {
+          "const": "completed"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "model_revision_status": {
+                "const": "revision_not_exposed"
+              }
+            },
+            "required": [
+              "model_revision_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "model_revision": {
+                "const": "revision_not_exposed_to_session"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "coverage_gap": {
+      "type": "object",
+      "required": [
+        "category",
+        "description",
+        "required_contract"
+      ],
+      "properties": {
+        "category": {
+          "enum": [
+            "missing_semantic_operation",
+            "missing_typed_contract",
+            "missing_environment_capability",
+            "granularity_mismatch",
+            "other"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required_contract": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "operator_node_base": {
+      "type": "object",
+      "required": [
+        "id",
+        "operator",
+        "depends_on",
+        "semantic_role"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "operator": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$"
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "semantic_role": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "coarse_operator_node": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/operator_node_base"
+        },
+        {
+          "properties": {
+            "operator": {
+              "enum": [
+                "TABLE_LOOKUP",
+                "DOCUMENT_QA",
+                "COMPARE",
+                "CALCULATE"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "medium_operator_node": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/operator_node_base"
+        },
+        {
+          "properties": {
+            "operator": {
+              "enum": [
+                "FILTER",
+                "PROJECT",
+                "RETRIEVE",
+                "EXTRACT",
+                "JOIN",
+                "AGGREGATE",
+                "COMPARE",
+                "PARSE",
+                "ARG_EXTREME",
+                "ARITHMETIC",
+                "DISTINCT"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "fine_operator_node": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/operator_node_base"
+        },
+        {
+          "properties": {
+            "operator": {
+              "enum": [
+                "SELECT_ROWS",
+                "READ_CELL",
+                "FOLLOW_LINK",
+                "RETRIEVE",
+                "SELECT_SENTENCE",
+                "EXTRACT_SPAN",
+                "PARSE_DATE",
+                "PARSE_NUMBER",
+                "NORMALIZE",
+                "COMPARE_DATE",
+                "COMPARE_NUMBER",
+                "COMPARE_STRING",
+                "ARGMIN",
+                "ARGMAX",
+                "COUNT_ITEMS",
+                "SUM_VALUES",
+                "APPLY_ARITHMETIC",
+                "DEDUPLICATE_ITEMS",
+                "MATCH_KEYS",
+                "MAP_BACK"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "topology_base": {
+      "type": "object",
+      "required": [
+        "nodes",
+        "entry_node_ids",
+        "output_node_ids"
+      ],
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/operator_node_base"
+          },
+          "uniqueItems": true
+        },
+        "entry_node_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "output_node_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "coarse_topology": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/topology_base"
+        },
+        {
+          "properties": {
+            "nodes": {
+              "items": {
+                "$ref": "#/$defs/coarse_operator_node"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "medium_topology": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/topology_base"
+        },
+        {
+          "properties": {
+            "nodes": {
+              "items": {
+                "$ref": "#/$defs/medium_operator_node"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "fine_topology": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/topology_base"
+        },
+        {
+          "properties": {
+            "nodes": {
+              "items": {
+                "$ref": "#/$defs/fine_operator_node"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "vocabulary_base": {
+      "type": "object",
+      "required": [
+        "vocabulary_version",
+        "repository_relative_path",
+        "sha256"
+      ],
+      "properties": {
+        "vocabulary_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repository_relative_path": {
+          "$ref": "common_definitions_v0_1.json#/$defs/repository_relative_path"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "coarse_vocabulary": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/vocabulary_base"
+        },
+        {
+          "properties": {
+            "vocabulary_version": {
+              "const": "operator_vocabulary_coarse_v0_1"
+            },
+            "repository_relative_path": {
+              "const": "data_construction/operator_design/operator_vocabulary_coarse_v0_1.json"
+            }
+          }
+        }
+      ]
+    },
+    "medium_vocabulary": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/vocabulary_base"
+        },
+        {
+          "properties": {
+            "vocabulary_version": {
+              "const": "operator_vocabulary_medium_v0_1"
+            },
+            "repository_relative_path": {
+              "const": "data_construction/operator_design/operator_vocabulary_medium_v0_1.json"
+            }
+          }
+        }
+      ]
+    },
+    "fine_vocabulary": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/vocabulary_base"
+        },
+        {
+          "properties": {
+            "vocabulary_version": {
+              "const": "operator_vocabulary_fine_v0_1"
+            },
+            "repository_relative_path": {
+              "const": "data_construction/operator_design/operator_vocabulary_fine_v0_1.json"
+            }
+          }
+        }
+      ]
+    },
+    "alternative_plan_base": {
+      "type": "object",
+      "required": [
+        "plan_id",
+        "condition",
+        "rationale",
+        "coverage_status",
+        "topology"
+      ],
+      "properties": {
+        "plan_id": {
+          "$ref": "common_definitions_v0_1.json#/$defs/identifier"
+        },
+        "condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "coverage_status": {
+          "enum": [
+            "covered",
+            "not_covered"
+          ]
+        },
+        "topology": {
+          "$ref": "#/$defs/topology_base"
+        }
+      },
+      "additionalProperties": false
+    },
+    "coarse_alternative_plan": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/alternative_plan_base"
+        },
+        {
+          "properties": {
+            "topology": {
+              "$ref": "#/$defs/coarse_topology"
+            }
+          }
+        }
+      ]
+    },
+    "medium_alternative_plan": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/alternative_plan_base"
+        },
+        {
+          "properties": {
+            "topology": {
+              "$ref": "#/$defs/medium_topology"
+            }
+          }
+        }
+      ]
+    },
+    "fine_alternative_plan": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/alternative_plan_base"
+        },
+        {
+          "properties": {
+            "topology": {
+              "$ref": "#/$defs/fine_topology"
+            }
+          }
+        }
+      ]
+    },
+    "representation_base": {
+      "type": "object",
+      "required": [
+        "granularity",
+        "vocabulary",
+        "topology",
+        "coverage_status",
+        "coverage_gaps",
+        "requires_new_operator",
+        "new_operators",
+        "coverage_rationale",
+        "new_operator_rationale",
+        "ambiguity_present",
+        "ambiguity_rationale",
+        "hides_reasoning",
+        "hidden_reasoning_rationale",
+        "excessive_fragmentation",
+        "fragmentation_rationale",
+        "alternative_plans"
+      ],
+      "properties": {
+        "granularity": {
+          "enum": [
+            "coarse",
+            "medium",
+            "fine"
+          ]
+        },
+        "vocabulary": {
+          "$ref": "#/$defs/vocabulary_base"
+        },
+        "topology": {
+          "$ref": "#/$defs/topology_base"
+        },
+        "coverage_status": {
+          "enum": [
+            "covered",
+            "not_covered"
+          ]
+        },
+        "coverage_gaps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/coverage_gap"
+          },
+          "uniqueItems": true
+        },
+        "requires_new_operator": {
+          "type": "boolean"
+        },
+        "new_operators": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]*$"
+          },
+          "uniqueItems": true
+        },
+        "coverage_rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "new_operator_rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ambiguity_present": {
+          "type": "boolean"
+        },
+        "ambiguity_rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "hides_reasoning": {
+          "type": "boolean"
+        },
+        "hidden_reasoning_rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "excessive_fragmentation": {
+          "type": "boolean"
+        },
+        "fragmentation_rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "alternative_plans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/alternative_plan_base"
+          },
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "coverage_status": {
+                "const": "covered"
+              }
+            },
+            "required": [
+              "coverage_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "coverage_gaps": {
+                "maxItems": 0
+              },
+              "requires_new_operator": {
+                "const": false
+              },
+              "new_operators": {
+                "maxItems": 0
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "coverage_gaps": {
+                "minItems": 1
+              },
+              "requires_new_operator": {
+                "const": true
+              },
+              "new_operators": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "coarse_representation": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/representation_base"
+        },
+        {
+          "properties": {
+            "granularity": {
+              "const": "coarse"
+            },
+            "vocabulary": {
+              "$ref": "#/$defs/coarse_vocabulary"
+            },
+            "topology": {
+              "$ref": "#/$defs/coarse_topology"
+            },
+            "alternative_plans": {
+              "items": {
+                "$ref": "#/$defs/coarse_alternative_plan"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "medium_representation": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/representation_base"
+        },
+        {
+          "properties": {
+            "granularity": {
+              "const": "medium"
+            },
+            "vocabulary": {
+              "$ref": "#/$defs/medium_vocabulary"
+            },
+            "topology": {
+              "$ref": "#/$defs/medium_topology"
+            },
+            "alternative_plans": {
+              "items": {
+                "$ref": "#/$defs/medium_alternative_plan"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "fine_representation": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/representation_base"
+        },
+        {
+          "properties": {
+            "granularity": {
+              "const": "fine"
+            },
+            "vocabulary": {
+              "$ref": "#/$defs/fine_vocabulary"
+            },
+            "topology": {
+              "$ref": "#/$defs/fine_topology"
+            },
+            "alternative_plans": {
+              "items": {
+                "$ref": "#/$defs/fine_alternative_plan"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

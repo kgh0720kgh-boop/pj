@@ -84,6 +84,7 @@ prepare_checkout() {
   local observed_remote
   local observed_head
   local observed_tree
+  local checkout_was_created=false
 
   if [[ -e "$target" && ! -d "$target/.git" ]]; then
     die "$target exists but is not the expected Git checkout"
@@ -92,6 +93,7 @@ prepare_checkout() {
   if [[ ! -d "$target/.git" ]]; then
     "$verify_only" && die "$label checkout is absent in --verify-only mode: $target"
     git clone --filter=blob:none --no-checkout "$url" "$target"
+    checkout_was_created=true
   fi
 
   observed_remote="$(git -C "$target" remote get-url origin)"
@@ -99,7 +101,11 @@ prepare_checkout() {
     die "$label origin mismatch: expected $url, observed $observed_remote"
   fi
 
-  if [[ -n "$(git -C "$target" status --porcelain --untracked-files=all)" ]]; then
+  # A fresh --no-checkout clone reports every tracked path as deleted until its
+  # first checkout.  Existing checkouts must still be clean before we mutate
+  # them, but the just-created checkout is safe to populate below.
+  if [[ "$checkout_was_created" == false ]] \
+    && [[ -n "$(git -C "$target" status --porcelain --untracked-files=all)" ]]; then
     die "$label checkout has local changes; refusing to overwrite it: $target"
   fi
 

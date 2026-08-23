@@ -15,6 +15,16 @@ HISTORICAL_READ_ONLY_PATHS = (
     "evaluation/week3_engineering_dev_ids.json",
     "evaluation/week3_locked_eval_ids.json",
     "evaluation/week3_split_manifest.json",
+    "historical/ir_v0_2/ir/spec_v0_2.md",
+    "historical/ir_v0_2/ir/execution_graph.schema.json",
+    "historical/ir_v0_2/ir/operator_registry_v0_2.json",
+    "historical/ir_v0_2/ir/type_registry_v0_2.json",
+    "historical/ir_v0_2/src/hybridqa_graph/ir.py",
+    "historical/ir_v0_2/src/hybridqa_graph/planning.py",
+    "historical/ir_v0_2/src/hybridqa_graph/registry.py",
+    "historical/ir_v0_2/src/hybridqa_graph/validator.py",
+    "historical/ir_v0_2/experiments/results/week2_pilot/condition_C.jsonl",
+    "historical/ir_v0_2/experiments/results/week2_pilot/run_manifest.json",
 )
 
 
@@ -117,6 +127,25 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def implementation_artifact_set_sha256(
+    project_root: Path,
+    implementation_paths: Iterable[Path],
+) -> str:
+    resolved_root = project_root.resolve()
+    references: list[dict[str, str]] = []
+    for path in implementation_paths:
+        resolved = path.resolve()
+        try:
+            relative = resolved.relative_to(resolved_root).as_posix()
+        except ValueError as exc:
+            raise ValueError(f"implementation artifact is outside the repository: {path}") from exc
+        if path.is_symlink() or not path.is_file():
+            raise ValueError(f"implementation artifact is missing or a symlink: {relative}")
+        references.append({"repository_relative_path": relative, "sha256": sha256_file(path)})
+    references.sort(key=lambda value: value["repository_relative_path"].encode("utf-8"))
+    return canonical_json_sha256(references)
+
+
 def canonical_json_sha256(value: Any) -> str:
     payload = json.dumps(
         value,
@@ -151,6 +180,58 @@ def git_commit_identity(project_root: Path) -> str:
         check=False,
     )
     return result.stdout.strip() if result.returncode == 0 else "NOT_A_GIT_REPOSITORY"
+
+
+def git_tracked_commit_identity(
+    project_root: Path,
+    implementation_paths: Iterable[Path],
+) -> str:
+    """Return HEAD only when every implementation input is tracked and unchanged there."""
+
+    resolved_root = project_root.resolve()
+    root_result = subprocess.run(
+        ["git", "-C", str(resolved_root), "rev-parse", "--show-toplevel"],
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if root_result.returncode != 0 or Path(root_result.stdout.strip()).resolve() != resolved_root:
+        raise ValueError("project root is not the canonical Git work tree")
+    head = git_commit_identity(resolved_root)
+    if len(head) != 40 or any(character not in "0123456789abcdef" for character in head):
+        raise ValueError("cannot resolve a full lowercase Git HEAD commit")
+    for path in implementation_paths:
+        resolved = path.resolve()
+        try:
+            relative = resolved.relative_to(resolved_root)
+        except ValueError as exc:
+            raise ValueError(f"implementation artifact is outside the repository: {path}") from exc
+        if path.is_symlink() or not path.is_file():
+            raise ValueError(f"implementation artifact is missing or a symlink: {relative.as_posix()}")
+        relative_text = relative.as_posix()
+        tracked = subprocess.run(
+            ["git", "-C", str(resolved_root), "cat-file", "-e", f"HEAD:{relative_text}"],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if tracked.returncode != 0:
+            raise ValueError(
+                f"implementation artifact is not present in HEAD {head}: {relative_text}"
+            )
+        unchanged = subprocess.run(
+            ["git", "-C", str(resolved_root), "diff", "--quiet", "HEAD", "--", relative_text],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if unchanged.returncode == 1:
+            raise ValueError(
+                f"implementation artifact differs from HEAD {head}: {relative_text}"
+            )
+        if unchanged.returncode != 0:
+            raise ValueError(f"cannot compare implementation artifact with HEAD: {relative_text}")
+    return head
 
 
 def stable_rank(seed: str, identifier: str) -> str:

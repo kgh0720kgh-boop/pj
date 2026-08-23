@@ -16,6 +16,7 @@ TOOLS = ROOT / "data_construction" / "tools"
 sys.path.insert(0, str(TOOLS))
 
 import build_sample
+import build_granularity_views
 import compare_operator_granularity
 import validate_annotation
 import validate_ir_v0_2_reference as ir_v0_2_reference_adapter
@@ -1713,140 +1714,411 @@ class ReviewPacketTests(unittest.TestCase):
             self.assertEqual(mismatch.returncode, 2)
 
 
-class GranularityTests(unittest.TestCase):
-    def test_complete_three_way_pilot_writes_metrics(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            base = Path(directory)
-            source = base / "representations.jsonl"
-            metrics = base / "metrics.json"
-            report = base / "report.md"
-            def representation(operator: str, question_id: str, granularity: str) -> dict[str, object]:
-                value: dict[str, object] = {
-                    "coverage_status": "covered",
-                    "requires_new_operator": False,
-                    "hides_reasoning": False,
-                    "ambiguity_present": False,
-                    "excessive_fragmentation": False,
-                    "topology": {
-                        "nodes": [{"id": "n1", "operator": operator, "depends_on": []}]
-                    },
-                }
-                review_annotation = {
-                    "schema_version": "operator_representation_review_v0_1",
-                    "question_id": question_id,
-                    "granularity": granularity,
-                    "reviewed_view": "operator_granularity_representation",
-                    "reviewed_representation_sha256": canonical_sha256(value),
-                    "review_packet_sha256": "a" * 64,
-                    "decision": "accept",
-                }
-                value["human_review_evidence"] = {
-                    "canonicalization": "sorted_compact_json_utf8_sha256_v0_1",
-                    "independent_reviews": [
-                        {
-                            "reviewer_id": reviewer_id,
-                            "annotation": review_annotation,
-                            "annotation_sha256": canonical_sha256(review_annotation),
-                        }
-                        for reviewer_id in ("reviewer_a", "reviewer_b")
-                    ],
-                }
-                return value
-            write_jsonl(
-                source,
-                [
-                    {
-                        "question_id": f"q{index}",
-                        "representations": {
-                            "coarse": representation("TABLE_LOOKUP", f"q{index}", "coarse"),
-                            "medium": representation("FILTER", f"q{index}", "medium"),
-                            "fine": representation("SELECT_ROWS", f"q{index}", "fine"),
-                        },
-                    }
-                    for index in range(20)
-                ],
+class GranularityViewTests(unittest.TestCase):
+    def test_exact_projection_preserves_empty_header_without_concrete_values(self) -> None:
+        table = {
+            "uid": "t1",
+            "title": "Visible title",
+            "section_title": "Visible section",
+            "url": "SECRET_URL",
+            "intro": "SECRET_INTRO",
+            "section_text": "SECRET_SECTION_TEXT",
+            "header": [["", ["SECRET_HEADER_LINK"]], ["Visible column", []]],
+            "data": [
+                [["SECRET_ROW_VALUE", ["SECRET_DOCUMENT_ID"]], ["SECRET_CELL", []]],
+            ],
+        }
+        projected = build_granularity_views.table_schema_view(table, "t1")
+        rendered = json.dumps(projected, ensure_ascii=False)
+        self.assertEqual(projected["columns"][0]["label"], "")
+        self.assertTrue(projected["columns"][0]["entity_link_capability"])
+        self.assertFalse(projected["columns"][1]["entity_link_capability"])
+        for secret in (
+            "SECRET_URL",
+            "SECRET_INTRO",
+            "SECRET_SECTION_TEXT",
+            "SECRET_HEADER_LINK",
+            "SECRET_ROW_VALUE",
+            "SECRET_DOCUMENT_ID",
+            "SECRET_CELL",
+        ):
+            self.assertNotIn(secret, rendered)
+        self.assertNotIn("row_count", rendered)
+
+    def test_committed_view_manifest_binds_the_verified_sixty_file_subset(self) -> None:
+        manifest = json.loads(
+            (ROOT / "data_construction/pilot/granularity_input_views_manifest_v0_1.json").read_text(
+                encoding="utf-8"
             )
+        )
+        selected = manifest["selected_environment_artifacts"]
+        self.assertEqual(selected["file_count"], 60)
+        self.assertEqual(
+            selected["tables_canonical_sha256"],
+            "0f33966dccd1ee627bdfdddc667bc9a27e278984a226b37b2f2b4e9c565069fc",
+        )
+        self.assertEqual(
+            selected["requests_canonical_sha256"],
+            "bed0f41af2cc4497335a82ca06c9c6d00548ca056a8c422774ad6a5a721ed1e8",
+        )
+        self.assertEqual(
+            selected["canonical_sha256"],
+            "9e7055ad0e9e351f597237d9bff9edb77b2b58acf8ae8bbd653aeb88dafe69c3",
+        )
+        self.assertNotIn("/home/", json.dumps(manifest))
+
+        questions_path = ROOT / "data_construction/pilot/questions.jsonl"
+        views_path = ROOT / "data_construction/pilot/granularity_input_views.jsonl"
+        questions = [json.loads(line) for line in questions_path.read_text().splitlines()]
+        views = [json.loads(line) for line in views_path.read_text().splitlines()]
+        forged = json.loads(json.dumps(manifest))
+        forged["linked_environment"] = {}
+        forged["selected_environment_artifacts"]["canonical_sha256"] = "0" * 64
+        errors, _ = compare_operator_granularity.validate_view_manifest(
+            forged,
+            questions_path,
+            questions,
+            views_path,
+            views,
+            ROOT,
+        )
+        self.assertTrue(any("linked_environment" in error for error in errors))
+        self.assertTrue(any("internally inconsistent" in error for error in errors))
+
+
+class GranularityTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.temporary_directory = tempfile.TemporaryDirectory()
+        cls.base = Path(cls.temporary_directory.name)
+        cls.representations = cls.base / "representations.jsonl"
+        cls.checks = cls.base / "checks.jsonl"
+        built = run_tool(
+            "build_granularity_representations.py",
+            "--output",
+            cls.representations,
+        )
+        if built.returncode != 0:
+            raise AssertionError(built.stderr)
+        validated = run_tool(
+            "validate_operator_granularity.py",
+            cls.representations,
+            "--checks-output",
+            cls.checks,
+        )
+        if validated.returncode != 0:
+            raise AssertionError(validated.stderr)
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls.temporary_directory.cleanup()
+
+    def comparator_arguments(self, metrics: Path) -> tuple[object, ...]:
+        return (
+            self.representations,
+            "--questions",
+            ROOT / "data_construction/pilot/questions.jsonl",
+            "--input-views",
+            ROOT / "data_construction/pilot/granularity_input_views.jsonl",
+            "--input-views-manifest",
+            ROOT / "data_construction/pilot/granularity_input_views_manifest_v0_1.json",
+            "--validation-checks",
+            self.checks,
+            "--json-output",
+            metrics,
+        )
+
+    def build_packet_fixture(self) -> tuple[list[Path], dict[str, Path]]:
+        manifests: list[Path] = []
+        packets: dict[str, Path] = {}
+        for granularity in ("coarse", "medium", "fine"):
+            packet = self.base / f"{granularity}-calibration-fixture.html"
+            manifest = self.base / f"{granularity}-calibration-fixture-manifest.json"
             result = run_tool(
-                "compare_operator_granularity.py",
-                source,
-                "--json-output",
-                metrics,
-                "--report-output",
-                report,
+                "build_granularity_review_packet.py",
+                "--questions",
+                ROOT / "data_construction/pilot/questions.jsonl",
+                "--input-views",
+                ROOT / "data_construction/pilot/granularity_input_views.jsonl",
+                "--input-views-manifest",
+                ROOT / "data_construction/pilot/granularity_input_views_manifest_v0_1.json",
+                "--representations",
+                self.representations,
+                "--validation-checks",
+                self.checks,
+                "--granularity",
+                granularity,
+                "--output",
+                packet,
+                "--manifest-output",
+                manifest,
             )
             self.assertEqual(result.returncode, 0, result.stderr)
-            payload = json.loads(metrics.read_text(encoding="utf-8"))
-            self.assertTrue(payload["evidence_complete"])
-            self.assertEqual(payload["metrics"]["medium"]["annotation_disagreement_rate"], 0.0)
-            self.assertIn("Coverage alone", payload["scientific_caution"])
-            self.assertEqual(
-                payload["provenance"]["representations_artifact_sha256"],
-                hashlib.sha256(source.read_bytes()).hexdigest(),
-            )
-            self.assertEqual(set(payload["provenance"]["vocabularies"]), {"coarse", "medium", "fine"})
+            manifests.append(manifest)
+            packets[granularity] = packet
+        return manifests, packets
 
-    def test_llm_only_disagreement_flag_is_not_human_evidence(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            base = Path(directory)
-            source = base / "representations.jsonl"
-            metrics = base / "metrics.json"
-            report = base / "report.md"
-            representation = lambda operator: {  # noqa: E731
-                "coverage_status": "covered",
-                "requires_new_operator": False,
-                "annotation_disagreement": False,
-                "hides_reasoning": False,
-                "ambiguity_present": False,
-                "excessive_fragmentation": False,
-                "topology": {"nodes": [{"id": "n1", "operator": operator, "depends_on": []}]},
+    def write_synthetic_review_fixture(
+        self,
+        path: Path,
+        reviewer_id: str,
+        granularity: str,
+        packet_manifest: Path,
+        disagree_on_first: bool,
+    ) -> None:
+        packet_sha256 = json.loads(packet_manifest.read_text(encoding="utf-8"))[
+            "packet_payload"
+        ]["sha256"]
+        records = [
+            json.loads(line)
+            for line in self.representations.read_text(encoding="utf-8").splitlines()
+        ]
+        reviews: list[dict[str, object]] = []
+        for index, record in enumerate(records):
+            representation = record["representations"][granularity]
+            annotation = {
+                "schema_version": "operator_representation_review_v0_1",
+                "question_id": record["question_id"],
+                "granularity": granularity,
+                "reviewed_view": "operator_granularity_representation",
+                "reviewed_representation_sha256": canonical_sha256(representation),
+                "review_packet_payload_sha256": packet_sha256,
+                "completed_at": "2026-08-23T12:00:00.000Z",
+                "decision": "reject" if disagree_on_first and index == 0 else "accept",
+                "assessment": {
+                    "semantic_validity": (
+                        "invalid" if disagree_on_first and index == 0 else "valid"
+                    ),
+                    "coverage_status": representation["coverage_status"],
+                    "ambiguity_present": representation["ambiguity_present"],
+                    "hides_reasoning": representation["hides_reasoning"],
+                    "excessive_fragmentation": representation["excessive_fragmentation"],
+                },
+                "edit": None,
+                "notes": "synthetic unit-test contract fixture; not research evidence",
             }
-            write_jsonl(
-                source,
-                [
-                    {
-                        "question_id": f"q{index}",
-                        "representations": {
-                            "coarse": representation("TABLE_LOOKUP"),
-                            "medium": representation("FILTER"),
-                            "fine": representation("SELECT_ROWS"),
-                        },
-                    }
-                    for index in range(20)
-                ],
+            reviews.append(
+                {
+                    "reviewer_id": reviewer_id,
+                    "annotation": annotation,
+                    "annotation_sha256": canonical_sha256(annotation),
+                }
             )
-            result = run_tool(
-                "compare_operator_granularity.py",
-                source,
-                "--json-output",
-                metrics,
-                "--report-output",
-                report,
-            )
-            self.assertEqual(result.returncode, 2)
-            payload = json.loads(metrics.read_text(encoding="utf-8"))
-            self.assertFalse(payload["evidence_complete"])
-            self.assertIsNone(payload["metrics"]["medium"]["annotation_disagreement_rate"])
-            empty_hash = canonical_sha256({})
-            self.assertEqual(
-                compare_operator_granularity.observed_human_disagreement(
-                    {
-                        "human_review_evidence": {
-                            "canonicalization": "sorted_compact_json_utf8_sha256_v0_1",
-                            "independent_reviews": [
-                                {
-                                    "reviewer_id": reviewer_id,
-                                    "annotation": {},
-                                    "annotation_sha256": empty_hash,
-                                }
-                                for reviewer_id in ("reviewer_a", "reviewer_b")
-                            ],
-                        }
-                    },
-                    "q1",
-                    "medium",
-                ),
-                (False, False),
-            )
+        write_json(path, reviews)
+
+    def test_structurally_validated_pilot_remains_pending_real_humans(self) -> None:
+        metrics = self.base / "metrics.json"
+        result = run_tool("compare_operator_granularity.py", *self.comparator_arguments(metrics))
+        self.assertEqual(result.returncode, 2, result.stderr)
+        payload = json.loads(metrics.read_text(encoding="utf-8"))
+        self.assertTrue(payload["integrity_complete"])
+        self.assertFalse(payload["human_calibration_complete"])
+        self.assertFalse(payload["evidence_complete"])
+        self.assertEqual(
+            payload["study_status"],
+            "structural_integrity_complete_human_calibration_pending",
+        )
+        self.assertEqual(payload["metrics"]["coarse"]["coverage_count"], 14)
+        self.assertEqual(payload["metrics"]["medium"]["coverage_count"], 13)
+        self.assertEqual(payload["metrics"]["fine"]["coverage_count"], 13)
+        self.assertIsNone(payload["metrics"]["medium"]["annotation_disagreement_rate"])
+        self.assertGreater(
+            payload["metrics"]["fine"]["mean_graph_length"],
+            payload["metrics"]["medium"]["mean_graph_length"],
+        )
+
+    def test_validator_rejects_leakage_and_view_hash_tampering(self) -> None:
+        tampered = self.base / "tampered.jsonl"
+        tampered_checks = self.base / "tampered-checks.jsonl"
+        records = [json.loads(line) for line in self.representations.read_text().splitlines()]
+        records[0]["representations"]["coarse"]["answer_text"] = "forbidden"
+        records[1]["input_views"]["operator_view_sha256"] = "0" * 64
+        records[2]["representations"]["medium"]["topology"]["nodes"][0][
+            "semantic_role"
+        ] = "gold answer: SECRET_LATER_LAYER_VALUE"
+        medium_topology = records[3]["representations"]["medium"]["topology"]
+        if len(medium_topology["nodes"]) > 1:
+            medium_topology["output_node_ids"] = [medium_topology["nodes"][0]["id"]]
+        write_jsonl(tampered, records)
+        result = run_tool(
+            "validate_operator_granularity.py",
+            tampered,
+            "--checks-output",
+            tampered_checks,
+        )
+        self.assertEqual(result.returncode, 1)
+        checks = [json.loads(line) for line in tampered_checks.read_text().splitlines()]
+        self.assertEqual(len(checks), 90)
+        self.assertTrue(all(check["status"] == "fail" for check in checks))
+        errors = "\n".join(checks[0]["errors"])
+        self.assertIn("forbidden early-layer keys", errors)
+        self.assertIn("view binding mismatch", errors)
+        self.assertIn("deterministic structured-plan materialization", errors)
+        self.assertIn("every and only DAG sink", errors)
+
+    def test_comparator_rejects_a_check_not_bound_to_live_representation(self) -> None:
+        invalid_checks = self.base / "invalid-checks.jsonl"
+        metrics = self.base / "invalid-check-metrics.json"
+        checks = [json.loads(line) for line in self.checks.read_text().splitlines()]
+        checks[0]["representation_canonical_sha256"] = "0" * 64
+        write_jsonl(invalid_checks, checks)
+        arguments = list(self.comparator_arguments(metrics))
+        arguments[arguments.index(self.checks)] = invalid_checks
+        result = run_tool("compare_operator_granularity.py", *arguments)
+        self.assertEqual(result.returncode, 2)
+        self.assertFalse(metrics.exists())
+        self.assertIn("canonical hash mismatch", result.stderr)
+
+    def test_review_packet_contains_only_operator_view_and_candidate(self) -> None:
+        output = self.base / "coarse-review.html"
+        manifest = self.base / "coarse-review-manifest.json"
+        result = run_tool(
+            "build_granularity_review_packet.py",
+            "--questions",
+            ROOT / "data_construction/pilot/questions.jsonl",
+            "--input-views",
+            ROOT / "data_construction/pilot/granularity_input_views.jsonl",
+            "--input-views-manifest",
+            ROOT / "data_construction/pilot/granularity_input_views_manifest_v0_1.json",
+            "--representations",
+            self.representations,
+            "--validation-checks",
+            self.checks,
+            "--granularity",
+            "coarse",
+            "--output",
+            output,
+            "--manifest-output",
+            manifest,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        rendered = output.read_text(encoding="utf-8")
+        self.assertIn("8259c70c392c5b75", rendered)
+        self.assertIn("Harvest Vision", rendered)
+        self.assertNotIn("source_manifest_artifact", rendered)
+        self.assertNotIn("selected_environment_artifacts", rendered)
+        self.assertNotIn(str(ROOT), rendered)
+        packet_manifest = json.loads(manifest.read_text(encoding="utf-8"))
+        self.assertEqual(packet_manifest["review_status"], "packet_created_no_human_reviews")
+        self.assertEqual(packet_manifest["review_record_contract"]["reviews_included"], 0)
+
+    def test_external_review_contract_and_exact_packet_rendering_are_enforced(self) -> None:
+        manifests, packets = self.build_packet_fixture()
+        reviews: list[Path] = []
+        for granularity_index, granularity in enumerate(("coarse", "medium", "fine")):
+            for reviewer_index, reviewer_id in enumerate(
+                ("synthetic-fixture-a", "synthetic-fixture-b")
+            ):
+                path = self.base / f"{granularity}-{reviewer_id}.json"
+                self.write_synthetic_review_fixture(
+                    path,
+                    reviewer_id,
+                    granularity,
+                    manifests[granularity_index],
+                    disagree_on_first=False,
+                )
+                reviews.append(path)
+
+        metrics = self.base / "synthetic-reviewed-metrics.json"
+        arguments = list(self.comparator_arguments(metrics))
+        for manifest in manifests:
+            arguments.extend(("--review-packet-manifest", manifest))
+        for review in reviews:
+            arguments.extend(("--human-review", review))
+        result = run_tool("compare_operator_granularity.py", *arguments)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(metrics.read_text(encoding="utf-8"))
+        self.assertTrue(payload["integrity_complete"])
+        self.assertTrue(payload["human_calibration_complete"])
+        self.assertTrue(payload["evidence_complete"])
+        self.assertTrue(payload["semantic_confirmation_complete"])
+        self.assertEqual(payload["metrics"]["coarse"]["annotation_disagreement_count"], 0)
+        self.assertEqual(
+            payload["reviewer_authentication_status"],
+            "procedural_not_machine_verifiable",
+        )
+
+        disputed_reviews = json.loads(reviews[1].read_text(encoding="utf-8"))
+        disputed_reviews[0]["annotation"]["decision"] = "reject"
+        disputed_reviews[0]["annotation"]["assessment"]["semantic_validity"] = "invalid"
+        disputed_reviews[0]["annotation_sha256"] = canonical_sha256(
+            disputed_reviews[0]["annotation"]
+        )
+        write_json(reviews[1], disputed_reviews)
+        disputed_metrics = self.base / "synthetic-disputed-metrics.json"
+        disputed_arguments = list(self.comparator_arguments(disputed_metrics))
+        for manifest in manifests:
+            disputed_arguments.extend(("--review-packet-manifest", manifest))
+        for review in reviews:
+            disputed_arguments.extend(("--human-review", review))
+        disputed = run_tool("compare_operator_granularity.py", *disputed_arguments)
+        self.assertEqual(disputed.returncode, 2, disputed.stderr)
+        disputed_payload = json.loads(disputed_metrics.read_text(encoding="utf-8"))
+        self.assertTrue(disputed_payload["human_calibration_complete"])
+        self.assertTrue(disputed_payload["evidence_complete"])
+        self.assertFalse(disputed_payload["semantic_confirmation_complete"])
+        self.assertEqual(
+            disputed_payload["study_status"],
+            "human_calibration_complete_adjudication_pending",
+        )
+        self.assertEqual(
+            disputed_payload["metrics"]["coarse"]["annotation_disagreement_count"], 1
+        )
+
+        abstention_reviews: list[Path] = []
+        for source in reviews:
+            target = self.base / f"abstain-{source.name}"
+            raw = json.loads(source.read_text(encoding="utf-8"))
+            for envelope in raw:
+                annotation = envelope["annotation"]
+                annotation["decision"] = "abstain"
+                annotation["assessment"] = {
+                    "semantic_validity": "uncertain",
+                    "coverage_status": "uncertain",
+                    "ambiguity_present": "uncertain",
+                    "hides_reasoning": "uncertain",
+                    "excessive_fragmentation": "uncertain",
+                }
+                envelope["annotation_sha256"] = canonical_sha256(annotation)
+            write_json(target, raw)
+            abstention_reviews.append(target)
+        abstention_metrics = self.base / "synthetic-abstention-metrics.json"
+        abstention_arguments = list(self.comparator_arguments(abstention_metrics))
+        for manifest in manifests:
+            abstention_arguments.extend(("--review-packet-manifest", manifest))
+        for review in abstention_reviews:
+            abstention_arguments.extend(("--human-review", review))
+        abstained = run_tool("compare_operator_granularity.py", *abstention_arguments)
+        self.assertEqual(abstained.returncode, 2, abstained.stderr)
+        abstention_payload = json.loads(abstention_metrics.read_text(encoding="utf-8"))
+        self.assertFalse(abstention_payload["human_calibration_complete"])
+        self.assertFalse(abstention_payload["evidence_complete"])
+        self.assertEqual(
+            abstention_payload["metrics"]["coarse"]["human_abstention_count"], 60
+        )
+
+        coarse_packet = packets["coarse"]
+        coarse_packet.write_text(
+            coarse_packet.read_text(encoding="utf-8").replace(
+                "<h1>HybridQA", "<h1>ALTERED HybridQA", 1
+            ),
+            encoding="utf-8",
+        )
+        coarse_manifest = json.loads(manifests[0].read_text(encoding="utf-8"))
+        coarse_manifest["packet_artifact"]["sha256"] = hashlib.sha256(
+            coarse_packet.read_bytes()
+        ).hexdigest()
+        write_json(manifests[0], coarse_manifest)
+        tampered_metrics = self.base / "tampered-packet-metrics.json"
+        tampered_arguments = list(self.comparator_arguments(tampered_metrics))
+        for manifest in manifests:
+            tampered_arguments.extend(("--review-packet-manifest", manifest))
+        for review in reviews:
+            tampered_arguments.extend(("--human-review", review))
+        tampered = run_tool("compare_operator_granularity.py", *tampered_arguments)
+        self.assertEqual(tampered.returncode, 2)
+        self.assertFalse(tampered_metrics.exists())
+        self.assertIn("deterministic approved rendering", tampered.stderr)
 
 
 class CorpusStatisticsTests(unittest.TestCase):
@@ -2137,6 +2409,14 @@ class ToolOutputCollisionTests(unittest.TestCase):
             comparison = run_tool(
                 "compare_operator_granularity.py",
                 annotations,
+                "--questions",
+                ROOT / "data_construction/pilot/questions.jsonl",
+                "--input-views",
+                ROOT / "data_construction/pilot/granularity_input_views.jsonl",
+                "--input-views-manifest",
+                ROOT / "data_construction/pilot/granularity_input_views_manifest_v0_1.json",
+                "--validation-checks",
+                validation_checks,
                 "--json-output",
                 annotations,
                 "--report-output",
@@ -2173,6 +2453,33 @@ class ToolOutputCollisionTests(unittest.TestCase):
                 self.assertFalse(historical_target.exists())
             else:
                 self.assertEqual(historical_target.read_bytes(), historical_before)
+
+            ir_target = ROOT / "historical/ir_v0_2/ir/spec_v0_2.md"
+            ir_before = ir_target.read_bytes()
+            protected_ir = run_tool(
+                "validate_operator_granularity.py",
+                annotations,
+                "--checks-output",
+                ir_target,
+            )
+            self.assertEqual(protected_ir.returncode, 2)
+            self.assertEqual(ir_target.read_bytes(), ir_before)
+
+            fake_checkout = base / "official-source"
+            (fake_checkout / "tables_tok").mkdir(parents=True)
+            checkout_target = fake_checkout / "tables_tok" / "do-not-overwrite.json"
+            checkout_target.write_text("source bytes\n", encoding="utf-8")
+            protected_checkout = run_tool(
+                "build_granularity_views.py",
+                "--wikitables-checkout",
+                fake_checkout,
+                "--output",
+                checkout_target,
+                "--manifest-output",
+                base / "view-manifest.json",
+            )
+            self.assertEqual(protected_checkout.returncode, 2)
+            self.assertEqual(checkout_target.read_text(encoding="utf-8"), "source bytes\n")
 
     def test_nonstandard_or_duplicate_key_json_is_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
