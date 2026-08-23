@@ -6,16 +6,16 @@ Current research phase: Phase 0 historical-provenance recovery gate, with a prov
 
 Current branch: `main`
 
-Current HEAD commit: `6fd427c97b8a3f656e98604f4895031dbd5705f7` (`Update cross-device handoff after repository setup`)
+Expected HEAD baseline: `c337e9a67c15cd68fbb53eefb79bef90a6f9f242` (`Finalize cross-device handoff metadata`). A later linear descendant is a continuation; a missing or non-ancestor baseline is divergence.
 Remote: `origin` → `https://github.com/kgh0720kgh-boop/pj.git`; `main` tracks `origin/main`.
 
 Last completed task: Audited the official HybridQA question and linked table/document sources at pinned commits; created truthful blocked historical/split manifests; integrated eight v0.1 schemas, three candidate operator vocabularies, deterministic tools/tests, the pinned Python contract, and a fail-closed cross-device preflight.
 
 Current scientific decision: `DATA_SOURCE_BLOCKED`. Official HybridQA source capacity is available, but freshness/disjointness cannot be established without the five historical artifacts and researcher-approved authoritative project provenance.
 
-Synchronization state: `LOCAL_COMMIT_NOT_PUSHED` (one intended handoff commit is ahead of `origin/main`)
+Synchronization state: `SYNCED_TO_REMOTE`
 
-Handoff readiness: Repository transfer ready; scientific gates remain blocked below.
+Handoff readiness: Not ready; scientific gates remain blocked below.
 
 ## Startup instructions for the next desktop
 
@@ -37,9 +37,9 @@ Then read `AGENTS.md`, this handoff, `state/project_state.json`, `ENVIRONMENT.md
 | New split | `blocked_not_allocated`; no release-eligible pilot/train/dev/locked-eval roles |
 | Schema bundle | 8 Draft 2020-12 schema files present; portable JSON/local-ref check passes with legacy-validator warnings |
 | Operator vocabularies | 3 v0.1 candidate vocabularies present: coarse, medium, fine |
-| Tools and tests | Implemented; 26/26 tests pass with system CPython 3.10.12 |
+| Tools and tests | Implemented; 30/30 tests pass with system CPython 3.10.12 |
 | Full Draft 2020-12 validation | Passed for 8 schemas/3 vocabularies with errors=0 and warnings=0 in an ephemeral exact-pin environment; project-local `.venv` reproduction remains pending |
-| Git continuity | `main` at `1616684f8505c1b0ee90b956adb292193c172338`, tracking `origin/main`; clean |
+| Git continuity | `main` at `c337e9a67c15cd68fbb53eefb79bef90a6f9f242`, equal to `origin/main`; clean |
 
 ## Blocked gates
 
@@ -103,7 +103,7 @@ sh -n scripts/cross_device_preflight.sh
 sh scripts/cross_device_preflight.sh
 ```
 
-The first three Git commands are expected to report that this directory is not a Git repository. The preflight must not return `READY` while any declared gate, manifest block, dependency mismatch, test failure, or project-local reproduction requirement remains.
+The first three Git commands must report the project root, clean `main` status, and configured `origin`. The preflight must not return `READY` while any declared gate, manifest block, dependency mismatch, test failure, or project-local reproduction requirement remains.
 
 ## Known machine-local dependencies
 

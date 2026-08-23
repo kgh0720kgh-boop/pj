@@ -64,6 +64,7 @@ for required_file in \
     ENVIRONMENT.md \
     state/project_state.json \
     reports/cross_device_repo_audit.md \
+    scripts/classify_handoff_head.sh \
     scripts/cross_device_preflight.sh \
     .python-version \
     requirements.txt \
@@ -870,11 +871,29 @@ if command -v git >/dev/null 2>&1; then
             else
                 block_check 'STOP_AND_REPORT_BRANCH_DIVERGENCE: branch differs from handoff'
             fi
-            if [ "$head" = "$expected_head" ]; then
-                pass_check 'EXPECTED_HEAD_MATCH'
-            else
-                block_check 'STOP_AND_REPORT_BRANCH_DIVERGENCE: HEAD differs from handoff'
-            fi
+            head_relation=$(sh "$SCRIPT_DIR/classify_handoff_head.sh" "$PROJECT_ROOT" "$expected_head" "$head" 2>&1)
+            head_relation_rc=$?
+            case "$head_relation_rc:$head_relation" in
+                0:exact)
+                    pass_check 'EXPECTED_HEAD_MATCH'
+                    ;;
+                0:descendant:*)
+                    commits_after_handoff=${head_relation#descendant:}
+                    warn_check "EXPECTED_HEAD_BASELINE_ANCESTOR: HEAD is $commits_after_handoff commit(s) after the recorded handoff baseline"
+                    ;;
+                2:diverged)
+                    block_check 'STOP_AND_REPORT_BRANCH_DIVERGENCE: HEAD and handoff baseline are on different histories'
+                    ;;
+                2:missing-baseline)
+                    block_check 'STOP_AND_REPORT_BRANCH_DIVERGENCE: handoff baseline commit is unavailable'
+                    ;;
+                2:invalid-baseline)
+                    block_check 'STOP_AND_REPORT_BRANCH_DIVERGENCE: handoff baseline is not a full lowercase 40-hex commit OID'
+                    ;;
+                *)
+                    fail_check "GIT_HANDOFF_RELATION_CHECK_FAILED: $head_relation"
+                    ;;
+            esac
         fi
 
         remotes=$(git -C "$PROJECT_ROOT" remote 2>/dev/null || printf '')

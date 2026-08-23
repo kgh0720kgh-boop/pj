@@ -139,10 +139,10 @@ Before editing on any workstation:
 3. Inspect `git status --short --branch`, the current branch, `git rev-parse HEAD`, and `git remote -v`.
 4. If local changes are not clearly disposable, stop with `STOP_AND_REPORT_LOCAL_CHANGES`.
 5. Fetch only when network/authentication is available and remote reads are authorized.
-6. Compare local branch/HEAD with the handoff. On divergence, stop with `STOP_AND_REPORT_BRANCH_DIVERGENCE`; never force-push, hard-reset, or discard work silently.
+6. Compare local branch/HEAD with the handoff baseline. An equal HEAD is an exact match and a descendant HEAD is a later linear continuation; if the recorded baseline is unavailable or is not an ancestor of HEAD, stop with `STOP_AND_REPORT_BRANCH_DIVERGENCE`. Never force-push, hard-reset, or discard work silently.
 7. Run `sh scripts/cross_device_preflight.sh` and resolve or explicitly preserve every blocker before research runs.
 
-The current directory is not a Git repository. Do not run `git init`, add a remote, commit, or push without the researcher decisions recorded in the repository audit.
+The current directory is a Git repository on `main` with `origin/main` as its upstream. Do not reinitialize it, replace its remote, rewrite history, or push without the researcher decisions recorded in the repository audit and handoff.
 
 ## Cross-device shutdown and handoff procedure
 

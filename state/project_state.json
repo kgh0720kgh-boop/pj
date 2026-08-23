@@ -4,13 +4,13 @@
   "project": "hierarchical_data_construction_for_semantic_execution_topology_induction",
   "active_phase": "phase_0_historical_provenance_recovery_gate",
   "active_branch": "main",
-  "expected_head": "6fd427c97b8a3f656e98604f4895031dbd5705f7",
+  "expected_head": "c337e9a67c15cd68fbb53eefb79bef90a6f9f242",
   "last_completed_task": "official_source_audit_v0_1_scaffold_and_hardened_cross_device_preflight_integration",
   "next_task": "recover_the_five_historical_artifacts_with_authoritative_provenance_then_regenerate_the_historical_manifest_before_any_split_allocation",
   "current_scientific_decision": "DATA_SOURCE_BLOCKED",
   "scientific_decision_status": "provisional_pending_historical_exposure_recovery",
-  "synchronization_state": "LOCAL_COMMIT_NOT_PUSHED",
-  "handoff_readiness": "repository_transfer_ready_scientific_gates_blocked",
+  "synchronization_state": "SYNCED_TO_REMOTE",
+  "handoff_readiness": "not_ready",
   "blocked_gates": [
     "AUTHORITATIVE_PROJECT_PROVENANCE_NOT_AVAILABLE",
     "HISTORICAL_ARTIFACTS_NOT_AVAILABLE",
@@ -22,7 +22,8 @@
   "repository": {
     "git_root": "repository root (resolve with git rev-parse --show-toplevel)",
     "current_branch": "main",
-    "head": "6fd427c97b8a3f656e98604f4895031dbd5705f7",
+    "head": "c337e9a67c15cd68fbb53eefb79bef90a6f9f242",
+    "head_role": "expected_handoff_baseline",
     "remotes": ["origin https://github.com/kgh0720kgh-boop/pj.git"],
     "working_tree_status": "clean",
     "untracked_files": 0,
@@ -64,7 +65,7 @@
     "exit_code": 2,
     "validation_failures": 0,
     "core_json_files_parsed": 15,
-    "unit_tests_passed": 26,
+    "unit_tests_passed": 30,
     "unit_tests_failed": 0
   },
   "canonical_artifacts": [

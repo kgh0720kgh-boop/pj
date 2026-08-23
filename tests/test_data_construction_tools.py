@@ -77,6 +77,71 @@ def run_tool(name: str, *arguments: object) -> subprocess.CompletedProcess[str]:
     )
 
 
+class HandoffHeadClassifierTests(unittest.TestCase):
+    def make_repository(self, directory: str) -> tuple[Path, str, str, str]:
+        repository = Path(directory)
+
+        def git(*arguments: str) -> str:
+            return subprocess.run(
+                ["git", *arguments],
+                cwd=repository,
+                text=True,
+                check=True,
+                capture_output=True,
+            ).stdout.strip()
+
+        git("init")
+        git("config", "user.name", "Fixture")
+        git("config", "user.email", "fixture@example.invalid")
+        fixture = repository / "fixture.txt"
+        fixture.write_text("base\n", encoding="utf-8")
+        git("add", "fixture.txt")
+        git("commit", "-m", "base")
+        base = git("rev-parse", "HEAD")
+
+        fixture.write_text("child\n", encoding="utf-8")
+        git("commit", "-am", "child")
+        child = git("rev-parse", "HEAD")
+
+        git("checkout", "-b", "sibling", base)
+        fixture.write_text("sibling\n", encoding="utf-8")
+        git("commit", "-am", "sibling")
+        sibling = git("rev-parse", "HEAD")
+        return repository, base, child, sibling
+
+    def classify(self, repository: Path, expected: str, current: str) -> subprocess.CompletedProcess[str]:
+        return subprocess.run(
+            ["sh", str(ROOT / "scripts/classify_handoff_head.sh"), str(repository), expected, current],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+
+    def test_exact_handoff_head_passes(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repository, base, _, _ = self.make_repository(directory)
+            result = self.classify(repository, base, base)
+            self.assertEqual((result.returncode, result.stdout.strip()), (0, "exact"))
+
+    def test_descendant_handoff_head_passes_with_distance(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repository, base, child, _ = self.make_repository(directory)
+            result = self.classify(repository, base, child)
+            self.assertEqual((result.returncode, result.stdout.strip()), (0, "descendant:1"))
+
+    def test_nonancestor_handoff_head_is_blocked(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repository, _, child, sibling = self.make_repository(directory)
+            result = self.classify(repository, child, sibling)
+            self.assertEqual((result.returncode, result.stdout.strip()), (2, "diverged"))
+
+    def test_missing_handoff_head_is_blocked(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repository, _, child, _ = self.make_repository(directory)
+            result = self.classify(repository, "f" * 40, child)
+            self.assertEqual((result.returncode, result.stdout.strip()), (2, "missing-baseline"))
+
+
 def complete_history_manifest() -> dict[str, object]:
     source_ids = {
         "data_analysis/week1_sample_100.jsonl": [f"w1_{index}" for index in range(100)],

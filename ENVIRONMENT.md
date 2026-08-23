@@ -2,9 +2,9 @@
 
 ## Current reproducibility status
 
-The continuity scaffold, official HybridQA source identities, Python version, exact pip requirements, schema/vocabulary bundle, tools, and tests are portable. Full research-state reconstruction is still blocked by absent canonical Git history, absent authoritative project provenance, the five missing historical Week 1-3 artifacts, and the missing project-local pinned virtual environment. This is a declared blocker, not evidence that there was no historical exposure.
+The continuity scaffold, canonical project Git history, official HybridQA source identities, Python version, exact pip requirements, schema/vocabulary bundle, tools, and tests are portable. Full research-state reconstruction is still blocked by absent authoritative historical recovery provenance, the five historical Week 1-3 artifacts not yet migrated into the repository, and the missing project-local pinned virtual environment. This is a declared blocker, not evidence that there was no historical exposure.
 
-`REQUIRES_RESEARCHER_DECISION`: recover the canonical project repository if it exists; otherwise authorize a preservation-first migration. This reset scaffold uses one dependency mechanism: pip requirements pinned in `requirements.txt`.
+The canonical project repository decision is resolved. The researcher authorized a preservation-first migration from the recovered historical workspace on 2026-08-23. This reset scaffold uses one dependency mechanism: pip requirements pinned in `requirements.txt`.
 
 ## Observed baseline
 
@@ -43,7 +43,7 @@ python3 -m venv .venv
 sh scripts/cross_device_preflight.sh
 ```
 
-The currently observed environment lacks `ensurepip`/the matching `python3-venv` OS package, so a pip-enabled `.venv` was not validated here. Install the OS package for CPython 3.10 through the workstation's normal administrator process, then rerun the commands above. This project does not elevate privileges or modify system packages automatically. Never copy a virtual environment between workstations.
+The earlier workstation observation lacked `ensurepip`/the matching `python3-venv` OS package. On 2026-08-23 this workstation was rechecked: CPython 3.10.12, `ensurepip`, `python3-venv`, and `python3.10-venv` are available, but a project-local `.venv` has not yet been created. Recreate it with the canonical commands above; never copy a virtual environment between workstations.
 
 An ephemeral environment outside the work tree was installed from the exact `requirements.txt` pins. In that environment, `check_schema_bundle.py --require-jsonschema` validated all eight schemas and all three vocabulary instances with errors=0 and warnings=0. This establishes that the pinned dependency set can perform the full Draft 2020-12 check; it does not establish that the current project-local environment is reconstructed.
 
