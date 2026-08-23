@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HybridQA blind free observation — phase_a1_batch_01</title>
+<style>
+:root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+body { max-width: 1050px; margin: 2rem auto; padding: 0 1rem 5rem; line-height: 1.5; }
+.notice { border-left: .35rem solid #6b46c1; padding: .8rem 1rem; background: color-mix(in srgb, Canvas 92%, #805ad5 8%); }
+.card, .unit { border: 1px solid #a0aec0; border-radius: .6rem; padding: 1rem; margin: 1.25rem 0; }
+.unit { margin: .7rem 0; border-style: dashed; }
+label { display: block; margin-top: .8rem; font-weight: 650; }
+input[type=text], select, textarea { box-sizing: border-box; font: inherit; width: 100%; }
+textarea { min-height: 5rem; } .attestation label { font-weight: 500; }
+code { overflow-wrap: anywhere; } button { padding: .55rem .8rem; margin: .35rem .2rem .35rem 0; font-weight: 650; }
+.example { background: color-mix(in srgb, Canvas 92%, #38a169 8%); padding: 1rem; }
+.error { color: #c53030; font-weight: 700; } .hint { font-size: .92rem; color: color-mix(in srgb, CanvasText 75%, Canvas 25%); }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<h1>HybridQA 질문 자유 관찰</h1>
+<section id="stage-1">
+<p class="notice">첫 단계에서는 아래 질문 ID와 질문 텍스트만 읽고, 각 질문이 무엇을 요구하는지 제한 없이 자기 말로 기록하세요. 외부 자료·검색·다른 사람의 도움을 사용하지 마세요. 열 개 관찰을 모두 기록해 잠그기 전에는 다음 단계가 표시되지 않으며, 잠근 관찰은 이 세션에서 수정할 수 없습니다. 이 기록은 <strong>gold가 아닙니다</strong>.</p>
+<ul><li>Answer the prior-exposure screen before writing any observation; an exposed reviewer must stop and notify the researcher.</li><li>Use only the opaque question ID and question text shown in this packet; do not use external lookup or consult another annotator.</li><li>Before any later instrument is shown, describe in your own words what each question is asking for; do not force the observation into named fields or labels.</li><li>All ten free observations must be non-empty and are locked read-only together before the next stage is revealed.</li><li>This self-contained file provides procedural UI staging, not adversarial blinding: do not inspect or alter page source, developer tools, or the DOM to expose stage two before locking.</li></ul>
+<label for="prior-exposure">관찰을 시작하기 전: 이 10개 질문의 정답·표/문서 환경·모델/역사 제안·후속 그래프를 이전에 본 적이 있습니까?</label>
+<select id="prior-exposure"><option value="unanswered">선택하세요</option><option value="no">아니요 — 관찰 시작 가능</option><option value="yes">예 — 작성하지 말고 연구자에게 exclusion을 알림</option></select>
+<div id="stage1-items"></div>
+<button id="lock-observations" type="button">자유 관찰 잠금 후 다음 단계 표시</button>
+<p id="stage1-status" class="hint"></p>
+</section>
+<section id="stage-2" hidden>
+<h1>2단계: open-coding scaffold</h1>
+<p class="notice">이 단계는 분해 필드를 제시하는 <strong>open-coding scaffold</strong>이며 완전히 비구조적인 관찰은 아닙니다. 어떤 answer type, cardinality, candidate kind, semantic-function 또는 executable-operator ontology도 제공하지 않습니다. 표·문서 환경, 정답, 모델 제안, 연산자 그래프, grounding 또는 실행 증거를 사용하지 마세요.</p>
+<p><strong>배치:</strong> <code>phase_a1_batch_01</code><br><strong>payload SHA-256:</strong> <code>c86920e63cde36f285312bbbe3da58fe10c4de2e51e33745e22291a7568eb57b</code></p>
+<section class="example"><h2>고정 2단계 rubric / instruction contract</h2><p><code>question_structure_open_coding_rubric_v0_1</code></p><ul><li>The free observations were locked before this open-coding scaffold was revealed; do not try to revise them after seeing the scaffold.</li><li>Write answer request, candidate structure, required information units, obligations, and semantic operations as open descriptions; no closed semantic-label or executable-operator ontology is supplied.</li><li>Distinguish a required information unit (a free description of an information kind, relation, or value requested by the wording) from an information obligation (a subgoal or proposition that must be established as true to answer, with only its required predecessors declared).</li><li>Copy the smallest local exact case-sensitive question span that supports each observation, one cue per line; use the whole question only when genuinely all of its wording supports that observation. When no direct cue exists, leave cues empty and explain the implicit inference.</li><li>Exact-substring checking establishes cue-localization integrity only; it is not evidence that the cue is semantically aligned or that the observation is correct.</li><li>Declare only required depends_on edges; multiple roots, multiple sinks, and disconnected components are allowed, while declared edges must be acyclic and reference existing IDs.</li><li>Choose complete only when the scaffold expresses the observation with no schema gaps and no instrument issues; incomplete_schema_gap may preserve only gap descriptions and issues without a forced triple.</li><li>Raw annotations are not gold and cannot self-claim researcher approval; approval remains an unimplemented procedural manual registry/signoff gate outside this packet.</li></ul><h3>필드 문법 도움 (완성 decomposition 예시 아님)</h3><ul><li>IDs use letters or digits first, followed by letters, digits, underscore, dot, colon, or hyphen; examples such as u1, o1, and n1 are syntax examples only.</li><li>For the unrelated synthetic text ‘Did Alpha open before Beta?’, ‘before’ is an exact cue while ‘Before’ is not; this demonstrates substring syntax, not a decomposition or answer.</li><li>Enter depends_on, fulfills-obligation references, entry IDs, output IDs, gaps, interpretations, and cues one item per line without duplicates.</li></ul></section>
+<label for="annotator-id">안정된 익명 annotator ID (이름·이메일 금지)</label>
+<input id="annotator-id" type="text" required pattern="[A-Za-z0-9][A-Za-z0-9._-]{2,127}" maxlength="128" placeholder="reviewer-pseudonym" autocomplete="off">
+<p class="hint">연구자 승인 여부는 이 raw 파일에서 본인이 입력하거나 주장할 수 없습니다. 별도 연구자 관리 registry/manifest만 승인 권한을 가집니다.</p>
+<fieldset class="attestation"><legend>필수 절차 확인</legend>
+<label><input type="checkbox" data-attestation="human_authored"> 실제 사람이 직접 작성했습니다.</label>
+<label><input type="checkbox" data-attestation="worked_independently"> 다른 annotator와 상의하지 않고 독립적으로 작성했습니다.</label>
+<label><input type="checkbox" data-attestation="used_only_packet_question_view"> 이 패킷의 질문 전용 view만 사용했습니다.</label>
+<label><input type="checkbox" data-attestation="did_not_use_answers_grounding_environment_or_proposals"> 정답, 환경, grounding, 실행 정보 또는 모델 제안을 사용하지 않았습니다.</label>
+<label><input id="locked-free-observation-attestation" type="checkbox" data-attestation="locked_free_observation_before_scaffold" disabled> 열 개 자유 관찰을 모두 잠근 뒤에 이 scaffold가 표시되었습니다.</label>
+</fieldset>
+<p id="crypto-status"></p>
+<div id="items"></div>
+<button id="download" type="button">hash-bound 원시 주석 JSON 다운로드</button>
+</section>
+<script>
+'use strict';
+const packet = {"schema_version": "question_structure_annotation_packet_payload_v0_1", "batch_id": "phase_a1_batch_01", "reviewed_view": "blind_question_only_semantic_structure", "annotation_schema_version": "question_structure_annotation_v0_1", "instrument_contract": {"rubric_version": "question_structure_open_coding_rubric_v0_1", "annotation_schema_sha256": "6faacb6a328e3f05bf727f4fbc74ea9a37fe02873188248c03b349cbf6a38c7b", "stage1_visible_instructions": ["Answer the prior-exposure screen before writing any observation; an exposed reviewer must stop and notify the researcher.", "Use only the opaque question ID and question text shown in this packet; do not use external lookup or consult another annotator.", "Before any later instrument is shown, describe in your own words what each question is asking for; do not force the observation into named fields or labels.", "All ten free observations must be non-empty and are locked read-only together before the next stage is revealed.", "This self-contained file provides procedural UI staging, not adversarial blinding: do not inspect or alter page source, developer tools, or the DOM to expose stage two before locking."], "stage2_visible_instructions": ["The free observations were locked before this open-coding scaffold was revealed; do not try to revise them after seeing the scaffold.", "Write answer request, candidate structure, required information units, obligations, and semantic operations as open descriptions; no closed semantic-label or executable-operator ontology is supplied.", "Distinguish a required information unit (a free description of an information kind, relation, or value requested by the wording) from an information obligation (a subgoal or proposition that must be established as true to answer, with only its required predecessors declared).", "Copy the smallest local exact case-sensitive question span that supports each observation, one cue per line; use the whole question only when genuinely all of its wording supports that observation. When no direct cue exists, leave cues empty and explain the implicit inference.", "Exact-substring checking establishes cue-localization integrity only; it is not evidence that the cue is semantically aligned or that the observation is correct.", "Declare only required depends_on edges; multiple roots, multiple sinks, and disconnected components are allowed, while declared edges must be acyclic and reference existing IDs.", "Choose complete only when the scaffold expresses the observation with no schema gaps and no instrument issues; incomplete_schema_gap may preserve only gap descriptions and issues without a forced triple.", "Raw annotations are not gold and cannot self-claim researcher approval; approval remains an unimplemented procedural manual registry/signoff gate outside this packet."], "stage2_field_syntax_help": ["IDs use letters or digits first, followed by letters, digits, underscore, dot, colon, or hyphen; examples such as u1, o1, and n1 are syntax examples only.", "For the unrelated synthetic text ‘Did Alpha open before Beta?’, ‘before’ is an exact cue while ‘Before’ is not; this demonstrates substring syntax, not a decomposition or answer.", "Enter depends_on, fulfills-obligation references, entry IDs, output IDs, gaps, interpretations, and cues one item per line without duplicates."], "stage_transition_contract": "all_ten_nonempty_then_normal_ui_readonly_lock_before_scaffold_display_procedural_attestation_not_adversarial_blinding", "closed_semantic_label_ontology_exposed": false, "prefilled_semantic_decomposition_exposed": false, "researcher_approval_authority": "unimplemented_procedural_manual_registry_or_signoff_outside_raw_packet"}, "blank_annotation_form": {"schema_version": "question_structure_annotation_v0_1", "annotator_id": "", "batch_id": "", "question_id": "", "question": "", "question_view_sha256": "", "annotation_packet_payload_sha256": null, "completed_at": null, "prior_exposure_declared": false, "researcher_approval_self_claimed": false, "submission_status": null, "abstention_reason": null, "attestation": {"human_authored": false, "worked_independently": false, "used_only_packet_question_view": false, "did_not_use_answers_grounding_environment_or_proposals": false, "locked_free_observation_before_scaffold": false}, "unconstrained_question_paraphrase": null, "representation_assessment": null, "instrument_issues": [], "semantic_skeleton": {"answer_target": {"description": "", "source_cues": [], "implicit_rationale": ""}, "answer_shape_description": "", "answer_shape_source_cues": [], "answer_shape_implicit_rationale": "", "candidate_structure": {"description": "", "source_cues": [], "implicit_rationale": ""}, "required_information_units": [], "selection_requirement": null, "back_mapping_requirement": null}, "information_obligations": [], "abstract_topology": {"nodes": [], "entry_node_ids": [], "output_node_ids": []}, "ambiguity": {"present": null, "description": null, "alternative_interpretations": []}, "alternative_topology_plans": [], "notes": null, "gold_claimed": false}, "items": [{"question_view": {"question": "What is the summary of the museum that is owned by a Christian charity , Harvest Vision ?", "question_id": "8259c70c392c5b75", "schema_version": "question_only_semantic_view_v0_1", "visibility": "question_only_no_environment_answer_or_proposals"}, "question_view_sha256": "61726422055e56fadfd48d028b9905623291bce01bad1e8a51a1e92af9badc89"}, {"question_view": {"question": "What city is the headquarters of the organisation that consists of 9 member states and 19 associate observers ?", "question_id": "1d48a5ffb05c7de2", "schema_version": "question_only_semantic_view_v0_1", "visibility": "question_only_no_environment_answer_or_proposals"}, "question_view_sha256": "3e7759404aae89f38b2d2e89c5b35d8163d874bb2255eadb87600fcb208e06df"}, {"question_view": {"question": "What is the oldest school in the LGA that has a A $ 175.13 million capital ( infrastructure ) budget ?", "question_id": "743c4e765fcd76e5", "schema_version": "question_only_semantic_view_v0_1", "visibility": "question_only_no_environment_answer_or_proposals"}, "question_view_sha256": "cc4ab6fce4db4c86e7bfef73210ac6382295cba7b2b9ff341d325e728a3e6bd0"}, {"question_view": {"question": "How many departing planes per week does the airport in Canada that served 1,732,113 flyers in 2016 currently approximately handle ?", "question_id": "ab5eb9535349cd7a", "schema_version": "question_only_semantic_view_v0_1", "visibility": "question_only_no_environment_answer_or_proposals"}, "question_view_sha256": "d090ca53f7c6e93de63bcc8a44c7bc7e05485c1010fa8920cf865dc00f84c1f6"}, {"question_view": {"question": "What is the tracking method of the software that provides DCB to enable app store customers to click and buy apps or in-app content , placing the charge directly onto their mobile phone bill ?", "question_id": "b3550375a684a870", "schema_version": "question_only_semantic_view_v0_1", "visibility": "question_only_no_environment_answer_or_proposals"}, "question_view_sha256": "b1dd4a4b984067024e350330f9e7c38b87ca905a80d5dceab59e37b5fa0be6f9"}, {"question_view": {"question": "Why did the protagonist of the series in which Lark Voorhies played Cindy in 1992 have to leave his hometown ?", "question_id": "f36270c917a195c7", "schema_version": "question_only_semantic_view_v0_1", "visibility": "question_only_no_environment_answer_or_proposals"}, "question_view_sha256": "8b7b086ca52b9563e67b1465e3437d8afa0682f2b4f308c07cbc29e219795266"}, {"question_view": {"question": "What was the wheel arrangement of the locomotive that was named after a horse ?", "question_id": "8524304318e5f09a", "schema_version": "question_only_semantic_view_v0_1", "visibility": "question_only_no_environment_answer_or_proposals"}, "question_view_sha256": "25a3e97ef6327c37b3ac9916fe6715460643b5503ebb99af365fa80f687d2b10"}, {"question_view": {"question": "What comedy TV series did the voice actor who voiced a character that has been portrayed by James D'Arcy appear in ?", "question_id": "c26cafcd706efe0d", "schema_version": "question_only_semantic_view_v0_1", "visibility": "question_only_no_environment_answer_or_proposals"}, "question_view_sha256": "e74921a1d1e96808401e140300f755cd13b0e80f27b9f46f1a01d1c664b2395a"}, {"question_view": {"question": "How many people work at the station that has the least amount of users ?", "question_id": "3d207ccb8be56fd9", "schema_version": "question_only_semantic_view_v0_1", "visibility": "question_only_no_environment_answer_or_proposals"}, "question_view_sha256": "952ddf1039cc3d00205e2752030b2ba0d3b4a112b101a997be7964c290d13fd5"}, {"question_view": {"question": "How many square feet is the terminal building at the airport that is a hub or headquarters for airline that had chartered service in the Northwest Territories ?", "question_id": "b16c668f54c230e7", "schema_version": "question_only_semantic_view_v0_1", "visibility": "question_only_no_environment_answer_or_proposals"}, "question_view_sha256": "33c8d4b4428ebb21bb1922f4e8197055aa99967c0942bb74c86d3d5a88725813"}]};
+const packetPayloadSha256 = "c86920e63cde36f285312bbbe3da58fe10c4de2e51e33745e22291a7568eb57b";
+const stage1Root = document.getElementById('stage1-items');
+const stage2 = document.getElementById('stage-2');
+const root = document.getElementById('items');
+const controls = [];
+const freeObservationControls = [];
+let freeObservationsLocked = false;
+let lockedFreeObservationValues = [];
+const idPattern = /^[A-Za-z0-9][A-Za-z0-9_.:-]*$/;
+const cryptoReady = Boolean(globalThis.crypto && globalThis.crypto.subtle && globalThis.TextEncoder);
+const downloadButton = document.getElementById('download'); const cryptoStatus = document.getElementById('crypto-status');
+if (!cryptoReady) { cryptoStatus.className = 'error'; cryptoStatus.textContent = '이 browser/local-file context에는 Web Crypto SHA-256이 없어 export를 차단했습니다. Web Crypto를 지원하는 최신 browser의 안전한 local context에서 이 파일을 다시 여세요.'; downloadButton.disabled = true; } else { cryptoStatus.textContent = 'Browser Web Crypto SHA-256 사용 가능: export 시 canonical annotation hash를 계산합니다.'; }
+
+function addText(parent, tag, value) { const element = document.createElement(tag); element.textContent = String(value); parent.appendChild(element); return element; }
+function canonicalJson(value) {
+  if (Array.isArray(value)) return '[' + value.map(canonicalJson).join(',') + ']';
+  if (value !== null && typeof value === 'object') return '{' + Object.keys(value).sort().map(key => JSON.stringify(key) + ':' + canonicalJson(value[key])).join(',') + '}';
+  return JSON.stringify(value);
+}
+async function sha256Canonical(value) {
+  if (!cryptoReady) throw new Error('Web Crypto SHA-256을 사용할 수 없습니다.');
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(canonicalJson(value)));
+  return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
+}
+function makeField(parent, labelText, multiline = false, hint = '') {
+  const label = document.createElement('label'); label.textContent = labelText;
+  const control = document.createElement(multiline ? 'textarea' : 'input'); if (!multiline) control.type = 'text'; control.maxLength = 4096;
+  label.appendChild(control); parent.appendChild(label); if (hint) addText(parent, 'p', hint).className = 'hint'; return control;
+}
+function makeSelect(parent, labelText, values) {
+  const label = document.createElement('label'); label.textContent = labelText; const select = document.createElement('select');
+  values.forEach(([value, text]) => { const option = document.createElement('option'); option.value = value; option.textContent = text; select.appendChild(option); });
+  label.appendChild(select); parent.appendChild(label); return select;
+}
+function trimmed(control, label, required = true) { const value = control.value.trim(); if (required && !value) throw new Error(`${label}: 값이 필요합니다.`); if (value.length > 4096) throw new Error(`${label}: 4096자를 초과합니다.`); return value; }
+function lines(control, label) { const values = control.value.split(/\r?\n/).map(value => value.trim()).filter(Boolean); if (new Set(values).size !== values.length) throw new Error(`${label}: 중복 줄이 있습니다.`); values.forEach(value => { if (value.length > 4096) throw new Error(`${label}: 한 항목이 4096자를 초과합니다.`); }); return values; }
+function identifier(control, label) { const value = trimmed(control, label); if (!idPattern.test(value) || value.length > 256) throw new Error(`${label}: 안전한 ID 형식이 아닙니다.`); return value; }
+function identifierLines(control, label) { const values = lines(control, label); values.forEach(value => { if (!idPattern.test(value) || value.length > 256) throw new Error(`${label}: ${value}는 안전한 ID가 아닙니다.`); }); return values; }
+function sameSet(left, right) { return left.length === right.length && left.every(value => right.includes(value)); }
+function validateCueEvidence(question, cues, implicit, label) {
+  cues.forEach(cue => { if (cue.length > 1024) throw new Error(`${label}: cue가 1024자를 초과합니다.`); if (!question.includes(cue)) throw new Error(`${label}: cue “${cue}”는 질문의 정확한 case-sensitive substring이 아닙니다.`); });
+  if (implicit.length > 4096) throw new Error(`${label}: implicit rationale이 4096자를 초과합니다.`);
+  if (cues.length && implicit) throw new Error(`${label}: 직접 cue가 있으면 implicit rationale을 비우세요.`);
+  if (!cues.length && !implicit) throw new Error(`${label}: cue가 없으면 implicit rationale이 필요합니다.`);
+  return {source_cues: cues, implicit_rationale: cues.length ? null : implicit};
+}
+function cueEditor(parent, heading, descriptionLabel = '자유 설명') {
+  const box = document.createElement('section'); box.className = 'unit'; addText(box, 'h4', heading); parent.appendChild(box);
+  const description = makeField(box, descriptionLabel, true); const cues = makeField(box, '최소·국소 exact source cues (한 줄에 하나)', true, '가능한 가장 작은 case-sensitive 질문 substring을 쓰세요. 전체 문장은 그 모든 표현이 실제로 뒷받침할 때만 사용합니다. 이 검사는 위치 무결성만 확인하며 의미 정답을 보증하지 않습니다.'); const implicit = makeField(box, 'cue가 없을 때 implicit rationale', true);
+  return { value(question, label) { const descriptionValue = trimmed(description, `${label} description`); const evidence = validateCueEvidence(question, lines(cues, `${label} cues`), implicit.value.trim(), label); return {description: descriptionValue, ...evidence}; } };
+}
+function removableUnit(holder, heading) { const box = document.createElement('section'); box.className = 'unit'; addText(box, 'h4', heading); const remove = document.createElement('button'); remove.type = 'button'; remove.textContent = '이 항목 제거'; remove.addEventListener('click', () => box.remove()); box.appendChild(remove); holder.appendChild(box); return box; }
+function informationUnitList(parent) {
+  const title = 'Required information units (closed relation/attribute 분류 없음)'; addText(parent, 'h3', title); const holder = document.createElement('div'); parent.appendChild(holder); const rows = [];
+  const add = document.createElement('button'); add.type = 'button'; add.textContent = 'Free information unit 추가'; add.addEventListener('click', () => {
+    const box = removableUnit(holder, 'Required information unit'); const id = makeField(box, 'unit_id'); const evidence = cueEditor(box, '관찰', '필요한 관계·속성·사실 등을 분류 없이 자유 설명'); rows.push({box, id, evidence});
+  }); parent.appendChild(add);
+  return { value(question, label) { const values = rows.filter(row => row.box.isConnected).map((row, index) => ({unit_id: identifier(row.id, `${label}[${index}].unit_id`), ...row.evidence.value(question, `${label}[${index}]`)})); if (new Set(values.map(value => value.unit_id)).size !== values.length) throw new Error(`${label}: unit_id가 중복됩니다.`); return values; } };
+}
+function optionalCue(parent, title) {
+  const enabled = document.createElement('input'); enabled.type = 'checkbox'; const label = document.createElement('label'); label.appendChild(enabled); label.append(' 해당 요구가 있음'); parent.appendChild(label); const editor = cueEditor(parent, title);
+  return { value(question, path) { return enabled.checked ? editor.value(question, path) : null; } };
+}
+function obligationList(parent) {
+  addText(parent, 'h3', 'Information obligations — 답을 위해 참으로 확립할 subgoal/proposition'); const holder = document.createElement('div'); parent.appendChild(holder); const rows = [];
+  const addRow = () => { const box = removableUnit(holder, 'Obligation'); const id = makeField(box, 'obligation_id'); const description = makeField(box, '답을 위해 참으로 확립해야 하는 subgoal/proposition 자유 설명', true); const depends = makeField(box, '반드시 선행하는 obligation IDs (한 줄에 하나; 불명확하면 비움)', true); const cues = makeField(box, '최소·국소 exact source cues (한 줄에 하나)', true, '전체 질문은 그 모든 표현이 실제로 뒷받침할 때만 사용합니다. substring 검사는 위치 무결성만 확인합니다.'); const implicit = makeField(box, 'cue가 없을 때 implicit rationale', true); rows.push({box,id,description,depends,cues,implicit}); };
+  const add = document.createElement('button'); add.type = 'button'; add.textContent = 'Obligation 추가'; add.addEventListener('click', addRow); parent.appendChild(add); addRow();
+  return { value(question, label) {
+    const values = rows.filter(row => row.box.isConnected).map((row,index) => { const evidence = validateCueEvidence(question, lines(row.cues, `${label}[${index}] cues`), row.implicit.value.trim(), `${label}[${index}]`); return {obligation_id: identifier(row.id, `${label}[${index}].obligation_id`), description: trimmed(row.description, `${label}[${index}].description`), depends_on: identifierLines(row.depends, `${label}[${index}].depends_on`), ...evidence}; });
+    if (!values.length) throw new Error(`${label}: 하나 이상 필요합니다.`); validateDependencyGraph(values.map(value => value.obligation_id), values.map(value => value.depends_on), label); return values;
+  } };
+}
+function validateDependencyGraph(ids, dependencies, label) {
+  if (new Set(ids).size !== ids.length) throw new Error(`${label}: ID가 중복됩니다.`); const known = new Set(ids);
+  dependencies.forEach((deps,index) => deps.forEach(dep => { if (!known.has(dep)) throw new Error(`${label}: ${ids[index]}의 참조 ${dep}가 없습니다.`); if (dep === ids[index]) throw new Error(`${label}: self dependency가 있습니다.`); }));
+  const state = new Map(); const byId = new Map(ids.map((id,index) => [id, dependencies[index]]));
+  function visit(id) { if (state.get(id) === 1) throw new Error(`${label}: declared depends_on edge에 cycle이 있습니다.`); if (state.get(id) === 2) return; state.set(id,1); byId.get(id).forEach(visit); state.set(id,2); } ids.forEach(visit);
+}
+function topologyEditor(parent, title) {
+  const section = document.createElement('section'); section.className = 'unit'; addText(section, 'h3', title); parent.appendChild(section); const holder = document.createElement('div'); section.appendChild(holder); const rows = [];
+  const addRow = () => { const box = removableUnit(holder, 'Semantic operation node (free text)'); const id = makeField(box, 'node_id'); const operation = makeField(box, 'storage-neutral operation_description (자유 문장)', true); const depends = makeField(box, '반드시 선행하는 node IDs (한 줄에 하나)', true); const fulfills = makeField(box, '이 node가 충족하는 obligation IDs (한 줄에 하나)', true); const cues = makeField(box, '최소·국소 exact source cues (한 줄에 하나)', true, '전체 질문은 그 모든 표현이 실제로 뒷받침할 때만 사용합니다. substring 검사는 위치 무결성만 확인합니다.'); const implicit = makeField(box, 'cue가 없을 때 implicit rationale', true); rows.push({box,id,operation,depends,fulfills,cues,implicit}); };
+  const add = document.createElement('button'); add.type = 'button'; add.textContent = 'Free-text operation node 추가'; add.addEventListener('click', addRow); section.appendChild(add); addRow();
+  const entries = makeField(section, 'entry node IDs (모든 root를 한 줄에 하나)', true); const outputs = makeField(section, 'output node IDs (모든 sink를 한 줄에 하나)', true);
+  return { value(question, obligationIds, label) {
+    const nodes = rows.filter(row => row.box.isConnected).map((row,index) => { const evidence = validateCueEvidence(question, lines(row.cues, `${label}.nodes[${index}] cues`), row.implicit.value.trim(), `${label}.nodes[${index}]`); const fulfillsIds = identifierLines(row.fulfills, `${label}.nodes[${index}].fulfills`); return {node_id: identifier(row.id, `${label}.nodes[${index}].node_id`), operation_description: trimmed(row.operation, `${label}.nodes[${index}].operation_description`), depends_on: identifierLines(row.depends, `${label}.nodes[${index}].depends_on`), fulfills_obligation_ids: fulfillsIds, ...evidence}; });
+    if (!nodes.length) throw new Error(`${label}: node가 하나 이상 필요합니다.`); const ids = nodes.map(node => node.node_id); validateDependencyGraph(ids, nodes.map(node => node.depends_on), `${label}.nodes`); const obligationSet = new Set(obligationIds); nodes.forEach(node => { if (!node.fulfills_obligation_ids.length) throw new Error(`${label}: 모든 node는 하나 이상의 obligation을 충족해야 합니다.`); node.fulfills_obligation_ids.forEach(id => { if (!obligationSet.has(id)) throw new Error(`${label}: 없는 obligation ${id}를 참조합니다.`); }); }); const fulfilledSet = new Set(nodes.flatMap(node => node.fulfills_obligation_ids)); if (!sameSet([...fulfilledSet], obligationIds)) throw new Error(`${label}: 모든 obligation이 하나 이상의 node에 연결되어야 합니다.`);
+    const entryIds = identifierLines(entries, `${label}.entry_node_ids`); const outputIds = identifierLines(outputs, `${label}.output_node_ids`); const roots = nodes.filter(node => !node.depends_on.length).map(node => node.node_id); const depended = new Set(nodes.flatMap(node => node.depends_on)); const sinks = nodes.filter(node => !depended.has(node.node_id)).map(node => node.node_id); if (!sameSet(entryIds, roots)) throw new Error(`${label}: entry IDs는 모든 root의 정확한 집합이어야 합니다.`); if (!sameSet(outputIds, sinks)) throw new Error(`${label}: output IDs는 모든 sink의 정확한 집합이어야 합니다.`); return {nodes, entry_node_ids: entryIds, output_node_ids: outputIds};
+  } };
+}
+function issueList(parent) {
+  addText(parent, 'h3', 'Instrument issues'); const holder = document.createElement('div'); parent.appendChild(holder); const rows = []; const add = document.createElement('button'); add.type = 'button'; add.textContent = 'Instrument issue 추가'; add.addEventListener('click', () => { const box = removableUnit(holder, 'Instrument issue'); const type = makeSelect(box, 'type', [['cannot_express','cannot_express'],['multiple_equally_valid_encodings','multiple_equally_valid_encodings'],['rubric_unclear','rubric_unclear'],['burden','burden'],['other','other']]); const severity = makeSelect(box, 'severity', [['minor','minor'],['major','major'],['critical','critical']]); const rationale = makeField(box, 'rationale', true); rows.push({box,type,severity,rationale}); }); parent.appendChild(add); return { value(label) { return rows.filter(row => row.box.isConnected).map((row,index) => ({type: row.type.value, severity: row.severity.value, rationale: trimmed(row.rationale, `${label}[${index}].rationale`)})); } };
+}
+function alternativeList(parent) {
+  addText(parent, 'h3', '조건부 대안 topology plans'); const holder = document.createElement('div'); parent.appendChild(holder); const rows = []; const add = document.createElement('button'); add.type = 'button'; add.textContent = '대안 plan 추가'; add.addEventListener('click', () => { const box = removableUnit(holder, 'Alternative plan'); const planId = makeField(box, 'plan_id'); const condition = makeField(box, '이 대안이 유효한 조건', true); const rationale = makeField(box, '대안인 이유', true); const topology = topologyEditor(box, 'Alternative free-text topology'); rows.push({box,planId,condition,rationale,topology}); }); parent.appendChild(add); return { value(question, obligationIds, label) { const values = rows.filter(row => row.box.isConnected).map((row,index) => ({plan_id: identifier(row.planId, `${label}[${index}].plan_id`), condition: trimmed(row.condition, `${label}[${index}].condition`), rationale: trimmed(row.rationale, `${label}[${index}].rationale`), topology: row.topology.value(question, obligationIds, `${label}[${index}].topology`)})); if (new Set(values.map(value => value.plan_id)).size !== values.length) throw new Error(`${label}: plan_id가 중복됩니다.`); return values; } };
+}
+
+packet.items.forEach((item, index) => {
+  const card = document.createElement('article'); card.className = 'card';
+  addText(card, 'h2', `${index + 1}. ${item.question_view.question_id}`);
+  addText(card, 'p', item.question_view.question);
+  const paraphrase = makeField(card, '제한 없는 question paraphrase / 자유 관찰', true, '아직 다른 필드나 분류를 보지 않은 상태에서 자기 말로 기록하세요.');
+  paraphrase.disabled = true;
+  freeObservationControls.push({item, paraphrase}); stage1Root.appendChild(card);
+});
+
+const priorExposureControl = document.getElementById('prior-exposure');
+priorExposureControl.addEventListener('change', () => {
+  const eligible = priorExposureControl.value === 'no';
+  freeObservationControls.forEach(control => {
+    if (!eligible) control.paraphrase.value = '';
+    control.paraphrase.disabled = !eligible;
+  });
+  if (priorExposureControl.value === 'yes') window.alert('사전 노출이 선언되었습니다. 관찰을 시작하지 말고 연구자에게 exclusion을 알리세요.');
+});
+
+packet.items.forEach((item, index) => {
+  const card = document.createElement('article'); card.className = 'card';
+  addText(card, 'h2', `${index + 1}. ${item.question_view.question_id}`);
+  addText(card, 'p', item.question_view.question);
+  addText(card, 'p', `question view SHA-256: ${item.question_view_sha256}`);
+  const paraphrase = freeObservationControls[index].paraphrase;
+  const submission = makeSelect(card, 'submission_status', [['unreviewed','선택하세요'],['annotated','annotated'],['abstained','abstained']]); const abstention = makeField(card, 'abstention reason (abstained일 때만)', true);
+  const outcome = makeSelect(card, 'representation assessment', [['unreviewed','선택하세요'],['complete','complete'],['incomplete_schema_gap','incomplete_schema_gap'],['not_annotatable','not_annotatable']]); const assessmentRationale = makeField(card, 'assessment rationale', true); const gaps = makeField(card, 'schema gap descriptions (한 줄에 하나)', true);
+  const issues = issueList(card); addText(card, 'h3', 'Reduced semantic skeleton — 모두 자유 문장'); const answerTarget = cueEditor(card, 'Answer target'); const answerShape = cueEditor(card, 'Answer shape / cardinality (free description)'); const candidates = cueEditor(card, 'Candidate structure (free description)'); const informationUnits = informationUnitList(card); const selection = optionalCue(card, 'Selection requirement'); const backMapping = optionalCue(card, 'Back-mapping requirement'); const obligations = obligationList(card); const topology = topologyEditor(card, 'Environment-independent abstract topology — operation names are free text');
+  const ambiguityPresent = makeSelect(card, 'ambiguity present?', [['unreviewed','선택하세요'],['false','아니요'],['true','예']]); const ambiguityDescription = makeField(card, 'ambiguity description (예일 때)', true); const interpretations = makeField(card, 'alternative interpretations (한 줄에 하나; 예일 때)', true); const alternatives = alternativeList(card); const notes = makeField(card, '메모 (선택)', true);
+  controls.push({item, paraphrase, submission, abstention, outcome, assessmentRationale, gaps, issues, answerTarget, answerShape, candidates, informationUnits, selection, backMapping, obligations, topology, ambiguityPresent, ambiguityDescription, interpretations, alternatives, notes}); root.appendChild(card);
+});
+
+document.getElementById('lock-observations').addEventListener('click', () => {
+  const priorExposure = document.getElementById('prior-exposure').value; if (priorExposure === 'unanswered') { window.alert('관찰을 시작하기 전 prior exposure 질문에 답하세요.'); return; } if (priorExposure === 'yes') { window.alert('사전 노출이 선언되었습니다. 관찰을 제출하지 말고 연구자에게 exclusion을 알리세요.'); return; }
+  try {
+    lockedFreeObservationValues = freeObservationControls.map((control, index) =>
+      trimmed(control.paraphrase, `${control.item.question_view.question_id} 자유 관찰`)
+    );
+  } catch (error) { window.alert(error.message); return; }
+  freeObservationControls.forEach(control => { control.paraphrase.readOnly = true; control.paraphrase.setAttribute('aria-readonly', 'true'); });
+  priorExposureControl.disabled = true;
+  freeObservationsLocked = true;
+  document.getElementById('locked-free-observation-attestation').checked = true;
+  const lockButton = document.getElementById('lock-observations'); lockButton.disabled = true;
+  document.getElementById('stage1-status').textContent = '열 개 자유 관찰이 잠겼습니다. 아래 2단계에서 raw annotation을 완료하세요.';
+  stage2.hidden = false; stage2.scrollIntoView({behavior: 'smooth', block: 'start'});
+});
+
+document.getElementById('download').addEventListener('click', async () => {
+  if (!freeObservationsLocked) { window.alert('열 개 자유 관찰을 먼저 잠그고 2단계를 표시하세요.'); return; }
+  if (freeObservationControls.some((control, index) => control.paraphrase.value.trim() !== lockedFreeObservationValues[index])) { window.alert('잠긴 자유 관찰 값이 변경되어 export를 차단했습니다. 패킷을 새로 열어 다시 작성하세요.'); return; }
+  const annotatorInput = document.getElementById('annotator-id'); const annotatorId = annotatorInput.value.trim();
+  if (!annotatorInput.checkValidity() || annotatorId !== annotatorInput.value) { window.alert('이름·이메일이 아닌 3–128자의 안정된 익명 ID를 입력하세요.'); return; }
+  const priorExposure = document.getElementById('prior-exposure').value; if (priorExposure === 'unanswered') { window.alert('prior exposure 질문에 답하세요.'); return; } if (priorExposure === 'yes') { window.alert('사전 노출이 선언되어 exposure-naive 제출을 만들 수 없습니다. 연구자에게 알려 별도 exclusion 기록을 남기세요.'); return; }
+  const attestations = [...document.querySelectorAll('[data-attestation]')];
+  if (attestations.some(control => !control.checked)) { window.alert('모든 절차 확인에 동의해야 합니다. 해당하지 않으면 제출하지 마세요.'); return; }
+  if (controls.some(control => control.submission.value === 'unreviewed')) { window.alert('모든 질문의 submission status를 선택하세요.'); return; }
+  const completedAt = new Date().toISOString(); const output = [];
+  try {
+    for (const control of controls) {
+      const annotated = control.submission.value === 'annotated'; const questionId = control.item.question_view.question_id; const question = control.item.question_view.question;
+      const abstentionReason = trimmed(control.abstention, `${questionId} abstention reason`, !annotated); if (annotated && abstentionReason) throw new Error(`${questionId}: annotated이면 abstention reason을 비우세요.`);
+      let assessment = null, instrumentIssues = [], semanticSkeleton = null, informationObligations = [], abstractTopology = null, ambiguity = null, alternativePlans = [];
+      const freeObservation = lockedFreeObservationValues[controls.indexOf(control)];
+      if (annotated) {
+        if (control.outcome.value === 'unreviewed') throw new Error(`${questionId}: representation assessment가 필요합니다.`); const gapValues = lines(control.gaps, `${questionId} schema gaps`); assessment = {outcome: control.outcome.value, rationale: trimmed(control.assessmentRationale, `${questionId} assessment rationale`), schema_gap_descriptions: gapValues}; instrumentIssues = control.issues.value(`${questionId} instrument issues`);
+        if (assessment.outcome === 'complete' && (gapValues.length || instrumentIssues.length)) throw new Error(`${questionId}: complete이면 schema gaps와 instrument issues가 모두 비어야 합니다.`); if (assessment.outcome === 'incomplete_schema_gap' && (!gapValues.length || !instrumentIssues.some(issue => ['cannot_express','rubric_unclear'].includes(issue.type)))) throw new Error(`${questionId}: incomplete_schema_gap에는 gap과 cannot_express/rubric_unclear issue가 필요합니다.`); if (assessment.outcome === 'not_annotatable' && gapValues.length) throw new Error(`${questionId}: not_annotatable은 schema-gap 판정이 아니므로 gap 목록을 비우세요.`);
+        if (assessment.outcome === 'complete') {
+          const answerTarget = control.answerTarget.value(question, `${questionId} answer target`); const answerShape = control.answerShape.value(question, `${questionId} answer shape`); const candidateStructure = control.candidates.value(question, `${questionId} candidates`); semanticSkeleton = {answer_target: answerTarget, answer_shape_description: answerShape.description, answer_shape_source_cues: answerShape.source_cues, answer_shape_implicit_rationale: answerShape.implicit_rationale, candidate_structure: candidateStructure, required_information_units: control.informationUnits.value(question, `${questionId} information units`), selection_requirement: control.selection.value(question, `${questionId} selection`), back_mapping_requirement: control.backMapping.value(question, `${questionId} back mapping`)};
+          informationObligations = control.obligations.value(question, `${questionId} obligations`); const obligationIds = informationObligations.map(value => value.obligation_id); abstractTopology = control.topology.value(question, obligationIds, `${questionId} topology`); if (control.ambiguityPresent.value === 'unreviewed') throw new Error(`${questionId}: ambiguity 여부를 선택하세요.`); const present = control.ambiguityPresent.value === 'true'; const ambiguityText = trimmed(control.ambiguityDescription, `${questionId} ambiguity description`, present); const altInterpretations = lines(control.interpretations, `${questionId} alternative interpretations`); if (present && !altInterpretations.length) throw new Error(`${questionId}: ambiguity가 있으면 설명과 대안 해석이 필요합니다.`); if (!present && (ambiguityText || altInterpretations.length)) throw new Error(`${questionId}: ambiguity가 없으면 설명/대안 해석을 비우세요.`); ambiguity = {present, description: present ? ambiguityText : null, alternative_interpretations: present ? altInterpretations : []}; alternativePlans = control.alternatives.value(question, obligationIds, `${questionId} alternatives`);
+        }
+      }
+      const annotation = {
+        schema_version: packet.annotation_schema_version,
+        annotator_id: annotatorId,
+        batch_id: packet.batch_id,
+        question_id: questionId,
+        question: control.item.question_view.question,
+        question_view_sha256: control.item.question_view_sha256,
+        annotation_packet_payload_sha256: packetPayloadSha256,
+        completed_at: completedAt,
+        prior_exposure_declared: false,
+        researcher_approval_self_claimed: false,
+        submission_status: control.submission.value,
+        abstention_reason: annotated ? null : abstentionReason,
+        attestation: Object.fromEntries(attestations.map(element => [element.dataset.attestation, true])),
+        unconstrained_question_paraphrase: freeObservation,
+        representation_assessment: assessment,
+        instrument_issues: instrumentIssues,
+        semantic_skeleton: semanticSkeleton,
+        information_obligations: informationObligations,
+        abstract_topology: abstractTopology,
+        ambiguity,
+        alternative_topology_plans: alternativePlans,
+        notes: trimmed(control.notes, `${questionId} notes`, false) || null,
+        gold_claimed: false,
+      };
+      output.push({annotation, annotation_sha256: await sha256Canonical(annotation)});
+    }
+  } catch (error) { window.alert(error.message); return; }
+  const blob = new Blob([JSON.stringify(output, null, 2) + '\n'], {type: 'application/json'}); const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob); link.download = `question_structure_annotations_${packet.batch_id}_${annotatorId}.json`; link.click(); URL.revokeObjectURL(link.href);
+});
+</script>
+</body>
+</html>

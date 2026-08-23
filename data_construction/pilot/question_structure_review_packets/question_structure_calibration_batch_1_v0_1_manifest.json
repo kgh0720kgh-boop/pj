@@ -1,0 +1,124 @@
+{
+  "annotation_record_contract": {
+    "annotations_included": 0,
+    "annotator_authentication": "procedural_not_machine_verifiable",
+    "annotator_identity": "stable_pseudonymous_id",
+    "canonicalization": "sorted_compact_json_utf8_sha256_v0_1",
+    "gold_claimed": false,
+    "prior_exposure_declared": false,
+    "representation_assessment_outcomes": [
+      "complete",
+      "incomplete_schema_gap",
+      "not_annotatable"
+    ],
+    "researcher_approval_authority": "unimplemented_procedural_manual_registry_or_signoff_outside_raw_packet",
+    "researcher_approval_self_claimed": false,
+    "schema_version": "question_structure_annotation_v0_1",
+    "submission_statuses": [
+      "annotated",
+      "abstained"
+    ],
+    "wrapper_fields": [
+      "annotation",
+      "annotation_sha256"
+    ]
+  },
+  "annotation_status": "packet_created_no_human_annotations",
+  "batch_id": "phase_a1_batch_01",
+  "builder_version": "question_structure_annotation_packet_builder_v0_1",
+  "human_annotations_created_by_builder": false,
+  "inputs": {
+    "annotation_schema": {
+      "repository_relative_path": "data_construction/schemas/question_structure_annotation_v0_1.json",
+      "sha256": "6faacb6a328e3f05bf727f4fbc74ea9a37fe02873188248c03b349cbf6a38c7b"
+    },
+    "study_plan": {
+      "repository_relative_path": "data_construction/pilot/question_structure_study_plan_v0_1.json",
+      "sha256": "533aa565f3c08dc533ceaaf9d69b2dfb7fb1d2a0f5abd26840a03de28ee6d7be"
+    },
+    "view_schema": {
+      "repository_relative_path": "data_construction/schemas/question_only_semantic_view_v0_1.json",
+      "sha256": "a9d75b5daf329188c85228899714d889b4e43e89b7ba1b18c32dffa550ad9d79"
+    },
+    "views": {
+      "repository_relative_path": "data_construction/pilot/question_only_semantic_views_v0_1.jsonl",
+      "sha256": "513d7f3ef28a7d2ad61bc71c02ab7767a61468394e614a783705dd0d9ae5647a"
+    },
+    "views_manifest": {
+      "repository_relative_path": "data_construction/pilot/question_only_semantic_views_manifest_v0_1.json",
+      "sha256": "9ce6384e11907b0c9c6e47feff286a86329ee4203fb89b02732888f706986985"
+    }
+  },
+  "packet_artifact": {
+    "repository_relative_path": "data_construction/pilot/question_structure_review_packets/question_structure_calibration_batch_1_v0_1.html",
+    "sha256": "ebf13c128b5ea1fbee947050fa52e4f6886244871d01900dbcc6e9cb552cadee"
+  },
+  "packet_payload": {
+    "canonicalization": "sorted_compact_json_utf8_sha256_v0_1",
+    "contains_only_selected_question_views_blank_form_and_instrument_contract": true,
+    "instrument_contract_sha256": "3d43a77eacfaa34ff14a174ad32532280c7aa95d4e462d9018583246b33d44b9",
+    "reviewed_view": "blind_question_only_semantic_structure",
+    "rubric_version": "question_structure_open_coding_rubric_v0_1",
+    "schema_version": "question_structure_annotation_packet_payload_v0_1",
+    "sha256": "c86920e63cde36f285312bbbe3da58fe10c4de2e51e33745e22291a7568eb57b"
+  },
+  "provenance": {
+    "builder_does_not_claim_human_annotation": true,
+    "code_commit": "1639d67b396dcb681b1d923cf1fd6e057933c778",
+    "implementation_artifact_set_sha256": "927d91857b74660acbbdc90b08a958a5dc336cd61e57dad2b8b0b26008815bfc",
+    "implementation_artifacts": [
+      {
+        "repository_relative_path": "data_construction/schemas/question_only_semantic_view_v0_1.json",
+        "sha256": "a9d75b5daf329188c85228899714d889b4e43e89b7ba1b18c32dffa550ad9d79"
+      },
+      {
+        "repository_relative_path": "data_construction/schemas/question_structure_annotation_v0_1.json",
+        "sha256": "6faacb6a328e3f05bf727f4fbc74ea9a37fe02873188248c03b349cbf6a38c7b"
+      },
+      {
+        "repository_relative_path": "data_construction/tools/_common.py",
+        "sha256": "5e879a163863e3d4e497a57be99f4dc40a0e033d351dfed8da991514c789f64d"
+      },
+      {
+        "repository_relative_path": "data_construction/tools/build_question_only_semantic_views.py",
+        "sha256": "04192c0103dc396451e84fdb0d87b2ef30d2b05d70dd48cfa2b9cb6775d39608"
+      },
+      {
+        "repository_relative_path": "data_construction/tools/build_question_structure_annotation_packet.py",
+        "sha256": "403b5e4cdf419a7d15f95dc8eb54b88aa8c7ecabbfd5fdb57307f8bbdc3f62e0"
+      }
+    ]
+  },
+  "question_count": 10,
+  "schema_version": "question_structure_annotation_packet_manifest_v0_1",
+  "selection": {
+    "active_batch_id_verified": true,
+    "exact_view_order_verified": true,
+    "question_id_order_sha256": "375f5a957cc806d7226a704f0229393926a811dc1b0b9e4d03e70ae1c3f90a86",
+    "question_ids": [
+      "8259c70c392c5b75",
+      "1d48a5ffb05c7de2",
+      "743c4e765fcd76e5",
+      "ab5eb9535349cd7a",
+      "b3550375a684a870",
+      "f36270c917a195c7",
+      "8524304318e5f09a",
+      "c26cafcd706efe0d",
+      "3d207ccb8be56fd9",
+      "b16c668f54c230e7"
+    ],
+    "reviewers_per_question_required": 2
+  },
+  "validation": {
+    "closed_semantic_label_ontology_exposed": false,
+    "exact_four_field_view_allowlist_verified": true,
+    "later_layer_input_exposure": false,
+    "prefilled_semantic_content": false,
+    "raw_free_text_semantic_leakage_detection": false,
+    "schema_equivalent_client_validation_before_export": true,
+    "stage_transition_enforcement": "normal_ui_and_procedural_attestation_not_server_enforced_or_adversarial",
+    "study_plan_active_batch_verified": true,
+    "view_manifest_hashes_and_order_verified": true,
+    "web_crypto_sha256_required_for_export": true
+  }
+}
