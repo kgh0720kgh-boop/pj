@@ -4,7 +4,7 @@
 
 현재 active pilot은 question-only raw open coding이다. 순서는 raw observation → 별도 blinded alignment/freeze → held-out confirmation → deferred environment-aware operator granularity → representative grounding/execution이다. 아래 Phase 2 결과의 30 record/90 representation/90 check/3 packet/v0.1 metric은 그대로 보존하지만, 기존 packet은 현재 Phase A 또는 미래 blind Phase B human UI로 승인되지 않았다. 이전 6파일/180판정 task도 철회됐다.
 
-Phase A0 scaffold는 answer request, candidate structure, required information unit, dependency를 open text로 받는다. Closed semantic/operator enum은 없지만 scaffold 자체는 테스트할 구조 가설이다. Packet과 raw validator가 commit·검증된 뒤, 연구자 승인·상호 독립·무노출 실제 사람 2명이 첫 committed-order 10문항을 question-only로 독립 작성해 2파일/20 raw record를 만든다. Q1 대화는 human evidence 0건이며, later-layer exposure가 있는 사람은 영향받은 작업에서 제외한다. Reviewer identity·independence·approval·exposure 확인은 procedural/manual이고 machine-authenticated가 아니다.
+Phase A0 scaffold는 answer request, candidate structure, required information unit, dependency를 open text로 받는다. Closed semantic/operator enum은 없지만 scaffold 자체는 테스트할 구조 가설이다. 30개 question-only view와 첫 10문항 packet은 commit·packet-only 검증됐다. 이제 연구자 승인·상호 독립·무노출 실제 사람 2명이 첫 committed-order 10문항을 question-only로 독립 작성해 2파일/20 raw record를 만든다. Q1 대화는 human evidence 0건이며, later-layer exposure가 있는 사람은 영향받은 작업에서 제외한다. Reviewer identity·independence·approval·exposure 확인은 procedural/manual이고 machine-authenticated가 아니다.
 
 Raw schema/hash/leakage pass는 semantic agreement가 아니다. 두 raw set 뒤 별도 blinded alignment/adjudication artifact와 comparator를 만들고 결과 해석 전에 version/freeze해야 한다. Future Phase B는 A2-derived six strata에서 72 decisions로 시작해 precommitted trigger에 따라 90, 최대 108로 확장한다. Exact IDs는 A2 normalization 전에는 배정하지 않는다. 현재 bundle은 11 schemas/3 vocabularies이며 정확한 최신 validation/test 결과는 handoff를 따른다.
 

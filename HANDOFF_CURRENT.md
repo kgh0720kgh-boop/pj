@@ -2,90 +2,121 @@
 
 Project: Hierarchical Data Construction for Semantic Execution Topology Induction
 
-Current research phase: Phase 2 operator-granularity structural pilot complete; human calibration pending.
+Current research phase: **Phase A0 question-first instrument and artifacts are materialized; Phase A1 question-only calibration is awaiting real human annotations.**
 
 Current branch: `main`
 
-Expected HEAD baseline: `7f808d5d1bf75c00c0572b6f3cab6b10d211a94b` (`data: complete structural granularity pilot`). The handoff metadata commit containing this file is intentionally one linear descendant of that baseline; any later linear descendant is a continuation. A missing or non-ancestor baseline is divergence.
+Expected HEAD baseline: `b7f1749916fbb9b50ef8005cd7343db270e6f2ec` (`data: materialize phase A1 calibration packet`). The metadata commit containing this handoff is intentionally one linear descendant of that baseline; any later linear descendant is a continuation. A missing or non-ancestor baseline is divergence.
 
 Remote: `origin` → `https://github.com/kgh0720kgh-boop/pj.git`; `main` tracks `origin/main`.
 
-Last completed task: built 30 hash-bound leakage-safe operator views and 30 model-assisted records containing 90 coarse/medium/fine candidate representations, produced 90 warning-free deterministic pass records and three exact-rendered review packets, compared structural metrics without fabricating human evidence, and added write-once/explicit-overwrite protection to all five granularity writers.
+Last completed task: froze the question-first study sequence and raw open-coding contract, materialized 30 exact four-field question-only views, materialized the committed-order first-ten-question Phase A1 packet, and added deterministic packet/raw validators plus regression coverage. No human annotation was created by these builders.
 
-Current scientific decision: `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`. Study status is `structural_integrity_complete_human_calibration_pending`; this is not a final modeling decision, a selected vocabulary, a gold-corpus claim, or modeling readiness.
+Current scientific decision: `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`. Study status is `question_only_calibration_required_phase_b_deferred`. No semantic instrument, topology, operator vocabulary, corpus, or model is selected, gold, empirically frozen, or modeling-ready.
 
 Synchronization state: `LOCAL_COMMIT_NOT_PUSHED`
 
-Handoff readiness: Not ready. The work tree is clean after the metadata commit, but remote writes were not authorized and real independent human calibration remains open.
+Handoff readiness: Not ready. At the expected baseline, local `main` is 17 commits ahead of local `origin/main`; the final metadata commit containing this file is projected to make it 18 commits ahead. No push was performed or authorized. Phase A1 human evidence is also still absent.
 
 ## Current artifact snapshot
 
 | Area | Current status |
 | --- | --- |
 | Official HybridQA sources | Audited at pinned upstream commits; stable identities, hashes, counts, and reacquisition instructions are in `source_manifest_v0_1.json` |
-| Historical exposure | Strict-complete: five byte-preserved files, 100 unique exposed IDs, 15 historical locked-eval IDs, zero missing/count/provenance/release-contract errors |
+| Historical exposure | Strict-complete: five byte-preserved files, 100 unique exposed IDs, 15 historical locked-eval IDs, zero strict-audit errors |
 | Pilot allocation | 30 `annotation_schema_pilot` questions from pinned official dev; deterministic, source-verified, zero historical overlap, no override |
-| New train/dev/locked roles | Not allocated; all three counts are zero |
-| Leakage-safe input views | 30 ordered views; 60 selected upstream table/request files are hash-bound, while row/cell values, linked-document IDs/text, answers, traces, and grounding are excluded |
-| Granularity proposals | 30 records / 90 coarse-medium-fine representations; model-assisted status is `llm_proposed`, never gold |
-| Deterministic pilot checks | 90/90 pass; Draft 2020-12/schema/DAG/root-sink/vocabulary/leakage/live-artifact checks have errors=0 and warnings=0 |
-| Structural comparison | `integrity_complete=true`; coarse/medium/fine coverage is 14/13/13 of 30, but these are unreviewed proposal-level assessments |
-| Human evidence | Three 30-item review packets exist; real review records=0, disagreement observation count=0/rate=`null`, calibration/evidence/semantic confirmation/selection are all false |
-| Schema bundle | Nine Draft 2020-12 schemas and three candidate vocabularies; full exact-pin project-local validation passes with errors=0 and warnings=0 |
-| Historical IR v0.2 | Ten original files quarantined read-only under `historical/ir_v0_2/`, authenticated by recovery manifest and immutable Git authority |
-| IR validation | 50/50 condition-C graphs and 520 nodes validated; parse/schema/v0.2-validator errors=0; 455 `DEAD_NODE` warnings retained as historical planner-failure evidence |
-| Annotation IR bridge | `referenced_validated` claims now require exact IR/schema declarations, seven passed checks, a live hash-bound graph, and matching graph/question/table identities |
-| Output safety | All five granularity writers accept identical-byte regeneration, refuse differing existing outputs by default, and require explicit `--overwrite` for an authorized replacement |
-| Regression suite | 51/51 tests pass in the exact-pin project-local environment |
-| Git continuity | Local `main` is fourteen commits ahead of local `origin/main` after this metadata commit; no push was performed |
+| New train/dev/locked roles | Not allocated; all three counts remain zero |
+| Phase A0 study contract | `question_structure_study_plan_v0_1.json` fixes the question-first phase order, three ten-question batches, stopping branches, and deferred Phase B sampling contract; SHA-256 `533aa565f3c08dc533ceaaf9d69b2dfb7fb1d2a0f5abd26840a03de28ee6d7be` |
+| Question-only views | 30 ordered records with exactly `schema_version`, `visibility`, `question_id`, and `question`; no environment, answer, proposal, historical label, or other annotator output; JSONL SHA-256 `513d7f3ef28a7d2ad61bc71c02ab7767a61468394e614a783705dd0d9ae5647a` |
+| Active Phase A1 packet | Batch `phase_a1_batch_01`, first 10 committed-order questions, reviewers required per question=2, annotations created=0; HTML SHA-256 `ebf13c128b5ea1fbee947050fa52e4f6886244871d01900dbcc6e9cb552cadee` |
+| Packet binding | Canonical payload SHA-256 `c86920e63cde36f285312bbbe3da58fe10c4de2e51e33745e22291a7568eb57b`; manifest SHA-256 `6fffe2238df8b6c4178b6ca465d473811ad958d4dce1e84e8f44415bfdbda971` |
+| Human evidence | Real reviewer files=0, raw human records=0, agreement observations=0, adjudications=0; calibration/freeze/confirmation are all false |
+| Schema bundle | 11 Draft 2020-12 schemas and 3 candidate vocabulary instances; exact-pin validation passes with errors=0 and warnings=0 |
+| Regression suite | 62 tests pass in the exact-pin project-local environment |
+| Historical IR v0.2 | Ten original files remain quarantined read-only; 50 graphs/520 nodes validate with zero parse/schema/IR-validator errors and 455 preserved `DEAD_NODE` warnings |
+| Deferred Phase B evidence | Existing operator views, 30 `llm_proposed` records/90 coarse-medium-fine representations, 90 deterministic checks, three legacy packets, and v0.1 metrics are byte-preserved as feasibility evidence only |
 
-The source manifest is the dated, immutable v0.1 source-audit snapshot and still records the historical gate as it existed on 2026-08-21. The current allocation authority is the strict historical manifest plus `split_manifest_v0_1.json`; do not rewrite the source manifest merely to erase its dated audit context.
+The source manifest is a dated immutable v0.1 audit snapshot. Current allocation authority is the complete historical manifest plus `split_manifest_v0_1.json`; do not rewrite the source manifest merely to erase its earlier dated gate description.
+
+## Scientific interpretation boundary
+
+Phase A asks what semantic structure people can elicit from the question alone. Environment capability fields such as linked-document availability belong to later realization and must not appear in the Phase A question-only input.
+
+The raw form deliberately asks one reviewer to connect a question skeleton, semantic obligations, and a topology. Its output is therefore an **elicited linked representation** that can test whether the scaffold is usable and whether humans can express a question through it. It is not independent evidence that natural-language structure predicts a graph: the instrument itself requests the links.
+
+Before any cross-level relationship claim, motif claim, Phase B normalization, or common-graph claim, the project must add a separately versioned and frozen independent/blinded held-out topology elicitation or prediction pass. That pass must not expose the first-pass skeleton, obligation IDs, mapping references, other annotator output, or later-layer evidence, and it must use a different pass or eligible annotator. Agreement on the current linked form cannot substitute for that gate.
+
+Raw schema/hash validation establishes structural record integrity only. It does not establish semantic agreement, correctness, contamination absence, or a researcher's approval of the reviewer.
 
 ## Remaining gates
 
-- `LOCAL_COMMIT_NOT_PUSHED`: fourteen local commits are ahead of `origin/main`, and remote writes were not authorized.
-- `HUMAN_REVIEW_NOT_PERFORMED`: no real independent reviewer decisions or researcher-approved reviewer attestation exists; calibration, disagreement adjudication, and resolved annotations are unavailable.
+- `LOCAL_COMMIT_NOT_PUSHED`: the expected baseline is 17 local commits ahead of `origin/main`; the metadata child is projected to make it 18. Remote writes were not authorized.
+- `QUESTION_ONLY_CALIBRATION_NOT_PERFORMED`: no two approved independent exposure-naive human files exist for active batch 1.
 
-These gates make preflight exit 2 (`RESULT=NOT_READY`) even when every deterministic validation passes.
+These are the current preflight/readiness blockers recorded in machine state. Two additional scientific gates become actionable later:
+
+- `ALIGNMENT_CONTRACT_NOT_FROZEN`: no separately versioned blinded alignment/adjudication contract or comparator exists, so raw records cannot yet be converted into agreement or Phase A2 readiness claims.
+- `INDEPENDENT_TOPOLOGY_GATE_NOT_IMPLEMENTED`: the current linked scaffold cannot support a cross-level structure-to-graph inference by itself.
+
+None is a deterministic validation failure. Preflight should remain `RESULT=NOT_READY` with exit 2 while either current blocker remains; later scientific claims remain prohibited until their applicable gates are also truthfully resolved.
 
 ## Next exact task
 
-For the exact 30 IDs/order and the three committed packet payloads:
+### Human task: Phase A1 batch 1
 
-1. Obtain two independent substantive review sets for each granularity. This means six reviewer-by-granularity JSON files and 180 decisions total; it does not require six different people, but each granularity must have two distinct stable pseudonymous reviewer IDs.
-2. Have the researcher verify and approve the reviewers' real-human identity and independence. The code reports `procedural_not_machine_verifiable`; schema-valid files alone are not sufficient attestation.
-3. Require every decision to complete `semantic_validity`, `coverage_status`, `ambiguity_present`, `hides_reasoning`, and `excessive_fragmentation`, while binding the exact packet payload and reviewed representation hashes. Abstentions remain uncertain and are excluded from substantive calibration observations.
-4. Rerun `compare_operator_granularity.py` with all six review arrays and the three manifests. Preserve raw arrays and hashes; do not copy human claims into the `llm_proposed` representation artifact.
-5. Adjudicate every reject, `accept_with_edits`, and substantive assessment disagreement. Only after attestation and adjudication may the project consider a vocabulary-selection request or a versioned schema/vocabulary revision.
+Use only:
 
-The historical condition-C artifact contains answers, evaluator outputs, and later-stage graph evidence. It is permitted only for late-stage IR compatibility regression and historical failure analysis. Never use it, official answer text, weak traces, oracle document IDs, or later-layer labels in question-only semantic, obligation, abstract-topology, operator-topology, few-shot, prompt, or rubric inputs.
+`data_construction/pilot/question_structure_review_packets/question_structure_calibration_batch_1_v0_1.html`
 
-Do not allocate annotation train/dev/locked-eval roles, select a final vocabulary, label proposals gold, or claim modeling readiness from structural pass results alone.
+1. The researcher approves two real humans who are mutually independent and exposure-naive for these questions. Anyone who saw later-layer table/document content, answers, grounding, old graphs, proposals, or the earlier worked discussion of question 1 is ineligible for the affected work.
+2. Each reviewer works independently on the same 10 committed-order questions and exports one immutable 10-record JSON file. The result is two files and 20 raw records, not 180 granularity decisions.
+3. In the normal packet UI, each reviewer completes all ten free observations and locks them before the linked scaffold is revealed. The reviewer then completes or truthfully abstains on each record and supplies the required attestations.
+4. The researcher verifies real-human identity, mutual independence, approval, and prior exposure outside the raw packet. Reviewer pseudonyms and self-attestation are not authentication.
+5. Validate each file independently, preserving the immutable raw file and its generated check artifact:
+
+```sh
+.venv/bin/python data_construction/tools/validate_question_structure_annotations.py \
+  data_construction/pilot/human_reviews/<reviewer-file>.json \
+  --batch-id phase_a1_batch_01 \
+  --checks-output data_construction/pilot/human_reviews/<reviewer-checks>.jsonl
+```
+
+The packet stages are enforced only by normal browser UI plus procedural attestation, not by a server or adversarial blinding system. Forbidden-key checks cannot detect arbitrary later-layer content pasted into an allowed free-text field. Those limitations must remain part of the human audit.
+
+### Technical task immediately after two valid raw files
+
+Create and freeze a separately versioned blinded alignment/adjudication contract and comparator before calculating semantic agreement or declaring Phase A1 complete. Preserve raw open coding unchanged; do not silently normalize it in place. The alignment layer must distinguish schema-validity, semantic comparability, unresolved ambiguity, adjudication, and evidence status.
+
+Only after that freeze may the study enter the Phase A2 branch defined in the study plan:
+
+- if batch 1 freezes the contract, batches 2 and 3 provide 20 held-out questions / 40 raw records;
+- if batch 1 changes the contract and batch 2 freezes it, only batch 3 provides 10 held-out questions / 20 raw records;
+- if batch 2 also changes it, batch 3 is calibration and leaves zero holdout, so Phase B must stop pending fresh authorized questions or a documented reframe.
+
+## Deferred Phase B and later execution
+
+The former task requiring six files and 180 operator-granularity decisions is revoked. Do not use the three legacy packets for current Phase A review or treat them as an approved future Phase B interface.
+
+Phase B may start only after eligible Phase A2 evidence, the independent/blinded topology gate, and a frozen six-stratum taxonomy derived only from eligible frozen Phase A evidence. The exact sample manifest must be committed before selected proposal judgments, self-assessments, or Phase B human outcomes are opened. Base sampling is 12 questions × 3 granularities × 2 reviewers = 72 decisions, with precommitted trigger expansion to 90 and at most 108. Existing proposals already exist and question 1 has been discussed, so no artifact may falsely claim that all proposal content was unopened before this redesign.
+
+Representative grounding/execution belongs only after Phase B; Phase C uses one representative per stratum precommitted in the Phase B sample manifest. Execution success and semantic-plan correctness remain separate signals.
+
+Do not allocate annotation train/dev/locked-eval roles, select a final vocabulary, label proposals gold, or claim modeling readiness from structural checks or packet existence.
 
 ## Git continuity
 
-The local continuation after `origin/main` at `c337e9a67c15cd68fbb53eefb79bef90a6f9f242` is linear:
+The local continuation after `origin/main` at `c337e9a67c15cd68fbb53eefb79bef90a6f9f242` is linear. The Phase A0 continuation added by the current work is:
 
 | Commit | Purpose |
 | --- | --- |
-| `dc44e7a` | Fixed descendant-aware handoff baseline checks and refreshed the repository baseline |
-| `1995c0c` | Preserved the five recovered Week 1–3 files byte-for-byte |
-| `5680d02` | Verified researcher-approved provenance and generated the complete strict historical manifest |
-| `dcc5ac5` | Preserved the ten-file historical IR v0.2 contract/runtime/evidence bundle |
-| `4cf0f9c` | Allocated the verified 30-question pilot |
-| `94fe6cf` | Recorded the exact IR recovery inventory and leakage policy |
-| `bedfd1f` | Integrated hardened IR validation, annotation bridging, preflight checks, tests, and current reports |
-| `b65aa94` | Advanced the handoff to the allocated annotation pilot |
-| `9499ba5` | Defined the strict granularity schema, plan, builders, validator, comparator, and review contract |
-| `4e7a414` | Bound the first leakage-safe 30-view artifact and manifest |
-| `3ea0330` | Added atomic write-once and explicit-overwrite protection to all granularity writers |
-| `52aa21c` | Refreshed the view manifest at the protected implementation commit |
-| `7f808d5` | Committed 90 validated representations, 90 checks, three review packets, metrics, reports, and preflight integration |
-| metadata child | Updates this handoff, `state/project_state.json`, and final preflight state bindings; it is one descendant of the expected baseline |
+| `73d7849` | Established the question-first study plan, schemas, packet/raw tooling, validators, reports, and tests |
+| `1639d67` | Materialized and bound the 30 blind four-field question-only views |
+| `b7f1749` | Materialized and bound the active first-ten-question Phase A1 packet |
+| metadata child | Updates handoff, machine state, preflight bindings, and current status; one descendant of the expected baseline |
 
-Do not force-push, rewrite these commits, discard them, or push without explicit remote-write authorization. Because they are not on `origin/main`, this is not yet a portable cross-device handoff.
+The preceding local commits preserve historical recovery, IR v0.2, the 30-question allocation, and deferred granularity feasibility artifacts. Inspect them with `git log --oneline origin/main..HEAD`; do not force-push, rewrite, reset, or discard this linear continuation. No push is authorized by this handoff.
 
-## Required files to read
+## Required files to read on continuation
 
 1. `CODEX_DATA_CONSTRUCTION_RESET_PROMPT_V2_MULTI_DEVICE.md`
 2. `AGENTS.md`
@@ -94,18 +125,17 @@ Do not force-push, rewrite these commits, discard them, or push without explicit
 5. `ENVIRONMENT.md`
 6. `reports/cross_device_repo_audit.md`
 7. `data_construction/reports/data_source_audit.md`
-8. `state/historical_recovery_provenance_v0_1.json`
-9. `data_construction/manifests/historical_exposed_ids.json`
-10. `data_construction/manifests/source_manifest_v0_1.json`
-11. `data_construction/manifests/source_question_ids.json`
-12. `data_construction/manifests/split_manifest_v0_1.json`
-13. `data_construction/pilot/granularity_representation_plan_v0_1.json`
-14. `data_construction/pilot/granularity_input_views_manifest_v0_1.json`
-15. `data_construction/pilot/granularity_representations.jsonl`
-16. `data_construction/pilot/granularity_deterministic_checks.jsonl`
-17. `data_construction/reports/operator_granularity_metrics_v0_1.json`
-18. `historical/README.md`
-19. `historical/ir_v0_2/recovery_manifest_v0_1.json`
+8. all versioned files under `data_construction/manifests/`
+9. `data_construction/pilot/question_structure_study_plan_v0_1.json`
+10. `data_construction/reports/research_sequencing_decision_v0_1.md`
+11. `data_construction/pilot/question_only_semantic_views_manifest_v0_1.json`
+12. `data_construction/pilot/question_structure_review_packets/question_structure_calibration_batch_1_v0_1_manifest.json`
+13. `data_construction/schemas/question_only_semantic_view_v0_1.json`
+14. `data_construction/schemas/question_structure_annotation_v0_1.json`
+15. `data_construction/pilot/granularity_representation_plan_v0_1.json`
+16. `data_construction/reports/operator_granularity_metrics_v0_1.json`
+17. `historical/README.md`
+18. `historical/ir_v0_2/recovery_manifest_v0_1.json`
 
 ## Commands to reproduce current checks
 
@@ -119,50 +149,31 @@ git remote -v
 python3 -m json.tool state/project_state.json >/dev/null
 .venv/bin/python data_construction/tools/check_schema_bundle.py --require-jsonschema
 .venv/bin/python data_construction/tools/validate_ir_v0_2_reference.py --all
+.venv/bin/python data_construction/tools/validate_question_structure_annotations.py \
+  --batch-id phase_a1_batch_01 \
+  --packet-only
 .venv/bin/python -m unittest discover -s tests -v
 sh -n scripts/cross_device_preflight.sh
 sh scripts/cross_device_preflight.sh
 ```
 
-Expected deterministic results:
+Expected deterministic results for the committed Phase A0 baseline:
 
-- schema bundle: 9 schemas, 3 vocabularies, errors=0, warnings=0;
-- granularity pilot: 30 questions, 90 representations, 90 warning-free pass checks, three exact-rendered packets, human reviews=0, disagreement=`N/A`, selection-ready=false;
+- schema bundle: 11 schemas, 3 vocabularies, errors=0, warnings=0;
+- question-only views: 30 exact four-field records in committed allocation order;
+- active packet: batch 1, 10 questions, exact-render/hash validation pass, human annotations=0;
 - IR adapter: 50 records, 520 nodes, parse/schema/validator errors=0, `DEAD_NODE=455`;
-- tests: 51 passed;
-- preflight: 25 core JSON files parsed, zero validation failures, `RESULT=NOT_READY`, exit 2 only because real human calibration/attestation and remote synchronization remain open;
+- tests: 62 passed;
+- preflight: zero deterministic validation failures, `RESULT=NOT_READY`, exit 2 for declared human/synchronization gates;
 - Git work tree: clean after the metadata commit;
-- local branch: fourteen commits ahead of the local tracking ref.
+- local branch: projected 18 commits ahead of the local tracking ref after that commit.
 
-The preflight comparison uses local remote-tracking refs. Fetch separately only when remote reads are authorized. Do not pull over or reset the local continuation.
+The preflight comparison uses local remote-tracking refs. Fetch only when remote reads are authorized; do not pull over or reset the local continuation.
 
-## Do-not-modify historical paths
+## Historical and machine-local boundaries
 
-The following are read-only evidence:
+Every path listed under `historical_read_only_paths` in `state/project_state.json`, including the five Week 1–3 source files and ten files under `historical/ir_v0_2/`, is immutable evidence. A correction or additional recovery requires a new versioned manifest and preservation commit. Never use recovered exposed IDs for training, or recovered locked-evaluation IDs for prompt, rubric, schema, or operator-vocabulary tuning.
 
-- `data_analysis/week1_sample_100.jsonl`
-- `evaluation/week2_eval_ids.json`
-- `evaluation/week3_engineering_dev_ids.json`
-- `evaluation/week3_locked_eval_ids.json`
-- `evaluation/week3_split_manifest.json`
-- `historical/ir_v0_2/ir/spec_v0_2.md`
-- `historical/ir_v0_2/ir/execution_graph.schema.json`
-- `historical/ir_v0_2/ir/operator_registry_v0_2.json`
-- `historical/ir_v0_2/ir/type_registry_v0_2.json`
-- `historical/ir_v0_2/src/hybridqa_graph/ir.py`
-- `historical/ir_v0_2/src/hybridqa_graph/planning.py`
-- `historical/ir_v0_2/src/hybridqa_graph/registry.py`
-- `historical/ir_v0_2/src/hybridqa_graph/validator.py`
-- `historical/ir_v0_2/experiments/results/week2_pilot/condition_C.jsonl`
-- `historical/ir_v0_2/experiments/results/week2_pilot/run_manifest.json`
+Recreate `.venv` from `requirements.txt`; never copy it between machines. Official HybridQA checkouts are untracked caches and must be reacquired or verified from the source manifest. Conversation state, caches, credentials, local stashes, editor state, and consumer-synchronized folders are non-portable.
 
-A correction or additional recovery requires a new versioned manifest and preservation commit. Never use recovered exposed IDs for training, and never use the recovered locked-evaluation IDs for prompt/rubric/schema/operator-vocabulary tuning.
-
-## Machine-local resources
-
-- CPython 3.10.12 and Git are workstation dependencies.
-- Recreate `.venv` from `requirements.txt`; never copy it across machines.
-- Official HybridQA source checkouts are untracked caches and must be reacquired or verified from the source manifest.
-- Codex conversation state, caches, credentials, local stashes, editor state, and consumer-synchronized folders are non-portable.
-
-No model runtime, secret, GPU, database, Docker service, or external account is required to reproduce the deterministic validation of the committed pilot. The proposal plan records `model_id=codex_gpt-5`, but exact model revision and raw output were not exposed and seed was unsupported; exact generation replayability is therefore not claimed. Future model runs must record stable model ID, exact revision, seed, prompt artifact, raw output hash, code commit, and run status when the interface exposes them, or explicit unavailable status otherwise.
+No model runtime, secret, GPU, database, Docker service, or external account is required for committed deterministic validation. The deferred proposal plan records `model_id=codex_gpt-5`, but exact revision and raw output were unavailable and seed unsupported; exact generation replayability is not claimed. Future model runs must record stable model ID, exact revision, seed, prompt artifact, raw-output hash, code commit, and run status when exposed, or an explicit unavailable status otherwise.

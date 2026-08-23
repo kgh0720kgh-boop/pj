@@ -6,8 +6,8 @@
 
 - `questions.jsonl`: pinned official dev에서 결정론적으로 할당된 30개 질문. 역사 노출 overlap과 diagnostic override는 0이다.
 - `question_structure_study_plan_v0_1.json`: 세 개의 committed-order 10문항 batch, Phase A stopping branch, Phase B 72→90→108 sampling rule을 고정한 machine-readable plan.
-- `question_only_semantic_views_v0_1.jsonl`과 manifest: 생성 후 opaque question ID와 exact question text만 담는 30개 projection. 환경·answer·trace·proposal을 포함하지 않는다.
-- `question_structure_review_packets/`: active batch의 blank open-coding packet과 manifest가 생성될 위치. Scaffold는 answer request, candidate structure, required information unit, dependency를 묻지만, 그 scaffold 자체가 검증할 구조 가설이며 closed semantic/operator enum을 제공하지 않는다.
+- `question_only_semantic_views_v0_1.jsonl`과 manifest: opaque question ID와 exact question text만 담는 committed 30개 projection. 환경·answer·trace·proposal을 포함하지 않는다.
+- `question_structure_review_packets/`: active batch의 committed 10-question blank open-coding packet과 manifest. Scaffold는 answer request, candidate structure, required information unit, dependency를 묻지만, 그 scaffold 자체가 검증할 구조 가설이며 closed semantic/operator enum을 제공하지 않는다. Packet-only 검사는 통과했고 human annotation은 0이다.
 - `granularity_input_views.jsonl`과 `granularity_input_views_manifest_v0_1.json`: 질문별 question view와 leakage-reduced operator view. 표의 identity/title/section, column label·index·link capability, 환경 capability만 보이며 row/cell 값, linked-document ID/text, answer, trace, grounding은 보이지 않는다.
 - `granularity_representation_plan_v0_1.json`: 30개 질문과 coarse/medium/fine 후보를 담은 structured proposal plan.
 - `granularity_representations.jsonl`: plan을 live view와 세 vocabulary에 결속한 30개 record, 90개 candidate representation.
@@ -18,7 +18,7 @@
 
 ## 현재 Phase A raw observation 계약
 
-Question-only packet과 raw validator가 commit되고 검사를 통과한 다음에만 수집한다. 연구자가 수동으로 승인한 서로 다른 실제 사람 2명은 상호 상담이나 외부 lookup 없이 committed order의 첫 10문항을 독립 작성한다. 각 reviewer가 immutable 10-record 파일 하나를 제출하므로 총 2파일/20 raw record다. Reviewer identity, independence, approval, prior-exposure attestation은 procedural/manual이며 machine-authenticated가 아니다. 한 HTML 안의 batch-wide lock은 정상 UI staging일 뿐 source/DOM inspection에 맞선 server-enforced blinding이 아니며, key 기반 금지 검사는 허용 free-text의 의미 contamination까지 탐지하지 못한다.
+Question-only packet과 raw validator는 commit·검증됐다. 이제 연구자가 수동으로 승인한 서로 다른 실제 사람 2명은 상호 상담이나 외부 lookup 없이 committed order의 첫 10문항을 독립 작성한다. 각 reviewer가 immutable 10-record 파일 하나를 제출하므로 총 2파일/20 raw record다. Reviewer identity, independence, approval, prior-exposure attestation은 procedural/manual이며 machine-authenticated가 아니다. 한 HTML 안의 batch-wide lock은 정상 UI staging일 뿐 source/DOM inspection에 맞선 server-enforced blinding이 아니며, key 기반 금지 검사는 허용 free-text의 의미 contamination까지 탐지하지 못한다.
 
 질문 1에 관한 앞선 대화는 protocol 분석이고 human evidence는 0이다. Environment view, candidate graph, model rationale, answer, trace 등 later-layer material을 본 사람은 영향받은 exposure-naive 작업에서 제외한다. Raw record가 schema-valid·hash-bound·substantive여도 이는 observation integrity만 뜻한다. Semantic unit normalization, reviewer alignment, agreement score, adjudication은 아직 구현되지 않았으며, 두 raw set 뒤 별도 versioned blind contract와 comparator를 결과 해석 전에 동결해야 한다.
 
@@ -42,6 +42,6 @@ Question-only packet과 raw validator가 commit되고 검사를 통과한 다음
 
 `../reports/operator_granularity_metrics_v0_1.json`의 `structural_integrity_complete_human_calibration_pending`은 보존된 v0.1 Phase B artifact 상태다. 사람 review record와 disagreement 관측은 모두 0이고 rate는 `null`이다. 현재 전체 결정은 계속 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`이며 vocabulary는 선택·동결되지 않았고 corpus는 gold 또는 modeling-ready가 아니다.
 
-다음 human task는 Phase A0 packet/validator가 준비된 뒤 첫 10문항에 대한 exposure-naive 독립 open coding 2파일/20 raw record다. 그 다음 technical task는 blinded alignment/adjudication 계약과 comparator의 versioning·freeze다. 정확히 존재하는 builder 명령과 validator 준비 상태는 `../README.md` 및 최신 handoff에 있다.
+다음 human task는 materialized Phase A0 packet의 첫 10문항에 대한 exposure-naive 독립 open coding 2파일/20 raw record다. 그 다음 technical task는 blinded alignment/adjudication 계약과 comparator의 versioning·freeze다. 정확한 명령은 `../README.md` 및 최신 handoff에 있다.
 
 기존 allocation, view, representation, packet을 단지 새로 만들기 위해 덮어쓰지 않는다. 변경이 과학 계약을 바꾸면 새 versioned artifact와 migration note를 만든다. Diagnostic override 산출물은 release 가능한 pilot이나 locked-eval 근거로 승격할 수 없다.

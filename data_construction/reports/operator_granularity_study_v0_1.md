@@ -8,11 +8,11 @@
 
 새 Phase B UI는 independent assessment를 commit하기 전에 proposal의 coverage, gap, new-operator suggestion, ambiguity, hidden-reasoning, fragmentation, rationale를 숨기고, partial sketch의 진실성과 full-plan completeness를 구분해야 한다. Reviewer identity·independence·approval은 수동 절차이며 machine-authenticated가 아니다. 현재 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`; 어떤 vocabulary도 선택·동결하지 않는다.
 
-현재 immediate human task는 A0 packet/raw validator가 commit·검증된 뒤, 연구자 승인·상호 독립·무노출 실제 사람 2명이 첫 committed-order 10문항을 question text만 보고 open-code하여 2파일/20 raw record를 만드는 것이다. Q1 대화는 zero human evidence이고 later-layer exposure가 있는 사람은 영향받은 작업에서 제외된다. Raw validity 뒤 별도 blinded alignment/adjudication contract와 comparator를 freeze하기 전에는 agreement나 Phase A2 readiness를 주장하지 않는다.
+현재 A0 packet/raw validator는 commit·검증됐다. Immediate human task는 연구자 승인·상호 독립·무노출 실제 사람 2명이 첫 committed-order 10문항을 question text만 보고 open-code하여 2파일/20 raw record를 만드는 것이다. Q1 대화는 zero human evidence이고 later-layer exposure가 있는 사람은 영향받은 작업에서 제외된다. Raw validity 뒤 별도 blinded alignment/adjudication contract와 comparator를 freeze하기 전에는 agreement나 Phase A2 readiness를 주장하지 않는다.
 
 ## 2026-08-23 이전 Phase 2 실행 결과 addendum — 보존된 snapshot
 
-현재 study 상태는 `structural_integrity_complete_human_calibration_pending`이고 잠정 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`다. 고정된 30개 `annotation_schema_pilot` 질문에 대해 coarse/medium/fine 표현을 각각 하나씩, 총 90개 만들었다. 이 표현은 model-assisted `llm_proposed` 산출물이며 사람이 확인한 annotation이나 gold가 아니다. 기록된 model ID는 `codex_gpt-5`이고, exact model revision과 raw model output은 실행 인터페이스에서 노출되지 않았다는 한계도 provenance에 명시했다.
+당시 granularity artifact 상태는 `structural_integrity_complete_human_calibration_pending`이었고 잠정 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`였다. 고정된 30개 `annotation_schema_pilot` 질문에 대해 coarse/medium/fine 표현을 각각 하나씩, 총 90개 만들었다. 이 표현은 model-assisted `llm_proposed` 산출물이며 사람이 확인한 annotation이나 gold가 아니다. 기록된 model ID는 `codex_gpt-5`이고, exact model revision과 raw model output은 실행 인터페이스에서 노출되지 않았다는 한계도 provenance에 명시했다.
 
 `granularity_deterministic_checks.jsonl`의 90개 검사는 모두 통과했고 오류와 경고는 각각 0개다. Comparator도 30개 질문과 세 granularity의 완전한 ID 대응, live artifact hash, vocabulary/schema 결속을 검증해 `integrity_complete=true`로 기록했다. 이는 구조 및 provenance 무결성 결과일 뿐 표현의 의미적 정답성을 입증하지 않는다.
 

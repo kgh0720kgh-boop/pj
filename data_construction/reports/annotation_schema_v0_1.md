@@ -8,7 +8,7 @@ Phase A0용 `question_only_semantic_view_v0_1`은 opaque question ID와 exact qu
 
 Raw record schema/hash/leakage validation은 observation integrity만 뜻한다. Semantic-unit normalization, cross-reviewer alignment, agreement scoring, adjudication은 A0에 구현되지 않았고 두 독립 raw set 뒤 별도 versioned blind contract와 comparator를 결과 해석 전에 동결해야 한다. 따라서 raw valid를 semantic confirmation이나 Phase A1 pass로 해석하지 않는다.
 
-Packet과 raw validator가 commit·검증된 뒤 다음 human task는 연구자 승인·상호 독립·무노출 실제 사람 2명이 committed order의 첫 10문항을 question-only로 독립 작성해 2파일/20 raw record를 만드는 것이다. Q1 대화는 protocol 분석이고 human evidence는 0이다. Later-layer 자료에 노출된 사람은 영향받은 exposure-naive 작업에서 제외한다. Identity, independence, approval, prior-exposure attestation은 procedural/manual이며 machine-authenticated가 아니다.
+Packet과 raw validator는 commit·검증됐다. 다음 human task는 연구자 승인·상호 독립·무노출 실제 사람 2명이 committed order의 첫 10문항을 question-only로 독립 작성해 2파일/20 raw record를 만드는 것이다. Q1 대화는 protocol 분석이고 human evidence는 0이다. Later-layer 자료에 노출된 사람은 영향받은 exposure-naive 작업에서 제외한다. Identity, independence, approval, prior-exposure attestation은 procedural/manual이며 machine-authenticated가 아니다.
 
 이전 6 reviewer×granularity 파일/180판정 task는 철회됐다. 미래 Phase B는 A2 evidence로 동결한 6-stratum taxonomy에서 `12 × 3 × 2 = 72`판정으로 시작하고 사전 선언 trigger에 따라 90, 최대 108판정까지 확장한다. Exact question ID는 A2 normalization 전에 배정하지 않는다. 현재 bundle은 schema 11개와 vocabulary 3개이며, 최신 exact-pin 및 test 결과는 handoff를 따른다.
 

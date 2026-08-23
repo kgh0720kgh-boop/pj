@@ -4,7 +4,7 @@
 
 Resolved annotation corpus는 여전히 0건이다. 현재 순서는 question-only raw open coding → 별도 blinded alignment/freeze → held-out confirmation → deferred operator granularity → representative grounding/execution이다. 기존 30 model-assisted record, 90 coarse-medium-fine representation, 90 deterministic check, 세 packet, v0.1 metric은 byte-preserved Phase B feasibility statistics이고 corpus record가 아니다. 기존 packet은 승인된 Phase A/Phase B human UI가 아니며 이전 180-decision task는 철회됐다.
 
-Immediate human task는 A0 packet/raw validator가 commit·검증된 뒤 서로 독립적이고 exposure-naive인 researcher-approved real human 2명이 첫 committed-order 10문항을 question-only open-code해 2파일/20 raw record를 만드는 것이다. Q1 논의는 zero evidence다. Identity/independence/approval/exposure는 manual procedural sign-off이고 machine authentication이 아니다. Raw record validity는 semantic agreement나 corpus confirmation이 아니며, 별도 blinded alignment/adjudication contract와 comparator가 frozen되기 전에는 agreement statistics를 만들지 않는다.
+A0 packet/raw validator는 commit·검증됐다. Immediate human task는 서로 독립적이고 exposure-naive인 researcher-approved real human 2명이 첫 committed-order 10문항을 question-only open-code해 2파일/20 raw record를 만드는 것이다. Q1 논의는 zero evidence다. Identity/independence/approval/exposure는 manual procedural sign-off이고 machine authentication이 아니다. Raw record validity는 semantic agreement나 corpus confirmation이 아니며, 별도 blinded alignment/adjudication contract와 comparator가 frozen되기 전에는 agreement statistics를 만들지 않는다.
 
 Future Phase B 통계는 A2-derived frozen six-stratum sample에 대해 base 72 decisions, trigger-based 90, maximum 108을 분리 보고한다. Exact sample IDs는 A2 normalization 뒤 precommit한다. 현재 bundle은 11 schemas/3 vocabularies이며 최신 exact-pin/test 결과는 handoff 기준이다.
 

@@ -76,6 +76,11 @@ for required_file in \
     data_construction/manifests/split_manifest_v0_1.json \
     data_construction/pilot/README.md \
     data_construction/pilot/questions.jsonl \
+    data_construction/pilot/question_structure_study_plan_v0_1.json \
+    data_construction/pilot/question_only_semantic_views_v0_1.jsonl \
+    data_construction/pilot/question_only_semantic_views_manifest_v0_1.json \
+    data_construction/pilot/question_structure_review_packets/question_structure_calibration_batch_1_v0_1.html \
+    data_construction/pilot/question_structure_review_packets/question_structure_calibration_batch_1_v0_1_manifest.json \
     data_construction/pilot/granularity_representation_plan_v0_1.json \
     data_construction/pilot/granularity_input_views.jsonl \
     data_construction/pilot/granularity_input_views_manifest_v0_1.json \
@@ -96,6 +101,8 @@ for required_file in \
     data_construction/schemas/hierarchical_annotation_v0_1.json \
     data_construction/schemas/operator_vocabulary_schema_v0_1.json \
     data_construction/schemas/operator_granularity_pilot_v0_1.json \
+    data_construction/schemas/question_only_semantic_view_v0_1.json \
+    data_construction/schemas/question_structure_annotation_v0_1.json \
     data_construction/operator_design/operator_vocabulary_coarse_v0_1.json \
     data_construction/operator_design/operator_vocabulary_medium_v0_1.json \
     data_construction/operator_design/operator_vocabulary_fine_v0_1.json \
@@ -105,13 +112,17 @@ for required_file in \
     data_construction/reports/pilot_annotation_report.md \
     data_construction/reports/corpus_statistics.md \
     data_construction/reports/DATA_CONSTRUCTION_RESEARCH_REPORT.md \
+    data_construction/reports/research_sequencing_decision_v0_1.md \
     data_construction/reports/operator_granularity_metrics_v0_1.json \
     data_construction/tools/_common.py \
     data_construction/tools/build_historical_manifest.py \
     data_construction/tools/build_sample.py \
+    data_construction/tools/build_question_only_semantic_views.py \
+    data_construction/tools/build_question_structure_annotation_packet.py \
     data_construction/tools/check_schema_bundle.py \
     data_construction/tools/fetch_official_hybridqa_sources.sh \
     data_construction/tools/validate_annotation.py \
+    data_construction/tools/validate_question_structure_annotations.py \
     data_construction/tools/validate_ir_v0_2_reference.py \
     data_construction/tools/build_review_packet.py \
     data_construction/tools/build_granularity_views.py \
@@ -182,6 +193,9 @@ paths = [
     Path("data_construction/manifests/source_question_ids.json"),
     Path("data_construction/manifests/split_manifest_v0_1.json"),
     Path("historical/ir_v0_2/recovery_manifest_v0_1.json"),
+    Path("data_construction/pilot/question_structure_study_plan_v0_1.json"),
+    Path("data_construction/pilot/question_only_semantic_views_manifest_v0_1.json"),
+    Path("data_construction/pilot/question_structure_review_packets/question_structure_calibration_batch_1_v0_1_manifest.json"),
     Path("data_construction/pilot/granularity_representation_plan_v0_1.json"),
     Path("data_construction/pilot/granularity_input_views_manifest_v0_1.json"),
     Path("data_construction/reports/operator_granularity_metrics_v0_1.json"),
@@ -790,13 +804,15 @@ elif state.get("current_scientific_decision") in {
     if state_gates & resolved_gate_codes:
         errors.append("pilot-ready state retains a resolved recovery/environment gate")
     if state.get("current_scientific_decision") == "UNDECIDED_NEEDS_ANNOTATION_EVIDENCE":
+        if state.get("active_phase") != "phase_2a_question_only_semantic_calibration":
+            errors.append("question-first state has an unexpected active_phase")
         if state.get("scientific_decision_status") != (
-            "structural_integrity_complete_human_calibration_pending"
+            "question_only_calibration_required_phase_b_deferred"
         ):
-            errors.append("granularity-pilot state has an unexpected scientific_decision_status")
+            errors.append("question-first state has an unexpected scientific_decision_status")
         pilot = state.get("artifact_status", {}).get("operator_granularity_pilot", {})
         expected_pilot_summary = {
-            "status": "structural_integrity_complete_human_calibration_pending",
+            "status": "structural_integrity_complete_phase_b_deferred",
             "question_count": 30,
             "representation_count": 90,
             "deterministic_check_count": 90,
@@ -820,11 +836,119 @@ elif state.get("current_scientific_decision") in {
         for stale_gate in (
             "OPERATOR_GRANULARITY_PILOT_NOT_RUN",
             "ANNOTATION_PROPOSALS_NOT_CREATED",
+            "HUMAN_REVIEW_NOT_PERFORMED",
         ):
             if stale_gate in state_gates:
                 errors.append(f"completed pilot state retains stale gate {stale_gate}")
-        if "HUMAN_REVIEW_NOT_PERFORMED" not in state_gates:
-            errors.append("human-calibration-pending state lacks HUMAN_REVIEW_NOT_PERFORMED")
+        if "QUESTION_ONLY_CALIBRATION_NOT_PERFORMED" not in state_gates:
+            errors.append(
+                "question-first calibration state lacks QUESTION_ONLY_CALIBRATION_NOT_PERFORMED"
+            )
+
+        calibration = state.get("artifact_status", {}).get(
+            "question_only_semantic_calibration", {}
+        )
+        expected_calibration_summary = {
+            "status": "phase_a0_materialized_phase_a1_human_collection_pending",
+            "instrument_contract_frozen": True,
+            "question_view_count": 30,
+            "question_view_field_allowlist": [
+                "schema_version",
+                "visibility",
+                "question_id",
+                "question",
+            ],
+            "active_batch_id": "phase_a1_batch_01",
+            "active_batch_question_count": 10,
+            "required_reviewer_count": 2,
+            "expected_raw_artifact_count": 2,
+            "expected_records_per_raw_artifact": 10,
+            "human_raw_artifact_count": 0,
+            "human_raw_record_count": 0,
+            "researcher_manual_signoff_recorded": False,
+            "packet_only_validation": (
+                "passed_exact_render_hash_order_and_provenance_contract"
+            ),
+            "raw_annotation_validation_status": "not_run_no_human_raw_files",
+            "semantic_alignment_artifact_status": "not_created",
+            "semantic_alignment_comparator_status": "not_implemented",
+            "semantic_agreement_claimed": False,
+            "held_out_confirmation_complete": False,
+            "raw_representation_kind": "elicited_linked_representation",
+            "raw_evidence_scope": "representability_and_instrument_operability_only",
+            "question_structure_to_graph_relationship_claimed": False,
+            "independent_blinded_topology_protocol_status": (
+                "not_created_required_before_phase_b_normalization_or_cross_level_claim"
+            ),
+        }
+        for key, expected_value in expected_calibration_summary.items():
+            if calibration.get(key) != expected_value:
+                errors.append(f"question-only calibration state mismatch for {key}")
+
+        expected_calibration_artifacts = {
+            "study_plan": "data_construction/pilot/question_structure_study_plan_v0_1.json",
+            "sequencing_decision": (
+                "data_construction/reports/research_sequencing_decision_v0_1.md"
+            ),
+            "question_views": (
+                "data_construction/pilot/question_only_semantic_views_v0_1.jsonl"
+            ),
+            "question_views_manifest": (
+                "data_construction/pilot/question_only_semantic_views_manifest_v0_1.json"
+            ),
+            "question_view_schema": (
+                "data_construction/schemas/question_only_semantic_view_v0_1.json"
+            ),
+            "raw_annotation_schema": (
+                "data_construction/schemas/question_structure_annotation_v0_1.json"
+            ),
+            "active_packet": (
+                "data_construction/pilot/question_structure_review_packets/"
+                "question_structure_calibration_batch_1_v0_1.html"
+            ),
+            "active_packet_manifest": (
+                "data_construction/pilot/question_structure_review_packets/"
+                "question_structure_calibration_batch_1_v0_1_manifest.json"
+            ),
+        }
+        calibration_artifacts = calibration.get("artifacts", {})
+        if not isinstance(calibration_artifacts, dict) or set(calibration_artifacts) != set(
+            expected_calibration_artifacts
+        ):
+            errors.append("question-only calibration artifact inventory mismatch")
+            calibration_artifacts = (
+                calibration_artifacts if isinstance(calibration_artifacts, dict) else {}
+            )
+        project_root = Path(".").resolve()
+        for label, expected_path in expected_calibration_artifacts.items():
+            reference = calibration_artifacts.get(label)
+            if not isinstance(reference, dict) or reference.get("path") != expected_path:
+                errors.append(f"question-only calibration state lacks artifact {label}")
+                continue
+            artifact_path = (project_root / expected_path).resolve()
+            try:
+                artifact_path.relative_to(project_root)
+            except ValueError:
+                errors.append(f"question-only calibration artifact escapes repository: {label}")
+                continue
+            if not artifact_path.is_file():
+                errors.append(f"question-only calibration artifact is missing: {label}")
+                continue
+            if reference.get("sha256") != hashlib.sha256(artifact_path.read_bytes()).hexdigest():
+                errors.append(f"question-only calibration artifact hash mismatch: {label}")
+        packet_reference = calibration_artifacts.get("active_packet", {})
+        packet_manifest_path = Path(
+            expected_calibration_artifacts["active_packet_manifest"]
+        )
+        try:
+            packet_manifest = load(packet_manifest_path)
+        except Exception as exc:
+            errors.append(f"cannot inspect active question-only packet manifest: {exc}")
+        else:
+            if packet_reference.get("payload_sha256") != packet_manifest.get(
+                "packet_payload", {}
+            ).get("sha256"):
+                errors.append("question-only calibration packet payload hash mismatch")
 else:
     errors.append("project_state has an unsupported current scientific decision")
 
@@ -847,7 +971,7 @@ elif draft_status == "complete_in_project_local_pinned_environment":
     if draft_contract.get("project_local_environment_status") != "reconstructed":
         errors.append("project-local full validation lacks reconstructed environment status")
     expected_result = {
-        "schemas_checked": 9,
+        "schemas_checked": 11,
         "vocabularies_checked": 3,
         "errors": 0,
         "warnings": 0,
@@ -960,7 +1084,7 @@ PY
     schema_rc=$?
     printf '[INFO] SCHEMA_BUNDLE_CHECK_OUTPUT: %s\n' "$schema_output"
     if [ "$schema_rc" -eq 0 ]; then
-        pass_check 'SCHEMA_BUNDLE_STRUCTURE: 9 schemas and 3 vocabularies passed JSON/local-ref checks'
+        pass_check 'SCHEMA_BUNDLE_STRUCTURE: 11 schemas and 3 vocabularies passed JSON/local-ref checks'
     else
         fail_check 'SCHEMA_BUNDLE_STRUCTURE_FAILED'
     fi
@@ -976,6 +1100,24 @@ PY
         fi
     else
         block_check 'PROJECT_LOCAL_PINNED_ENVIRONMENT_NOT_RECONSTRUCTED: recorded ephemeral exact-pin validation was not reproduced by the selected runtime'
+    fi
+
+    if [ "$dependency_rc" -eq 0 ]; then
+        question_structure_output=$(
+            "$PYTHON_BIN" -B \
+                data_construction/tools/validate_question_structure_annotations.py \
+                --batch-id phase_a1_batch_01 \
+                --packet-only 2>&1
+        )
+        question_structure_rc=$?
+        printf '[INFO] QUESTION_ONLY_PHASE_A0_CHECK_OUTPUT: %s\n' "$question_structure_output"
+        if [ "$question_structure_rc" -eq 0 ]; then
+            pass_check 'QUESTION_ONLY_PHASE_A0_PACKET: 30-view projection and 10-question packet passed exact render/hash/order/provenance validation'
+        else
+            fail_check 'QUESTION_ONLY_PHASE_A0_PACKET_FAILED'
+        fi
+    else
+        block_check 'QUESTION_ONLY_PHASE_A0_PACKET_VALIDATION_NOT_RUN: exact pinned dependencies are unavailable in the selected runtime'
     fi
 
     granularity_output=$("$PYTHON_BIN" -B - <<'PY' 2>&1

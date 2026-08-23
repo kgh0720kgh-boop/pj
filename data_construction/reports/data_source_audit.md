@@ -16,7 +16,7 @@
 
 현재 연구 순서는 question-only raw open coding, 별도 blinded alignment/freeze, held-out confirmation, 환경 의존 operator granularity, 대표 grounding/execution으로 수정됐다. 결정은 계속 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`다. 기존 granularity artifact의 `structural_integrity_complete_human_calibration_pending`은 보존된 Phase B artifact 상태일 뿐 현재 human task가 아니다. 의미 정답, final vocabulary, gold corpus, modeling readiness를 뜻하지 않으며 `human_calibration_complete`, `semantic_confirmation_complete`, `evidence_complete`, `selection_ready`는 모두 false다.
 
-기존 6파일/180판정 task는 철회됐다. Phase A0 question-only packet과 raw validator가 commit되고 검사를 통과하면, 연구자 승인·상호 독립·무노출 실제 사람 2명이 첫 committed-order 10문항을 question text만 보고 독립 open-code해 2파일/20 raw record를 만든다. Q1 대화는 protocol 분석이고 human evidence는 0이며, later-layer 자료에 노출된 사람은 영향받은 exposure-naive 작업에서 제외한다. Reviewer identity·독립성·승인·prior exposure는 수동 절차이지 machine-authenticated evidence가 아니다. Raw validity 뒤에도 별도 blinded alignment/adjudication contract와 comparator를 version/freeze하기 전에는 agreement나 Phase A2 readiness를 주장할 수 없다. 미래 Phase B는 A2 뒤 6-stratum 72판정에서 시작하고 trigger에 따라 90, 최대 108판정으로 확장한다.
+기존 6파일/180판정 task는 철회됐다. Phase A0 question-only packet과 raw validator는 commit·검증됐다. 이제 연구자 승인·상호 독립·무노출 실제 사람 2명이 첫 committed-order 10문항을 question text만 보고 독립 open-code해 2파일/20 raw record를 만든다. Q1 대화는 protocol 분석이고 human evidence는 0이며, later-layer 자료에 노출된 사람은 영향받은 exposure-naive 작업에서 제외한다. Reviewer identity·독립성·승인·prior exposure는 수동 절차이지 machine-authenticated evidence가 아니다. Raw validity 뒤에도 별도 blinded alignment/adjudication contract와 comparator를 version/freeze하기 전에는 agreement나 Phase A2 readiness를 주장할 수 없다. 미래 Phase B는 A2와 independent held-out topology gate 뒤 6-stratum 72판정에서 시작하고 trigger에 따라 90, 최대 108판정으로 확장한다.
 
 ## 결론
 
