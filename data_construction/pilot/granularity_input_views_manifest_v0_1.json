@@ -1,0 +1,323 @@
+{
+  "builder_version": "granularity_view_builder_v0_1",
+  "input_views_artifact": {
+    "record_count": 30,
+    "repository_relative_path": "data_construction/pilot/granularity_input_views.jsonl",
+    "sha256": "d4c57bc94e4747b380a37e7802975a81688d3e51af606520b71bc90ae18af345"
+  },
+  "linked_environment": {
+    "git_tree_sha1": "b4f2d5e0eeb2d18cf95bf6e6a583bc499c53b68c",
+    "pinned_commit": "dc066e1a6d5281511d8b73a6107d5ad2824cc2b2",
+    "repository_url": "https://github.com/wenhuchen/WikiTables-WithLinks.git",
+    "request_canonical_content_list_sha256": "bc289b9aa6d397369b44cbf9b54250539a5a0cf01287f94c9a5572e79e8cd916",
+    "request_file_count": 15316,
+    "request_tree_sha1": "f1c1a1dab31b2341f338a6a7bf626b5b8c569f20",
+    "source_id": "hybridqa_linked_tables_and_passages",
+    "tables_canonical_content_list_sha256": "3969fcf6c0192d6085ad999e3abd41f0039a73c878ffd30d7cd8b7786ea62c92",
+    "tables_file_count": 15316,
+    "tables_tree_sha1": "772e97624b08e0bd5534b8991a8c2dd8fb6b153f"
+  },
+  "provenance": {
+    "code_commit": "9499ba56c131faaa9d4c901b4e7c86bc6f9cd644",
+    "implementation_artifacts": [
+      {
+        "repository_relative_path": "data_construction/tools/build_granularity_views.py",
+        "sha256": "380a127359af80ed6940201feeff751b49e5f88c05037a024e40fcee381dbba4"
+      },
+      {
+        "repository_relative_path": "data_construction/tools/_common.py",
+        "sha256": "f97989580072284c4c20a70d982b76a7c1382d8fc6510e09b790625c9eff3be6"
+      }
+    ]
+  },
+  "questions_artifact": {
+    "record_count": 30,
+    "repository_relative_path": "data_construction/pilot/questions.jsonl",
+    "sha256": "6d09bf7f3f7b9285cad7ca38da8e7f395789eb59fd2ee0af86ba931062e33cdb"
+  },
+  "schema_version": "granularity_input_views_manifest_v0_1",
+  "selected_environment_artifacts": {
+    "artifacts": [
+      {
+        "portable_path": "request_tok/1973_NFL_Draft_0.json",
+        "sha256": "060095e23adad7e97f839bc8af49208c65e2682d05be9e507f51b6f7cd7f500c"
+      },
+      {
+        "portable_path": "request_tok/2000_Buy.com_Tour_0.json",
+        "sha256": "63afe3b93ff326a71258197013352a77c0e8dea7afab034bdae661d96308a267"
+      },
+      {
+        "portable_path": "request_tok/2010_Crystal_Skate_of_Romania_0.json",
+        "sha256": "219c84889781bcfcc31866f6d2b97a7f7182b4e3ef965a19785055aa124d59a6"
+      },
+      {
+        "portable_path": "request_tok/Baby_of_the_House_2.json",
+        "sha256": "af44fb0cbc5cebb076b23bcebed610a13287aa124c853d5adfa5d38a41b63238"
+      },
+      {
+        "portable_path": "request_tok/Comparison_of_United_States_presidential_candidates,_2008_0.json",
+        "sha256": "6100a1c82feb96c49f573bf3a6c88ad6dfe9b11b64195f9715d811e5317265bf"
+      },
+      {
+        "portable_path": "request_tok/D._H._Morgan_Manufacturing_4.json",
+        "sha256": "d9ce7fdb78f575fdc910734c51b22142d5d38db98f03f2344fe106cf821663d5"
+      },
+      {
+        "portable_path": "request_tok/Indian_Television_Academy_Awards_1.json",
+        "sha256": "cbcdcd51301d4ba7b3f35c7482d78d41271f921c8aa9c380272f2e0f79c8e662"
+      },
+      {
+        "portable_path": "request_tok/Indonesia_at_the_Asian_Games_36.json",
+        "sha256": "059dd47a6f25649c75958b27bc1d124fb8cde0ba7ce8b8c615a5784b652ed851"
+      },
+      {
+        "portable_path": "request_tok/Lark_Voorhies_0.json",
+        "sha256": "0ca366e8cb26f2fcf8df92f8faa852101b7449074005879ab41a1c64b7a3b7c5"
+      },
+      {
+        "portable_path": "request_tok/List_of_Constituencies_of_the_Lok_Sabha_28.json",
+        "sha256": "b3e2027c811c7652998d92016e2c221ca132f465a204c48135aa25fddaa48797"
+      },
+      {
+        "portable_path": "request_tok/List_of_GM-EMD_locomotives_0.json",
+        "sha256": "77069f36d1123ae24bb62ebf616fc019610eaf49f19062dddeba00399a3627ad"
+      },
+      {
+        "portable_path": "request_tok/List_of_The_Avengers:_Earth's_Mightiest_Heroes_characters_0.json",
+        "sha256": "7cab2855909c4fc36432e7ce497d67fb509e595111c8121a83864c76931519a0"
+      },
+      {
+        "portable_path": "request_tok/List_of_Virtual_Console_games_for_Nintendo_3DS_(North_America)_3.json",
+        "sha256": "e742ddc0ebd324001ac6c9758c257df2f816d9623d6adf95913342ec8ec074fe"
+      },
+      {
+        "portable_path": "request_tok/List_of_airlines_of_Alberta_0.json",
+        "sha256": "9a508d338be78ccf72047dc0c063bada51ff147701eca2f98e6b3116d81b2f26"
+      },
+      {
+        "portable_path": "request_tok/List_of_bus_stations_in_Wales_0.json",
+        "sha256": "1a5dc9465bd1aa13a2e061763830a8592618309c30e99ed878495cdd20dd04e8"
+      },
+      {
+        "portable_path": "request_tok/List_of_international_organisations_which_have_Portuguese_as_an_official_language_0.json",
+        "sha256": "ab25ef1d7b8e26d395d6cb620d2a88be966fe79cf2b6eafd5fe4ef55e9e25db2"
+      },
+      {
+        "portable_path": "request_tok/List_of_islands_by_population_density_1.json",
+        "sha256": "ea9a39cbd0a7de153592cff3314488e1ed8f1bc27ec8b53351494e4fc83b8cfc"
+      },
+      {
+        "portable_path": "request_tok/List_of_museums_in_Bedfordshire_0.json",
+        "sha256": "41082fb735c7200fd236e9ee7869d31d93e9bd776cc30456722e6b22a352c02f"
+      },
+      {
+        "portable_path": "request_tok/List_of_number-one_hits_of_1998_(France)_0.json",
+        "sha256": "0072d8240fb5d3bea144340ba01de46ece22bef664d03dd3310f2eb68415c74f"
+      },
+      {
+        "portable_path": "request_tok/List_of_railway_stations_in_Worcestershire_0.json",
+        "sha256": "bd00bccea42df20831536f50043ccb1f1a2b639ff19084a149ae22318ee0e2d4"
+      },
+      {
+        "portable_path": "request_tok/List_of_schools_in_Darling_Downs_6.json",
+        "sha256": "d6dd1b751f9b60469e588eac25a7fd0041b5b071418400a2fa15c987c13b53f3"
+      },
+      {
+        "portable_path": "request_tok/List_of_shopping_malls_in_India_8.json",
+        "sha256": "356e4daff4e7f587edd94caea885f04b3e6ef894041ea9b364fcee8de38bc62c"
+      },
+      {
+        "portable_path": "request_tok/List_of_the_busiest_airports_in_Canada_4.json",
+        "sha256": "5afee85db1b420c262b3814cf81635a727ecacbf859ebe2af70159cd75670839"
+      },
+      {
+        "portable_path": "request_tok/List_of_web_analytics_software_2.json",
+        "sha256": "a8738dddf6add7c6a83f4d34c9c15640f9f8fd65d5bb812feb58404b7ebec094"
+      },
+      {
+        "portable_path": "request_tok/Metropolitan_areas_of_Mexico_1.json",
+        "sha256": "f6c2ebe44a37d94411d1dca09f3101f8e55f32c19fdccc0c7b54e779367e35f9"
+      },
+      {
+        "portable_path": "request_tok/Missouri_Valley_Conference_Men's_Basketball_Tournament_1.json",
+        "sha256": "834c97efa7157352449312e4769f378b7f8bf917a1d704d60e3f08305cfd9410"
+      },
+      {
+        "portable_path": "request_tok/National_Register_of_Historic_Places_listings_in_Camden_County,_Missouri_0.json",
+        "sha256": "ba042425e005072f622bc5198638794333a7b0dd317408b942a473b3e30d2330"
+      },
+      {
+        "portable_path": "request_tok/Performance_Ranking_of_Scientific_Papers_for_World_Universities_10.json",
+        "sha256": "8c822bf47b2dd3e45221cdb7af9951c520cfabdff84481fa50c157f7ef23f469"
+      },
+      {
+        "portable_path": "request_tok/Ranked_lists_of_Chilean_regions_7.json",
+        "sha256": "fd9e400b072be6a69b7077794a4a1e19027300adaf169536696d907b23c48894"
+      },
+      {
+        "portable_path": "request_tok/United_Soccer_Conference_0.json",
+        "sha256": "00a461a5e23ab28131ea36ef72d793673b33ea522a8575cdf18b26f6eaf5eb0f"
+      },
+      {
+        "portable_path": "tables_tok/1973_NFL_Draft_0.json",
+        "sha256": "9f6c582340adde0491d2e4455d05935187233093f6f1c8ff06e38494a19067a3"
+      },
+      {
+        "portable_path": "tables_tok/2000_Buy.com_Tour_0.json",
+        "sha256": "89b35985e9965c5fb3dafa7f5515230839c33b7c00cce4f101127ccf6dbd4b55"
+      },
+      {
+        "portable_path": "tables_tok/2010_Crystal_Skate_of_Romania_0.json",
+        "sha256": "9778290a95961a06c5bedf06151da2a59cd51c285c99b7125f9ecef04777e0e2"
+      },
+      {
+        "portable_path": "tables_tok/Baby_of_the_House_2.json",
+        "sha256": "4f137249d267032a25e9e98aad2cd06beb68f8c585be97b69429bf945c166847"
+      },
+      {
+        "portable_path": "tables_tok/Comparison_of_United_States_presidential_candidates,_2008_0.json",
+        "sha256": "7afda235ef3a9e3e2de1893270427580d7f869fc58fdb8bd5efac1f58228069f"
+      },
+      {
+        "portable_path": "tables_tok/D._H._Morgan_Manufacturing_4.json",
+        "sha256": "1b739b6cf3260de3e490d1a164b543829c990036603841cdb65bdcf5baf28d16"
+      },
+      {
+        "portable_path": "tables_tok/Indian_Television_Academy_Awards_1.json",
+        "sha256": "5ad616a104e364495bc38614e6786c7b4e2676f3e20a57fcca0571388a9b1494"
+      },
+      {
+        "portable_path": "tables_tok/Indonesia_at_the_Asian_Games_36.json",
+        "sha256": "b8ef7079733bd290a17446fb287a545dd01b4b6d477553fc78635f3cd08912e6"
+      },
+      {
+        "portable_path": "tables_tok/Lark_Voorhies_0.json",
+        "sha256": "430020e83295fa3483ef664a6494a616d063eb6e637c259ef976ea5b6e37dc19"
+      },
+      {
+        "portable_path": "tables_tok/List_of_Constituencies_of_the_Lok_Sabha_28.json",
+        "sha256": "32865a38b9ac53d5f96230594e34f137ae9664fb5f3e221b2fc3420ba0d69950"
+      },
+      {
+        "portable_path": "tables_tok/List_of_GM-EMD_locomotives_0.json",
+        "sha256": "5bff1ad174c3d68bc98441012ca2a199df3f286081c43affac14e069c8cb17af"
+      },
+      {
+        "portable_path": "tables_tok/List_of_The_Avengers:_Earth's_Mightiest_Heroes_characters_0.json",
+        "sha256": "ec8b50e477572cc1830f0b6f00c55bc43ee212c0852b2e7ed82ec0db1a195555"
+      },
+      {
+        "portable_path": "tables_tok/List_of_Virtual_Console_games_for_Nintendo_3DS_(North_America)_3.json",
+        "sha256": "ae8eef317c0d43767bf40c92232a8440581762ea7baaa23cafdaaab66bdcb3ad"
+      },
+      {
+        "portable_path": "tables_tok/List_of_airlines_of_Alberta_0.json",
+        "sha256": "b1b0f851fc93dcb1e5be2f7a75445f4b6adba4e1d747c0997fa11734ca6e9273"
+      },
+      {
+        "portable_path": "tables_tok/List_of_bus_stations_in_Wales_0.json",
+        "sha256": "4ca2784934224283130787ab7f4604be8c6bc0ea59101ff9140178faae2952d7"
+      },
+      {
+        "portable_path": "tables_tok/List_of_international_organisations_which_have_Portuguese_as_an_official_language_0.json",
+        "sha256": "5c396797e2a762e4927539dceb1cc812e26f6b850c8892df28bc06cffe16110e"
+      },
+      {
+        "portable_path": "tables_tok/List_of_islands_by_population_density_1.json",
+        "sha256": "9cc64ef51d1a0db4dd12f72680ad80a75fc1d4db22e842dbe4441756da8055b0"
+      },
+      {
+        "portable_path": "tables_tok/List_of_museums_in_Bedfordshire_0.json",
+        "sha256": "407950bfe8b8ded038e35ef5e8df542082f2574e4f6131d358e6124bc8ef50b5"
+      },
+      {
+        "portable_path": "tables_tok/List_of_number-one_hits_of_1998_(France)_0.json",
+        "sha256": "84813cc3e8103b2ef3351a1ba460b37a79a6ea058c40ab15a5a3f223dd970321"
+      },
+      {
+        "portable_path": "tables_tok/List_of_railway_stations_in_Worcestershire_0.json",
+        "sha256": "495b6d68c16307bc8ef4f7296021b59fbc7702857a70eec7cbde30866a943675"
+      },
+      {
+        "portable_path": "tables_tok/List_of_schools_in_Darling_Downs_6.json",
+        "sha256": "ed60b977c275977a09e0ae25d050404cd10c9aecb69ea56a5171468b3e2cd0a9"
+      },
+      {
+        "portable_path": "tables_tok/List_of_shopping_malls_in_India_8.json",
+        "sha256": "274b992325ec52b1d00a495fc2d7c660c2b4f9766561c506328e93373f3ba5ce"
+      },
+      {
+        "portable_path": "tables_tok/List_of_the_busiest_airports_in_Canada_4.json",
+        "sha256": "029d196fd6596e2b31f1a9aa032ab4321161b2828e1ed6cd72acaa6b0fe7d5c2"
+      },
+      {
+        "portable_path": "tables_tok/List_of_web_analytics_software_2.json",
+        "sha256": "a8be776b64d0b7520c83d5ea4a834153eb03e73a75bd702ecac0bb7afe97b37a"
+      },
+      {
+        "portable_path": "tables_tok/Metropolitan_areas_of_Mexico_1.json",
+        "sha256": "ab9f6a4a485cb68e914c400f27fbace57fe287b783ddb5bb5c2fc7a4305b013e"
+      },
+      {
+        "portable_path": "tables_tok/Missouri_Valley_Conference_Men's_Basketball_Tournament_1.json",
+        "sha256": "5535dd1bf1f9fdbfc7f74388afc2f16b46e3dea54df9432a3aeb9921a7b40583"
+      },
+      {
+        "portable_path": "tables_tok/National_Register_of_Historic_Places_listings_in_Camden_County,_Missouri_0.json",
+        "sha256": "383871cba5164f80232b2113899cee09b790fee6284cdd5f94a56ed4d75e951d"
+      },
+      {
+        "portable_path": "tables_tok/Performance_Ranking_of_Scientific_Papers_for_World_Universities_10.json",
+        "sha256": "a1766e4e3b4a3085db6199abe308d9de3f182fb0d23e117d1a9893639fdcb6da"
+      },
+      {
+        "portable_path": "tables_tok/Ranked_lists_of_Chilean_regions_7.json",
+        "sha256": "81d042a0e40d0e70b7d7b1b7193598f7a715ab3abcd6fd65ca95962fe79eea28"
+      },
+      {
+        "portable_path": "tables_tok/United_Soccer_Conference_0.json",
+        "sha256": "ff9c0c633a8c4dc28451bbbb06d9de3da9c9b4afb1f1d55a3133f46ca22ab712"
+      }
+    ],
+    "canonical_sha256": "9e7055ad0e9e351f597237d9bff9edb77b2b58acf8ae8bbd653aeb88dafe69c3",
+    "canonicalization": "sha256_of_path_sorted_sha256sum_lines_v0_1",
+    "file_count": 60,
+    "requests_canonical_sha256": "bed0f41af2cc4497335a82ca06c9c6d00548ca056a8c422774ad6a5a721ed1e8",
+    "tables_canonical_sha256": "0f33966dccd1ee627bdfdddc667bc9a27e278984a226b37b2f2b4e9c565069fc"
+  },
+  "source_manifest_artifact": {
+    "repository_relative_path": "data_construction/manifests/source_manifest_v0_1.json",
+    "sha256": "853a8b993922ef69a35e00b87a91e510a4c8130cfe35f63ff97e9e4776849f39"
+  },
+  "split_manifest_artifact": {
+    "repository_relative_path": "data_construction/manifests/split_manifest_v0_1.json",
+    "sha256": "9de7124ab4b3b7a213a0970c0a2c51c0d6353f5eb01d9ce8b60f9250440bcfc8"
+  },
+  "view_contract": {
+    "excluded_categories": [
+      "answer_text_or_span",
+      "table_row_or_cell_values_or_counts",
+      "inferred_cell_types",
+      "linked_document_ids_or_text_or_counts",
+      "weak_answer_nodes_or_traces",
+      "historical_graphs_or_semantic_labels",
+      "oracle_grounding",
+      "evaluator_outputs",
+      "later_layer_labels",
+      "machine_local_absolute_paths"
+    ],
+    "leakage_audit_status": "pass_by_exact_projection",
+    "operator_view_allowed_categories": [
+      "question_text",
+      "question_id",
+      "table_identity",
+      "table_title_and_section_title",
+      "column_schema",
+      "environment_capabilities"
+    ],
+    "question_view_allowed_categories": [
+      "question_text",
+      "question_id"
+    ]
+  }
+}
