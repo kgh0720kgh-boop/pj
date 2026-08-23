@@ -1,34 +1,97 @@
 {
-  "schema_version": "split_manifest_v0_1",
-  "status": "blocked_not_allocated",
-  "allocation_performed": false,
-  "release_eligible": false,
-  "source_manifest": "data_construction/manifests/source_manifest_v0_1.json",
-  "historical_exposure_manifest": "data_construction/manifests/historical_exposed_ids.json",
-  "candidate_source": {
-    "dataset": "HybridQA",
-    "preferred_split": "dev",
-    "pinned_source_id": "hybridqa_questions_and_code",
-    "record_count": 3466
-  },
-  "allocation_method": {
-    "algorithm": "ascending_sha256(seed + NUL + question_id)",
-    "seed": "hybridqa-semantic-topology-v0.1",
-    "implementation": "data_construction/tools/build_sample.py"
-  },
-  "roles": null,
+  "allocation_method": "ascending_sha256(seed + NUL + question_id)",
+  "combined_role_output_written": false,
   "counts": {
-    "annotation_schema_pilot": null,
-    "annotation_train": null,
+    "annotation_dev": 0,
+    "annotation_schema_pilot": 30,
+    "annotation_train": 0,
+    "locked_eval": 0
+  },
+  "created_at_utc": "2026-08-23T06:42:40.752794+00:00",
+  "historical_manifest": {
+    "audit_status": "complete",
+    "forbidden_id_count": 100,
+    "path": "data_construction/manifests/historical_exposed_ids.json",
+    "release_contract_errors": [],
+    "sha256": "b6285a87556bdecd03f0e1c73635a898d657038b184d6de38321640f6760bb0f"
+  },
+  "override_used": false,
+  "release_eligible": true,
+  "role_artifacts": {
     "annotation_dev": null,
+    "annotation_schema_pilot": {
+      "path": "data_construction/pilot/questions.jsonl",
+      "record_count": 30,
+      "sha256": "6d09bf7f3f7b9285cad7ca38da8e7f395789eb59fd2ee0af86ba931062e33cdb",
+      "tuning_allowed": true,
+      "visibility": "annotation_role_only"
+    },
+    "annotation_train": null,
     "locked_eval": null
   },
-  "zero_overlap_verified": false,
-  "locked_eval_tuning_exclusion_verified": false,
-  "blocked_gates": [
-    "HISTORICAL_EXPOSED_ID_AUDIT_INCOMPLETE",
-    "FRESH_QUESTION_DISJOINTNESS_NOT_VERIFIABLE"
-  ],
-  "required_action": "Recover and hash all five historical Week 1-3 ID artifacts, rebuild historical_exposed_ids.json, then run build_sample.py without --allow-incomplete-history.",
-  "interpretation": "Null role counts mean no allocation was performed; they must not be interpreted as empty research splits."
+  "roles": {
+    "annotation_dev": [],
+    "annotation_schema_pilot": [
+      "8259c70c392c5b75",
+      "1d48a5ffb05c7de2",
+      "743c4e765fcd76e5",
+      "ab5eb9535349cd7a",
+      "b3550375a684a870",
+      "f36270c917a195c7",
+      "8524304318e5f09a",
+      "c26cafcd706efe0d",
+      "3d207ccb8be56fd9",
+      "b16c668f54c230e7",
+      "f7426693930a6ab2",
+      "fb5717774d243073",
+      "1e674ae4b655c1a1",
+      "bd8704d4254c01c6",
+      "0503a6ef0129abd8",
+      "254c5c25421f60da",
+      "1518b9d0da2d3711",
+      "be6ebff950e35063",
+      "5ee2a90fe9a3cd56",
+      "6926f4190bebd390",
+      "d8b4bad4f5a73509",
+      "6a9c00243f104ad3",
+      "e650aba3f1a9239e",
+      "c597434242009fe6",
+      "86245b7523f7a645",
+      "1754cff04f90d4ba",
+      "2e4366c597bbfb87",
+      "639da22b64b0a499",
+      "fc9605cb355ae05c",
+      "f08d137b8650f452"
+    ],
+    "annotation_train": [],
+    "locked_eval": []
+  },
+  "schema_version": "split_manifest_v0_1",
+  "seed": "hybridqa-semantic-topology-v0.1",
+  "source": {
+    "location_kind": "repository_relative_or_machine_local_placeholder",
+    "malformed_record_count": 0,
+    "path": "<machine-local-input>/dev.json",
+    "portable_reference": {
+      "artifact_path": "released_data/dev.json",
+      "artifact_sha256": "424272b233735a70ed8ef5af4a615373d114f472168c686c4370d54c92d58ac1",
+      "pinned_commit": "db22fda8c5951438fade3c69d75b350335ba93b3",
+      "question_id_set_hash_algorithm": "Deduplicate IDs; reject CR/LF; sort by unsigned UTF-8 byte sequence; concatenate each UTF-8 ID followed by LF; SHA-256 the resulting bytes.",
+      "question_id_set_sha256": "70ee935abae8409251e0858a46d7a92f7875e2bfa0d8084f8ab3bb1cd591f584",
+      "record_count": 3466,
+      "source_id": "hybridqa_questions_and_code"
+    },
+    "question_id_inventory_artifact": {
+      "path": "data_construction/manifests/source_question_ids.json",
+      "question_id_set_sha256": "70ee935abae8409251e0858a46d7a92f7875e2bfa0d8084f8ab3bb1cd591f584",
+      "record_count": 3466,
+      "sha256": "e38fe1e43ad18d4237db478ac88dd9dab3e00d5e7e103f1d693d9f7f60814df9"
+    },
+    "question_id_set_sha256": "70ee935abae8409251e0858a46d7a92f7875e2bfa0d8084f8ab3bb1cd591f584",
+    "record_count": 3466,
+    "sha256": "424272b233735a70ed8ef5af4a615373d114f472168c686c4370d54c92d58ac1",
+    "verified_against_pinned_manifest": true
+  },
+  "warnings": [],
+  "zero_overlap_verified": true
 }
