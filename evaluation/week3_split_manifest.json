@@ -1,0 +1,104 @@
+{
+  "split_version": "week3-data-roles-v0.1",
+  "status": "FROZEN",
+  "freeze_date": "2026-08-16",
+  "dataset": "HybridQA",
+  "source_split": "dev",
+  "seed": 20260816,
+  "roles": {
+    "historical_adjudication": {
+      "size": 20,
+      "ids": [
+        "036a6e84e2d25443",
+        "0413b71b8cf428b7",
+        "0db38bf910b7ba2f",
+        "0fc8f468a7abfd53",
+        "22b6a12fee6d055b",
+        "3bfa1fe77af5e308",
+        "3fe249c5bab479e4",
+        "41e4d6e52d865f4d",
+        "483ae1bd5ca2a967",
+        "5f9e77c0805e93e9",
+        "72b239192ab22f7f",
+        "748ffcac437e835f",
+        "850a59fe3f1c2a82",
+        "8b2530dba52f399e",
+        "a27d073353eb0d5c",
+        "ae1141f1085d82d1",
+        "bf329ba9a7551d09",
+        "c068e5d9e33ccb92",
+        "fcbd2395b5ce017d",
+        "fd7a0ca234141181"
+      ],
+      "planner_tuning_allowed": false
+    },
+    "engineering_dev": {
+      "size": 15,
+      "ids": [
+        "11142981fd67ab9a",
+        "15cea7ab70b74cda",
+        "265a90db03f6e137",
+        "2d71b28a0c0e8c63",
+        "496884d2af23aa92",
+        "541357f24ab2c3cd",
+        "567ae42979378023",
+        "8a088863c96140fd",
+        "8af7661b0cc32719",
+        "9b15900d07903b6e",
+        "a363226b5a41e1da",
+        "a6b6e37bee232678",
+        "b37b8a48d3ea7a2a",
+        "c82a190ccb92d4dd",
+        "d3fdefd59bb474bb"
+      ],
+      "iteration_allowed": true
+    },
+    "locked_eval": {
+      "size": 15,
+      "ids": [
+        "2cd2296990911c9e",
+        "5c28bdb2b0d629b2",
+        "6093d7216eade2ca",
+        "6f1d7f068c4d17b4",
+        "70f0455c7941c467",
+        "7bdaf2e4ecf62f45",
+        "89c6d9b8076d109c",
+        "a31154d8236c6041",
+        "a62e2ba12afa18d7",
+        "b421a4959f7013b5",
+        "d77df4634c5acd3d",
+        "dfa91dd1a8cb176e",
+        "e3fc6f415a87eb73",
+        "f4dc8d46cbb07753",
+        "fbac0447cca7a5aa"
+      ],
+      "iteration_allowed": false
+    }
+  },
+  "overlap_counts": {
+    "historical_vs_engineering": 0,
+    "historical_vs_locked": 0,
+    "engineering_vs_locked": 0
+  },
+  "coverage": {
+    "source_id_count": 50,
+    "role_union_count": 50,
+    "document_required_true": 48,
+    "document_required_false": 2
+  },
+  "constraints": [
+    "historical adjudication is never planner tuning data",
+    "engineering-dev permits reader/planner debugging",
+    "locked-eval permits one-time evaluation after intervention freeze",
+    "document_required is evaluator-side and never planner-visible"
+  ],
+  "source_artifacts": {
+    "evaluation/week2_eval_ids.json": "835ef9ec24903d1a1fe458b7c6a143bcd246b487336ba213c59ced1128ec2d6f",
+    "evaluation/manual_reference_obligations_v0_1.json": "29a2574d05f92604f7e2b343f60a6b8620c9d47896fa6b1be0760064951d66a1"
+  },
+  "artifacts": {
+    "evaluation/week3_engineering_dev_ids.json": "f5500d2e4e7bb3429f2ab9385d59c0597b12da4c76d69ef782cedc92f4b726e7",
+    "evaluation/week3_locked_eval_ids.json": "ba5f60b445a8e9bcfe8dd3c6987cdcc8350372ad5e1cddf6f987b4618d16207d",
+    "evaluation/week3_document_required_ids.json": "46bc024404b55a250f940e8efffe12eb455e5e682770ff9cb13a59f0e6e5b8f6"
+  }
+}

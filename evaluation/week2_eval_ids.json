@@ -1,0 +1,512 @@
+{
+  "split_version": "week2-pilot-v0.1",
+  "dataset": "HybridQA",
+  "source_split": "dev",
+  "source_sample": "data_analysis/week1_sample_100.jsonl",
+  "seed": 20260820,
+  "size": 50,
+  "selection_policy": "all 20 Week 1 detailed-graph IDs + all high-uncertainty and table-only Week 1 annotations + fixed-seed random fill without replacement",
+  "scientific_scope": "Enriched controlled diagnostic subset; not an unbiased HybridQA dev estimate.",
+  "records": [
+    {
+      "question_id": "036a6e84e2d25443",
+      "sample_rank": 1,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "0413b71b8cf428b7",
+      "sample_rank": 2,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "0db38bf910b7ba2f",
+      "sample_rank": 5,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "0fc8f468a7abfd53",
+      "sample_rank": 6,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "medium",
+        "answer_source": "table_cell"
+      }
+    },
+    {
+      "question_id": "11142981fd67ab9a",
+      "sample_rank": 8,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "high",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "15cea7ab70b74cda",
+      "sample_rank": 10,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "high",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "22b6a12fee6d055b",
+      "sample_rank": 15,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "extended_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "265a90db03f6e137",
+      "sample_rank": 17,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "table_cell"
+      }
+    },
+    {
+      "question_id": "2cd2296990911c9e",
+      "sample_rank": 20,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "2d71b28a0c0e8c63",
+      "sample_rank": 22,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "ambiguous",
+        "uncertainty": "high",
+        "answer_source": "table_cell"
+      }
+    },
+    {
+      "question_id": "3bfa1fe77af5e308",
+      "sample_rank": 26,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "extended_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "3fe249c5bab479e4",
+      "sample_rank": 28,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "extended_operators",
+        "uncertainty": "medium",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "41e4d6e52d865f4d",
+      "sample_rank": 30,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "medium",
+        "answer_source": "derived"
+      }
+    },
+    {
+      "question_id": "483ae1bd5ca2a967",
+      "sample_rank": 33,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "medium",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "496884d2af23aa92",
+      "sample_rank": 34,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "medium",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "541357f24ab2c3cd",
+      "sample_rank": 37,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "ambiguous",
+        "uncertainty": "high",
+        "answer_source": "derived"
+      }
+    },
+    {
+      "question_id": "567ae42979378023",
+      "sample_rank": 38,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "5c28bdb2b0d629b2",
+      "sample_rank": 40,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "5f9e77c0805e93e9",
+      "sample_rank": 41,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "extended_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "6093d7216eade2ca",
+      "sample_rank": 44,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "ambiguous",
+        "uncertainty": "high",
+        "answer_source": "derived"
+      }
+    },
+    {
+      "question_id": "6f1d7f068c4d17b4",
+      "sample_rank": 46,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "table_cell"
+      }
+    },
+    {
+      "question_id": "70f0455c7941c467",
+      "sample_rank": 47,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "derived"
+      }
+    },
+    {
+      "question_id": "72b239192ab22f7f",
+      "sample_rank": 52,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "extended_operators",
+        "uncertainty": "low",
+        "answer_source": "derived"
+      }
+    },
+    {
+      "question_id": "748ffcac437e835f",
+      "sample_rank": 53,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "derived"
+      }
+    },
+    {
+      "question_id": "7bdaf2e4ecf62f45",
+      "sample_rank": 55,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "table_cell"
+      }
+    },
+    {
+      "question_id": "850a59fe3f1c2a82",
+      "sample_rank": 58,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "89c6d9b8076d109c",
+      "sample_rank": 60,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "8a088863c96140fd",
+      "sample_rank": 61,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "8af7661b0cc32719",
+      "sample_rank": 62,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "ambiguous",
+        "uncertainty": "high",
+        "answer_source": "table_cell"
+      }
+    },
+    {
+      "question_id": "8b2530dba52f399e",
+      "sample_rank": 63,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "extended_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "9b15900d07903b6e",
+      "sample_rank": 66,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "ambiguous",
+        "uncertainty": "high",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "a27d073353eb0d5c",
+      "sample_rank": 67,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "derived"
+      }
+    },
+    {
+      "question_id": "a31154d8236c6041",
+      "sample_rank": 68,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "a363226b5a41e1da",
+      "sample_rank": 69,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "table_cell"
+      }
+    },
+    {
+      "question_id": "a62e2ba12afa18d7",
+      "sample_rank": 70,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "ambiguous",
+        "uncertainty": "high",
+        "answer_source": "table_cell"
+      }
+    },
+    {
+      "question_id": "a6b6e37bee232678",
+      "sample_rank": 71,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "table_cell"
+      }
+    },
+    {
+      "question_id": "ae1141f1085d82d1",
+      "sample_rank": 72,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "extended_operators",
+        "uncertainty": "low",
+        "answer_source": "derived"
+      }
+    },
+    {
+      "question_id": "b37b8a48d3ea7a2a",
+      "sample_rank": 74,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "medium",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "b421a4959f7013b5",
+      "sample_rank": 75,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "table_cell"
+      }
+    },
+    {
+      "question_id": "bf329ba9a7551d09",
+      "sample_rank": 78,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "extended_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "c068e5d9e33ccb92",
+      "sample_rank": 79,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "table_cell"
+      }
+    },
+    {
+      "question_id": "c82a190ccb92d4dd",
+      "sample_rank": 82,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "table_cell"
+      }
+    },
+    {
+      "question_id": "d3fdefd59bb474bb",
+      "sample_rank": 85,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "d77df4634c5acd3d",
+      "sample_rank": 87,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "extended_operators",
+        "uncertainty": "high",
+        "answer_source": "derived"
+      }
+    },
+    {
+      "question_id": "dfa91dd1a8cb176e",
+      "sample_rank": 90,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "table_cell"
+      }
+    },
+    {
+      "question_id": "e3fc6f415a87eb73",
+      "sample_rank": 91,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "f4dc8d46cbb07753",
+      "sample_rank": 95,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "medium",
+        "answer_source": "linked_document"
+      }
+    },
+    {
+      "question_id": "fbac0447cca7a5aa",
+      "sample_rank": 98,
+      "manual_reference_available": false,
+      "selection_strata": {
+        "expressibility": "extended_operators",
+        "uncertainty": "medium",
+        "answer_source": "table_cell"
+      }
+    },
+    {
+      "question_id": "fcbd2395b5ce017d",
+      "sample_rank": 99,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "extended_operators",
+        "uncertainty": "medium",
+        "answer_source": "table_cell"
+      }
+    },
+    {
+      "question_id": "fd7a0ca234141181",
+      "sample_rank": 100,
+      "manual_reference_available": true,
+      "selection_strata": {
+        "expressibility": "seed_operators",
+        "uncertainty": "low",
+        "answer_source": "linked_document"
+      }
+    }
+  ]
+}

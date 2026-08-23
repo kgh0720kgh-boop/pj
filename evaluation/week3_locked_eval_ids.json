@@ -1,0 +1,105 @@
+{
+  "split_version": "week3-data-roles-v0.1",
+  "role": "locked_eval",
+  "status": "LOCKED_NO_TUNING_OR_RESULT_INSPECTION_BEFORE_FREEZE",
+  "dataset": "HybridQA",
+  "source_split": "dev",
+  "source_ids": "evaluation/week2_eval_ids.json",
+  "seed": 20260816,
+  "size": 15,
+  "selection_policy": "Exclude the 20 historical-adjudication IDs, stratify the remaining 30 by the predeclared document-required flag, sort within strata by SHA-256(split_version:seed:question_id), and allocate equal halves to engineering-dev and locked-eval.",
+  "ids": [
+    "2cd2296990911c9e",
+    "5c28bdb2b0d629b2",
+    "6093d7216eade2ca",
+    "6f1d7f068c4d17b4",
+    "70f0455c7941c467",
+    "7bdaf2e4ecf62f45",
+    "89c6d9b8076d109c",
+    "a31154d8236c6041",
+    "a62e2ba12afa18d7",
+    "b421a4959f7013b5",
+    "d77df4634c5acd3d",
+    "dfa91dd1a8cb176e",
+    "e3fc6f415a87eb73",
+    "f4dc8d46cbb07753",
+    "fbac0447cca7a5aa"
+  ],
+  "records": [
+    {
+      "question_id": "2cd2296990911c9e",
+      "sample_rank": 20,
+      "document_required": true
+    },
+    {
+      "question_id": "5c28bdb2b0d629b2",
+      "sample_rank": 40,
+      "document_required": true
+    },
+    {
+      "question_id": "6093d7216eade2ca",
+      "sample_rank": 44,
+      "document_required": true
+    },
+    {
+      "question_id": "6f1d7f068c4d17b4",
+      "sample_rank": 46,
+      "document_required": true
+    },
+    {
+      "question_id": "70f0455c7941c467",
+      "sample_rank": 47,
+      "document_required": true
+    },
+    {
+      "question_id": "7bdaf2e4ecf62f45",
+      "sample_rank": 55,
+      "document_required": true
+    },
+    {
+      "question_id": "89c6d9b8076d109c",
+      "sample_rank": 60,
+      "document_required": true
+    },
+    {
+      "question_id": "a31154d8236c6041",
+      "sample_rank": 68,
+      "document_required": true
+    },
+    {
+      "question_id": "a62e2ba12afa18d7",
+      "sample_rank": 70,
+      "document_required": true
+    },
+    {
+      "question_id": "b421a4959f7013b5",
+      "sample_rank": 75,
+      "document_required": true
+    },
+    {
+      "question_id": "d77df4634c5acd3d",
+      "sample_rank": 87,
+      "document_required": true
+    },
+    {
+      "question_id": "dfa91dd1a8cb176e",
+      "sample_rank": 90,
+      "document_required": true
+    },
+    {
+      "question_id": "e3fc6f415a87eb73",
+      "sample_rank": 91,
+      "document_required": true
+    },
+    {
+      "question_id": "f4dc8d46cbb07753",
+      "sample_rank": 95,
+      "document_required": true
+    },
+    {
+      "question_id": "fbac0447cca7a5aa",
+      "sample_rank": 98,
+      "document_required": false
+    }
+  ]
+}
