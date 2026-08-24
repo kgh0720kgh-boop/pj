@@ -1,0 +1,600 @@
+{
+  "analysis_contract": {
+    "common_executable_graph_claim_allowed": false,
+    "label_normalization_status": "deferred",
+    "metrics": [
+      "e1_primary_and_alternative_variant_statuses_and_alt_rescue",
+      "e1_by_e2_status_cross_tab_diagnostic_not_accuracy",
+      "semantic_to_operator_node_edge_and_depth_expansion",
+      "one_to_one_one_to_many_many_to_one_many_to_many_mapping_counts",
+      "environment_extension_operator_node_counts",
+      "binding_slot_modality_counts",
+      "realization_variation_axis_counts",
+      "label_free_operator_structural_profile_counts",
+      "within_family_structural_heterogeneity",
+      "producer_partition_status_stratification"
+    ],
+    "prevalence_estimation_authorized": false,
+    "record_local_label_recurrence_analysis_allowed": false,
+    "sample_design": "rarity_overweighted_coverage_stress_not_probability_sample",
+    "unlabeled_structural_profile_is_exact_graph_isomorphism": false
+  },
+  "contract_artifacts": {
+    "adequacy_schema": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/backbone_adequacy_assessment_schema_v0_1.json",
+      "sha256": "473f0c53d231b34fd1a00d1bed3078216008101474648c04f7e395278156a7f2"
+    },
+    "builder": {
+      "repository_relative_path": "data_construction/tools/build_representative_environment_realization.py",
+      "sha256": "183865badd7546a8fbed50156808a029c22570428e51bcea20c5a246c725e463"
+    },
+    "common_runtime": {
+      "repository_relative_path": "data_construction/tools/_common.py",
+      "sha256": "5e879a163863e3d4e497a57be99f4dc40a0e033d351dfed8da991514c789f64d"
+    },
+    "e1_prompt": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/prompts/backbone_adequacy_assessment_v0_1.md",
+      "sha256": "d4ae93af6e095408a449b665d4048dba144af4e64131ade09680e3886e2120e4"
+    },
+    "e2_prompt": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/prompts/open_operator_realization_v0_1.md",
+      "sha256": "5c70acc0649554d3a47123d4837c16747e4cbd1d7a7966fb8fbffcd4370344f4"
+    },
+    "outcome_migration": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/environment_realization_outcome_v0_1_to_v0_2_migration.md",
+      "sha256": "1b8f6d3e50c656e7e53b287d3a570e9982bb88274f488c0f7ae0eee4a5cc9fbd"
+    },
+    "outcome_schema": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/environment_realization_outcome_schema_v0_2.json",
+      "sha256": "c503be1f5ebc9e839ec4872b9cd0d31984ed4eeaf193accf4d5f902f32ad7c18"
+    },
+    "realization_schema": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/open_operator_realization_schema_v0_1.json",
+      "sha256": "a1146ade2d0c035fec46f679ffd061ef3d28cc80ab5b646733eeb41332a62094"
+    },
+    "source_helper": {
+      "repository_relative_path": "data_construction/tools/_representative_environment_source.py",
+      "sha256": "de175316e628b0d9641c832068321b498f871fb923374ac5adbaba8d761164c1"
+    },
+    "tests": {
+      "repository_relative_path": "tests/test_representative_environment_realization.py",
+      "sha256": "57ca3ba509892d95b2ef6ee99b26cd263362f53f40380e0daa39664ea1cec68e"
+    },
+    "view_schema": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_environment_view_schema_v0_1.json",
+      "sha256": "dd868f6f3ee678ac1fb19e6c3b266832168162e819f32cf540e7b58464ec06ed"
+    }
+  },
+  "expected_result": {
+    "e1_record_count": 71,
+    "e2_record_count": 71,
+    "evaluated_signals": [
+      "backbone_adequacy",
+      "environment_operator_realization"
+    ],
+    "not_evaluated_signals": [
+      "grounding",
+      "execution",
+      "answer_recovery"
+    ],
+    "outcome_record_count": 71,
+    "selected_family_count": 30,
+    "selected_question_count": 71,
+    "selected_question_ids": [
+      "653d221ec832d13c",
+      "0d48bffa70ef4acf",
+      "735834c0f75f137a",
+      "75a7ccb3abefa128",
+      "736e042b2c205104",
+      "63cf68ef83853c8a",
+      "7dc78b5327210208",
+      "8259c70c392c5b75",
+      "c787f84fcdd3c4b8",
+      "e9232821cf7ef702",
+      "1e674ae4b655c1a1",
+      "1ca8ffcd3e20e498",
+      "9b030f07965328b8",
+      "82b28c175b1cb108",
+      "c67ea18da325ac4d",
+      "ba563b015b09bf21",
+      "411562d9ce68b1e8",
+      "8fb7b7d6e47937e7",
+      "e8f872dde8b82875",
+      "50d916167643e093",
+      "0ccec805fd3393f1",
+      "ad20a4c31ba3dba9",
+      "f08600ded0c4be3f",
+      "0f7b9d689e856c5a",
+      "5ed50dcd4d5264ab",
+      "67f5d01fa7df9bed",
+      "b99fc5c636ea823c",
+      "773655dc61bff645",
+      "89460c0d91f35d50",
+      "d8b4bad4f5a73509",
+      "cc681cfdba9badd5",
+      "3dc3aaaa06cbfc49",
+      "c722cd2efc12bd14",
+      "016665beb450ca4e",
+      "857ba79b2fe601be",
+      "846fc6ee43ca7f7d",
+      "21148417ac3a50ca",
+      "3d207ccb8be56fd9",
+      "2bd28d7d29059abf",
+      "bd8704d4254c01c6",
+      "7c3e89b072c6145f",
+      "05d8934842b3479c",
+      "dcedafe32d109937",
+      "bafd6781c04a1897",
+      "078b72dd6976dc29",
+      "b7e8bf58404aba35",
+      "42a182821bb86560",
+      "e4fdd71f9bcd619c",
+      "0503a6ef0129abd8",
+      "d00587e410e6a6fb",
+      "743c4e765fcd76e5",
+      "2f8484f7e3324d0e",
+      "7fdc558f6b822b6a",
+      "500759e6b5e9256c",
+      "d3b6320429b12095",
+      "cfe21c5fecaab724",
+      "a021a5ae2b2dec59",
+      "eb023128000a9684",
+      "09828a9a107af8a4",
+      "e2958b5a8eccc251",
+      "50f4456de0b2a380",
+      "c785e669858ec6f2",
+      "9aab93e9f9d29b5c",
+      "d0ae5921e77b1e73",
+      "0f774ac4950905c4",
+      "639da22b64b0a499",
+      "1e2e4e4f72a64bbf",
+      "8719f5ca3711aa45",
+      "0fae312ba3d6ef76",
+      "dd7056864066ae9b",
+      "2c1e60c344e2b104"
+    ],
+    "selected_question_ids_ordered_sha256": "5403debe2cbe9c7f55ded0a01b49d7c42bf03e53a71350efe269bbd3c0bdcb2e",
+    "selected_question_ids_set_sha256": "9b6e05650834871ce30acc1c2dfde18fc64910dcd238982f5d482f6a31e15680"
+  },
+  "implementation_commit": "78fe487327d2fda43cc2ec79203c0a3223d1645b",
+  "model_provenance_contract": {
+    "exact_model_revision": null,
+    "exact_model_revision_status": "not_exposed_by_interface",
+    "model_id": "codex_gpt-5",
+    "raw_response_artifact": null,
+    "raw_response_status": "not_exposed_structured_partition_files_are_primary_capture",
+    "seed": null,
+    "seed_status": "not_supported_by_interface",
+    "statistical_reviewer_independence_claimed": false
+  },
+  "official_source_contract": {
+    "linked_environment_source": {
+      "checkout_directory": "WikiTables-WithLinks-dc066e1",
+      "git_tree_sha1": "b4f2d5e0eeb2d18cf95bf6e6a583bc499c53b68c",
+      "pinned_commit": "dc066e1a6d5281511d8b73a6107d5ad2824cc2b2",
+      "repository_url": "https://github.com/wenhuchen/WikiTables-WithLinks.git",
+      "request_artifact": {
+        "canonical_content_list_sha256": "bc289b9aa6d397369b44cbf9b54250539a5a0cf01287f94c9a5572e79e8cd916",
+        "file_count": 15316,
+        "git_tree_sha1": "f1c1a1dab31b2341f338a6a7bf626b5b8c569f20",
+        "repository_relative_path": "request_tok"
+      },
+      "source_id": "hybridqa_linked_tables_and_passages",
+      "tables_artifact": {
+        "canonical_content_list_sha256": "3969fcf6c0192d6085ad999e3abd41f0039a73c878ffd30d7cd8b7786ea62c92",
+        "file_count": 15316,
+        "git_tree_sha1": "772e97624b08e0bd5534b8991a8c2dd8fb6b153f",
+        "repository_relative_path": "tables_tok"
+      }
+    },
+    "question_source": {
+      "checkout_directory": "HybridQA-db22fda",
+      "dev_artifact": {
+        "question_id_set_sha256": "70ee935abae8409251e0858a46d7a92f7875e2bfa0d8084f8ab3bb1cd591f584",
+        "record_count": 3466,
+        "repository_relative_path": "released_data/dev.json",
+        "sha256": "424272b233735a70ed8ef5af4a615373d114f472168c686c4370d54c92d58ac1"
+      },
+      "git_tree_sha1": "1e1ef6a6168ef6c6cf362264d8f7b75859ce8fdf",
+      "pinned_commit": "db22fda8c5951438fade3c69d75b350335ba93b3",
+      "released_data_tree_sha1": "e3746c1ae9de9b8ecc85f8a6326faa1edf58a90f",
+      "repository_url": "https://github.com/wenhuchen/HybridQA.git",
+      "source_id": "hybridqa_questions_and_code"
+    },
+    "schema_version": "representative_environment_source_contract_v0_1"
+  },
+  "plan_id": "hybridqa_n300_representative_environment_realization_plan_v0_1",
+  "planned_outputs": {
+    "backbone_adequacy_assessments": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/backbone_adequacy_assessments.jsonl"
+    },
+    "checks": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/checks.jsonl"
+    },
+    "e1_assessment_bindings_for_e2": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/assessment_bindings_for_e2.json"
+    },
+    "e1_authoring_packet_01": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/authoring_packets/partition_01.jsonl"
+    },
+    "e1_authoring_packet_02": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/authoring_packets/partition_02.jsonl"
+    },
+    "e1_authoring_packet_03": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/authoring_packets/partition_03.jsonl"
+    },
+    "e1_authoring_packet_04": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/authoring_packets/partition_04.jsonl"
+    },
+    "e1_partition_01": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/parts/partition_01.jsonl"
+    },
+    "e1_partition_02": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/parts/partition_02.jsonl"
+    },
+    "e1_partition_03": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/parts/partition_03.jsonl"
+    },
+    "e1_partition_04": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/parts/partition_04.jsonl"
+    },
+    "e2_authoring_packet_01": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/authoring_packets/partition_01.jsonl"
+    },
+    "e2_authoring_packet_02": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/authoring_packets/partition_02.jsonl"
+    },
+    "e2_authoring_packet_03": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/authoring_packets/partition_03.jsonl"
+    },
+    "e2_authoring_packet_04": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/authoring_packets/partition_04.jsonl"
+    },
+    "e2_partition_01": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/parts/partition_01.jsonl"
+    },
+    "e2_partition_02": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/parts/partition_02.jsonl"
+    },
+    "e2_partition_03": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/parts/partition_03.jsonl"
+    },
+    "e2_partition_04": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/parts/partition_04.jsonl"
+    },
+    "environment_exposure_ledger": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/environment_exposure_ledger_v0_1.json"
+    },
+    "environment_views": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views.jsonl"
+    },
+    "environment_views_manifest": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views_manifest_v0_1.json"
+    },
+    "metrics": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/metrics_v0_1.json"
+    },
+    "open_operator_realizations": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/open_operator_realizations.jsonl"
+    },
+    "outcomes": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/outcomes.jsonl"
+    },
+    "producer_routing_manifest": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/producer_routing_manifest_v0_1.json"
+    },
+    "report": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/report_v0_1.md"
+    },
+    "run_manifest": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/run_manifest.json"
+    }
+  },
+  "routing_contract": {
+    "partition_count": 4,
+    "partitions": [
+      {
+        "assignment_method": "round_robin_by_frozen_selection_index_modulo_4",
+        "e1_authoring_packet_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/authoring_packets/partition_01.jsonl",
+        "e1_output_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/parts/partition_01.jsonl",
+        "e1_producer_partition": "e1_author_partition_01",
+        "e2_authoring_packet_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/authoring_packets/partition_01.jsonl",
+        "e2_output_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/parts/partition_01.jsonl",
+        "e2_producer_partition": "e2_author_partition_01",
+        "question_ids": [
+          "653d221ec832d13c",
+          "736e042b2c205104",
+          "c787f84fcdd3c4b8",
+          "9b030f07965328b8",
+          "411562d9ce68b1e8",
+          "0ccec805fd3393f1",
+          "5ed50dcd4d5264ab",
+          "89460c0d91f35d50",
+          "c722cd2efc12bd14",
+          "21148417ac3a50ca",
+          "7c3e89b072c6145f",
+          "078b72dd6976dc29",
+          "0503a6ef0129abd8",
+          "7fdc558f6b822b6a",
+          "a021a5ae2b2dec59",
+          "50f4456de0b2a380",
+          "0f774ac4950905c4",
+          "0fae312ba3d6ef76"
+        ],
+        "question_ids_ordered_sha256": "614fc5fb1481aad2f4dd5ef760a063c3887db2936586b57f56082278a49cc854",
+        "routing_partition_id": "routing_partition_01",
+        "selection_indices": [
+          1,
+          5,
+          9,
+          13,
+          17,
+          21,
+          25,
+          29,
+          33,
+          37,
+          41,
+          45,
+          49,
+          53,
+          57,
+          61,
+          65,
+          69
+        ]
+      },
+      {
+        "assignment_method": "round_robin_by_frozen_selection_index_modulo_4",
+        "e1_authoring_packet_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/authoring_packets/partition_02.jsonl",
+        "e1_output_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/parts/partition_02.jsonl",
+        "e1_producer_partition": "e1_author_partition_02",
+        "e2_authoring_packet_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/authoring_packets/partition_02.jsonl",
+        "e2_output_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/parts/partition_02.jsonl",
+        "e2_producer_partition": "e2_author_partition_02",
+        "question_ids": [
+          "0d48bffa70ef4acf",
+          "63cf68ef83853c8a",
+          "e9232821cf7ef702",
+          "82b28c175b1cb108",
+          "8fb7b7d6e47937e7",
+          "ad20a4c31ba3dba9",
+          "67f5d01fa7df9bed",
+          "d8b4bad4f5a73509",
+          "016665beb450ca4e",
+          "3d207ccb8be56fd9",
+          "05d8934842b3479c",
+          "b7e8bf58404aba35",
+          "d00587e410e6a6fb",
+          "500759e6b5e9256c",
+          "eb023128000a9684",
+          "c785e669858ec6f2",
+          "639da22b64b0a499",
+          "dd7056864066ae9b"
+        ],
+        "question_ids_ordered_sha256": "89bc4190a3c9a8cc489d1f18a716193f462feeb706f6504f507030212eb5bb8a",
+        "routing_partition_id": "routing_partition_02",
+        "selection_indices": [
+          2,
+          6,
+          10,
+          14,
+          18,
+          22,
+          26,
+          30,
+          34,
+          38,
+          42,
+          46,
+          50,
+          54,
+          58,
+          62,
+          66,
+          70
+        ]
+      },
+      {
+        "assignment_method": "round_robin_by_frozen_selection_index_modulo_4",
+        "e1_authoring_packet_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/authoring_packets/partition_03.jsonl",
+        "e1_output_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/parts/partition_03.jsonl",
+        "e1_producer_partition": "e1_author_partition_03",
+        "e2_authoring_packet_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/authoring_packets/partition_03.jsonl",
+        "e2_output_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/parts/partition_03.jsonl",
+        "e2_producer_partition": "e2_author_partition_03",
+        "question_ids": [
+          "735834c0f75f137a",
+          "7dc78b5327210208",
+          "1e674ae4b655c1a1",
+          "c67ea18da325ac4d",
+          "e8f872dde8b82875",
+          "f08600ded0c4be3f",
+          "b99fc5c636ea823c",
+          "cc681cfdba9badd5",
+          "857ba79b2fe601be",
+          "2bd28d7d29059abf",
+          "dcedafe32d109937",
+          "42a182821bb86560",
+          "743c4e765fcd76e5",
+          "d3b6320429b12095",
+          "09828a9a107af8a4",
+          "9aab93e9f9d29b5c",
+          "1e2e4e4f72a64bbf",
+          "2c1e60c344e2b104"
+        ],
+        "question_ids_ordered_sha256": "e7dcdc054377be26f5ceb292302f368b0f23d594de4f9f6c790f5f5e3cbec609",
+        "routing_partition_id": "routing_partition_03",
+        "selection_indices": [
+          3,
+          7,
+          11,
+          15,
+          19,
+          23,
+          27,
+          31,
+          35,
+          39,
+          43,
+          47,
+          51,
+          55,
+          59,
+          63,
+          67,
+          71
+        ]
+      },
+      {
+        "assignment_method": "round_robin_by_frozen_selection_index_modulo_4",
+        "e1_authoring_packet_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/authoring_packets/partition_04.jsonl",
+        "e1_output_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/parts/partition_04.jsonl",
+        "e1_producer_partition": "e1_author_partition_04",
+        "e2_authoring_packet_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/authoring_packets/partition_04.jsonl",
+        "e2_output_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/parts/partition_04.jsonl",
+        "e2_producer_partition": "e2_author_partition_04",
+        "question_ids": [
+          "75a7ccb3abefa128",
+          "8259c70c392c5b75",
+          "1ca8ffcd3e20e498",
+          "ba563b015b09bf21",
+          "50d916167643e093",
+          "0f7b9d689e856c5a",
+          "773655dc61bff645",
+          "3dc3aaaa06cbfc49",
+          "846fc6ee43ca7f7d",
+          "bd8704d4254c01c6",
+          "bafd6781c04a1897",
+          "e4fdd71f9bcd619c",
+          "2f8484f7e3324d0e",
+          "cfe21c5fecaab724",
+          "e2958b5a8eccc251",
+          "d0ae5921e77b1e73",
+          "8719f5ca3711aa45"
+        ],
+        "question_ids_ordered_sha256": "8737b1b1f61b9201157a16506121fed48fb858905d703d2e750d83886b3a5e78",
+        "routing_partition_id": "routing_partition_04",
+        "selection_indices": [
+          4,
+          8,
+          12,
+          16,
+          20,
+          24,
+          28,
+          32,
+          36,
+          40,
+          44,
+          48,
+          52,
+          56,
+          60,
+          64,
+          68
+        ]
+      }
+    ],
+    "producer_partitions_are_independent_reviewers": false,
+    "record_count": 71,
+    "run_id": "hybridqa_n300_representative_environment_realization_v0_1_run_001",
+    "schema_version": "representative_environment_realization_routing_v0_1",
+    "selection_id": "hybridqa_n300_candidate_backbone_coverage_sample_v0_1"
+  },
+  "run_id": "hybridqa_n300_representative_environment_realization_v0_1_run_001",
+  "schema_version": "representative_environment_realization_plan_v0_1",
+  "selection_id": "hybridqa_n300_candidate_backbone_coverage_sample_v0_1",
+  "source_artifacts": {
+    "candidate_run_manifest": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/run_manifest.json",
+      "sha256": "091c7071aa373ad718af2a487be16a0269519099959ea758d69c74414600a590"
+    },
+    "families": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/candidate_backbone_families_v0_1.jsonl",
+      "sha256": "4c96c4bc4b0f2e43894fc0bb42c26fdf4260de4c93a0455e3f0663c1a4611e5a"
+    },
+    "records": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/cumulative_n300_v0_1/records.jsonl",
+      "sha256": "bd601a5be2113f0de4f041f50eefcf415f338fbc3a89eaa35f5b867cca286629"
+    },
+    "selection": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/representative_selection_v0_1.json",
+      "sha256": "2600f22721216e0e804de88726e4fb6d8a9d99830e445cd278b1af8b383bbf2a"
+    },
+    "source_manifest": {
+      "repository_relative_path": "data_construction/manifests/source_manifest_v0_1.json",
+      "sha256": "853a8b993922ef69a35e00b87a91e510a4c8130cfe35f63ff97e9e4776849f39"
+    }
+  },
+  "source_commit": "78fe487327d2fda43cc2ec79203c0a3223d1645b",
+  "stage_contract": {
+    "answer_recovery_evaluated": false,
+    "archival_view_source_bindings_exposed_to_authors": false,
+    "authoring_uses_stage_specific_partition_packets": true,
+    "e1_context_inherits_prior_conversation": false,
+    "e1_fresh_authoring_context_required": true,
+    "e1_must_be_committed_before_e2": true,
+    "e1_prior_record_exposure_attestation_required": true,
+    "e2_author_must_not_open_e1_artifacts": true,
+    "e2_authoring_input_includes_e1_content": false,
+    "e2_context_inherits_e1_conversation": false,
+    "e2_fresh_authoring_context_required": true,
+    "e2_prior_exposure_attestation_required": true,
+    "exact_graph_match_is_sole_correctness_target": false,
+    "execution_evaluated": false,
+    "full_duplicate_review_required": false,
+    "global_nonexposure_machine_authenticated": false,
+    "grounding_evaluated": false,
+    "operator_labels_are_record_local": true,
+    "operator_vocabulary_selected": false,
+    "stage_order": [
+      "implementation_commit",
+      "plan_freeze_commit_without_raw_environment_access",
+      "environment_view_and_e1_packet_materialization_commit",
+      "e1_backbone_adequacy_authoring_and_commit",
+      "e2_hash_only_packet_materialization_in_e1_commit",
+      "e2_open_operator_realization_in_fresh_context",
+      "combined_outcome_derivation"
+    ]
+  },
+  "status": "frozen_before_selected_raw_environment_access_and_all_planned_outputs",
+  "visibility_contract": {
+    "allowed_authoring_inputs": [
+      "stage_prompt_and_output_schema",
+      "opaque_record_identity_provenance_and_fixed_output_bindings",
+      "question_text",
+      "frozen_question_only_answer_spec_primary_and_preserved_alternative_backbones",
+      "full_pinned_table_rows_and_cells",
+      "table_link_reachable_pinned_document_text"
+    ],
+    "dataset_provided_question_table_binding": true,
+    "environment_may_naturally_contain_answer_bearing_facts": true,
+    "environment_truncation": "none",
+    "excluded_anchoring_metadata": [
+      "candidate_source_record_status",
+      "candidate_uncertainty_label",
+      "cross_record_canonical_family_graph"
+    ],
+    "forbidden_authoring_inputs": [
+      "official_answer_field_or_reference",
+      "official_or_historical_trace",
+      "historical_execution_graph",
+      "prior_coarse_medium_fine_operator_proposal",
+      "oracle_document_selection",
+      "grounding_label",
+      "execution_result",
+      "answer_recovery_result"
+    ],
+    "full_table_link_closure_supplied": true,
+    "linked_document_scope": "all_document_ids_reachable_from_any_table_header_or_data_cell_link",
+    "machine_authentication_scope": "exact_projection_and_bound_artifacts_not_global_human_nonexposure",
+    "official_question_source_projection": [
+      "question_id",
+      "question",
+      "table_id"
+    ],
+    "question_or_answer_guided_environment_pruning": false,
+    "table_retrieval_evaluated": false
+  }
+}
