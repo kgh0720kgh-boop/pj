@@ -1,0 +1,297 @@
+{
+  "assessment_bindings": [
+    {
+      "assessment_id": "backbone_adequacy_v0_1:653d221ec832d13c",
+      "assessment_record_sha256": "5244a8ecbebbf43a6c43700b64ce09afa9d2eb5ea4a6d80eea7b752c27dd82a4"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:0d48bffa70ef4acf",
+      "assessment_record_sha256": "88b49e8757e695b403f04791954138743a2276a90b74f0a8fd859cd16bb09518"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:735834c0f75f137a",
+      "assessment_record_sha256": "569e6b32a46da4c4ed44c6c07c62fb866381adbb0d8913e5ac29e82fcb1d0dc9"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:75a7ccb3abefa128",
+      "assessment_record_sha256": "7ae1dde861fad8983900126396749d46ccaad5083933284af5a80e4058452aab"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:736e042b2c205104",
+      "assessment_record_sha256": "678e852a2e1aeab9732393fc2f4615d1c1fa8ce32f4e3e894d803e32d03c0e5d"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:63cf68ef83853c8a",
+      "assessment_record_sha256": "4aa23b21a65cbef2f240172dabacbaaf4df3c0a0402b9fa2a7bb8b1d01ee3996"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:7dc78b5327210208",
+      "assessment_record_sha256": "852869252f7e47bd3c2c14c06bbd24d9c59bf0a71da7af1bb3e1a334a208f553"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:8259c70c392c5b75",
+      "assessment_record_sha256": "a4d67d5257aed827a30cd714a46a617ac0b015ba1d0d791fcc7a86f51d38fc01"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:c787f84fcdd3c4b8",
+      "assessment_record_sha256": "6fcdfea2372725be4671042ca6058233557326f9d1114039ef425adea733674a"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:e9232821cf7ef702",
+      "assessment_record_sha256": "25ebe8f739568987714dead982bb0c1cc5a40ee06a73f047a95b7da11f39f54a"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:1e674ae4b655c1a1",
+      "assessment_record_sha256": "66fa845c4700116139ab4c6ac1980bace141f032f203a06724bf7d6116003f00"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:1ca8ffcd3e20e498",
+      "assessment_record_sha256": "a699b741b4be8b747a458f83ce1e87af24aa4e68bbf67f4f0bfcef29b38c8e3d"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:9b030f07965328b8",
+      "assessment_record_sha256": "b95b81fe8cdcfa8b890584b98a422bbbe0b7156e1a0c5f87cdfff17c28dbbbfb"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:82b28c175b1cb108",
+      "assessment_record_sha256": "bc5f1d36860e173f7eb8d7bf55df066db483824ad541f9615e93abf17224c188"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:c67ea18da325ac4d",
+      "assessment_record_sha256": "1defbd061ca746cf5058244d4f8d002190632d326ae9ace3d857619b9f742768"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:ba563b015b09bf21",
+      "assessment_record_sha256": "6b03690d523a147335e1074a9840c1cffc843413650fd0338c32d4d3ca0ef85e"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:411562d9ce68b1e8",
+      "assessment_record_sha256": "e927f45fbfd4e8ac522ce2b9dd779bf4d1823856ff2547bb8ad82454a6e8dca4"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:8fb7b7d6e47937e7",
+      "assessment_record_sha256": "7a7650ea7b788ac2c0d09e98766d49f6bcfa50f380c448d2de16b94a1031035f"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:e8f872dde8b82875",
+      "assessment_record_sha256": "3ee1a1923f3e3bc8f2bd0569c5cdc1735504716631fddd5bf69158872c5a608b"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:50d916167643e093",
+      "assessment_record_sha256": "aa1bc284828659da45a8cc67557c27ea6e9b86b9f3cc561775ea08ac6beadf75"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:0ccec805fd3393f1",
+      "assessment_record_sha256": "cb0cba82fcfec2afdcc2ea5f728c4e0763be797a9b60f4f9372a2bda608d15f6"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:ad20a4c31ba3dba9",
+      "assessment_record_sha256": "cd0bdc93418983558f5033c04a968e3d1f4e7675cca73ef11f57f843e69b91cd"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:f08600ded0c4be3f",
+      "assessment_record_sha256": "bc712ee28f98122dd47de4583650ab45be831d855f9a8926dba5ed28bc1c7b8c"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:0f7b9d689e856c5a",
+      "assessment_record_sha256": "d0384c433dc807c511f7a8174e9e31725b0883a0ecc106039e234c8ad4563a14"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:5ed50dcd4d5264ab",
+      "assessment_record_sha256": "3ee2988e1dfcae2ecee8a7357672965a0708c507ba0b9325d4c88b3295724252"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:67f5d01fa7df9bed",
+      "assessment_record_sha256": "025494154884e0cc8c6cee02f8f9392ade19e4a77d18cc1d3fccc8c760e15c02"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:b99fc5c636ea823c",
+      "assessment_record_sha256": "2cd34944ba43ec0144acdaec8d23854267024e6c74fd55e2caa31f0982616fb0"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:773655dc61bff645",
+      "assessment_record_sha256": "45e283a427cd825b96c31923b017fd5cf39a63fdff33085a0d8271fd3aca1b0e"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:89460c0d91f35d50",
+      "assessment_record_sha256": "af7bb2a9968b2a3f5c305891ef84d30023bbf072faf29a181e100424e7a10888"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:d8b4bad4f5a73509",
+      "assessment_record_sha256": "c589e551e70a5fe768b699de0883c98e51276bb1f11ad9ddcde96c28a350e0e7"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:cc681cfdba9badd5",
+      "assessment_record_sha256": "4283b6d9eb925419a811804b611abeb5dfd058263855da9ab866057f05bcc97e"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:3dc3aaaa06cbfc49",
+      "assessment_record_sha256": "9587fb9aaf2ea15510953da2cd620db4b87cd66ef4744ee1d060a2696d13c385"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:c722cd2efc12bd14",
+      "assessment_record_sha256": "a967fd2ee44c6325dd29febab6bacd3c8a6a5cb41d744195a28eb78381c8d6ae"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:016665beb450ca4e",
+      "assessment_record_sha256": "5dff56162835e133cf3ce53f1f5b4a48234589b0f5d8a3732827d5f97dc18a70"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:857ba79b2fe601be",
+      "assessment_record_sha256": "66db5418d32af8a4f1a12becaf57458c3bc4846c012d65c92eb88fab85857577"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:846fc6ee43ca7f7d",
+      "assessment_record_sha256": "67fa4531ceb4db36f68d484ed3f54cf582a9e97235c917f6d7bbe38df29ce5c1"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:21148417ac3a50ca",
+      "assessment_record_sha256": "89e2736c51dcc673e3b7c47441fcbc7b1997af4da1ddb87cfb6ba570b878a1bf"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:3d207ccb8be56fd9",
+      "assessment_record_sha256": "9d2647c9d53696cb103359605b0f8d3ec623b2bb458e92df140f2786e8688734"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:2bd28d7d29059abf",
+      "assessment_record_sha256": "8f56574dc53d635afb67393049c28d708927e64926918a369ac1401d9f1e25ea"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:bd8704d4254c01c6",
+      "assessment_record_sha256": "bd39602e43c6384cc7f348e56a5b8dc6c4a308695703946ec3895f002c7e9481"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:7c3e89b072c6145f",
+      "assessment_record_sha256": "f6a7dbbfcce71e3512cee114a87af0a2dc24645ea5423836d5bf369a19f7eadf"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:05d8934842b3479c",
+      "assessment_record_sha256": "7b052111b63dc1b6e24c9bda84f4895942af978b398c37641b044637a8870720"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:dcedafe32d109937",
+      "assessment_record_sha256": "7639469d76360dbb4a94a6e1a4e0c4185614001333ff4c2d918bbe2ef7306174"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:bafd6781c04a1897",
+      "assessment_record_sha256": "6244e6c4f6bb86bfcd5a00077c732659edda4b142ab17fa79e16ef6d3eccf635"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:078b72dd6976dc29",
+      "assessment_record_sha256": "5bafc55e826921001a0e11d8c1a9d21105c7f4ac4dc5c0b41f3c9812578dee7a"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:b7e8bf58404aba35",
+      "assessment_record_sha256": "ea77c1b4e1b0595e7e4cae7ed9676ea27bdc667874e00697b2833d928e705c48"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:42a182821bb86560",
+      "assessment_record_sha256": "7020a17bb87a4db838c904eb597079f8c886a1ff96184774bf91031c69bbdef8"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:e4fdd71f9bcd619c",
+      "assessment_record_sha256": "8e7b650725af537b0db901179d588c5466b0c3e6433dd208e2ce9e936e482612"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:0503a6ef0129abd8",
+      "assessment_record_sha256": "b412b473a1cd168a8d5883fd457feec1472d797317146c6ac68100eccc0c7f5f"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:d00587e410e6a6fb",
+      "assessment_record_sha256": "08c802cf7479f64f98ec70020cbe883486212ccc46f865a5811af42e32d0bc2e"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:743c4e765fcd76e5",
+      "assessment_record_sha256": "7f33046fd0045b4f730ff3d323ffbf49e66d02159830860a3dc570a7a471fb7f"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:2f8484f7e3324d0e",
+      "assessment_record_sha256": "f76074ef4f0f6159ac659643a64aa1cd7ae5c449a1bed6f9ca25cade0ebf7924"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:7fdc558f6b822b6a",
+      "assessment_record_sha256": "4359e972d6c4ba1ffc046332ccf7b87a79680eb23ac54e68103521fb83a22f80"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:500759e6b5e9256c",
+      "assessment_record_sha256": "04d9e2f820eb2cf836658a490b313538b1e607fe7b6e8d08b0b0d1eefac9899e"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:d3b6320429b12095",
+      "assessment_record_sha256": "83bedee1628fa0c9e722c1af286b587384aceb3a6dae7c3903924a8df91e4671"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:cfe21c5fecaab724",
+      "assessment_record_sha256": "5546d6b202d168576bba6be0df4c8b61ce7c154a99638cdebbbf7ef79a3c42ba"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:a021a5ae2b2dec59",
+      "assessment_record_sha256": "4b73607db1807b666b9fb5a6abdc1a9015bbc06cd73721300ccd3a32f24f024d"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:eb023128000a9684",
+      "assessment_record_sha256": "410664e9d295f0cd27fdb3e176e8905eb8b7b4507594b8e220a3316a33680db3"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:09828a9a107af8a4",
+      "assessment_record_sha256": "170fe963897942aff14f900da4d9375f36f649df844e41a085b0289d1c6f1202"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:e2958b5a8eccc251",
+      "assessment_record_sha256": "d2ed33b534a9741de37f1d2439003af9bf65e0e3001fbb54a84ad3d9021db2be"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:50f4456de0b2a380",
+      "assessment_record_sha256": "9f9678d2fcb4fc9592fa42924030d339891821fe2384df90af3c7302a3918c15"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:c785e669858ec6f2",
+      "assessment_record_sha256": "1a168bd23ceac8814c533afd4994740463641fcea6c1220c76684deec6592e04"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:9aab93e9f9d29b5c",
+      "assessment_record_sha256": "2ad153b71bb1c4a68e9031ec7fb77b8a28bcc6accae37e9a803e024beb3c02c9"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:d0ae5921e77b1e73",
+      "assessment_record_sha256": "81b26e1f38af7b378fe7ab36332a9c38b557621d6449ae1dfb18b3bb08d5ee83"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:0f774ac4950905c4",
+      "assessment_record_sha256": "8d5a2defe0d5b2b6b0a9502ce629f03a2c5a4b90cae87f28b2f05b71df59cd5c"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:639da22b64b0a499",
+      "assessment_record_sha256": "f3f475c930cc154597ad4a377865b011d87e40268a87beb77881df363286b74f"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:1e2e4e4f72a64bbf",
+      "assessment_record_sha256": "ee328bc9e4c8d06664ad98f33faf71fe98aa3765f2178baa5c62f2aeff8e8f38"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:8719f5ca3711aa45",
+      "assessment_record_sha256": "52683f7d533780646d22e9ebbd24cc05a6ac001a9cdd26f18e3abe2934a3358e"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:0fae312ba3d6ef76",
+      "assessment_record_sha256": "8803f5a805e7af040b8a8ab53639d4b9364852df6cfe4286873a7d6220829899"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:dd7056864066ae9b",
+      "assessment_record_sha256": "da68c50b43caa2f709dc3cb1f96f17f21665a7fbcf9dff3a9c463b0cfdc2b37a"
+    },
+    {
+      "assessment_id": "backbone_adequacy_v0_1:2c1e60c344e2b104",
+      "assessment_record_sha256": "268de520b02fa50ca4f7c0ae9000ed17353783168494bec64a270b368a8fdef1"
+    }
+  ],
+  "combined_e1_artifact": {
+    "record_count": 71,
+    "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/backbone_adequacy_assessments.jsonl",
+    "sha256": "a87dbce8a6731ad433f868ec78747e4285eae49f3ca751e36f163308b8c6c792"
+  },
+  "content_exposure_contract": "hash_bindings_only_no_e1_assessment_content",
+  "run_id": "hybridqa_n300_representative_environment_realization_v0_1_run_001",
+  "schema_version": "e1_assessment_bindings_for_e2_v0_1",
+  "selection_id": "hybridqa_n300_candidate_backbone_coverage_sample_v0_1"
+}
