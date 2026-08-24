@@ -81,6 +81,34 @@ for required_file in \
     data_construction/pilot/question_only_semantic_views_manifest_v0_1.json \
     data_construction/pilot/question_structure_review_packets/question_structure_calibration_batch_1_v0_1.html \
     data_construction/pilot/question_structure_review_packets/question_structure_calibration_batch_1_v0_1_manifest.json \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/README.md \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/diagnostic_plan_v0_1.json \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/stage1_observation_schema_v0_1.json \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/annotation_schema_v0_1.json \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/alignment_schema_v0_1.json \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/independent_topology_schema_v0_1.json \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/prompts/reviewer_stage1_v0_1.md \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/prompts/reviewer_stage2_v0_1.md \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/prompts/blinded_alignment_v0_1.md \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/prompts/independent_topology_v0_1.md \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/reviewer_01/stage1.jsonl \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/reviewer_01/stage1_checks.jsonl \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/reviewer_01/annotations.jsonl \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/reviewer_01/annotation_checks.jsonl \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/reviewer_02/stage1.jsonl \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/reviewer_02/stage1_checks.jsonl \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/reviewer_02/annotations.jsonl \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/reviewer_02/annotation_checks.jsonl \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/alignment/blinded_pairs.jsonl \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/alignment/side_map.jsonl \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/alignment/records.jsonl \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/alignment/checks.jsonl \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/independent_topology/records.jsonl \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/independent_topology/checks.jsonl \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/analysis/metrics_v0_1.json \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/analysis/final_report_v0_1.md \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/analysis/interpretive_addendum_v0_1.md \
+    data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/run_manifest.json \
     data_construction/pilot/granularity_representation_plan_v0_1.json \
     data_construction/pilot/granularity_input_views.jsonl \
     data_construction/pilot/granularity_input_views_manifest_v0_1.json \
@@ -123,6 +151,7 @@ for required_file in \
     data_construction/tools/fetch_official_hybridqa_sources.sh \
     data_construction/tools/validate_annotation.py \
     data_construction/tools/validate_question_structure_annotations.py \
+    data_construction/tools/run_ai_question_structure_diagnostic.py \
     data_construction/tools/validate_ir_v0_2_reference.py \
     data_construction/tools/build_review_packet.py \
     data_construction/tools/build_granularity_views.py \
@@ -196,6 +225,13 @@ paths = [
     Path("data_construction/pilot/question_structure_study_plan_v0_1.json"),
     Path("data_construction/pilot/question_only_semantic_views_manifest_v0_1.json"),
     Path("data_construction/pilot/question_structure_review_packets/question_structure_calibration_batch_1_v0_1_manifest.json"),
+    Path("data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/diagnostic_plan_v0_1.json"),
+    Path("data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/stage1_observation_schema_v0_1.json"),
+    Path("data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/annotation_schema_v0_1.json"),
+    Path("data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/alignment_schema_v0_1.json"),
+    Path("data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/independent_topology_schema_v0_1.json"),
+    Path("data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/analysis/metrics_v0_1.json"),
+    Path("data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/run_manifest.json"),
     Path("data_construction/pilot/granularity_representation_plan_v0_1.json"),
     Path("data_construction/pilot/granularity_input_views_manifest_v0_1.json"),
     Path("data_construction/reports/operator_granularity_metrics_v0_1.json"),
@@ -949,6 +985,108 @@ elif state.get("current_scientific_decision") in {
                 "packet_payload", {}
             ).get("sha256"):
                 errors.append("question-only calibration packet payload hash mismatch")
+
+        diagnostic = state.get("artifact_status", {}).get(
+            "ai_question_structure_pipeline_diagnostic", {}
+        )
+        expected_diagnostic_summary = {
+            "status": "complete_non_evidentiary_shadow_run",
+            "run_id": "ai_question_structure_pipeline_v0_1_run_001",
+            "purpose": "engineering_pipeline_rehearsal_only",
+            "contract_freeze_commit": "fb2ba9e29221c16dd8e1ee71439339d17a92818a",
+            "question_count": 30,
+            "reviewer_count": 2,
+            "stage1_record_count": 60,
+            "structured_record_count": 60,
+            "blinded_alignment_record_count": 30,
+            "independent_topology_record_count": 20,
+            "pipeline_execution_status": "complete",
+            "scientific_gate_status": "NOT_EVALUATED_AI_SUBSTITUTE",
+        }
+        for key, expected_value in expected_diagnostic_summary.items():
+            if diagnostic.get(key) != expected_value:
+                errors.append(f"AI diagnostic state mismatch for {key}")
+        expected_diagnostic_effects = {
+            "human_evidence_count": 0,
+            "human_agreement_observation_count": 0,
+            "phase_a1_pass_claimed": False,
+            "phase_a2_entry_claimed": False,
+            "phase_b_entry_claimed": False,
+            "gold_claimed": False,
+            "modeling_ready_claimed": False,
+            "common_executable_graph_claimed": False,
+            "grounding_or_execution_evaluated": False,
+        }
+        if diagnostic.get("canonical_effects") != expected_diagnostic_effects:
+            errors.append("AI diagnostic canonical effects are not the exact non-evidentiary boundary")
+        expected_diagnostic_findings = {
+            "full_equivalence_question_count": 10,
+            "compatible_variation_question_count": 20,
+            "calibration_compatible_or_full_rate": 1.0,
+            "shadow_holdout_compatible_or_full_rate": 1.0,
+            "reviewer_01_instrument_issue_count": 19,
+            "reviewer_02_instrument_issue_count": 0,
+            "ambiguity_flag_exact_match_count": 25,
+            "alternative_plan_presence_exact_match_count": 20,
+            "scalar_alternative_plan_conflict_count": 2,
+            "independent_topology_exact_signature_rate_reviewer_01": 0.85,
+            "independent_topology_exact_signature_rate_reviewer_02": 0.9,
+            "interpretation": "core_linked_dag_concordance_high_but_instrument_issue_ambiguity_and_alternative_plan_sensitivity_remain_and_ai_alignment_is_not_correctness",
+        }
+        if diagnostic.get("diagnostic_findings") != expected_diagnostic_findings:
+            errors.append("AI diagnostic finding summary mismatch")
+        expected_diagnostic_artifacts = {
+            "plan": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/diagnostic_plan_v0_1.json",
+            "run_manifest": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/run_manifest.json",
+            "metrics": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/analysis/metrics_v0_1.json",
+            "generated_report": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/analysis/final_report_v0_1.md",
+            "interpretive_addendum": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/analysis/interpretive_addendum_v0_1.md",
+        }
+        diagnostic_artifacts = diagnostic.get("artifacts", {})
+        if not isinstance(diagnostic_artifacts, dict) or set(diagnostic_artifacts) != set(
+            expected_diagnostic_artifacts
+        ):
+            errors.append("AI diagnostic artifact inventory mismatch")
+            diagnostic_artifacts = (
+                diagnostic_artifacts if isinstance(diagnostic_artifacts, dict) else {}
+            )
+        for label, expected_path in expected_diagnostic_artifacts.items():
+            reference = diagnostic_artifacts.get(label)
+            path = Path(expected_path)
+            if not isinstance(reference, dict) or reference.get("path") != expected_path:
+                errors.append(f"AI diagnostic state lacks artifact {label}")
+            elif not path.is_file():
+                errors.append(f"AI diagnostic artifact is missing: {label}")
+            elif reference.get("sha256") != hashlib.sha256(path.read_bytes()).hexdigest():
+                errors.append(f"AI diagnostic artifact hash mismatch: {label}")
+        try:
+            diagnostic_metrics = load(expected_diagnostic_artifacts["metrics"])
+            diagnostic_manifest = load(expected_diagnostic_artifacts["run_manifest"])
+        except Exception as exc:
+            errors.append(f"cannot inspect AI diagnostic outputs: {exc}")
+        else:
+            if (
+                diagnostic_metrics.get("pipeline_execution_status") != "complete"
+                or diagnostic_metrics.get("scientific_gate_status")
+                != "NOT_EVALUATED_AI_SUBSTITUTE"
+                or diagnostic_metrics.get("canonical_research_status", {}).get(
+                    "human_evidence_count"
+                )
+                != 0
+                or diagnostic_metrics.get("canonical_research_status", {}).get(
+                    "phase_a1_pass_claimed"
+                )
+                is not False
+            ):
+                errors.append("AI diagnostic metrics overstate their scientific status")
+            if (
+                diagnostic_manifest.get("run_status") != "complete"
+                or diagnostic_manifest.get("contract_freeze_commit")
+                != "fb2ba9e29221c16dd8e1ee71439339d17a92818a"
+                or diagnostic_manifest.get("canonical_effects")
+                != diagnostic_metrics.get("canonical_research_status")
+            ):
+                errors.append("AI diagnostic manifest status or evidence boundary mismatch")
 else:
     errors.append("project_state has an unsupported current scientific decision")
 
@@ -1328,6 +1466,115 @@ PY
         pass_check "OPERATOR_GRANULARITY_PILOT: $granularity_output"
     else
         fail_check "OPERATOR_GRANULARITY_PILOT_FAILED: $granularity_output"
+    fi
+
+    ai_diagnostic_output=$("$PYTHON_BIN" -B - <<'PY' 2>&1
+import json
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path("data_construction/tools").resolve()))
+from _common import iter_json_records, jsonl_file_bytes, read_json
+from run_ai_question_structure_diagnostic import (
+    REVIEWER_SLOTS,
+    build_alignment_packet,
+    build_metrics,
+    render_report,
+    validate_alignment_records,
+    validate_annotation_records,
+    validate_contract,
+    validate_stage1_records,
+    validate_topology_records,
+)
+
+base = Path("data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001")
+stage1_paths = [
+    base / "reviewer_01/stage1.jsonl",
+    base / "reviewer_02/stage1.jsonl",
+]
+stage1_check_paths = [
+    base / "reviewer_01/stage1_checks.jsonl",
+    base / "reviewer_02/stage1_checks.jsonl",
+]
+annotation_paths = [
+    base / "reviewer_01/annotations.jsonl",
+    base / "reviewer_02/annotations.jsonl",
+]
+annotation_check_paths = [
+    base / "reviewer_01/annotation_checks.jsonl",
+    base / "reviewer_02/annotation_checks.jsonl",
+]
+packet_path = base / "alignment/blinded_pairs.jsonl"
+side_map_path = base / "alignment/side_map.jsonl"
+alignment_path = base / "alignment/records.jsonl"
+alignment_checks_path = base / "alignment/checks.jsonl"
+topology_path = base / "independent_topology/records.jsonl"
+topology_checks_path = base / "independent_topology/checks.jsonl"
+metrics_path = base / "analysis/metrics_v0_1.json"
+report_path = base / "analysis/final_report_v0_1.md"
+
+validate_contract()
+all_errors = []
+stage1_records = []
+annotation_records = []
+for index, slot in enumerate(REVIEWER_SLOTS):
+    records, checks, errors = validate_stage1_records(stage1_paths[index], slot)
+    stage1_records.append(records)
+    all_errors.extend(errors)
+    if jsonl_file_bytes(checks) != stage1_check_paths[index].read_bytes():
+        all_errors.append(f"{slot} stage-1 check artifact differs from live validation")
+    records, checks, errors = validate_annotation_records(
+        annotation_paths[index], stage1_paths[index], slot
+    )
+    annotation_records.append(records)
+    all_errors.extend(errors)
+    if jsonl_file_bytes(checks) != annotation_check_paths[index].read_bytes():
+        all_errors.append(f"{slot} annotation check artifact differs from live validation")
+
+expected_packet, expected_side_map = build_alignment_packet(
+    annotation_records[0], annotation_records[1]
+)
+if jsonl_file_bytes(expected_packet) != packet_path.read_bytes():
+    all_errors.append("blinded alignment packet differs from deterministic reconstruction")
+if jsonl_file_bytes(expected_side_map) != side_map_path.read_bytes():
+    all_errors.append("alignment side map differs from deterministic reconstruction")
+
+alignments, alignment_checks, errors = validate_alignment_records(
+    alignment_path, packet_path
+)
+all_errors.extend(errors)
+if jsonl_file_bytes(alignment_checks) != alignment_checks_path.read_bytes():
+    all_errors.append("alignment checks differ from live validation")
+topologies, topology_checks, errors = validate_topology_records(topology_path)
+all_errors.extend(errors)
+if jsonl_file_bytes(topology_checks) != topology_checks_path.read_bytes():
+    all_errors.append("independent topology checks differ from live validation")
+
+live_metrics = build_metrics(
+    annotation_records[0],
+    annotation_records[1],
+    expected_packet,
+    alignments,
+    topologies,
+)
+if live_metrics != read_json(metrics_path):
+    all_errors.append("AI diagnostic metrics differ from deterministic reconstruction")
+if render_report(live_metrics).encode("utf-8") != report_path.read_bytes():
+    all_errors.append("AI diagnostic report differs from deterministic reconstruction")
+if all_errors:
+    print(" | ".join(all_errors))
+    raise SystemExit(1)
+print(
+    "stage1=60_pass;structured=60_pass;alignment=30_pass;"
+    "independent_topology=20_pass;status=NOT_EVALUATED_AI_SUBSTITUTE"
+)
+PY
+    )
+    ai_diagnostic_rc=$?
+    if [ "$ai_diagnostic_rc" -eq 0 ]; then
+        pass_check "AI_QUESTION_STRUCTURE_PIPELINE_DIAGNOSTIC: $ai_diagnostic_output"
+    else
+        fail_check "AI_QUESTION_STRUCTURE_PIPELINE_DIAGNOSTIC_FAILED: $ai_diagnostic_output"
     fi
 
     ir_reference_output=$("$PYTHON_BIN" -B - <<'PY' 2>&1

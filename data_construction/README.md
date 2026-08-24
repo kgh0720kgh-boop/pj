@@ -12,6 +12,7 @@
 - 기존 30개 model-assisted record/90 coarse-medium-fine 표현, 90개 deterministic check, HTML packet 3개, v0.1 metric은 byte-preserved Phase B 선행 가능성 증거로 남긴다. 기존 packet은 현재 Phase A나 미래 blinded Phase B의 승인된 UI가 아니며 사용하지 않는다.
 - 이전의 reviewer×granularity 6파일/180판정 task는 철회됐다. 미래 Phase B는 Phase A2 뒤 동결한 6개 stratum에서 12문항×3 granularity×2 reviewer=72판정으로 시작하고, 사전 선언 trigger에 따라 90, 최대 108판정까지만 확장한다. 정확한 ID는 A2 normalization 전에는 배정하지 않는다.
 - 현재 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`이다. A0의 30개 question-only view와 첫 10문항 packet이 commit됐고 packet-only 검사가 통과했다. 이제 연구자가 승인한 상호 독립·무노출 실제 사람 2명이 `phase_a1_batch_01`만 question-only로 독립 open-code하여 2개 파일/20개 raw record를 만든다.
+- `diagnostics/ai_question_structure_pipeline_v0_1/`에는 전체 흐름을 보기 위한 별도 AI shadow run이 있다. 두 AI reviewer의 60개 구조화 record, 30개 blinded alignment, 20개 독립 topology-only record와 최종 분석이 검증됐지만, 모두 `non_human_non_gold`이며 human count와 Phase A/B gate 변화는 0이다. 핵심 DAG concordance는 높았으나 reviewer별 instrument issue가 19 대 0으로 갈렸고 alternative-plan 존재 여부도 20/30만 일치했다.
 - 1번 질문을 둘러싼 기존 대화는 protocol 분석일 뿐 human evidence는 0건이다. Later-layer 자료에 노출된 사람은 영향받은 exposure-naive 작업에서 제외한다. Reviewer 정체성·독립성·승인·노출 여부는 수동 절차이고 기계 인증이 아니다. Raw schema/hash validity는 semantic agreement를 뜻하지 않으며, 별도 blinded alignment/adjudication 계약과 comparator를 version/freeze하기 전에는 Phase A1 agreement나 A2 readiness를 주장하지 않는다.
 - `locked_eval`은 prompt, rubric, schema, 연산자 어휘 조정에 사용하지 않는다.
 - LLM 생성물의 최초 상태는 `llm_proposed`이며 `gold`가 아니다.
@@ -37,6 +38,7 @@
 - `schemas/`: Draft 2020-12 계층형 JSON Schema v0.1 11개
 - `operator_design/`: coarse/medium/fine 후보 어휘; 파일럿 전에는 어느 것도 gold/final이 아님
 - `pilot/`: 질문, question-only view/study plan, raw open-coding packet, 보존된 `llm_proposed` granularity 표현, 결정론 검사, 외부 사람 관측, 해결 주석
+- `diagnostics/`: canonical human evidence와 격리한 non-evidentiary pipeline rehearsal, 계약, AI 산출물, 검증, 분석
 - `corpus/`: 검토가 끝난 train/dev/locked-eval 번들만 저장
 - `tools/`: 샘플링, 검증, 세분성 비교, 리뷰 패킷, 통계 도구
 - `reports/`: 근거·차단점·측정값·최종 연구 결론
@@ -138,6 +140,12 @@ python3 data_construction/tools/validate_question_structure_annotations.py \
 Validator는 exact packet reconstruction, schema/canonical hash, UTC·pseudonym·attestation, batch/order/single-reviewer, exposure=false, 최소·국소 source-cue substring의 localization integrity, ID/reference/DAG/root/sink, complete topology의 obligation coverage, later-layer 금지 key를 검사한다. 이 검사는 자유문장의 의미 contamination, cue의 semantic alignment, reviewer identity/approval, browser 조작 이력, 사람 간 agreement를 인증하지 않는다. 연구자 승인은 아직 별도 machine-authenticatable registry가 없는 procedural manual gate다.
 
 Packet과 validator가 준비됐으므로, 다음에는 연구자 수동 승인을 받은 서로 다른 실제 사람 2명이 상담·외부 lookup 없이 첫 10문항을 독립 작성한다. 각자 한 개의 immutable 10-record 파일을 제출해 총 20 raw record가 된다. Q1 대화는 evidence가 아니며, proposal/환경/answer 등 금지 입력을 본 사람은 영향받은 무노출 작업에서 제외한다. Raw validity는 observation integrity일 뿐 semantic confirmation이 아니다. 같은 scaffold 안에서 semantic skeleton, obligations, topology를 연결해 유도한 raw triple은 `elicited_linked_representation`이며 질문 구조에서 common executable graph로 가는 독립 evidence가 아니다. 두 raw set을 얻은 다음 exact technical task는 두 파일에 결속되는 별도 blinded alignment/adjudication schema·artifact·comparator를 만들고 결과를 보기 전에 version을 동결하는 것이다. Phase B normalization이나 cross-level claim 전에 upstream mapping reference를 보지 않는 별도 pass·다른 annotator의 versioned frozen independent/blinded topology elicitation 또는 prediction과 held-out evaluation gate가 추가로 필요하다.
+
+## Non-evidentiary AI shadow pipeline
+
+`diagnostics/ai_question_structure_pipeline_v0_1/`은 위 human 순서를 대체하지 않고 mechanics만 끝까지 실행한 별도 namespace다. 계약·prompt·comparator는 commit `fb2ba9e29221c16dd8e1ee71439339d17a92818a`에서 model output 전에 동결됐다. Run 001은 stage-1 60건, structured representation 60건, identity-blinded alignment 30건, upstream structure를 보지 않은 held-out topology 20건을 포함하며 deterministic live reconstruction이 통과한다.
+
+Compact result는 10 full-equivalence/20 compatible-variation, independent topology structural-signature match 0.85/0.90이다. 그러나 ambiguity flag는 25/30, alternative-plan presence는 20/30만 일치했고 reviewer 1은 instrument issue 19개를, reviewer 2는 0개를 보고했다. 또한 v0.1 question disposition은 scalar alternative-plan conflict 2건을 grouped core conflict가 없다는 이유로 compatible variation에 남긴다. 따라서 headline compatibility rate를 correctness, zero conflict, human agreement, Phase A1 pass, Phase A2 held-out evidence, common graph로 읽지 않는다. `run_001/analysis/interpretive_addendum_v0_1.md`가 이 제한을 보존한다.
 
 ## 보존된 Operator-granularity 파일럿 — Phase B로 연기
 

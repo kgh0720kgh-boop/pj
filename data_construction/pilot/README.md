@@ -20,7 +20,7 @@
 
 Question-only packet과 raw validator는 commit·검증됐다. 이제 연구자가 수동으로 승인한 서로 다른 실제 사람 2명은 상호 상담이나 외부 lookup 없이 committed order의 첫 10문항을 독립 작성한다. 각 reviewer가 immutable 10-record 파일 하나를 제출하므로 총 2파일/20 raw record다. Reviewer identity, independence, approval, prior-exposure attestation은 procedural/manual이며 machine-authenticated가 아니다. 한 HTML 안의 batch-wide lock은 정상 UI staging일 뿐 source/DOM inspection에 맞선 server-enforced blinding이 아니며, key 기반 금지 검사는 허용 free-text의 의미 contamination까지 탐지하지 못한다.
 
-질문 1에 관한 앞선 대화는 protocol 분석이고 human evidence는 0이다. Environment view, candidate graph, model rationale, answer, trace 등 later-layer material을 본 사람은 영향받은 exposure-naive 작업에서 제외한다. Raw record가 schema-valid·hash-bound·substantive여도 이는 observation integrity만 뜻한다. Semantic unit normalization, reviewer alignment, agreement score, adjudication은 아직 구현되지 않았으며, 두 raw set 뒤 별도 versioned blind contract와 comparator를 결과 해석 전에 동결해야 한다.
+질문 1에 관한 앞선 대화는 protocol 분석이고 human evidence는 0이다. Environment view, candidate graph, model rationale, answer, trace 등 later-layer material을 본 사람은 영향받은 exposure-naive 작업에서 제외한다. Raw record가 schema-valid·hash-bound·substantive여도 이는 observation integrity만 뜻한다. Canonical human semantic-unit normalization, reviewer alignment, agreement score, adjudication은 아직 구현되지 않았으며, 두 human raw set 뒤 별도 versioned blind contract와 comparator를 결과 해석 전에 동결해야 한다. `../diagnostics/ai_question_structure_pipeline_v0_1/`의 AI-only alignment와 topology rehearsal은 이 human/scientific gate를 충족하지 않는다.
 
 ## 보존된 legacy granularity 검토 계약
 

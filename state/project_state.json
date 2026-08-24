@@ -4,28 +4,28 @@
   "project": "hierarchical_data_construction_for_semantic_execution_topology_induction",
   "active_phase": "phase_2a_question_only_semantic_calibration",
   "active_branch": "main",
-  "expected_head": "b7f1749916fbb9b50ef8005cd7343db270e6f2ec",
-  "last_completed_task": "froze_question_first_phase_contract_materialized_30_blind_question_views_and_exact_first_10_question_two_stage_raw_annotation_packet_and_validated_packet_only_contract",
+  "expected_head": "40f8961b5e9ad21fa7e80a11a047754311d5e91c",
+  "last_completed_task": "completed_separately_namespaced_non_evidentiary_two_ai_reviewer_shadow_pipeline_through_blinded_alignment_shadow_holdout_independent_topology_downstream_connector_preview_and_final_analysis_without_changing_human_gates",
   "next_task": "obtain_manual_researcher_signoff_then_collect_two_mutually_independent_exposure_naive_real_human_10_record_raw_files_for_phase_a1_batch_01_validate_each_file_then_version_freeze_and_validate_the_separate_blinded_alignment_adjudication_contract_and_comparator",
   "current_scientific_decision": "UNDECIDED_NEEDS_ANNOTATION_EVIDENCE",
   "scientific_decision_status": "question_only_calibration_required_phase_b_deferred",
   "synchronization_state": "LOCAL_COMMIT_NOT_PUSHED",
   "handoff_readiness": "not_ready",
   "blocked_gates": [
-    "LOCAL_COMMIT_NOT_PUSHED: eighteen local commits will be ahead of origin/main after this metadata commit and remote writes are not authorized",
+    "LOCAL_COMMIT_NOT_PUSHED: twenty-seven local commits will be ahead of origin/main after this metadata commit and remote writes are not authorized",
     "QUESTION_ONLY_CALIBRATION_NOT_PERFORMED: no researcher-signed-off pair of mutually independent exposure-naive real-human raw files exists; Phase A1 alignment, agreement, held-out confirmation, and downstream claims remain unavailable"
   ],
   "repository": {
     "git_root": "repository root (resolve with git rev-parse --show-toplevel)",
     "current_branch": "main",
-    "head": "b7f1749916fbb9b50ef8005cd7343db270e6f2ec",
+    "head": "40f8961b5e9ad21fa7e80a11a047754311d5e91c",
     "head_role": "expected_handoff_baseline_parent_of_metadata_commit",
     "remotes": [
       "origin https://github.com/kgh0720kgh-boop/pj.git"
     ],
     "working_tree_status": "clean",
     "untracked_files": 0,
-    "unpushed_commits": 18,
+    "unpushed_commits": 27,
     "stash_state": "empty"
   },
   "artifact_status": {
@@ -151,6 +151,68 @@
         }
       }
     },
+    "ai_question_structure_pipeline_diagnostic": {
+      "status": "complete_non_evidentiary_shadow_run",
+      "run_id": "ai_question_structure_pipeline_v0_1_run_001",
+      "purpose": "engineering_pipeline_rehearsal_only",
+      "contract_freeze_commit": "fb2ba9e29221c16dd8e1ee71439339d17a92818a",
+      "question_count": 30,
+      "reviewer_count": 2,
+      "stage1_record_count": 60,
+      "structured_record_count": 60,
+      "blinded_alignment_record_count": 30,
+      "independent_topology_record_count": 20,
+      "raw_integrity_status": "passed_schema_hash_cue_reference_root_sink_obligation_coverage_and_dag_checks",
+      "pipeline_execution_status": "complete",
+      "scientific_gate_status": "NOT_EVALUATED_AI_SUBSTITUTE",
+      "diagnostic_findings": {
+        "full_equivalence_question_count": 10,
+        "compatible_variation_question_count": 20,
+        "calibration_compatible_or_full_rate": 1.0,
+        "shadow_holdout_compatible_or_full_rate": 1.0,
+        "reviewer_01_instrument_issue_count": 19,
+        "reviewer_02_instrument_issue_count": 0,
+        "ambiguity_flag_exact_match_count": 25,
+        "alternative_plan_presence_exact_match_count": 20,
+        "scalar_alternative_plan_conflict_count": 2,
+        "independent_topology_exact_signature_rate_reviewer_01": 0.85,
+        "independent_topology_exact_signature_rate_reviewer_02": 0.9,
+        "interpretation": "core_linked_dag_concordance_high_but_instrument_issue_ambiguity_and_alternative_plan_sensitivity_remain_and_ai_alignment_is_not_correctness"
+      },
+      "canonical_effects": {
+        "human_evidence_count": 0,
+        "human_agreement_observation_count": 0,
+        "phase_a1_pass_claimed": false,
+        "phase_a2_entry_claimed": false,
+        "phase_b_entry_claimed": false,
+        "gold_claimed": false,
+        "modeling_ready_claimed": false,
+        "common_executable_graph_claimed": false,
+        "grounding_or_execution_evaluated": false
+      },
+      "artifacts": {
+        "plan": {
+          "path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/diagnostic_plan_v0_1.json",
+          "sha256": "3c083a415490c4c94fac46c8903c80d8377cf6852e807c23c0bcddc11c56aad2"
+        },
+        "run_manifest": {
+          "path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/run_manifest.json",
+          "sha256": "8d3a498b97caf8a3ddc87426a44abd73dd7a06f16ab41d9b02154bed4b53c9ac"
+        },
+        "metrics": {
+          "path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/analysis/metrics_v0_1.json",
+          "sha256": "ce354643f2e2e6ebb56ecd793d13b4cfdeac2fb4da3aacc41dc1655c2ee2bd67"
+        },
+        "generated_report": {
+          "path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/analysis/final_report_v0_1.md",
+          "sha256": "e28dd3dc5c0335653c0acb09c130b80a6219cf334a45972c7d31e636ab57fe80"
+        },
+        "interpretive_addendum": {
+          "path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/analysis/interpretive_addendum_v0_1.md",
+          "sha256": "a7042e6da7292785c67e124b46329f607222e845f0c43f554562158a16c8ff0d"
+        }
+      }
+    },
     "operator_granularity_pilot": {
       "status": "structural_integrity_complete_phase_b_deferred",
       "previous_status": "structural_integrity_complete_human_calibration_pending",
@@ -228,7 +290,7 @@
     "tools": {
       "status": "implemented",
       "test_entry_point": ".venv/bin/python -B -m unittest discover -s tests -v",
-      "final_integration_test_status": "passed_62_tests_in_project_local_exact_pin_environment"
+      "final_integration_test_status": "passed_68_tests_in_project_local_exact_pin_environment"
     }
   },
   "preflight_status": {
@@ -236,8 +298,8 @@
     "result": "NOT_READY",
     "exit_code": 2,
     "validation_failures": 0,
-    "core_json_files_parsed": 30,
-    "unit_tests_passed": 62,
+    "core_json_files_parsed": 37,
+    "unit_tests_passed": 68,
     "unit_tests_failed": 0,
     "ir_v0_2_records_validated": 50,
     "ir_v0_2_validator_errors": 0
@@ -263,6 +325,7 @@
     "data_construction/pilot/question_only_semantic_views_v0_1.jsonl",
     "data_construction/pilot/question_only_semantic_views_manifest_v0_1.json",
     "data_construction/pilot/question_structure_review_packets/",
+    "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/",
     "data_construction/pilot/granularity_representation_plan_v0_1.json",
     "data_construction/pilot/granularity_input_views.jsonl",
     "data_construction/pilot/granularity_input_views_manifest_v0_1.json",
