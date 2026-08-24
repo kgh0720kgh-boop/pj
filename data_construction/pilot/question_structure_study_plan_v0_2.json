@@ -144,7 +144,14 @@
     },
     "n300": {
       "status": "conditional_not_yet_allocated",
-      "trigger": "material_recurring_new_families_OR_high_singleton_mass_OR_material_OTHER_rate_OR_nonflattening_curve_at_n100",
+      "trigger_any": [
+        "contracted_semantic_DAG_singleton_question_mass_above_0_10",
+        "OTHER_question_rate_above_0_05",
+        "both_positions_81_to_90_and_91_to_100_contracted_family_question_novelty_rate_above_0_10",
+        "at_least_2_contracted_families_absent_from_first30_each_recur_at_least_twice_in_new70"
+      ],
+      "no_trigger_disposition": "freeze_candidate_library_and_begin_representative_environment_realization",
+      "threshold_interpretation": "precommitted_design_decision_not_universal_statistical_law",
       "same_extractor_and_normalizer_required": true
     },
     "n1000": {

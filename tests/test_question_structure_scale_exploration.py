@@ -233,6 +233,40 @@ class SaturationMetricTests(unittest.TestCase):
 
 
 class PortablePoolSelectionTests(unittest.TestCase):
+    def test_materialized_n100_is_exact_four_field_extension_of_n30(self) -> None:
+        views_path = (
+            ROOT
+            / "data_construction/exploration/ai_question_structure_scale_v0_1/pool/question_only_views_n100.jsonl"
+        )
+        prefix_path = ROOT / "data_construction/pilot/question_only_semantic_views_v0_1.jsonl"
+        manifest_path = (
+            ROOT / "data_construction/manifests/ai_question_structure_exploratory_pool_v0_1.json"
+        )
+        views = [json.loads(line) for line in views_path.read_text(encoding="utf-8").splitlines()]
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        self.assertEqual(len(views), 100)
+        self.assertTrue(views_path.read_bytes().startswith(prefix_path.read_bytes()))
+        self.assertTrue(
+            all(
+                set(view) == {"schema_version", "visibility", "question_id", "question"}
+                for view in views
+            )
+        )
+        self.assertEqual(manifest["selection"]["selected_count"], 100)
+        self.assertEqual(manifest["selection"]["added_count"], 70)
+        self.assertEqual(
+            manifest["selection"]["unexposed_unallocated_reserve_count"], 3266
+        )
+        self.assertFalse(manifest["selection"]["reserve_question_text_materialized"])
+        self.assertFalse(manifest["exposure_accounting_at_materialization"]["corpus_role_allocated"])
+
+    def test_live_exploration_contract_binds_exact_pool_and_tooling(self) -> None:
+        plan, views, pool = exploration.validate_contract()
+        self.assertEqual(plan["question_ids"], [view["question_id"] for view in views])
+        self.assertEqual(pool["selection"]["selected_question_ids"], plan["question_ids"])
+        self.assertEqual([part["expected_record_count"] for part in plan["partitions"]], [34, 33, 33])
+        self.assertFalse(plan["truthfulness_contract"]["gold_claimed"])
+
     def test_tracked_id_rank_has_exact_existing_30_prefix_and_n100_partition(self) -> None:
         source = json.loads(
             (ROOT / "data_construction/manifests/source_question_ids.json").read_text(

@@ -686,6 +686,34 @@ def build_metrics(
     known_after_contraction = sum(
         contracted_signatures[index] in known_contracted for index in novel_fine_indexes
     )
+    contracted_new70_counts = Counter(
+        value
+        for value in contracted_signatures[30:]
+        if isinstance(value, str) and value not in known_contracted
+    )
+    recurring_new_contracted_families = sum(
+        count >= 2 for count in contracted_new70_counts.values()
+    )
+    contracted_metrics = family_metrics["contracted_semantic_dag"]
+    last_two_blocks = contracted_metrics["block_novelty_committed_order"][-2:]
+    trigger_values = {
+        "contracted_singleton_mass_above_0_10": (
+            contracted_metrics["singleton_question_mass"] is not None
+            and contracted_metrics["singleton_question_mass"] > 0.10
+        ),
+        "OTHER_question_rate_above_0_05": other_questions / len(records) > 0.05,
+        "both_final_ten_question_blocks_novelty_above_0_10": (
+            len(last_two_blocks) == 2
+            and all(
+                block["question_novelty_rate"] is not None
+                and block["question_novelty_rate"] > 0.10
+                for block in last_two_blocks
+            )
+        ),
+        "at_least_2_new_contracted_families_recur_in_new70": (
+            recurring_new_contracted_families >= 2
+        ),
+    }
     canonical_examples: dict[str, list[dict[str, Any]]] = {}
     for kind in SIGNATURE_KINDS:
         by_signature: dict[str, dict[str, Any]] = {}
@@ -761,6 +789,16 @@ def build_metrics(
             "of_those_with_contracted_signature_seen_in_first_30": known_after_contraction,
             "rate": known_after_contraction / len(novel_fine_indexes) if novel_fine_indexes else None,
         },
+        "n100_precommitted_decision": {
+            "trigger_values": trigger_values,
+            "recurring_new_contracted_family_count": recurring_new_contracted_families,
+            "decision": (
+                "EXPAND_UNCHANGED_TO_N300"
+                if any(trigger_values.values())
+                else "FREEZE_CANDIDATE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION"
+            ),
+            "thresholds_are_design_choices_not_universal_statistical_laws": True,
+        },
         "top_family_examples": canonical_examples,
         "interpretation_boundary": {
             "supported": [
@@ -829,6 +867,7 @@ def render_report(metrics: dict[str, Any]) -> str:
             "This run measures recurrence and curve shape under one frozen AI extractor and deterministic normalizer. N=100 may show that a curve is flattening or not flattening; it cannot establish universal saturation. It evaluates no factual answer, environment realization, grounding, execution, human agreement, or semantic correctness.",
             "",
             "The next decision is based on the new-70 novelty curves, singleton mass, `OTHER` rate, and split/merge sensitivity: expand unchanged to N=300 if material recurring families are still appearing; otherwise freeze a candidate backbone library and begin representative environment realization while preserving an untouched reserve.",
+            f"Precommitted N=100 decision: `{metrics['n100_precommitted_decision']['decision']}`.",
             "",
         ]
     )

@@ -1,0 +1,280 @@
+{
+  "schema_version": "ai_question_structure_scale_exploration_plan_v0_1",
+  "run_id": "ai_question_structure_scale_v0_1_run_001",
+  "decision_date": "2026-08-24",
+  "purpose": "scale_first_question_only_semantic_backbone_recurrence_and_saturation_exploration",
+  "status": "contract_frozen_before_model_outputs",
+  "scope": {
+    "dataset": "HybridQA",
+    "source_split": "dev",
+    "question_count": 100,
+    "contract_development_prefix_count": 30,
+    "new_expansion_count": 70,
+    "primary_ai_record_count_expected": 100,
+    "human_record_count_expected": 0,
+    "corpus_role_allocation_performed": false
+  },
+  "source_artifacts": [
+    {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/pool/question_only_views_n100.jsonl",
+      "sha256": "8cece2fdc33776a077ed32b3dd88d023c9d89273876683b109c6f0f24fc5d14d"
+    },
+    {
+      "repository_relative_path": "data_construction/manifests/ai_question_structure_exploratory_pool_v0_1.json",
+      "sha256": "fa89d07a35582936f3824f90cf36476b9035ca01257b119c84d434ca77f7ff96"
+    },
+    {
+      "repository_relative_path": "data_construction/manifests/historical_exposed_ids.json",
+      "sha256": "b6285a87556bdecd03f0e1c73635a898d657038b184d6de38321640f6760bb0f"
+    },
+    {
+      "repository_relative_path": "data_construction/manifests/source_manifest_v0_1.json",
+      "sha256": "853a8b993922ef69a35e00b87a91e510a4c8130cfe35f63ff97e9e4776849f39"
+    },
+    {
+      "repository_relative_path": "data_construction/manifests/source_question_ids.json",
+      "sha256": "e38fe1e43ad18d4237db478ac88dd9dab3e00d5e7e103f1d693d9f7f60814df9"
+    },
+    {
+      "repository_relative_path": "data_construction/manifests/split_manifest_v0_1.json",
+      "sha256": "9de7124ab4b3b7a213a0970c0a2c51c0d6353f5eb01d9ce8b60f9250440bcfc8"
+    },
+    {
+      "repository_relative_path": "data_construction/pilot/question_structure_study_plan_v0_2.json",
+      "sha256": "74f56eb853b9d9164eea8ed48cf563ecde4996639e13df2efe74e0b318d427ce"
+    },
+    {
+      "repository_relative_path": "data_construction/reports/research_sequencing_decision_v0_2.md",
+      "sha256": "d20c095bbadd72f8508c11eb258f92a2a1d8924e8e044c0084b435b3531b001d"
+    }
+  ],
+  "contract_artifacts": [
+    {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/semantic_backbone_record_schema_v0_1.json",
+      "sha256": "22663e1d8cd2b56c99cd6ee95493384a8cc4a9ab845209ad3b783e9495ffebb4"
+    },
+    {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/prompts/primary_extraction_v0_1.md",
+      "sha256": "081007e4006fd1f41aa53c30a8690bc6f9b388fba43b2a022ed1d5b7022cdc0f"
+    },
+    {
+      "repository_relative_path": "data_construction/tools/build_ai_question_structure_exploration_pool.py",
+      "sha256": "7b963165b4240ee35bf3bd66473ab5421c6bdad734198fec0a1a7caf39a74074"
+    },
+    {
+      "repository_relative_path": "data_construction/tools/run_ai_question_structure_scale_exploration.py",
+      "sha256": "56eaf5447594ccf2c49cc0f9697a3220b8053aca9da440cb5deda916bb721862"
+    },
+    {
+      "repository_relative_path": "tests/test_question_structure_scale_exploration.py",
+      "sha256": "0510fd7928cefa833514d12c575ad0d61ef3e97a52813e7e3d50a2c3b0f2bcc1"
+    }
+  ],
+  "input_contract": {
+    "allowed_fields": [
+      "schema_version",
+      "visibility",
+      "question_id",
+      "question"
+    ],
+    "environment_exposed": false,
+    "answer_or_trace_exposed": false,
+    "operator_proposal_exposed": false,
+    "grounding_or_execution_exposed": false,
+    "historical_graph_or_label_exposed": false,
+    "other_worker_record_exposed": false,
+    "external_lookup_allowed": false
+  },
+  "generation_contract": {
+    "one_record_per_question": true,
+    "duplicate_reviewer_lanes": false,
+    "single_frozen_prompt_and_schema_for_all_100": true,
+    "partitioning_is_throughput_only_not_reviewer_multiplicity": true,
+    "partition_workers_share_one_model_identity_contract": true,
+    "model_id": "codex_gpt-5",
+    "exact_model_revision_status": "revision_not_exposed",
+    "seed_status": "not_supported",
+    "separate_raw_response_status": "structured_JSONL_parts_are_primary_capture_no_separate_raw_response",
+    "statistical_independence_claimed": false,
+    "in_run_prompt_schema_role_or_normalizer_change_allowed": false,
+    "factual_answer_allowed_in_output": false,
+    "model_generated_family_or_signature_allowed": false
+  },
+  "partitions": [
+    {
+      "producer_partition": "partition_01",
+      "committed_order_start": 1,
+      "committed_order_end": 34,
+      "expected_record_count": 34,
+      "output": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/parts/partition_01.jsonl"
+    },
+    {
+      "producer_partition": "partition_02",
+      "committed_order_start": 35,
+      "committed_order_end": 67,
+      "expected_record_count": 33,
+      "output": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/parts/partition_02.jsonl"
+    },
+    {
+      "producer_partition": "partition_03",
+      "committed_order_start": 68,
+      "committed_order_end": 100,
+      "expected_record_count": 33,
+      "output": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/parts/partition_03.jsonl"
+    }
+  ],
+  "question_ids": [
+    "8259c70c392c5b75",
+    "1d48a5ffb05c7de2",
+    "743c4e765fcd76e5",
+    "ab5eb9535349cd7a",
+    "b3550375a684a870",
+    "f36270c917a195c7",
+    "8524304318e5f09a",
+    "c26cafcd706efe0d",
+    "3d207ccb8be56fd9",
+    "b16c668f54c230e7",
+    "f7426693930a6ab2",
+    "fb5717774d243073",
+    "1e674ae4b655c1a1",
+    "bd8704d4254c01c6",
+    "0503a6ef0129abd8",
+    "254c5c25421f60da",
+    "1518b9d0da2d3711",
+    "be6ebff950e35063",
+    "5ee2a90fe9a3cd56",
+    "6926f4190bebd390",
+    "d8b4bad4f5a73509",
+    "6a9c00243f104ad3",
+    "e650aba3f1a9239e",
+    "c597434242009fe6",
+    "86245b7523f7a645",
+    "1754cff04f90d4ba",
+    "2e4366c597bbfb87",
+    "639da22b64b0a499",
+    "fc9605cb355ae05c",
+    "f08d137b8650f452",
+    "95e484f9c142fcd1",
+    "ec037baed0aa50f1",
+    "16b1b3b42ee8cf76",
+    "2bc10eb7fae74925",
+    "68d71f4901034c6c",
+    "8d227e06daa34ecc",
+    "016665beb450ca4e",
+    "5914afe6f78c7c18",
+    "9b4c37391fd03430",
+    "4580af807e6dcddd",
+    "aa7e19c550a44a53",
+    "44e4ccc030f5ea46",
+    "1553992ce59467a8",
+    "289df7f4d3d6dcda",
+    "5ba124fedec8be3b",
+    "80d6daff47bcd3e8",
+    "f6f09ec02eaa8bb8",
+    "f2f50ad106185184",
+    "0f774ac4950905c4",
+    "1e2e4e4f72a64bbf",
+    "bc0a4a6d3b175e61",
+    "c9943d84a8728595",
+    "e6dd9490b02ee404",
+    "c11b0740b1084da0",
+    "66707683893e53c1",
+    "411562d9ce68b1e8",
+    "5456c7ee3ac9281a",
+    "500759e6b5e9256c",
+    "0d48bffa70ef4acf",
+    "21148417ac3a50ca",
+    "c787f84fcdd3c4b8",
+    "52a7af9ad74b673c",
+    "a126b975753bf564",
+    "9b030f07965328b8",
+    "846fc6ee43ca7f7d",
+    "078b72dd6976dc29",
+    "1002c04bc7cfcfe7",
+    "08466917653bd712",
+    "eb023128000a9684",
+    "b99fc5c636ea823c",
+    "c22ed72319365f46",
+    "1ca8ffcd3e20e498",
+    "a34f9785e4a1685b",
+    "a5cf7ceed7e24ed8",
+    "9ce5fbb892f97ffb",
+    "02a6b86e122395b6",
+    "5ad56ecdb9fb78c1",
+    "f1c4c4262f1e0c4d",
+    "480d8e720f66f472",
+    "2bd28d7d29059abf",
+    "ad20a4c31ba3dba9",
+    "2f8484f7e3324d0e",
+    "53ab4bfbd1af319f",
+    "a98b74225985bd58",
+    "78c2a81a6d3c3e67",
+    "2a7334350f657b69",
+    "27432f264c71480d",
+    "dfd8fe711842b3ff",
+    "fbced129915a58be",
+    "55fb4e74d50b3393",
+    "2091c218cfc8bf5b",
+    "6c164eb418d88e42",
+    "b45751302b0495f9",
+    "7fdc558f6b822b6a",
+    "1c315f65b178172c",
+    "7dc78b5327210208",
+    "eba04afd3feb2f34",
+    "a63df4741d22a223",
+    "51994b0c74870590",
+    "3cd9a72d45ef59aa"
+  ],
+  "normalization_contract": {
+    "transitive_reduction": true,
+    "exact_node_ID_and_array_order_invariant_canonicalization": true,
+    "signature_levels": [
+      "fine_semantic_dag",
+      "contracted_semantic_dag",
+      "topology_shape",
+      "task"
+    ],
+    "same_role_linear_split_merge_contraction": true,
+    "model_output_trusted_for_signature": false,
+    "post_hoc_semantic_cluster_merging_in_primary_metrics": false
+  },
+  "metrics_contract": {
+    "block_size": 10,
+    "top_k": [
+      1,
+      5,
+      10,
+      20
+    ],
+    "rarefaction_sample_sizes": "10_20_..._N",
+    "first30_and_new70_reported_separately": true,
+    "precommitted_n300_trigger_any": [
+      "contracted_singleton_question_mass_above_0_10",
+      "OTHER_question_rate_above_0_05",
+      "both_final_ten_question_blocks_contracted_question_novelty_above_0_10",
+      "at_least_2_new_contracted_families_each_recur_at_least_twice_in_new70"
+    ],
+    "no_trigger_disposition": "freeze_candidate_library_and_begin_representative_environment_realization",
+    "thresholds_are_universal_statistical_laws": false
+  },
+  "continuation_policy": {
+    "always_emit_analysis_when_all_records_validate": true,
+    "invalid_record_blocks_all_derived_metrics": true,
+    "low_recurrence_blocks_report_generation": false,
+    "n100_universal_saturation_claim_allowed": false,
+    "future_n300_or_n1000_requires_new_selection_and_exposure_manifest_version": true,
+    "future_expansion_must_keep_this_extractor_and_normalizer_or_start_a_new_experiment_version": true
+  },
+  "truthfulness_contract": {
+    "human_evidence_count_delta": 0,
+    "gold_claimed": false,
+    "semantic_correctness_claimed": false,
+    "human_agreement_claimed": false,
+    "universal_semantic_topology_claimed": false,
+    "common_executable_graph_claimed": false,
+    "operator_vocabulary_selected": false,
+    "grounding_or_execution_evaluated": false,
+    "modeling_ready_claimed": false,
+    "supported_evidence": "descriptive_recurrence_saturation_and_transfer_under_the_frozen_AI_extractor_and_deterministic_normalizer"
+  }
+}
