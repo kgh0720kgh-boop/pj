@@ -1,0 +1,627 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "environment_realization_outcome_schema_v0_1.json",
+  "title": "Representative environment-realization outcome v0.1",
+  "description": "A future outcome record with five explicitly independent signals. Each signal may remain not_evaluated; this schema imposes no success or failure implication between signals.",
+  "type": "object",
+  "required": [
+    "schema_version", "outcome_id", "run_id", "selection_id", "selection_index",
+    "question_id", "family_id", "contracted_signature_sha256", "record_status",
+    "assessment_scope",
+    "source_bindings", "backbone_adequacy", "environment_operator_realization",
+    "grounding", "execution", "answer_recovery", "independence_contract",
+    "evidence_boundary", "limitations"
+  ],
+  "properties": {
+    "schema_version": {"const": "environment_realization_outcome_v0_1"},
+    "outcome_id": {"$ref": "#/$defs/stable_id"},
+    "run_id": {"$ref": "#/$defs/stable_id"},
+    "selection_id": {"const": "hybridqa_n300_candidate_backbone_coverage_sample_v0_1"},
+    "selection_index": {"type": "integer", "minimum": 1, "maximum": 71},
+    "question_id": {"$ref": "#/$defs/question_id"},
+    "family_id": {"type": "string", "pattern": "^cbf_v0_1:[0-9a-f]{64}$"},
+    "contracted_signature_sha256": {"$ref": "#/$defs/sha256"},
+    "record_status": {
+      "enum": ["initialized_not_evaluated", "in_progress", "complete"]
+    },
+    "assessment_scope": {"const": "selected_question_environment_instance_only"},
+    "source_bindings": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {"$ref": "#/$defs/artifact_binding"}
+    },
+    "backbone_adequacy": {"$ref": "#/$defs/backbone_adequacy"},
+    "environment_operator_realization": {"$ref": "#/$defs/environment_operator_realization"},
+    "grounding": {"$ref": "#/$defs/grounding"},
+    "execution": {"$ref": "#/$defs/execution"},
+    "answer_recovery": {"$ref": "#/$defs/answer_recovery"},
+    "independence_contract": {"$ref": "#/$defs/independence_contract"},
+    "evidence_boundary": {"$ref": "#/$defs/evidence_boundary"},
+    "limitations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/nonempty_text"}
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"record_status": {"const": "initialized_not_evaluated"}},
+        "required": ["record_status"]
+      },
+      "then": {
+        "properties": {
+          "backbone_adequacy": {
+            "properties": {"status": {"const": "not_evaluated"}}
+          },
+          "environment_operator_realization": {
+            "properties": {"status": {"const": "not_evaluated"}}
+          },
+          "grounding": {
+            "properties": {"status": {"const": "not_evaluated"}}
+          },
+          "execution": {
+            "properties": {"status": {"const": "not_evaluated"}}
+          },
+          "answer_recovery": {
+            "properties": {"status": {"const": "not_evaluated"}}
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"record_status": {"const": "complete"}},
+        "required": ["record_status"]
+      },
+      "then": {
+        "properties": {
+          "backbone_adequacy": {
+            "properties": {"status": {"not": {"const": "not_evaluated"}}}
+          },
+          "environment_operator_realization": {
+            "properties": {"status": {"not": {"const": "not_evaluated"}}}
+          },
+          "grounding": {
+            "properties": {"status": {"not": {"const": "not_evaluated"}}}
+          },
+          "execution": {
+            "properties": {"status": {"not": {"const": "not_evaluated"}}}
+          },
+          "answer_recovery": {
+            "properties": {"status": {"not": {"const": "not_evaluated"}}}
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "stable_id": {
+      "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$", "maxLength": 256
+    },
+    "question_id": {"$ref": "#/$defs/stable_id"},
+    "nonempty_text": {
+      "type": "string", "minLength": 1, "maxLength": 4096, "pattern": "\\S"
+    },
+    "nullable_text": {
+      "oneOf": [
+        {"$ref": "#/$defs/nonempty_text"},
+        {"type": "null"}
+      ]
+    },
+    "nullable_boolean": {
+      "type": ["boolean", "null"]
+    },
+    "nullable_stable_id": {
+      "oneOf": [
+        {"$ref": "#/$defs/stable_id"},
+        {"type": "null"}
+      ]
+    },
+    "assessment_status": {
+      "enum": [
+        "not_evaluated", "pass", "partial", "fail", "indeterminate", "not_applicable"
+      ]
+    },
+    "artifact_binding": {
+      "type": "object",
+      "required": ["artifact_role", "repository_relative_path", "sha256"],
+      "properties": {
+        "artifact_role": {"$ref": "#/$defs/stable_id"},
+        "repository_relative_path": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*$",
+          "maxLength": 1024
+        },
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "record_id": {"$ref": "#/$defs/nullable_stable_id"}
+      },
+      "additionalProperties": false
+    },
+    "signal_evidence": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {"$ref": "#/$defs/artifact_binding"}
+    },
+    "code_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/stable_id"}
+    },
+    "comparison_provenance": {
+      "type": "object",
+      "required": [
+        "reference_answer_binding", "reference_answer_evidence_class",
+        "reference_answer_is_gold", "comparator_id", "comparator_version"
+      ],
+      "properties": {
+        "reference_answer_binding": {
+          "oneOf": [
+            {"$ref": "#/$defs/artifact_binding"},
+            {"type": "null"}
+          ]
+        },
+        "reference_answer_evidence_class": {
+          "oneOf": [
+            {
+              "enum": [
+                "official_dataset_reference_non_gold",
+                "human_reviewed_reference_non_gold",
+                "other_reference_non_gold"
+              ]
+            },
+            {"type": "null"}
+          ]
+        },
+        "reference_answer_is_gold": {"const": false},
+        "comparator_id": {"$ref": "#/$defs/nullable_stable_id"},
+        "comparator_version": {"$ref": "#/$defs/nullable_stable_id"}
+      },
+      "additionalProperties": false
+    },
+    "backbone_adequacy": {
+      "type": "object",
+      "description": "Whether the frozen question-only candidate backbone adequately expresses the semantic obligations observed during environment realization.",
+      "required": [
+        "status", "candidate_backbone_adequate", "required_change_codes",
+        "evidence_references", "notes"
+      ],
+      "properties": {
+        "status": {"$ref": "#/$defs/assessment_status"},
+        "candidate_backbone_adequate": {"$ref": "#/$defs/nullable_boolean"},
+        "required_change_codes": {"$ref": "#/$defs/code_list"},
+        "evidence_references": {"$ref": "#/$defs/signal_evidence"},
+        "notes": {"$ref": "#/$defs/nullable_text"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"status": {"enum": ["not_evaluated", "not_applicable"]}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "candidate_backbone_adequate": {"type": "null"},
+              "required_change_codes": {"maxItems": 0},
+              "evidence_references": {"maxItems": 0}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"status": {"const": "pass"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {"candidate_backbone_adequate": {"const": true}}
+          }
+        },
+        {
+          "if": {
+            "properties": {"status": {"const": "fail"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {"candidate_backbone_adequate": {"const": false}}
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "environment_operator_realization": {
+      "type": "object",
+      "description": "Whether and how an environment-aware operator graph can realize the candidate backbone; it is not a grounding or execution result.",
+      "required": [
+        "status", "realization_available", "operator_vocabulary_version",
+        "realization_record_id", "unsupported_backbone_node_indices",
+        "evidence_references", "notes"
+      ],
+      "properties": {
+        "status": {"$ref": "#/$defs/assessment_status"},
+        "realization_available": {"$ref": "#/$defs/nullable_boolean"},
+        "operator_vocabulary_version": {"$ref": "#/$defs/nullable_stable_id"},
+        "realization_record_id": {"$ref": "#/$defs/nullable_stable_id"},
+        "unsupported_backbone_node_indices": {
+          "type": "array", "maxItems": 8, "uniqueItems": true,
+          "items": {"type": "integer", "minimum": 0, "maximum": 7}
+        },
+        "evidence_references": {"$ref": "#/$defs/signal_evidence"},
+        "notes": {"$ref": "#/$defs/nullable_text"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"status": {"enum": ["not_evaluated", "not_applicable"]}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "realization_available": {"type": "null"},
+              "operator_vocabulary_version": {"type": "null"},
+              "realization_record_id": {"type": "null"},
+              "unsupported_backbone_node_indices": {"maxItems": 0},
+              "evidence_references": {"maxItems": 0}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"status": {"const": "pass"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {"realization_available": {"const": true}}
+          }
+        },
+        {
+          "if": {
+            "properties": {"status": {"const": "fail"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {"realization_available": {"const": false}}
+          }
+        },
+        {
+          "if": {
+            "properties": {"realization_available": {"const": true}},
+            "required": ["realization_available"]
+          },
+          "then": {
+            "properties": {
+              "operator_vocabulary_version": {"$ref": "#/$defs/stable_id"},
+              "realization_record_id": {"$ref": "#/$defs/stable_id"}
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "grounding": {
+      "type": "object",
+      "description": "Grounding quality assessed independently of backbone adequacy, realization availability, execution, and answer recovery.",
+      "required": [
+        "status", "all_required_inputs_grounded", "grounding_record_id",
+        "grounded_item_count", "ungrounded_item_count", "failure_codes",
+        "evidence_references", "notes"
+      ],
+      "properties": {
+        "status": {"$ref": "#/$defs/assessment_status"},
+        "all_required_inputs_grounded": {"$ref": "#/$defs/nullable_boolean"},
+        "grounding_record_id": {"$ref": "#/$defs/nullable_stable_id"},
+        "grounded_item_count": {
+          "oneOf": [
+            {"type": "integer", "minimum": 0},
+            {"type": "null"}
+          ]
+        },
+        "ungrounded_item_count": {
+          "oneOf": [
+            {"type": "integer", "minimum": 0},
+            {"type": "null"}
+          ]
+        },
+        "failure_codes": {"$ref": "#/$defs/code_list"},
+        "evidence_references": {"$ref": "#/$defs/signal_evidence"},
+        "notes": {"$ref": "#/$defs/nullable_text"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"status": {"enum": ["not_evaluated", "not_applicable"]}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "all_required_inputs_grounded": {"type": "null"},
+              "grounding_record_id": {"type": "null"},
+              "grounded_item_count": {"type": "null"},
+              "ungrounded_item_count": {"type": "null"},
+              "failure_codes": {"maxItems": 0},
+              "evidence_references": {"maxItems": 0}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"status": {"const": "pass"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "all_required_inputs_grounded": {"const": true},
+              "grounded_item_count": {"type": "integer", "minimum": 0},
+              "ungrounded_item_count": {"const": 0}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"status": {"const": "fail"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {"all_required_inputs_grounded": {"const": false}}
+          }
+        },
+        {
+          "if": {
+            "properties": {"all_required_inputs_grounded": {"const": true}},
+            "required": ["all_required_inputs_grounded"]
+          },
+          "then": {
+            "properties": {"ungrounded_item_count": {"const": 0}}
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "execution": {
+      "type": "object",
+      "description": "Execution assessed independently; success does not prove backbone correctness and failure does not prove backbone incorrectness.",
+      "required": [
+        "status", "executable", "execution_succeeded", "execution_record_id",
+        "failure_codes", "evidence_references", "notes"
+      ],
+      "properties": {
+        "status": {"$ref": "#/$defs/assessment_status"},
+        "executable": {"$ref": "#/$defs/nullable_boolean"},
+        "execution_succeeded": {"$ref": "#/$defs/nullable_boolean"},
+        "execution_record_id": {"$ref": "#/$defs/nullable_stable_id"},
+        "failure_codes": {"$ref": "#/$defs/code_list"},
+        "evidence_references": {"$ref": "#/$defs/signal_evidence"},
+        "notes": {"$ref": "#/$defs/nullable_text"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"status": {"enum": ["not_evaluated", "not_applicable"]}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "executable": {"type": "null"},
+              "execution_succeeded": {"type": "null"},
+              "execution_record_id": {"type": "null"},
+              "failure_codes": {"maxItems": 0},
+              "evidence_references": {"maxItems": 0}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"status": {"const": "pass"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "executable": {"const": true},
+              "execution_succeeded": {"const": true}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"status": {"const": "fail"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {"execution_succeeded": {"enum": [false, null]}}
+          }
+        },
+        {
+          "if": {
+            "properties": {"execution_succeeded": {"const": true}},
+            "required": ["execution_succeeded"]
+          },
+          "then": {
+            "properties": {"executable": {"const": true}}
+          }
+        },
+        {
+          "if": {
+            "properties": {"executable": {"const": false}},
+            "required": ["executable"]
+          },
+          "then": {
+            "properties": {"execution_succeeded": {"enum": [false, null]}}
+          }
+        },
+        {
+          "if": {
+            "properties": {"execution_succeeded": {"type": "boolean"}},
+            "required": ["execution_succeeded"]
+          },
+          "then": {
+            "properties": {"execution_record_id": {"$ref": "#/$defs/stable_id"}}
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "answer_recovery": {
+      "type": "object",
+      "description": "Final-answer recovery assessed independently of the other four signals.",
+      "required": [
+        "status", "answer_recovered", "answer_match_assessment", "answer_record_id",
+        "comparison_provenance", "failure_codes", "evidence_references", "notes"
+      ],
+      "properties": {
+        "status": {"$ref": "#/$defs/assessment_status"},
+        "answer_recovered": {"$ref": "#/$defs/nullable_boolean"},
+        "answer_match_assessment": {
+          "oneOf": [
+            {"enum": ["exact_match", "partial_match", "mismatch", "not_scored", "unknown"]},
+            {"type": "null"}
+          ]
+        },
+        "answer_record_id": {"$ref": "#/$defs/nullable_stable_id"},
+        "comparison_provenance": {"$ref": "#/$defs/comparison_provenance"},
+        "failure_codes": {"$ref": "#/$defs/code_list"},
+        "evidence_references": {"$ref": "#/$defs/signal_evidence"},
+        "notes": {"$ref": "#/$defs/nullable_text"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"status": {"enum": ["not_evaluated", "not_applicable"]}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "answer_recovered": {"type": "null"},
+              "answer_match_assessment": {"type": "null"},
+              "answer_record_id": {"type": "null"},
+              "comparison_provenance": {
+                "properties": {
+                  "reference_answer_binding": {"type": "null"},
+                  "reference_answer_evidence_class": {"type": "null"},
+                  "comparator_id": {"type": "null"},
+                  "comparator_version": {"type": "null"}
+                }
+              },
+              "failure_codes": {"maxItems": 0},
+              "evidence_references": {"maxItems": 0}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"status": {"const": "pass"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {"answer_recovered": {"const": true}}
+          }
+        },
+        {
+          "if": {
+            "properties": {"status": {"const": "fail"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {"answer_recovered": {"const": false}}
+          }
+        },
+        {
+          "if": {
+            "properties": {"answer_recovered": {"const": true}},
+            "required": ["answer_recovered"]
+          },
+          "then": {
+            "properties": {"answer_record_id": {"$ref": "#/$defs/stable_id"}}
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "answer_match_assessment": {
+                "enum": ["exact_match", "partial_match", "mismatch"]
+              }
+            },
+            "required": ["answer_match_assessment"]
+          },
+          "then": {
+            "properties": {
+              "answer_record_id": {"$ref": "#/$defs/stable_id"},
+              "comparison_provenance": {
+                "properties": {
+                  "reference_answer_binding": {"$ref": "#/$defs/artifact_binding"},
+                  "reference_answer_evidence_class": {
+                    "enum": [
+                      "official_dataset_reference_non_gold",
+                      "human_reviewed_reference_non_gold",
+                      "other_reference_non_gold"
+                    ]
+                  },
+                  "comparator_id": {"$ref": "#/$defs/stable_id"},
+                  "comparator_version": {"$ref": "#/$defs/stable_id"}
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "answer_match_assessment": {"enum": ["exact_match", "partial_match"]}
+            },
+            "required": ["answer_match_assessment"]
+          },
+          "then": {
+            "properties": {"answer_recovered": {"const": true}}
+          }
+        },
+        {
+          "if": {
+            "properties": {"answer_match_assessment": {"const": "mismatch"}},
+            "required": ["answer_match_assessment"]
+          },
+          "then": {
+            "properties": {"answer_recovered": {"const": false}}
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "independence_contract": {
+      "type": "object",
+      "required": [
+        "all_five_signals_required_and_independently_scored",
+        "one_signal_status_derived_from_another_signal",
+        "execution_success_implies_backbone_adequacy",
+        "execution_failure_implies_backbone_inadequacy",
+        "answer_recovery_implies_prior_stage_success",
+        "downstream_failure_overwrites_upstream_assessment"
+      ],
+      "properties": {
+        "all_five_signals_required_and_independently_scored": {"const": true},
+        "one_signal_status_derived_from_another_signal": {"const": false},
+        "execution_success_implies_backbone_adequacy": {"const": false},
+        "execution_failure_implies_backbone_inadequacy": {"const": false},
+        "answer_recovery_implies_prior_stage_success": {"const": false},
+        "downstream_failure_overwrites_upstream_assessment": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "evidence_boundary": {
+      "type": "object",
+      "required": [
+        "human_evidence_count", "gold_claimed", "modeling_ready_claimed",
+        "candidate_family_semantic_correctness_presupposed",
+        "family_level_semantic_correctness_established"
+      ],
+      "properties": {
+        "human_evidence_count": {"type": "integer", "minimum": 0},
+        "gold_claimed": {"const": false},
+        "modeling_ready_claimed": {"const": false},
+        "candidate_family_semantic_correctness_presupposed": {"const": false},
+        "family_level_semantic_correctness_established": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  }
+}

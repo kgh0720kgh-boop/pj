@@ -1,0 +1,318 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "representative_selection_schema_v0_1.json",
+  "title": "Pre-environment candidate-backbone coverage selection v0.1",
+  "description": "Exactly 71 deterministic family-coverage stress selections frozen before environment or outcome inspection.",
+  "type": "object",
+  "required": [
+    "schema_version", "selection_id", "status", "selection_purpose",
+    "selection_contract", "source_bindings", "evidence_boundary", "family_count",
+    "selected_family_count", "selected_question_count", "selected_question_ids",
+    "selected_question_ids_ordered_sha256", "selected_question_ids_set_sha256",
+    "strata_summary", "selections", "limitations"
+  ],
+  "properties": {
+    "schema_version": {"const": "representative_coverage_selection_v0_1"},
+    "selection_id": {"const": "hybridqa_n300_candidate_backbone_coverage_sample_v0_1"},
+    "status": {"const": "selected_and_hash_bound_before_environment_inspection"},
+    "selection_purpose": {"const": "candidate_backbone_environment_realization_coverage_stress_test"},
+    "selection_contract": {"$ref": "#/$defs/selection_contract"},
+    "source_bindings": {"$ref": "#/$defs/source_bindings"},
+    "evidence_boundary": {"$ref": "#/$defs/evidence_boundary"},
+    "family_count": {"const": 30},
+    "selected_family_count": {"const": 30},
+    "selected_question_count": {"const": 71},
+    "selected_question_ids": {
+      "type": "array", "minItems": 71, "maxItems": 71, "uniqueItems": true,
+      "items": {"$ref": "#/$defs/question_id"}
+    },
+    "selected_question_ids_ordered_sha256": {"$ref": "#/$defs/sha256"},
+    "selected_question_ids_set_sha256": {"$ref": "#/$defs/sha256"},
+    "strata_summary": {
+      "type": "array", "minItems": 6, "maxItems": 6,
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/stratum_summary",
+          "properties": {
+            "frequency_stratum": {"const": "singleton_1"},
+            "minimum_family_question_count": {"const": 1},
+            "maximum_family_question_count": {"const": 1}
+          }
+        },
+        {
+          "$ref": "#/$defs/stratum_summary",
+          "properties": {
+            "frequency_stratum": {"const": "doubleton_2"},
+            "minimum_family_question_count": {"const": 2},
+            "maximum_family_question_count": {"const": 2}
+          }
+        },
+        {
+          "$ref": "#/$defs/stratum_summary",
+          "properties": {
+            "frequency_stratum": {"const": "low_recurrent_3_9"},
+            "minimum_family_question_count": {"const": 3},
+            "maximum_family_question_count": {"const": 9}
+          }
+        },
+        {
+          "$ref": "#/$defs/stratum_summary",
+          "properties": {
+            "frequency_stratum": {"const": "medium_recurrent_10_19"},
+            "minimum_family_question_count": {"const": 10},
+            "maximum_family_question_count": {"const": 19}
+          }
+        },
+        {
+          "$ref": "#/$defs/stratum_summary",
+          "properties": {
+            "frequency_stratum": {"const": "high_recurrent_20_99"},
+            "minimum_family_question_count": {"const": 20},
+            "maximum_family_question_count": {"const": 99}
+          }
+        },
+        {
+          "$ref": "#/$defs/stratum_summary",
+          "properties": {
+            "frequency_stratum": {"const": "dominant_100_plus"},
+            "minimum_family_question_count": {"const": 100},
+            "maximum_family_question_count": {"const": null}
+          }
+        }
+      ],
+      "items": false
+    },
+    "selections": {
+      "type": "array", "minItems": 71, "maxItems": 71,
+      "items": {"$ref": "#/$defs/selection"}
+    },
+    "limitations": {"$ref": "#/$defs/limitations"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "stable_id": {
+      "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$", "maxLength": 256
+    },
+    "question_id": {"$ref": "#/$defs/stable_id"},
+    "evidence_tier": {"enum": ["recurrent", "doubleton", "singleton"]},
+    "frequency_stratum": {
+      "enum": [
+        "singleton_1", "doubleton_2", "low_recurrent_3_9",
+        "medium_recurrent_10_19", "high_recurrent_20_99", "dominant_100_plus"
+      ]
+    },
+    "feature_axis": {
+      "enum": [
+        "fine_semantic_dag_signature", "topology_shape_signature", "task_signature",
+        "source_slice", "producer_partition", "record_status",
+        "alternative_graph_presence"
+      ]
+    },
+    "artifact_binding": {
+      "type": "object",
+      "required": ["repository_relative_path", "sha256"],
+      "properties": {
+        "repository_relative_path": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*$",
+          "maxLength": 1024
+        },
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "record_count": {"type": "integer", "minimum": 0, "maximum": 1000000000}
+      },
+      "additionalProperties": false
+    },
+    "source_bindings": {
+      "type": "object",
+      "required": [
+        "cumulative_n300_records", "derived_signatures", "n300_metrics",
+        "n300_run_manifest", "completion_exposure_ledger"
+      ],
+      "properties": {
+        "cumulative_n300_records": {"$ref": "#/$defs/artifact_binding"},
+        "derived_signatures": {"$ref": "#/$defs/artifact_binding"},
+        "n300_metrics": {"$ref": "#/$defs/artifact_binding"},
+        "n300_run_manifest": {"$ref": "#/$defs/artifact_binding"},
+        "completion_exposure_ledger": {"$ref": "#/$defs/artifact_binding"}
+      },
+      "additionalProperties": false
+    },
+    "quota_formula": {
+      "type": "object",
+      "required": [
+        "expression", "family_question_count_domain",
+        "quota_is_a_design_choice_not_a_statistical_law"
+      ],
+      "properties": {
+        "expression": {"const": "min(family_question_count, 1 + ceil(log2(family_question_count)))"},
+        "family_question_count_domain": {"const": "positive_integer"},
+        "quota_is_a_design_choice_not_a_statistical_law": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "within_family_selection": {
+      "type": "object",
+      "required": [
+        "method", "feature_axes", "marginal_score", "maximize",
+        "candidate_iteration_order_affects_result", "tie_break", "seed"
+      ],
+      "properties": {
+        "method": {"const": "greedy_equal_axis_marginal_coverage_then_seeded_hash"},
+        "feature_axes": {
+          "type": "array", "minItems": 7, "maxItems": 7, "uniqueItems": true,
+          "items": {"$ref": "#/$defs/feature_axis"}
+        },
+        "marginal_score": {"const": "count_of_axes_whose_candidate_value_is_not_yet_covered_in_family"},
+        "maximize": {"const": true},
+        "candidate_iteration_order_affects_result": {"const": false},
+        "tie_break": {"const": "ascending_sha256(seed + NUL + contracted_signature + NUL + question_id)"},
+        "seed": {"const": "hybridqa-candidate-backbone-environment-realization-v0.1"}
+      },
+      "additionalProperties": false
+    },
+    "selection_contract": {
+      "type": "object",
+      "required": [
+        "sample_kind", "family_resolution", "all_observed_families_retained_in_library",
+        "at_least_one_selected_question_per_family", "quota_formula",
+        "within_family_selection", "family_output_order", "selection_output_order",
+        "question_text_used_for_ranking", "environment_or_outcome_used_for_ranking",
+        "prevalence_representative"
+      ],
+      "properties": {
+        "sample_kind": {"const": "deterministic_family_complete_frequency_rarity_coverage_stress_sample"},
+        "family_resolution": {"const": "contracted_semantic_dag"},
+        "all_observed_families_retained_in_library": {"const": true},
+        "at_least_one_selected_question_per_family": {"const": true},
+        "quota_formula": {"$ref": "#/$defs/quota_formula"},
+        "within_family_selection": {"$ref": "#/$defs/within_family_selection"},
+        "family_output_order": {"const": "descending_family_question_count_then_ascending_full_signature"},
+        "selection_output_order": {"const": "family_output_order_then_within_family_selection_order"},
+        "question_text_used_for_ranking": {"const": false},
+        "environment_or_outcome_used_for_ranking": {"const": false},
+        "prevalence_representative": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "evidence_boundary": {
+      "type": "object",
+      "required": [
+        "evidence_class", "human_evidence_count", "semantic_correctness_evaluated",
+        "environment_content_inspected_for_selection", "environment_noninspection_claim_basis",
+        "environment_noninspection_machine_authenticated", "grounding_evaluated",
+        "execution_evaluated", "answer_recovery_evaluated", "gold_claimed",
+        "modeling_ready_claimed"
+      ],
+      "properties": {
+        "evidence_class": {"const": "ai_exploratory_non_human_non_gold"},
+        "human_evidence_count": {"const": 0},
+        "semantic_correctness_evaluated": {"const": false},
+        "environment_content_inspected_for_selection": {"const": false},
+        "environment_noninspection_claim_basis": {
+          "const": "tool_input_allowlist_plus_procedural_research_boundary_not_global_authentication"
+        },
+        "environment_noninspection_machine_authenticated": {"const": false},
+        "grounding_evaluated": {"const": false},
+        "execution_evaluated": {"const": false},
+        "answer_recovery_evaluated": {"const": false},
+        "gold_claimed": {"const": false},
+        "modeling_ready_claimed": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "stratum_summary": {
+      "type": "object",
+      "required": [
+        "frequency_stratum", "minimum_family_question_count",
+        "maximum_family_question_count", "family_count", "source_member_question_count",
+        "selected_question_count"
+      ],
+      "properties": {
+        "frequency_stratum": {"$ref": "#/$defs/frequency_stratum"},
+        "minimum_family_question_count": {"type": "integer", "minimum": 1, "maximum": 300},
+        "maximum_family_question_count": {
+          "oneOf": [
+            {"type": "integer", "minimum": 1, "maximum": 300},
+            {"type": "null"}
+          ]
+        },
+        "family_count": {"type": "integer", "minimum": 0, "maximum": 30},
+        "source_member_question_count": {"type": "integer", "minimum": 0, "maximum": 300},
+        "selected_question_count": {"type": "integer", "minimum": 0, "maximum": 71}
+      },
+      "additionalProperties": false
+    },
+    "feature_values": {
+      "type": "object",
+      "required": [
+        "fine_semantic_dag_signature", "topology_shape_signature", "task_signature",
+        "source_slice", "producer_partition", "record_status",
+        "alternative_graph_presence"
+      ],
+      "properties": {
+        "fine_semantic_dag_signature": {"$ref": "#/$defs/sha256"},
+        "topology_shape_signature": {"$ref": "#/$defs/sha256"},
+        "task_signature": {"$ref": "#/$defs/sha256"},
+        "source_slice": {"enum": ["n100_prefix", "new200_expansion"]},
+        "producer_partition": {"type": "string", "pattern": "^partition_0[1-8]$"},
+        "record_status": {"enum": ["complete", "uncertain"]},
+        "alternative_graph_presence": {"enum": ["present", "absent"]}
+      },
+      "additionalProperties": false
+    },
+    "selection": {
+      "type": "object",
+      "required": [
+        "selection_index", "family_id", "contracted_signature_sha256",
+        "family_frequency_rank", "family_question_count", "family_evidence_tier",
+        "family_frequency_stratum", "family_quota", "within_family_selection_order",
+        "question_id", "question_view_sha256", "committed_position",
+        "marginal_new_axis_value_count", "newly_covered_axes", "feature_values",
+        "tie_break_sha256"
+      ],
+      "properties": {
+        "selection_index": {"type": "integer", "minimum": 1, "maximum": 71},
+        "family_id": {"type": "string", "pattern": "^cbf_v0_1:[0-9a-f]{64}$"},
+        "contracted_signature_sha256": {"$ref": "#/$defs/sha256"},
+        "family_frequency_rank": {"type": "integer", "minimum": 1, "maximum": 30},
+        "family_question_count": {"type": "integer", "minimum": 1, "maximum": 300},
+        "family_evidence_tier": {"$ref": "#/$defs/evidence_tier"},
+        "family_frequency_stratum": {"$ref": "#/$defs/frequency_stratum"},
+        "family_quota": {"type": "integer", "minimum": 1, "maximum": 10},
+        "within_family_selection_order": {"type": "integer", "minimum": 1, "maximum": 10},
+        "question_id": {"$ref": "#/$defs/question_id"},
+        "question_view_sha256": {"$ref": "#/$defs/sha256"},
+        "committed_position": {"type": "integer", "minimum": 1, "maximum": 300},
+        "marginal_new_axis_value_count": {"type": "integer", "minimum": 0, "maximum": 7},
+        "newly_covered_axes": {
+          "type": "array", "maxItems": 7, "uniqueItems": true,
+          "items": {"$ref": "#/$defs/feature_axis"}
+        },
+        "feature_values": {"$ref": "#/$defs/feature_values"},
+        "tie_break_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "limitations": {
+      "type": "object",
+      "required": [
+        "probability_sample", "prevalence_estimation_supported",
+        "rare_families_deliberately_overrepresented", "feature_axes_are_correlated",
+        "n100_new200_and_producer_context_are_partly_confounded",
+        "producer_partitions_are_independent_reviewers",
+        "status_and_alternative_presence_are_ai_generated_diagnostics"
+      ],
+      "properties": {
+        "probability_sample": {"const": false},
+        "prevalence_estimation_supported": {"const": false},
+        "rare_families_deliberately_overrepresented": {"const": true},
+        "feature_axes_are_correlated": {"const": true},
+        "n100_new200_and_producer_context_are_partly_confounded": {"const": true},
+        "producer_partitions_are_independent_reviewers": {"const": false},
+        "status_and_alternative_presence_are_ai_generated_diagnostics": {"const": true}
+      },
+      "additionalProperties": false
+    }
+  }
+}
