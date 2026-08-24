@@ -1,0 +1,270 @@
+{
+  "audit_id": "ai_question_structure_scale_v0_1_run_001_partition_sensitivity_v0_1",
+  "audit_status": "complete_post_hoc_sensitivity",
+  "evidence_class": "post_hoc_partition_sensitivity_non_primary_non_gold",
+  "fine_to_contracted_dominant_family_inflation": {
+    "contracted_dominant_family_count": 62,
+    "contracted_dominant_family_rate": 0.62,
+    "contracted_dominant_signature": "0a7a0c323418905b141b0c5e0f5db2aaa449b50abbff6ce89bfb6705839400b1",
+    "dominant_family_count_increase": 16,
+    "dominant_family_rate_increase": 0.16,
+    "dominant_signatures_identical": true,
+    "fine_dominant_family_count": 46,
+    "fine_dominant_family_rate": 0.46,
+    "fine_dominant_signature": "0a7a0c323418905b141b0c5e0f5db2aaa449b50abbff6ce89bfb6705839400b1",
+    "question_ids_added_to_contracted_dominant_beyond_fine_dominant": [
+      "0d48bffa70ef4acf",
+      "44e4ccc030f5ea46",
+      "4580af807e6dcddd",
+      "480d8e720f66f472",
+      "5914afe6f78c7c18",
+      "68d71f4901034c6c",
+      "a63df4741d22a223",
+      "a98b74225985bd58",
+      "b16c668f54c230e7",
+      "c26cafcd706efe0d",
+      "c787f84fcdd3c4b8",
+      "e650aba3f1a9239e",
+      "eba04afd3feb2f34",
+      "f08d137b8650f452",
+      "f2f50ad106185184",
+      "f36270c917a195c7"
+    ],
+    "representable_question_count": 100,
+    "same_role_contraction_establishes_semantic_equivalence": false
+  },
+  "interpretation_boundary": {
+    "audit_is_post_hoc_not_precommitted": true,
+    "does_not_support": [
+      "replacement_of_the_precommitted_N100_decision",
+      "semantic_correctness",
+      "proof_that_partition_differences_are_only_worker_style",
+      "proof_that_recurring_new_families_are_semantically_novel",
+      "human_agreement_or_gold_status"
+    ],
+    "primary_contract_tool_raw_metrics_or_report_modified": false,
+    "supports": [
+      "partition_level_style_sensitivity",
+      "cross_partition_support_of_recurring_new_contracted_families",
+      "raw_versus_transitive_reduced_graph_profile",
+      "same_role_contraction_inflation_sensitivity"
+    ]
+  },
+  "partition_profiles": [
+    {
+      "committed_positions": [
+        1,
+        34
+      ],
+      "mean_primary_node_count": 2.2941176470588234,
+      "node_description_count": 78,
+      "producer_partition": "partition_01",
+      "record_count": 34,
+      "uncertain_count": 5,
+      "uncertain_rate": 0.14705882352941177,
+      "uppercase_initial_node_description_count": 0,
+      "uppercase_initial_node_description_rate": 0.0
+    },
+    {
+      "committed_positions": [
+        35,
+        67
+      ],
+      "mean_primary_node_count": 2.8181818181818183,
+      "node_description_count": 93,
+      "producer_partition": "partition_02",
+      "record_count": 33,
+      "uncertain_count": 14,
+      "uncertain_rate": 0.42424242424242425,
+      "uppercase_initial_node_description_count": 0,
+      "uppercase_initial_node_description_rate": 0.0
+    },
+    {
+      "committed_positions": [
+        68,
+        100
+      ],
+      "mean_primary_node_count": 2.3636363636363638,
+      "node_description_count": 78,
+      "producer_partition": "partition_03",
+      "record_count": 33,
+      "uncertain_count": 10,
+      "uncertain_rate": 0.30303030303030304,
+      "uppercase_initial_node_description_count": 78,
+      "uppercase_initial_node_description_rate": 1.0
+    }
+  ],
+  "primary_decision_preservation": {
+    "changed_by_post_hoc_audit": false,
+    "operational_interpretation": "conservative_operational_decision",
+    "precommitted_decision": "EXPAND_UNCHANGED_TO_N300",
+    "semantic_novelty_interpretation": "partition_confounded_not_cross_partition_confirmed"
+  },
+  "raw_vs_transitive_reduced_graph_profile": {
+    "questions_with_removed_transitive_edges": [
+      "016665beb450ca4e",
+      "c11b0740b1084da0",
+      "21148417ac3a50ca",
+      "846fc6ee43ca7f7d",
+      "078b72dd6976dc29"
+    ],
+    "raw_declared_dependencies": {
+      "branch_question_count": 5,
+      "branch_question_ids": [
+        "016665beb450ca4e",
+        "c11b0740b1084da0",
+        "21148417ac3a50ca",
+        "846fc6ee43ca7f7d",
+        "078b72dd6976dc29"
+      ],
+      "join_question_count": 6,
+      "join_question_ids": [
+        "016665beb450ca4e",
+        "0f774ac4950905c4",
+        "c11b0740b1084da0",
+        "21148417ac3a50ca",
+        "846fc6ee43ca7f7d",
+        "078b72dd6976dc29"
+      ],
+      "mean_edge_count": 1.54,
+      "representable_question_count": 100
+    },
+    "removed_transitive_edge_count": 5,
+    "transitive_reduced_dependencies": {
+      "branch_question_count": 0,
+      "branch_question_ids": [],
+      "join_question_count": 1,
+      "join_question_ids": [
+        "0f774ac4950905c4"
+      ],
+      "mean_edge_count": 1.49,
+      "representable_question_count": 100
+    }
+  },
+  "recurring_new_contracted_family_partition_sensitivity": {
+    "all_recurring_new_contracted_families_are_partition_local": true,
+    "cross_partition_recurring_new_contracted_family_count": 0,
+    "families": [
+      {
+        "committed_positions": [
+          81,
+          87
+        ],
+        "new_expansion_question_count": 2,
+        "partition_support": {
+          "partition_03": 2
+        },
+        "partition_support_count": 1,
+        "question_ids": [
+          "ad20a4c31ba3dba9",
+          "27432f264c71480d"
+        ],
+        "recurs_across_partitions": false,
+        "signature": "5e9aa48abfbb14ad807bc3fcc27c3407f2a41dfd6566918dce771f4dab221043"
+      },
+      {
+        "committed_positions": [
+          47,
+          56,
+          57
+        ],
+        "new_expansion_question_count": 3,
+        "partition_support": {
+          "partition_02": 3
+        },
+        "partition_support_count": 1,
+        "question_ids": [
+          "f6f09ec02eaa8bb8",
+          "411562d9ce68b1e8",
+          "5456c7ee3ac9281a"
+        ],
+        "recurs_across_partitions": false,
+        "signature": "9c3a199eb9e135238922193e4aff4619bfecf99b8ab4994417bd2a10ddf285fc"
+      },
+      {
+        "committed_positions": [
+          70,
+          74,
+          92,
+          93
+        ],
+        "new_expansion_question_count": 4,
+        "partition_support": {
+          "partition_03": 4
+        },
+        "partition_support_count": 1,
+        "question_ids": [
+          "b99fc5c636ea823c",
+          "a5cf7ceed7e24ed8",
+          "6c164eb418d88e42",
+          "b45751302b0495f9"
+        ],
+        "recurs_across_partitions": false,
+        "signature": "ab012c4eaf2773e1f22643f4cca44614e2146efdf0ff0c6fbb6b20fcf7038527"
+      },
+      {
+        "committed_positions": [
+          37,
+          54,
+          60,
+          65
+        ],
+        "new_expansion_question_count": 4,
+        "partition_support": {
+          "partition_02": 4
+        },
+        "partition_support_count": 1,
+        "question_ids": [
+          "016665beb450ca4e",
+          "c11b0740b1084da0",
+          "21148417ac3a50ca",
+          "846fc6ee43ca7f7d"
+        ],
+        "recurs_across_partitions": false,
+        "signature": "b2c5d7fa38b1fd45d360cb479ee059feedcb916901cfa00c06668790c56afc42"
+      },
+      {
+        "committed_positions": [
+          82,
+          94
+        ],
+        "new_expansion_question_count": 2,
+        "partition_support": {
+          "partition_03": 2
+        },
+        "partition_support_count": 1,
+        "question_ids": [
+          "2f8484f7e3324d0e",
+          "7fdc558f6b822b6a"
+        ],
+        "recurs_across_partitions": false,
+        "signature": "cc5563db35f61786e62157f92e0b4043f6b462759175b3a754e25a255a6651cf"
+      }
+    ],
+    "new_expansion_count": 70,
+    "prefix_count": 30,
+    "recurring_new_contracted_family_count": 5
+  },
+  "run_id": "ai_question_structure_scale_v0_1_run_001",
+  "schema_version": "ai_question_structure_partition_sensitivity_metrics_v0_1",
+  "source_bindings": {
+    "audit_implementation": {
+      "repository_relative_path": "data_construction/tools/audit_ai_question_structure_partition_sensitivity.py",
+      "sha256": "32b8ca9b7867766e9eb802559013129462001893500c19d9689582ab16f7ddc8"
+    },
+    "primary_canonicalizer": {
+      "repository_relative_path": "data_construction/tools/run_ai_question_structure_scale_exploration.py",
+      "sha256": "56eaf5447594ccf2c49cc0f9697a3220b8053aca9da440cb5deda916bb721862"
+    },
+    "primary_metrics": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/structural_saturation_metrics_v0_1.json",
+      "sha256": "8a40c6ebe30d79db1c219ff7a30e4c69af7b47e5ed67cfc3260f51e5a992fd37"
+    },
+    "records": {
+      "record_count": 100,
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/records.jsonl",
+      "sha256": "9e7dc9d48f98a8b9d73dde96f0f61836463578efca6aae67b3bd2d1806c30eef"
+    }
+  },
+  "tool_version": "ai_question_structure_partition_sensitivity_audit_tool_v0_1"
+}
