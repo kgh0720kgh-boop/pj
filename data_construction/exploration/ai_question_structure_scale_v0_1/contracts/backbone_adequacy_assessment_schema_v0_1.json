@@ -1,0 +1,854 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "backbone_adequacy_assessment_schema_v0_1.json",
+  "title": "Environment-aware candidate-backbone adequacy assessment v0.1",
+  "description": "First-stage, variant-explicit assessment of a frozen non-gold question-only semantic backbone. Environment access operations are excluded from semantic adequacy changes; operator realizations are not visible and all later signals remain not_evaluated.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "assessment_id",
+    "run_id",
+    "evidence_class",
+    "producer_partition",
+    "selection_id",
+    "selection_index",
+    "question_id",
+    "family_id",
+    "contracted_signature_sha256",
+    "input_view_id",
+    "input_view_payload_sha256",
+    "visibility",
+    "input_delivery",
+    "author_prior_exposure_to_record_before_packet",
+    "global_nonexposure_machine_authenticated",
+    "record_status",
+    "overall_status",
+    "candidate_backbone_adequate",
+    "variant_assessments",
+    "additional_semantic_interpretations",
+    "rationale",
+    "operator_realization_seen",
+    "downstream_status",
+    "evidence_boundary",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "backbone_adequacy_assessment_v0_1"
+    },
+    "assessment_id": {
+      "type": "string",
+      "pattern": "^backbone_adequacy_v0_1:[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "maxLength": 320
+    },
+    "run_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "evidence_class": {
+      "const": "ai_exploratory_non_human_non_gold"
+    },
+    "producer_partition": {
+      "type": "string",
+      "pattern": "^e1_author_partition_[0-9]{2}$"
+    },
+    "selection_id": {
+      "const": "hybridqa_n300_candidate_backbone_coverage_sample_v0_1"
+    },
+    "selection_index": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 71
+    },
+    "question_id": {
+      "$ref": "#/$defs/stable_id"
+    },
+    "family_id": {
+      "type": "string",
+      "pattern": "^cbf_v0_1:[0-9a-f]{64}$"
+    },
+    "contracted_signature_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "input_view_id": {
+      "type": "string",
+      "pattern": "^representative_environment_view_v0_1:[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "maxLength": 320
+    },
+    "input_view_payload_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "visibility": {
+      "const": "question_candidate_backbone_and_environment_no_operator_realization_answer_trace_grounding_execution_or_prior_proposals"
+    },
+    "input_delivery": {
+      "$ref": "#/$defs/input_delivery"
+    },
+    "author_prior_exposure_to_record_before_packet": {
+      "enum": [
+        "procedurally_attested_none",
+        "known_exposed",
+        "unknown"
+      ]
+    },
+    "global_nonexposure_machine_authenticated": {
+      "const": false
+    },
+    "record_status": {
+      "enum": [
+        "complete",
+        "needs_recheck",
+        "unable_to_assess"
+      ]
+    },
+    "overall_status": {
+      "enum": [
+        "adequate",
+        "partially_adequate",
+        "inadequate",
+        "indeterminate"
+      ]
+    },
+    "candidate_backbone_adequate": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "variant_assessments": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "items": {
+        "$ref": "#/$defs/variant_assessment"
+      }
+    },
+    "additional_semantic_interpretations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/additional_semantic_interpretation"
+      }
+    },
+    "rationale": {
+      "$ref": "#/$defs/nonempty_text"
+    },
+    "operator_realization_seen": {
+      "const": false
+    },
+    "downstream_status": {
+      "$ref": "#/$defs/downstream_status"
+    },
+    "evidence_boundary": {
+      "$ref": "#/$defs/evidence_boundary"
+    },
+    "limitations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/nonempty_text"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "overall_status": {
+            "const": "adequate"
+          }
+        },
+        "required": [
+          "overall_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "candidate_backbone_adequate": {
+            "const": true
+          },
+          "input_delivery": {
+            "$ref": "#/$defs/complete_input_delivery"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "overall_status": {
+            "enum": [
+              "partially_adequate",
+              "inadequate"
+            ]
+          }
+        },
+        "required": [
+          "overall_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "candidate_backbone_adequate": {
+            "const": false
+          },
+          "input_delivery": {
+            "$ref": "#/$defs/complete_input_delivery"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "overall_status": {
+            "const": "indeterminate"
+          }
+        },
+        "required": [
+          "overall_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "candidate_backbone_adequate": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "record_status": {
+            "const": "complete"
+          }
+        },
+        "required": [
+          "record_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "input_delivery": {
+            "$ref": "#/$defs/complete_input_delivery"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "record_status": {
+            "const": "unable_to_assess"
+          }
+        },
+        "required": [
+          "record_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "overall_status": {
+            "const": "indeterminate"
+          },
+          "candidate_backbone_adequate": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "author_prior_exposure_to_record_before_packet": {
+            "enum": [
+              "known_exposed",
+              "unknown"
+            ]
+          }
+        },
+        "required": [
+          "author_prior_exposure_to_record_before_packet"
+        ]
+      },
+      "then": {
+        "properties": {
+          "overall_status": {
+            "const": "indeterminate"
+          },
+          "candidate_backbone_adequate": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "overall_status": {
+            "const": "adequate"
+          }
+        },
+        "required": [
+          "overall_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "variant_assessments": {
+            "contains": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "const": "adequate"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "overall_status": {
+            "const": "partially_adequate"
+          }
+        },
+        "required": [
+          "overall_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "variant_assessments": {
+            "contains": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "const": "partially_adequate"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "not": {
+              "contains": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "const": "adequate"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "overall_status": {
+            "const": "indeterminate"
+          }
+        },
+        "required": [
+          "overall_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "variant_assessments": {
+            "contains": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "const": "indeterminate"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "not": {
+              "contains": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "adequate",
+                      "partially_adequate"
+                    ]
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "overall_status": {
+            "const": "inadequate"
+          }
+        },
+        "required": [
+          "overall_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "variant_assessments": {
+            "items": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "const": "inadequate"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "stable_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "maxLength": 256
+    },
+    "nonempty_text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096,
+      "pattern": "\\S"
+    },
+    "nullable_text": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/nonempty_text"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "backbone_variant_id": {
+      "oneOf": [
+        {
+          "const": "primary"
+        },
+        {
+          "type": "string",
+          "pattern": "^alt[1-9][0-9]*$"
+        }
+      ]
+    },
+    "backbone_node_id": {
+      "type": "string",
+      "pattern": "^n[1-9][0-9]*$"
+    },
+    "input_delivery": {
+      "type": "object",
+      "required": [
+        "view_fully_consumed",
+        "completeness_status"
+      ],
+      "properties": {
+        "view_fully_consumed": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "completeness_status": {
+          "enum": [
+            "complete",
+            "possibly_truncated",
+            "unknown"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "complete_input_delivery": {
+      "type": "object",
+      "required": [
+        "view_fully_consumed",
+        "completeness_status"
+      ],
+      "properties": {
+        "view_fully_consumed": {
+          "const": true
+        },
+        "completeness_status": {
+          "const": "complete"
+        }
+      },
+      "additionalProperties": false
+    },
+    "required_change": {
+      "type": "object",
+      "required": [
+        "change_id",
+        "change_type",
+        "change_basis",
+        "backbone_node_ids",
+        "description"
+      ],
+      "properties": {
+        "change_id": {
+          "type": "string",
+          "pattern": "^change[1-9][0-9]*$"
+        },
+        "change_type": {
+          "enum": [
+            "add_obligation",
+            "remove_obligation",
+            "split_obligation",
+            "merge_obligations",
+            "change_dependency",
+            "revise_referent",
+            "revise_answer_spec",
+            "preserve_additional_alternative",
+            "other"
+          ]
+        },
+        "change_basis": {
+          "enum": [
+            "question_semantics",
+            "environment_disambiguation"
+          ]
+        },
+        "backbone_node_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/backbone_node_id"
+          }
+        },
+        "description": {
+          "$ref": "#/$defs/nonempty_text"
+        }
+      },
+      "additionalProperties": false
+    },
+    "semantic_clarification": {
+      "type": "object",
+      "required": [
+        "clarification_id",
+        "description",
+        "related_backbone_node_ids",
+        "is_storage_or_access_operation",
+        "contains_grounded_locator"
+      ],
+      "properties": {
+        "clarification_id": {
+          "type": "string",
+          "pattern": "^clarification[1-9][0-9]*$"
+        },
+        "description": {
+          "$ref": "#/$defs/nonempty_text"
+        },
+        "related_backbone_node_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/backbone_node_id"
+          }
+        },
+        "is_storage_or_access_operation": {
+          "const": false
+        },
+        "contains_grounded_locator": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "variant_assessment": {
+      "type": "object",
+      "required": [
+        "backbone_variant_id",
+        "status",
+        "candidate_variant_adequate",
+        "environment_interpretation_effect",
+        "required_changes",
+        "semantic_clarifications",
+        "rationale"
+      ],
+      "properties": {
+        "backbone_variant_id": {
+          "$ref": "#/$defs/backbone_variant_id"
+        },
+        "status": {
+          "enum": [
+            "adequate",
+            "partially_adequate",
+            "inadequate",
+            "indeterminate"
+          ]
+        },
+        "candidate_variant_adequate": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "environment_interpretation_effect": {
+          "enum": [
+            "none",
+            "disambiguates_question_semantics",
+            "reveals_semantic_mismatch",
+            "insufficient"
+          ]
+        },
+        "required_changes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/required_change"
+          }
+        },
+        "semantic_clarifications": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/semantic_clarification"
+          }
+        },
+        "rationale": {
+          "$ref": "#/$defs/nonempty_text"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "adequate"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "candidate_variant_adequate": {
+                "const": true
+              },
+              "required_changes": {
+                "maxItems": 0
+              },
+              "environment_interpretation_effect": {
+                "not": {
+                  "const": "reveals_semantic_mismatch"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "partially_adequate",
+                  "inadequate"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "candidate_variant_adequate": {
+                "const": false
+              },
+              "required_changes": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "indeterminate"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "candidate_variant_adequate": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "additional_semantic_interpretation": {
+      "type": "object",
+      "required": [
+        "interpretation_id",
+        "description",
+        "related_backbone_variant_ids",
+        "environment_resolves_interpretation",
+        "contains_grounded_locator"
+      ],
+      "properties": {
+        "interpretation_id": {
+          "type": "string",
+          "pattern": "^interpretation[1-9][0-9]*$"
+        },
+        "description": {
+          "$ref": "#/$defs/nonempty_text"
+        },
+        "related_backbone_variant_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/backbone_variant_id"
+          }
+        },
+        "environment_resolves_interpretation": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "contains_grounded_locator": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "downstream_status": {
+      "type": "object",
+      "required": [
+        "environment_operator_realization",
+        "grounding",
+        "execution",
+        "answer_recovery"
+      ],
+      "properties": {
+        "environment_operator_realization": {
+          "const": "not_evaluated"
+        },
+        "grounding": {
+          "const": "not_evaluated"
+        },
+        "execution": {
+          "const": "not_evaluated"
+        },
+        "answer_recovery": {
+          "const": "not_evaluated"
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidence_boundary": {
+      "type": "object",
+      "required": [
+        "human_evidence_count",
+        "gold_claimed",
+        "modeling_ready_claimed",
+        "candidate_family_semantic_correctness_presupposed",
+        "family_level_semantic_correctness_established",
+        "official_answer_annotation_in_authoring_input",
+        "official_trace_in_authoring_input",
+        "historical_graph_in_authoring_input",
+        "prior_operator_proposal_in_authoring_input",
+        "formal_grounding_record_produced",
+        "grounding_signal_evaluated",
+        "external_execution_run",
+        "execution_signal_evaluated",
+        "answer_value_output_recorded",
+        "answer_recovery_signal_evaluated",
+        "latent_locator_or_answer_inference_machine_authenticated"
+      ],
+      "properties": {
+        "human_evidence_count": {
+          "const": 0
+        },
+        "gold_claimed": {
+          "const": false
+        },
+        "modeling_ready_claimed": {
+          "const": false
+        },
+        "candidate_family_semantic_correctness_presupposed": {
+          "const": false
+        },
+        "family_level_semantic_correctness_established": {
+          "const": false
+        },
+        "official_answer_annotation_in_authoring_input": {
+          "const": false
+        },
+        "official_trace_in_authoring_input": {
+          "const": false
+        },
+        "historical_graph_in_authoring_input": {
+          "const": false
+        },
+        "prior_operator_proposal_in_authoring_input": {
+          "const": false
+        },
+        "formal_grounding_record_produced": {
+          "const": false
+        },
+        "grounding_signal_evaluated": {
+          "const": false
+        },
+        "external_execution_run": {
+          "const": false
+        },
+        "execution_signal_evaluated": {
+          "const": false
+        },
+        "answer_value_output_recorded": {
+          "const": false
+        },
+        "answer_recovery_signal_evaluated": {
+          "const": false
+        },
+        "latent_locator_or_answer_inference_machine_authenticated": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
