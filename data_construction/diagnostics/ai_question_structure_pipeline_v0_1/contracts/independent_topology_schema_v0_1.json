@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "independent_question_topology_ai_v0_1.json",
+  "title": "Independent question-only AI topology diagnostic v0.1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "evidence_class",
+    "question_id",
+    "question",
+    "question_view_sha256",
+    "visibility",
+    "nodes",
+    "entry_node_ids",
+    "output_node_ids",
+    "alternative_topologies",
+    "generation_provenance",
+    "evidence_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "independent_question_topology_ai_v0_1"},
+    "run_id": {"const": "ai_question_structure_pipeline_v0_1_run_001"},
+    "evidence_class": {"const": "ai_independent_topology_diagnostic_non_human_non_gold"},
+    "question_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"},
+    "question": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "question_view_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "visibility": {"const": "question_only_no_upstream_structure_environment_answer_or_proposals"},
+    "nodes": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/node"}},
+    "entry_node_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "output_node_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "alternative_topologies": {"type": "array", "items": {"$ref": "#/$defs/alternative"}},
+    "generation_provenance": {
+      "type": "object",
+      "required": ["producer_kind", "model_id", "model_revision_status", "seed_status", "generation_interface", "fresh_context", "runtime_input_isolation"],
+      "properties": {
+        "producer_kind": {"const": "ai_model"},
+        "model_id": {"const": "codex_gpt-5"},
+        "model_revision_status": {"const": "revision_not_exposed"},
+        "seed_status": {"const": "not_supported"},
+        "generation_interface": {"const": "codex_subagent"},
+        "fresh_context": {"const": true},
+        "runtime_input_isolation": {"const": "procedural_prompt_only_not_machine_authenticated"}
+      },
+      "additionalProperties": false
+    },
+    "evidence_boundary": {
+      "type": "object",
+      "required": ["upstream_structure_exposed", "environment_exposed", "answer_exposed", "operator_vocabulary_exposed", "human_authored", "gold_claimed", "executable_graph_claimed"],
+      "properties": {
+        "upstream_structure_exposed": {"const": false},
+        "environment_exposed": {"const": false},
+        "answer_exposed": {"const": false},
+        "operator_vocabulary_exposed": {"const": false},
+        "human_authored": {"const": false},
+        "gold_claimed": {"const": false},
+        "executable_graph_claimed": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "node": {
+      "type": "object",
+      "required": ["node_id", "operation_description", "depends_on", "source_cues", "implicit_rationale"],
+      "properties": {
+        "node_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"},
+        "operation_description": {"type": "string", "minLength": 1, "maxLength": 4096, "pattern": "\\S"},
+        "depends_on": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "source_cues": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 1024, "pattern": "^[^\\r\\n]*\\S[^\\r\\n]*$"}},
+        "implicit_rationale": {"type": ["string", "null"], "maxLength": 4096}
+      },
+      "additionalProperties": false
+    },
+    "topology": {
+      "type": "object",
+      "required": ["nodes", "entry_node_ids", "output_node_ids"],
+      "properties": {
+        "nodes": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/node"}},
+        "entry_node_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "output_node_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      },
+      "additionalProperties": false
+    },
+    "alternative": {
+      "type": "object",
+      "required": ["plan_id", "condition", "rationale", "topology"],
+      "properties": {
+        "plan_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"},
+        "condition": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "rationale": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "topology": {"$ref": "#/$defs/topology"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

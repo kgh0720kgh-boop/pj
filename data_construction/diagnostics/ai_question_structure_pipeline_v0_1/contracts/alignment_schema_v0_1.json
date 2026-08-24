@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ai_question_structure_alignment_v0_1.json",
+  "title": "Blinded AI diagnostic semantic alignment v0.1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "question_id",
+    "alignment_packet_record_sha256",
+    "evidence_class",
+    "component_decisions",
+    "required_information_unit_groups",
+    "required_information_unit_unmatched_items",
+    "obligation_groups",
+    "obligation_unmatched_items",
+    "topology_node_groups",
+    "topology_node_unmatched_items",
+    "aligner_summary",
+    "evidence_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "ai_question_structure_alignment_v0_1"},
+    "run_id": {"const": "ai_question_structure_pipeline_v0_1_run_001"},
+    "question_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"},
+    "alignment_packet_record_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "evidence_class": {"const": "ai_alignment_diagnostic_non_human_non_gold"},
+    "component_decisions": {
+      "type": "object",
+      "required": ["answer_target", "answer_shape", "candidate_structure", "ambiguity", "alternative_plans"],
+      "properties": {
+        "answer_target": {"$ref": "#/$defs/decision"},
+        "answer_shape": {"$ref": "#/$defs/decision"},
+        "candidate_structure": {"$ref": "#/$defs/decision"},
+        "ambiguity": {"$ref": "#/$defs/decision"},
+        "alternative_plans": {"$ref": "#/$defs/decision"}
+      },
+      "additionalProperties": false
+    },
+    "required_information_unit_groups": {"type": "array", "items": {"$ref": "#/$defs/group"}},
+    "required_information_unit_unmatched_items": {"type": "array", "items": {"$ref": "#/$defs/unmatched"}},
+    "obligation_groups": {"type": "array", "items": {"$ref": "#/$defs/group"}},
+    "obligation_unmatched_items": {"type": "array", "items": {"$ref": "#/$defs/unmatched"}},
+    "topology_node_groups": {"type": "array", "items": {"$ref": "#/$defs/group"}},
+    "topology_node_unmatched_items": {"type": "array", "items": {"$ref": "#/$defs/unmatched"}},
+    "aligner_summary": {"type": "string", "minLength": 1, "maxLength": 4096, "pattern": "\\S"},
+    "evidence_boundary": {
+      "type": "object",
+      "required": ["producer_kind", "human_adjudication_performed", "counts_as_semantic_agreement", "gold_claimed", "correctness_claimed"],
+      "properties": {
+        "producer_kind": {"const": "ai_alignment_assistant"},
+        "human_adjudication_performed": {"const": false},
+        "counts_as_semantic_agreement": {"const": false},
+        "gold_claimed": {"const": false},
+        "correctness_claimed": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "status": {"enum": ["equivalent", "compatible_split_merge", "partial_overlap", "substantive_conflict", "unresolved"]},
+    "decision": {
+      "type": "object",
+      "required": ["status", "rationale"],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "rationale": {"type": "string", "minLength": 1, "maxLength": 4096, "pattern": "\\S"}
+      },
+      "additionalProperties": false
+    },
+    "group": {
+      "type": "object",
+      "required": ["group_id", "left_ids", "right_ids", "status", "impact", "rationale"],
+      "properties": {
+        "group_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"},
+        "left_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "right_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "status": {"$ref": "#/$defs/status"},
+        "impact": {"enum": ["material", "nonmaterial"]},
+        "rationale": {"type": "string", "minLength": 1, "maxLength": 4096, "pattern": "\\S"}
+      },
+      "additionalProperties": false
+    },
+    "unmatched": {
+      "type": "object",
+      "required": ["side", "item_id", "reason", "impact", "rationale"],
+      "properties": {
+        "side": {"enum": ["left", "right"]},
+        "item_id": {"type": "string", "minLength": 1},
+        "reason": {"enum": ["missing_counterpart", "extra_compatible_detail", "alternative_interpretation", "cannot_align"]},
+        "impact": {"enum": ["material", "nonmaterial"]},
+        "rationale": {"type": "string", "minLength": 1, "maxLength": 4096, "pattern": "\\S"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

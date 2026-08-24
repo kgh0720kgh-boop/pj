@@ -26,6 +26,7 @@ import _common
 import validate_annotation
 import validate_ir_v0_2_reference as ir_v0_2_reference_adapter
 import validate_question_structure_annotations as question_structure_validator
+import run_ai_question_structure_diagnostic as ai_question_structure_diagnostic
 
 
 def write_json(path: Path, value: object) -> None:
@@ -3653,6 +3654,404 @@ class ToolOutputCollisionTests(unittest.TestCase):
             self.assertEqual(nonfinite.returncode, 2)
             self.assertIn("non-standard non-finite JSON number", nonfinite.stderr)
             self.assertFalse(checks.exists())
+
+
+class AIQuestionStructureDiagnosticTests(unittest.TestCase):
+    @staticmethod
+    def _stage1_records(
+        views: list[dict[str, object]], reviewer_slot: str
+    ) -> list[dict[str, object]]:
+        return [
+            {
+                "schema_version": "ai_question_structure_stage1_observation_v0_1",
+                "run_id": ai_question_structure_diagnostic.RUN_ID,
+                "reviewer_slot": reviewer_slot,
+                "evidence_class": "ai_pipeline_diagnostic_non_human_non_gold",
+                "question_id": view["question_id"],
+                "question": view["question"],
+                "question_view_sha256": canonical_sha256(view),
+                "visibility": "question_only_no_environment_answer_or_proposals",
+                "free_observation": "Identify the qualifying subject and return the requested property.",
+                "generation_boundary": {
+                    "producer_kind": "ai_model",
+                    "human_authored": False,
+                    "counts_as_human_evidence": False,
+                    "counts_toward_phase_gate": False,
+                    "scaffold_visible_during_generation": False,
+                    "other_reviewer_output_consulted": False,
+                    "runtime_input_isolation": "procedural_prompt_only_not_machine_authenticated",
+                    "statistical_independence_claimed": False,
+                },
+            }
+            for view in views
+        ]
+
+    @staticmethod
+    def _annotation_records(
+        views: list[dict[str, object]],
+        stage1: list[dict[str, object]],
+        reviewer_slot: str,
+    ) -> list[dict[str, object]]:
+        records: list[dict[str, object]] = []
+        for view, observation in zip(views, stage1):
+            source = question_structure_annotation(
+                question_id=str(view["question_id"]),
+                question=str(view["question"]),
+                question_view_sha256=canonical_sha256(view),
+            )["annotation"]
+            payload = {
+                key: copy.deepcopy(source[key])
+                for key in (
+                    "unconstrained_question_paraphrase",
+                    "representation_assessment",
+                    "instrument_issues",
+                    "semantic_skeleton",
+                    "information_obligations",
+                    "abstract_topology",
+                    "ambiguity",
+                    "alternative_topology_plans",
+                    "notes",
+                    "gold_claimed",
+                )
+            }
+            payload["unconstrained_question_paraphrase"] = observation["free_observation"]
+            records.append(
+                {
+                    "schema_version": "ai_question_structure_diagnostic_annotation_v0_1",
+                    "run_id": ai_question_structure_diagnostic.RUN_ID,
+                    "reviewer_slot": reviewer_slot,
+                    "evidence_class": "ai_pipeline_diagnostic_non_human_non_gold",
+                    "question_id": view["question_id"],
+                    "question": view["question"],
+                    "question_view_sha256": canonical_sha256(view),
+                    "stage1_observation_sha256": canonical_sha256(observation),
+                    "generation_provenance": {
+                        "producer_kind": "ai_model",
+                        "model_id": "codex_gpt-5",
+                        "model_revision_status": "revision_not_exposed",
+                        "seed_status": "not_supported",
+                        "generation_interface": "codex_subagent",
+                        "separate_agent_context": True,
+                        "other_reviewer_output_consulted": False,
+                        "runtime_input_isolation": "procedural_prompt_only_not_machine_authenticated",
+                        "statistical_independence_claimed": False,
+                        "raw_response_status": "structured_artifact_is_primary_capture_no_separate_raw_response",
+                    },
+                    "evidence_boundary": {
+                        "human_authored": False,
+                        "counts_as_human_evidence": False,
+                        "counts_toward_phase_gate": False,
+                        "gold_claimed": False,
+                        "semantic_agreement_claimed": False,
+                        "phase_a1_pass_claimed": False,
+                        "phase_a2_entry_claimed": False,
+                        "phase_b_entry_claimed": False,
+                        "common_executable_graph_claimed": False,
+                    },
+                    "semantic_payload": payload,
+                }
+            )
+        return records
+
+    def test_frozen_contract_is_live_and_non_evidentiary(self) -> None:
+        plan, views, bindings = ai_question_structure_diagnostic.validate_contract()
+        self.assertEqual(len(views), 30)
+        self.assertGreaterEqual(len(bindings), 12)
+        self.assertEqual(
+            plan["continuation_policy"]["policy"],
+            "always_emit_analysis_regardless_of_semantic_concordance",
+        )
+        self.assertEqual(
+            plan["canonical_effects"],
+            {
+                "human_annotation_count_delta": 0,
+                "human_review_count_delta": 0,
+                "human_agreement_observation_count_delta": 0,
+                "phase_a1_gate_satisfied": False,
+                "phase_a2_entry_authorized": False,
+                "phase_b_entry_authorized": False,
+                "gold_claimed": False,
+                "modeling_ready_claimed": False,
+                "common_executable_graph_claimed": False,
+                "grounding_or_execution_evaluated": False,
+            },
+        )
+
+    def test_valid_stage1_bundle_and_false_human_boundary(self) -> None:
+        _, views, _ = ai_question_structure_diagnostic.validate_contract()
+        records = self._stage1_records(views, "ai_reviewer_01")
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "stage1.jsonl"
+            write_jsonl(path, records)
+            _, checks, errors = ai_question_structure_diagnostic.validate_stage1_records(
+                path, "ai_reviewer_01"
+            )
+            self.assertEqual(errors, [])
+            self.assertEqual(len(checks), 30)
+            self.assertTrue(all(check["status"] == "pass" for check in checks))
+
+            records[0]["generation_boundary"]["human_authored"] = True
+            write_jsonl(path, records)
+            _, _, errors = ai_question_structure_diagnostic.validate_stage1_records(
+                path, "ai_reviewer_01"
+            )
+            self.assertTrue(any("False was expected" in error for error in errors))
+
+    def test_alignment_coverage_is_id_rename_invariant_and_exhaustive(self) -> None:
+        def payload(prefix: str) -> dict[str, object]:
+            return {
+                "semantic_skeleton": {
+                    "required_information_units": [
+                        {"unit_id": f"{prefix}_u1"},
+                        {"unit_id": f"{prefix}_u2"},
+                    ]
+                },
+                "information_obligations": [
+                    {"obligation_id": f"{prefix}_o1"},
+                    {"obligation_id": f"{prefix}_o2"},
+                ],
+                "abstract_topology": {
+                    "nodes": [
+                        {"node_id": f"{prefix}_n1"},
+                        {"node_id": f"{prefix}_n2"},
+                    ]
+                },
+            }
+
+        packet = {"left": {"semantic_payload": payload("l")}, "right": {"semantic_payload": payload("r")}}
+        alignment: dict[str, object] = {}
+        for layer, stem in (
+            ("required_information_unit", "u"),
+            ("obligation", "o"),
+            ("topology_node", "n"),
+        ):
+            alignment[f"{layer}_groups"] = [
+                {
+                    "group_id": f"g_{stem}1",
+                    "left_ids": [f"l_{stem}1"],
+                    "right_ids": [f"r_{stem}1"],
+                },
+                {
+                    "group_id": f"g_{stem}2",
+                    "left_ids": [f"l_{stem}2"],
+                    "right_ids": [f"r_{stem}2"],
+                },
+            ]
+            alignment[f"{layer}_unmatched_items"] = []
+            self.assertEqual(
+                ai_question_structure_diagnostic._coverage_errors(alignment, packet, layer),
+                [],
+            )
+        alignment["topology_node_groups"][1]["left_ids"] = ["l_n1"]
+        errors = ai_question_structure_diagnostic._coverage_errors(
+            alignment, packet, "topology_node"
+        )
+        self.assertEqual(len(errors), 1)
+        self.assertIn("exactly-once", errors[0])
+
+    def test_graph_invariants_and_joint_empty_edge_semantics(self) -> None:
+        topology = {
+            "nodes": [
+                {"node_id": "n1", "depends_on": []},
+                {"node_id": "n2", "depends_on": ["n1"]},
+                {"node_id": "n3", "depends_on": ["n1"]},
+                {"node_id": "n4", "depends_on": ["n2", "n3"]},
+            ]
+        }
+        self.assertEqual(
+            ai_question_structure_diagnostic.graph_invariants(topology),
+            {
+                "node_count": 4,
+                "edge_count": 4,
+                "root_count": 1,
+                "sink_count": 1,
+                "longest_path_node_count": 3,
+                "branch_present": True,
+                "join_present": True,
+            },
+        )
+
+    def test_disposition_keeps_unresolved_and_conflict_visible(self) -> None:
+        base = {
+            "component_decisions": {
+                key: {"status": "equivalent"}
+                for key in ("answer_target", "answer_shape", "candidate_structure", "ambiguity", "alternative_plans")
+            },
+            "required_information_unit_groups": [
+                {"left_ids": ["l1"], "right_ids": ["r1"], "status": "equivalent", "impact": "material"}
+            ],
+            "obligation_groups": [
+                {"left_ids": ["l2"], "right_ids": ["r2"], "status": "equivalent", "impact": "material"}
+            ],
+            "topology_node_groups": [
+                {"left_ids": ["l3"], "right_ids": ["r3"], "status": "equivalent", "impact": "material"}
+            ],
+            "required_information_unit_unmatched_items": [],
+            "obligation_unmatched_items": [],
+            "topology_node_unmatched_items": [],
+        }
+        graph = {
+            "projected_reachability_dice": 1.0,
+            "mapped_root_jaccard": 1.0,
+            "mapped_sink_jaccard": 1.0,
+        }
+        self.assertEqual(
+            ai_question_structure_diagnostic._question_disposition(base, graph),
+            "FULL_EQUIVALENCE",
+        )
+        unresolved = copy.deepcopy(base)
+        unresolved["component_decisions"]["ambiguity"]["status"] = "unresolved"
+        self.assertEqual(
+            ai_question_structure_diagnostic._question_disposition(unresolved, graph),
+            "INDETERMINATE",
+        )
+        conflict = copy.deepcopy(base)
+        conflict["obligation_groups"][0]["status"] = "substantive_conflict"
+        self.assertEqual(
+            ai_question_structure_diagnostic._question_disposition(conflict, graph),
+            "SUBSTANTIVE_DISAGREEMENT",
+        )
+
+    def test_synthetic_full_pipeline_reaches_truthful_final_metrics(self) -> None:
+        plan, views, _ = ai_question_structure_diagnostic.validate_contract()
+        stage1_01 = self._stage1_records(views, "ai_reviewer_01")
+        stage1_02 = self._stage1_records(views, "ai_reviewer_02")
+        annotations_01 = self._annotation_records(views, stage1_01, "ai_reviewer_01")
+        annotations_02 = self._annotation_records(views, stage1_02, "ai_reviewer_02")
+        packet, _ = ai_question_structure_diagnostic.build_alignment_packet(
+            annotations_01, annotations_02
+        )
+        alignments: list[dict[str, object]] = []
+        for item in packet:
+            alignments.append(
+                {
+                    "schema_version": "ai_question_structure_alignment_v0_1",
+                    "run_id": ai_question_structure_diagnostic.RUN_ID,
+                    "question_id": item["question_id"],
+                    "alignment_packet_record_sha256": canonical_sha256(item),
+                    "evidence_class": "ai_alignment_diagnostic_non_human_non_gold",
+                    "component_decisions": {
+                        key: {"status": "equivalent", "rationale": "The two descriptions express the same diagnostic commitment."}
+                        for key in ("answer_target", "answer_shape", "candidate_structure", "ambiguity", "alternative_plans")
+                    },
+                    "required_information_unit_groups": [
+                        {
+                            "group_id": "gu1",
+                            "left_ids": ["u1"],
+                            "right_ids": ["u1"],
+                            "status": "equivalent",
+                            "impact": "material",
+                            "rationale": "The required information is the same.",
+                        }
+                    ],
+                    "required_information_unit_unmatched_items": [],
+                    "obligation_groups": [
+                        {
+                            "group_id": f"go{number}",
+                            "left_ids": [f"o{number}"],
+                            "right_ids": [f"o{number}"],
+                            "status": "equivalent",
+                            "impact": "material",
+                            "rationale": "The obligations are equivalent.",
+                        }
+                        for number in (1, 2)
+                    ],
+                    "obligation_unmatched_items": [],
+                    "topology_node_groups": [
+                        {
+                            "group_id": f"gn{number}",
+                            "left_ids": [f"n{number}"],
+                            "right_ids": [f"n{number}"],
+                            "status": "equivalent",
+                            "impact": "material",
+                            "rationale": "The semantic operations are equivalent.",
+                        }
+                        for number in (1, 2)
+                    ],
+                    "topology_node_unmatched_items": [],
+                    "aligner_summary": "The two synthetic representations are equivalent.",
+                    "evidence_boundary": {
+                        "producer_kind": "ai_alignment_assistant",
+                        "human_adjudication_performed": False,
+                        "counts_as_semantic_agreement": False,
+                        "gold_claimed": False,
+                        "correctness_claimed": False,
+                    },
+                }
+            )
+        holdout_ids = [
+            qid
+            for batch in plan["batches"]
+            if batch["diagnostic_role"] == "shadow_holdout"
+            for qid in batch["question_ids"]
+        ]
+        view_by_id = {view["question_id"]: view for view in views}
+        topology_records: list[dict[str, object]] = []
+        for qid in holdout_ids:
+            view = view_by_id[qid]
+            topology_records.append(
+                {
+                    "schema_version": "independent_question_topology_ai_v0_1",
+                    "run_id": ai_question_structure_diagnostic.RUN_ID,
+                    "evidence_class": "ai_independent_topology_diagnostic_non_human_non_gold",
+                    "question_id": qid,
+                    "question": view["question"],
+                    "question_view_sha256": canonical_sha256(view),
+                    "visibility": "question_only_no_upstream_structure_environment_answer_or_proposals",
+                    "nodes": [
+                        {
+                            "node_id": "t1",
+                            "operation_description": "identify the qualifying subject",
+                            "depends_on": [],
+                            "source_cues": [view["question"]],
+                            "implicit_rationale": None,
+                        },
+                        {
+                            "node_id": "t2",
+                            "operation_description": "return the requested property",
+                            "depends_on": ["t1"],
+                            "source_cues": [view["question"]],
+                            "implicit_rationale": None,
+                        },
+                    ],
+                    "entry_node_ids": ["t1"],
+                    "output_node_ids": ["t2"],
+                    "alternative_topologies": [],
+                    "generation_provenance": {
+                        "producer_kind": "ai_model",
+                        "model_id": "codex_gpt-5",
+                        "model_revision_status": "revision_not_exposed",
+                        "seed_status": "not_supported",
+                        "generation_interface": "codex_subagent",
+                        "fresh_context": True,
+                        "runtime_input_isolation": "procedural_prompt_only_not_machine_authenticated",
+                    },
+                    "evidence_boundary": {
+                        "upstream_structure_exposed": False,
+                        "environment_exposed": False,
+                        "answer_exposed": False,
+                        "operator_vocabulary_exposed": False,
+                        "human_authored": False,
+                        "gold_claimed": False,
+                        "executable_graph_claimed": False,
+                    },
+                }
+            )
+        metrics = ai_question_structure_diagnostic.build_metrics(
+            annotations_01,
+            annotations_02,
+            packet,
+            alignments,
+            topology_records,
+        )
+        self.assertEqual(metrics["pipeline_execution_status"], "complete")
+        self.assertEqual(metrics["scientific_gate_status"], "NOT_EVALUATED_AI_SUBSTITUTE")
+        self.assertEqual(metrics["alignment"]["all_questions"]["disposition_counts"], {"FULL_EQUIVALENCE": 30})
+        self.assertEqual(metrics["canonical_research_status"]["human_evidence_count"], 0)
+        self.assertFalse(metrics["canonical_research_status"]["phase_a2_entry_claimed"])
+        report = ai_question_structure_diagnostic.render_report(metrics)
+        self.assertIn("Human evidence: 0", report)
+        self.assertIn("not authorized", report)
 
 
 if __name__ == "__main__":

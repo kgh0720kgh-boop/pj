@@ -1,0 +1,176 @@
+{
+  "schema_version": "ai_question_structure_pipeline_diagnostic_plan_v0_1",
+  "run_id": "ai_question_structure_pipeline_v0_1_run_001",
+  "decision_date": "2026-08-24",
+  "purpose": "non_evidentiary_end_to_end_ai_shadow_pipeline",
+  "status": "contract_frozen_before_reviewer_outputs",
+  "scope": {
+    "dataset": "HybridQA",
+    "question_count": 30,
+    "reviewer_count": 2,
+    "raw_record_count_expected": 60,
+    "calibration_question_count": 10,
+    "shadow_holdout_question_count": 20,
+    "independent_topology_question_count": 20
+  },
+  "source_artifacts": [
+    {
+      "repository_relative_path": "data_construction/pilot/question_only_semantic_views_v0_1.jsonl",
+      "sha256": "513d7f3ef28a7d2ad61bc71c02ab7767a61468394e614a783705dd0d9ae5647a"
+    },
+    {
+      "repository_relative_path": "data_construction/pilot/question_only_semantic_views_manifest_v0_1.json",
+      "sha256": "9ce6384e11907b0c9c6e47feff286a86329ee4203fb89b02732888f706986985"
+    },
+    {
+      "repository_relative_path": "data_construction/pilot/question_structure_study_plan_v0_1.json",
+      "sha256": "533aa565f3c08dc533ceaaf9d69b2dfb7fb1d2a0f5abd26840a03de28ee6d7be"
+    },
+    {
+      "repository_relative_path": "data_construction/schemas/question_structure_annotation_v0_1.json",
+      "sha256": "6faacb6a328e3f05bf727f4fbc74ea9a37fe02873188248c03b349cbf6a38c7b"
+    }
+  ],
+  "contract_artifacts": [
+    {
+      "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/stage1_observation_schema_v0_1.json",
+      "sha256": "4eec5bad4375326f64907026de42e394d8c6326bcb3c5a85009f6425cf2d8833"
+    },
+    {
+      "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/annotation_schema_v0_1.json",
+      "sha256": "dbc6336c40be1982f740574796e3bed53c920a1ddb8df03571891705a0ebe812"
+    },
+    {
+      "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/alignment_schema_v0_1.json",
+      "sha256": "2c9c4da5c145758f1ab2b9491b27926da9350abf358e30e0346701a6b4120d0d"
+    },
+    {
+      "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/independent_topology_schema_v0_1.json",
+      "sha256": "f955d65412389d8f0741fcd16f6edf2f9525907301eb0cdbc7fc46c939437f00"
+    },
+    {
+      "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/prompts/reviewer_stage1_v0_1.md",
+      "sha256": "76cbc489cabdf4060f8f2f4dd2981b4b2cd8d1694f90dafcc4007a35c68933a3"
+    },
+    {
+      "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/prompts/reviewer_stage2_v0_1.md",
+      "sha256": "3b4125fecdd2e03a57cd1a748316b947b61c58f2616c5066f308244083070645"
+    },
+    {
+      "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/prompts/blinded_alignment_v0_1.md",
+      "sha256": "d0b387effb0c87a713b5726d97e7c332536bc068b644ae9aacd2a2a94ea49f4b"
+    },
+    {
+      "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/prompts/independent_topology_v0_1.md",
+      "sha256": "df2bf79adebe9662f427cd0acd354b3f0fbf693f8cd28da10283659af320d4fd"
+    },
+    {
+      "repository_relative_path": "data_construction/tools/run_ai_question_structure_diagnostic.py",
+      "sha256": "cf9a4eac12cf7a7b33a129cd78530c51b44a1b90d478660ced5920498501d9ba"
+    },
+    {
+      "repository_relative_path": "tests/test_data_construction_tools.py",
+      "sha256": "88f3e3f7217e037f3038856ddddb3e29371aae3d53cd52744eafe94b5c1c7af9"
+    }
+  ],
+  "reviewer_slots": [
+    "ai_reviewer_01",
+    "ai_reviewer_02"
+  ],
+  "stage_order": [
+    "question_only_free_observation",
+    "locked_observation_plus_scaffold",
+    "deterministic_raw_validation",
+    "identity_blinded_pair_alignment",
+    "calibration_and_shadow_holdout_comparison",
+    "independent_question_only_topology_holdout",
+    "downstream_connector_preview",
+    "final_diagnostic_analysis"
+  ],
+  "batches": [
+    {
+      "batch_id": "phase_a1_batch_01",
+      "diagnostic_role": "shadow_calibration",
+      "question_ids": [
+        "8259c70c392c5b75",
+        "1d48a5ffb05c7de2",
+        "743c4e765fcd76e5",
+        "ab5eb9535349cd7a",
+        "b3550375a684a870",
+        "f36270c917a195c7",
+        "8524304318e5f09a",
+        "c26cafcd706efe0d",
+        "3d207ccb8be56fd9",
+        "b16c668f54c230e7"
+      ]
+    },
+    {
+      "batch_id": "phase_a1_batch_02",
+      "diagnostic_role": "shadow_holdout",
+      "question_ids": [
+        "f7426693930a6ab2",
+        "fb5717774d243073",
+        "1e674ae4b655c1a1",
+        "bd8704d4254c01c6",
+        "0503a6ef0129abd8",
+        "254c5c25421f60da",
+        "1518b9d0da2d3711",
+        "be6ebff950e35063",
+        "5ee2a90fe9a3cd56",
+        "6926f4190bebd390"
+      ]
+    },
+    {
+      "batch_id": "phase_a1_batch_03",
+      "diagnostic_role": "shadow_holdout",
+      "question_ids": [
+        "d8b4bad4f5a73509",
+        "6a9c00243f104ad3",
+        "e650aba3f1a9239e",
+        "c597434242009fe6",
+        "86245b7523f7a645",
+        "1754cff04f90d4ba",
+        "2e4366c597bbfb87",
+        "639da22b64b0a499",
+        "fc9605cb355ae05c",
+        "f08d137b8650f452"
+      ]
+    }
+  ],
+  "continuation_policy": {
+    "policy": "always_emit_analysis_regardless_of_semantic_concordance",
+    "instrument_revision_during_run_allowed": false,
+    "invalid_or_tampered_input_blocks_derivation": true,
+    "low_agreement_blocks_diagnostic_continuation": false,
+    "unresolved_alignment_blocks_diagnostic_continuation": false,
+    "shadow_holdout_is_phase_a2_evidence": false
+  },
+  "alignment_contract": {
+    "identity_blinded": true,
+    "side_assignment": "sha256_run_id_plus_question_id_even_digest_left_is_reviewer_01",
+    "semantic_judgment_source": "separate_ai_alignment_assistant",
+    "deterministic_comparator_scope": "conditional_on_frozen_ai_alignment_crosswalk",
+    "text_similarity_is_semantic_agreement": false,
+    "exact_graph_match_is_sole_correctness_target": false,
+    "threshold_gate_defined": false
+  },
+  "independent_topology_contract": {
+    "question_scope": "shadow_holdout_only",
+    "fresh_context_required": true,
+    "upstream_skeleton_obligation_or_mapping_exposed": false,
+    "environment_answer_or_operator_proposal_exposed": false,
+    "comparison_scope": "descriptive_graph_invariants_only_without_semantic_node_alignment"
+  },
+  "canonical_effects": {
+    "human_annotation_count_delta": 0,
+    "human_review_count_delta": 0,
+    "human_agreement_observation_count_delta": 0,
+    "phase_a1_gate_satisfied": false,
+    "phase_a2_entry_authorized": false,
+    "phase_b_entry_authorized": false,
+    "gold_claimed": false,
+    "modeling_ready_claimed": false,
+    "common_executable_graph_claimed": false,
+    "grounding_or_execution_evaluated": false
+  }
+}

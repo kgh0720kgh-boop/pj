@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ai_question_structure_stage1_observation_v0_1.json",
+  "title": "AI diagnostic question-only free observation v0.1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "reviewer_slot",
+    "evidence_class",
+    "question_id",
+    "question",
+    "question_view_sha256",
+    "visibility",
+    "free_observation",
+    "generation_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "ai_question_structure_stage1_observation_v0_1"},
+    "run_id": {"const": "ai_question_structure_pipeline_v0_1_run_001"},
+    "reviewer_slot": {"enum": ["ai_reviewer_01", "ai_reviewer_02"]},
+    "evidence_class": {"const": "ai_pipeline_diagnostic_non_human_non_gold"},
+    "question_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"},
+    "question": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "question_view_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "visibility": {"const": "question_only_no_environment_answer_or_proposals"},
+    "free_observation": {"type": "string", "minLength": 1, "maxLength": 4096, "pattern": "\\S"},
+    "generation_boundary": {
+      "type": "object",
+      "required": [
+        "producer_kind",
+        "human_authored",
+        "counts_as_human_evidence",
+        "counts_toward_phase_gate",
+        "scaffold_visible_during_generation",
+        "other_reviewer_output_consulted",
+        "runtime_input_isolation",
+        "statistical_independence_claimed"
+      ],
+      "properties": {
+        "producer_kind": {"const": "ai_model"},
+        "human_authored": {"const": false},
+        "counts_as_human_evidence": {"const": false},
+        "counts_toward_phase_gate": {"const": false},
+        "scaffold_visible_during_generation": {"const": false},
+        "other_reviewer_output_consulted": {"const": false},
+        "runtime_input_isolation": {"const": "procedural_prompt_only_not_machine_authenticated"},
+        "statistical_independence_claimed": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

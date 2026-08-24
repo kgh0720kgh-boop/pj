@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ai_question_structure_diagnostic_annotation_v0_1.json",
+  "title": "AI diagnostic question-structure annotation v0.1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "reviewer_slot",
+    "evidence_class",
+    "question_id",
+    "question",
+    "question_view_sha256",
+    "stage1_observation_sha256",
+    "generation_provenance",
+    "evidence_boundary",
+    "semantic_payload"
+  ],
+  "properties": {
+    "schema_version": {"const": "ai_question_structure_diagnostic_annotation_v0_1"},
+    "run_id": {"const": "ai_question_structure_pipeline_v0_1_run_001"},
+    "reviewer_slot": {"enum": ["ai_reviewer_01", "ai_reviewer_02"]},
+    "evidence_class": {"const": "ai_pipeline_diagnostic_non_human_non_gold"},
+    "question_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"},
+    "question": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "question_view_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "stage1_observation_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "generation_provenance": {
+      "type": "object",
+      "required": [
+        "producer_kind",
+        "model_id",
+        "model_revision_status",
+        "seed_status",
+        "generation_interface",
+        "separate_agent_context",
+        "other_reviewer_output_consulted",
+        "runtime_input_isolation",
+        "statistical_independence_claimed",
+        "raw_response_status"
+      ],
+      "properties": {
+        "producer_kind": {"const": "ai_model"},
+        "model_id": {"const": "codex_gpt-5"},
+        "model_revision_status": {"const": "revision_not_exposed"},
+        "seed_status": {"const": "not_supported"},
+        "generation_interface": {"const": "codex_subagent"},
+        "separate_agent_context": {"const": true},
+        "other_reviewer_output_consulted": {"const": false},
+        "runtime_input_isolation": {"const": "procedural_prompt_only_not_machine_authenticated"},
+        "statistical_independence_claimed": {"const": false},
+        "raw_response_status": {"const": "structured_artifact_is_primary_capture_no_separate_raw_response"}
+      },
+      "additionalProperties": false
+    },
+    "evidence_boundary": {
+      "type": "object",
+      "required": [
+        "human_authored",
+        "counts_as_human_evidence",
+        "counts_toward_phase_gate",
+        "gold_claimed",
+        "semantic_agreement_claimed",
+        "phase_a1_pass_claimed",
+        "phase_a2_entry_claimed",
+        "phase_b_entry_claimed",
+        "common_executable_graph_claimed"
+      ],
+      "properties": {
+        "human_authored": {"const": false},
+        "counts_as_human_evidence": {"const": false},
+        "counts_toward_phase_gate": {"const": false},
+        "gold_claimed": {"const": false},
+        "semantic_agreement_claimed": {"const": false},
+        "phase_a1_pass_claimed": {"const": false},
+        "phase_a2_entry_claimed": {"const": false},
+        "phase_b_entry_claimed": {"const": false},
+        "common_executable_graph_claimed": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "semantic_payload": {
+      "type": "object",
+      "required": [
+        "unconstrained_question_paraphrase",
+        "representation_assessment",
+        "instrument_issues",
+        "semantic_skeleton",
+        "information_obligations",
+        "abstract_topology",
+        "ambiguity",
+        "alternative_topology_plans",
+        "notes",
+        "gold_claimed"
+      ],
+      "properties": {
+        "unconstrained_question_paraphrase": {"type": "string", "minLength": 1, "maxLength": 4096, "pattern": "\\S"},
+        "representation_assessment": {"$ref": "question_structure_annotation_v0_1.json#/$defs/representation_assessment"},
+        "instrument_issues": {"type": "array", "items": {"$ref": "question_structure_annotation_v0_1.json#/$defs/instrument_issue"}},
+        "semantic_skeleton": {"$ref": "question_structure_annotation_v0_1.json#/$defs/semantic_skeleton"},
+        "information_obligations": {"type": "array", "minItems": 1, "items": {"$ref": "question_structure_annotation_v0_1.json#/$defs/information_obligation"}},
+        "abstract_topology": {"$ref": "question_structure_annotation_v0_1.json#/$defs/topology"},
+        "ambiguity": {"$ref": "question_structure_annotation_v0_1.json#/$defs/ambiguity"},
+        "alternative_topology_plans": {"type": "array", "items": {"$ref": "question_structure_annotation_v0_1.json#/$defs/alternative_topology_plan"}},
+        "notes": {"type": ["string", "null"], "maxLength": 4096},
+        "gold_claimed": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
