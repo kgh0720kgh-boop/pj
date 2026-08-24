@@ -1,0 +1,474 @@
+{
+  "analysis_contract": {
+    "common_executable_graph_claim_allowed": false,
+    "label_normalization_status": "deferred",
+    "metrics": [
+      "e1_primary_and_alternative_variant_statuses_and_alt_rescue",
+      "e1_by_e2_status_cross_tab_diagnostic_not_accuracy",
+      "semantic_to_operator_node_edge_and_depth_expansion",
+      "one_to_one_one_to_many_many_to_one_many_to_many_mapping_counts",
+      "environment_extension_operator_node_counts",
+      "binding_slot_modality_counts",
+      "realization_variation_axis_counts",
+      "label_free_operator_structural_profile_counts",
+      "within_family_structural_heterogeneity",
+      "producer_partition_status_stratification"
+    ],
+    "prevalence_estimation_authorized": false,
+    "record_local_label_recurrence_analysis_allowed": false,
+    "sample_design": "rarity_overweighted_coverage_stress_not_probability_sample",
+    "unlabeled_structural_profile_is_exact_graph_isomorphism": false
+  },
+  "contract_bindings": {
+    "adequacy_schema": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/backbone_adequacy_assessment_schema_v0_1.json",
+      "sha256": "473f0c53d231b34fd1a00d1bed3078216008101474648c04f7e395278156a7f2"
+    },
+    "builder": {
+      "repository_relative_path": "data_construction/tools/build_representative_environment_realization.py",
+      "sha256": "183865badd7546a8fbed50156808a029c22570428e51bcea20c5a246c725e463"
+    },
+    "common_runtime": {
+      "repository_relative_path": "data_construction/tools/_common.py",
+      "sha256": "5e879a163863e3d4e497a57be99f4dc40a0e033d351dfed8da991514c789f64d"
+    },
+    "e1_prompt": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/prompts/backbone_adequacy_assessment_v0_1.md",
+      "sha256": "d4ae93af6e095408a449b665d4048dba144af4e64131ade09680e3886e2120e4"
+    },
+    "e2_prompt": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/prompts/open_operator_realization_v0_1.md",
+      "sha256": "5c70acc0649554d3a47123d4837c16747e4cbd1d7a7966fb8fbffcd4370344f4"
+    },
+    "freeze_plan": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_environment_realization_plan_v0_1.json",
+      "sha256": "17941b6006aa8db7b06c063c868c46c1c116a9e7e68ef75bc17ff4abc83a2ec6"
+    },
+    "outcome_migration": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/environment_realization_outcome_v0_1_to_v0_2_migration.md",
+      "sha256": "1b8f6d3e50c656e7e53b287d3a570e9982bb88274f488c0f7ae0eee4a5cc9fbd"
+    },
+    "outcome_schema": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/environment_realization_outcome_schema_v0_2.json",
+      "sha256": "c503be1f5ebc9e839ec4872b9cd0d31984ed4eeaf193accf4d5f902f32ad7c18"
+    },
+    "realization_schema": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/open_operator_realization_schema_v0_1.json",
+      "sha256": "a1146ade2d0c035fec46f679ffd061ef3d28cc80ab5b646733eeb41332a62094"
+    },
+    "source_helper": {
+      "repository_relative_path": "data_construction/tools/_representative_environment_source.py",
+      "sha256": "de175316e628b0d9641c832068321b498f871fb923374ac5adbaba8d761164c1"
+    },
+    "tests": {
+      "repository_relative_path": "tests/test_representative_environment_realization.py",
+      "sha256": "57ca3ba509892d95b2ef6ee99b26cd263362f53f40380e0daa39664ea1cec68e"
+    },
+    "view_schema": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_environment_view_schema_v0_1.json",
+      "sha256": "dd868f6f3ee678ac1fb19e6c3b266832168162e819f32cf540e7b58464ec06ed"
+    }
+  },
+  "contract_freeze_commit": "2e8f6a2c8ee2eb7a3d8a175ea7b8d7f94213175c",
+  "counts": {
+    "candidate_families": 30,
+    "checks": 285,
+    "e1_assessments": 71,
+    "e2_realizations": 71,
+    "environment_exposure_ledger_records": 1,
+    "environment_views": 71,
+    "human_evidence": 0,
+    "metrics_records": 1,
+    "outcomes": 71
+  },
+  "e1_freeze_commit": "c3ed836c633859d3575bab1f29d7cf0274df6780",
+  "environment_view_freeze_commit": "1ff98d3a9cbd7cdd7ae5c7de6676818a57481ec7",
+  "evidence_boundary": {
+    "answer_recovery_evaluated": false,
+    "evidence_class": "ai_exploratory_non_human_non_gold",
+    "execution_evaluated": false,
+    "final_operator_vocabulary_selected": false,
+    "grounding_evaluated": false,
+    "human_evidence_count": 0,
+    "modeling_ready_claimed": false,
+    "semantic_gold_claimed": false
+  },
+  "implementation_commit": "78fe487327d2fda43cc2ec79203c0a3223d1645b",
+  "input_bindings": {
+    "e1_authoring_packets": [
+      {
+        "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/authoring_packets/partition_01.jsonl",
+        "sha256": "34b94d2d617c7a6f967ebf43996a6d3cbba26a75300fb3037f8ab1aee326d339"
+      },
+      {
+        "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/authoring_packets/partition_02.jsonl",
+        "sha256": "a1fffb89e6de7dd4a0dab25a359a350d16db2f1644c40b6803f64b2681802fe1"
+      },
+      {
+        "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/authoring_packets/partition_03.jsonl",
+        "sha256": "dc4ab418604959a0b79ed50a306296ff19e4d0a8c04ae1d463f932accad71c59"
+      },
+      {
+        "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/authoring_packets/partition_04.jsonl",
+        "sha256": "c651fe71471af206f24fd36cfe341a4c76454e9060a8bf20ba0286466ce80928"
+      }
+    ],
+    "e1_combined": {
+      "record_count": 71,
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/backbone_adequacy_assessments.jsonl",
+      "sha256": "a87dbce8a6731ad433f868ec78747e4285eae49f3ca751e36f163308b8c6c792"
+    },
+    "e1_hash_bindings_for_e2": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/assessment_bindings_for_e2.json",
+      "sha256": "4190bfc82252db8082801b6eb62bb2e14676d4e9378fc38b9bc117ce7c481c8a"
+    },
+    "e1_parts": [
+      {
+        "record_count": 18,
+        "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/parts/partition_01.jsonl",
+        "sha256": "c30891b236283394bab43763a00f53c013eb322f6ae37d9a2ad6a62a1dbb6565"
+      },
+      {
+        "record_count": 18,
+        "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/parts/partition_02.jsonl",
+        "sha256": "84db43d706bd6db8ed68734c35c4e804966f1049b0d5e5a1ee478e5f2013d1e3"
+      },
+      {
+        "record_count": 18,
+        "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/parts/partition_03.jsonl",
+        "sha256": "3573f0c546d81bd60a7fd7ceb2db056f8914f7bf31739fe31812a2c307a19b76"
+      },
+      {
+        "record_count": 17,
+        "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/parts/partition_04.jsonl",
+        "sha256": "b4766f469d81d2c273bc9178905831eeecf08dc676df2f0415d1b3176c540b81"
+      }
+    ],
+    "e2_authoring_packets": [
+      {
+        "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/authoring_packets/partition_01.jsonl",
+        "sha256": "37d61fe63eac5dc57a94c01a3f6b38c2ea66f993eb5509471b055ae22f73acea"
+      },
+      {
+        "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/authoring_packets/partition_02.jsonl",
+        "sha256": "9dd437c52d4e4cc3ccb6078524dc90f45cde542d0929e0e8d93b40ff8d365cd9"
+      },
+      {
+        "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/authoring_packets/partition_03.jsonl",
+        "sha256": "3d326bd40fe1b759c43616fb4f6b1542d702acc8663ae444a12b32888da8b948"
+      },
+      {
+        "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/authoring_packets/partition_04.jsonl",
+        "sha256": "5f7fcca439809a1018c2bdc875d9a0d9c35b7946d4435d7170404ef574335c9a"
+      }
+    ],
+    "e2_parts": [
+      {
+        "record_count": 18,
+        "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/parts/partition_01.jsonl",
+        "sha256": "6e7c8673ea71f02bfa982e466280c0b542e25419a9b977398fb29b0f1e150f57"
+      },
+      {
+        "record_count": 18,
+        "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/parts/partition_02.jsonl",
+        "sha256": "3435b157a5744ce9bb811db1dac8bff33ec203328eb654baa05ec5251fd8f5e7"
+      },
+      {
+        "record_count": 18,
+        "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/parts/partition_03.jsonl",
+        "sha256": "bd941045c89de5197c7c1594c3a08536339fb0a676db8964ae84bd6a9bfa7156"
+      },
+      {
+        "record_count": 17,
+        "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/parts/partition_04.jsonl",
+        "sha256": "f404fd2f4f116dc009168dab11bbf33dd6f6adb416c2fc91e785dda8e6e43ee4"
+      }
+    ],
+    "environment_views": {
+      "record_count": 71,
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views.jsonl",
+      "sha256": "9cf0d6b81554066f5ff3175122e83dedf74f4d0a2d15ae9d64d65b873a9c72c7"
+    },
+    "environment_views_manifest": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views_manifest_v0_1.json",
+      "sha256": "a01d609b8e4d7c035198f0cd8897d6e178dcf07e5474328ae8c9d881ee00a0c8"
+    },
+    "routing": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/producer_routing_manifest_v0_1.json",
+      "sha256": "bb1e5551b8055bfb669cb0141baea9377d13e9ed3f17bd2f44b9099eeb743fc0"
+    }
+  },
+  "model_provenance": {
+    "exact_model_revision": null,
+    "exact_model_revision_status": "not_exposed_by_interface",
+    "model_id": "codex_gpt-5",
+    "raw_response_artifact": null,
+    "raw_response_status": "not_exposed_structured_partition_files_are_primary_capture",
+    "seed": null,
+    "seed_status": "not_supported_by_interface",
+    "statistical_reviewer_independence_claimed": false
+  },
+  "outputs": {
+    "checks": {
+      "bytes": 56725,
+      "record_count": 285,
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/checks.jsonl",
+      "sha256": "542f59ac604d32fd6d1cb017fe4a8f7ac460c01625e2dd13dbbb64795a773020"
+    },
+    "environment_exposure_ledger": {
+      "bytes": 2854,
+      "record_count": 1,
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/environment_exposure_ledger_v0_1.json",
+      "sha256": "9b46afeeda319fcff7d6ce34b4c687ed1915b17eccecaa9806e9d7ea45d7a74a"
+    },
+    "metrics": {
+      "bytes": 73862,
+      "record_count": 1,
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/metrics_v0_1.json",
+      "sha256": "4faf301fff82aa57e991c29f82d782bd8ee95c0d3c813eaab4223d98d515bad3"
+    },
+    "open_operator_realizations": {
+      "bytes": 706135,
+      "record_count": 71,
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/open_operator_realizations.jsonl",
+      "sha256": "2e465f0dcb1b7575be92c0377f352eb886c7b1253cd338927d816a5e1593ed29"
+    },
+    "outcomes": {
+      "bytes": 309583,
+      "record_count": 71,
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/outcomes.jsonl",
+      "sha256": "1823a8441ac93907c8798f9a3982a0376bda1d450c376ecdd159a99bcf0c6aa5"
+    },
+    "report": {
+      "bytes": 2622,
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/report_v0_1.md",
+      "sha256": "f74eb9f69fd4045d54e5237f355f2de4efff0c58cf107cef0847aca9cf359718"
+    }
+  },
+  "run_id": "hybridqa_n300_representative_environment_realization_v0_1_run_001",
+  "run_status": "complete_first_two_signals_grounding_execution_answer_not_evaluated",
+  "schema_version": "representative_environment_realization_run_manifest_v0_1",
+  "selection_id": "hybridqa_n300_candidate_backbone_coverage_sample_v0_1",
+  "source_bindings": {
+    "candidate_run_manifest": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/run_manifest.json",
+      "sha256": "091c7071aa373ad718af2a487be16a0269519099959ea758d69c74414600a590"
+    },
+    "families": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/candidate_backbone_families_v0_1.jsonl",
+      "sha256": "4c96c4bc4b0f2e43894fc0bb42c26fdf4260de4c93a0455e3f0663c1a4611e5a"
+    },
+    "records": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/cumulative_n300_v0_1/records.jsonl",
+      "sha256": "bd601a5be2113f0de4f041f50eefcf415f338fbc3a89eaa35f5b867cca286629"
+    },
+    "selection": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/representative_selection_v0_1.json",
+      "sha256": "2600f22721216e0e804de88726e4fb6d8a9d99830e445cd278b1af8b383bbf2a"
+    },
+    "source_manifest": {
+      "repository_relative_path": "data_construction/manifests/source_manifest_v0_1.json",
+      "sha256": "853a8b993922ef69a35e00b87a91e510a4c8130cfe35f63ff97e9e4776849f39"
+    }
+  },
+  "source_commit": "78fe487327d2fda43cc2ec79203c0a3223d1645b",
+  "stage_contract": {
+    "answer_recovery_evaluated": false,
+    "archival_view_source_bindings_exposed_to_authors": false,
+    "authoring_uses_stage_specific_partition_packets": true,
+    "e1_context_inherits_prior_conversation": false,
+    "e1_fresh_authoring_context_required": true,
+    "e1_must_be_committed_before_e2": true,
+    "e1_prior_record_exposure_attestation_required": true,
+    "e2_author_must_not_open_e1_artifacts": true,
+    "e2_authoring_input_includes_e1_content": false,
+    "e2_context_inherits_e1_conversation": false,
+    "e2_fresh_authoring_context_required": true,
+    "e2_prior_exposure_attestation_required": true,
+    "exact_graph_match_is_sole_correctness_target": false,
+    "execution_evaluated": false,
+    "full_duplicate_review_required": false,
+    "global_nonexposure_machine_authenticated": false,
+    "grounding_evaluated": false,
+    "operator_labels_are_record_local": true,
+    "operator_vocabulary_selected": false,
+    "stage_order": [
+      "implementation_commit",
+      "plan_freeze_commit_without_raw_environment_access",
+      "environment_view_and_e1_packet_materialization_commit",
+      "e1_backbone_adequacy_authoring_and_commit",
+      "e2_hash_only_packet_materialization_in_e1_commit",
+      "e2_open_operator_realization_in_fresh_context",
+      "combined_outcome_derivation"
+    ]
+  },
+  "status_counts": {
+    "backbone_adequacy": {
+      "adequate": 64,
+      "indeterminate": 2,
+      "partially_adequate": 5
+    },
+    "environment_operator_realization": {
+      "available": 71
+    }
+  },
+  "targeted_recheck_triggers": {
+    "e1_non_adequate_or_indeterminate": {
+      "count": 7,
+      "question_ids": [
+        "0d48bffa70ef4acf",
+        "75a7ccb3abefa128",
+        "1e674ae4b655c1a1",
+        "1ca8ffcd3e20e498",
+        "ba563b015b09bf21",
+        "cc681cfdba9badd5",
+        "1e2e4e4f72a64bbf"
+      ],
+      "question_ids_set_sha256": "fed9d08c3d1dfc6120eeba2259da8a2acc8c985665a7908195c708a90c7166fa"
+    },
+    "e2_partial_unavailable_or_indeterminate": {
+      "count": 0,
+      "question_ids": [],
+      "question_ids_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "multiple_realization_candidates": {
+      "count": 22,
+      "question_ids": [
+        "653d221ec832d13c",
+        "0d48bffa70ef4acf",
+        "736e042b2c205104",
+        "c787f84fcdd3c4b8",
+        "9b030f07965328b8",
+        "411562d9ce68b1e8",
+        "0ccec805fd3393f1",
+        "5ed50dcd4d5264ab",
+        "89460c0d91f35d50",
+        "cc681cfdba9badd5",
+        "c722cd2efc12bd14",
+        "21148417ac3a50ca",
+        "7c3e89b072c6145f",
+        "dcedafe32d109937",
+        "078b72dd6976dc29",
+        "0503a6ef0129abd8",
+        "7fdc558f6b822b6a",
+        "a021a5ae2b2dec59",
+        "09828a9a107af8a4",
+        "50f4456de0b2a380",
+        "0f774ac4950905c4",
+        "0fae312ba3d6ef76"
+      ],
+      "question_ids_set_sha256": "342f50ad02718de7e6f520c398b3b3c6b4e17337b784ac75135cf3135835ba1e"
+    },
+    "rare_singleton_or_doubleton_family": {
+      "count": 28,
+      "question_ids": [
+        "bafd6781c04a1897",
+        "078b72dd6976dc29",
+        "b7e8bf58404aba35",
+        "42a182821bb86560",
+        "e4fdd71f9bcd619c",
+        "0503a6ef0129abd8",
+        "d00587e410e6a6fb",
+        "743c4e765fcd76e5",
+        "2f8484f7e3324d0e",
+        "7fdc558f6b822b6a",
+        "500759e6b5e9256c",
+        "d3b6320429b12095",
+        "cfe21c5fecaab724",
+        "a021a5ae2b2dec59",
+        "eb023128000a9684",
+        "09828a9a107af8a4",
+        "e2958b5a8eccc251",
+        "50f4456de0b2a380",
+        "c785e669858ec6f2",
+        "9aab93e9f9d29b5c",
+        "d0ae5921e77b1e73",
+        "0f774ac4950905c4",
+        "639da22b64b0a499",
+        "1e2e4e4f72a64bbf",
+        "8719f5ca3711aa45",
+        "0fae312ba3d6ef76",
+        "dd7056864066ae9b",
+        "2c1e60c344e2b104"
+      ],
+      "question_ids_set_sha256": "bb9cd030a4bad787f406c79bbbddde78d01da2024a981e5cf3a8f258f4936739"
+    },
+    "source_backbone_uncertain": {
+      "count": 27,
+      "question_ids": [
+        "0d48bffa70ef4acf",
+        "c787f84fcdd3c4b8",
+        "e9232821cf7ef702",
+        "9b030f07965328b8",
+        "ba563b015b09bf21",
+        "e8f872dde8b82875",
+        "50d916167643e093",
+        "ad20a4c31ba3dba9",
+        "f08600ded0c4be3f",
+        "67f5d01fa7df9bed",
+        "773655dc61bff645",
+        "cc681cfdba9badd5",
+        "857ba79b2fe601be",
+        "21148417ac3a50ca",
+        "2bd28d7d29059abf",
+        "7c3e89b072c6145f",
+        "bafd6781c04a1897",
+        "b7e8bf58404aba35",
+        "42a182821bb86560",
+        "e4fdd71f9bcd619c",
+        "d00587e410e6a6fb",
+        "d3b6320429b12095",
+        "a021a5ae2b2dec59",
+        "9aab93e9f9d29b5c",
+        "0f774ac4950905c4",
+        "639da22b64b0a499",
+        "dd7056864066ae9b"
+      ],
+      "question_ids_set_sha256": "b6fd885323a0f7cd36a19453482bba2ce8c777e8d506777cfea2e23bb2b22daf"
+    },
+    "unsupported_backbone_nodes": {
+      "count": 0,
+      "question_ids": [],
+      "question_ids_set_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "tool_version": "representative_environment_realization_builder_v0_1",
+  "visibility_contract": {
+    "allowed_authoring_inputs": [
+      "stage_prompt_and_output_schema",
+      "opaque_record_identity_provenance_and_fixed_output_bindings",
+      "question_text",
+      "frozen_question_only_answer_spec_primary_and_preserved_alternative_backbones",
+      "full_pinned_table_rows_and_cells",
+      "table_link_reachable_pinned_document_text"
+    ],
+    "dataset_provided_question_table_binding": true,
+    "environment_may_naturally_contain_answer_bearing_facts": true,
+    "environment_truncation": "none",
+    "excluded_anchoring_metadata": [
+      "candidate_source_record_status",
+      "candidate_uncertainty_label",
+      "cross_record_canonical_family_graph"
+    ],
+    "forbidden_authoring_inputs": [
+      "official_answer_field_or_reference",
+      "official_or_historical_trace",
+      "historical_execution_graph",
+      "prior_coarse_medium_fine_operator_proposal",
+      "oracle_document_selection",
+      "grounding_label",
+      "execution_result",
+      "answer_recovery_result"
+    ],
+    "full_table_link_closure_supplied": true,
+    "linked_document_scope": "all_document_ids_reachable_from_any_table_header_or_data_cell_link",
+    "machine_authentication_scope": "exact_projection_and_bound_artifacts_not_global_human_nonexposure",
+    "official_question_source_projection": [
+      "question_id",
+      "question",
+      "table_id"
+    ],
+    "question_or_answer_guided_environment_pruning": false,
+    "table_retrieval_evaluated": false
+  }
+}
