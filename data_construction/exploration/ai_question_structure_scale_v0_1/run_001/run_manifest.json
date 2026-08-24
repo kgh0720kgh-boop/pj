@@ -1,0 +1,70 @@
+{
+  "canonical_effects": {
+    "common_executable_graph_claimed": false,
+    "gold_claimed": false,
+    "grounding_or_execution_evaluated": false,
+    "human_agreement_claimed": false,
+    "human_evidence_count": 0,
+    "modeling_ready_claimed": false,
+    "semantic_correctness_claimed": false,
+    "universal_semantic_graph_claimed": false
+  },
+  "contract_freeze_commit": "5adb85277928676eb82fa5189390c442fd6c70bc",
+  "contract_plan": {
+    "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/exploration_plan_v0_1.json",
+    "sha256": "bce9bd4985105890d56537316eaf2c94615d364fcac0cfa6942122e7377a36ad"
+  },
+  "evidence_class": "ai_exploratory_non_human_non_gold",
+  "input_scope": {
+    "environment_answer_grounding_or_other_record_exposed": false,
+    "question_count": 100,
+    "visible_fields": [
+      "schema_version",
+      "visibility",
+      "question_id",
+      "question"
+    ]
+  },
+  "model_provenance": {
+    "exact_revision_status": "revision_not_exposed",
+    "generation_interface": "codex_subagent_partitioned_single_record_per_question",
+    "model_id": "codex_gpt-5",
+    "multi_reviewer_agreement_claimed": false,
+    "producer_kind": "ai_model",
+    "raw_response_status": "structured_JSONL_parts_are_primary_capture_no_separate_raw_response",
+    "seed_status": "not_supported"
+  },
+  "outputs": {
+    "checks": {
+      "record_count": 100,
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/checks.jsonl",
+      "sha256": "2e06141f8c91f82d64828190c4efdf979834535d0702bba1329ef12d9b8b371d"
+    },
+    "derived_signatures": {
+      "record_count": 100,
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/derived_signatures_v0_1.jsonl",
+      "sha256": "cc7d7850aab91284115461bac45948d18970350239b2194d2ee1aef3df5988de"
+    },
+    "exposure_ledger": {
+      "repository_relative_path": "data_construction/manifests/question_exposure_ledger_v0_1.json",
+      "sha256": "681c3e8c8d0fd7490c88e8e8085b6c9421008223f97cc9d5baefd59801ae6b7c"
+    },
+    "metrics": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/structural_saturation_metrics_v0_1.json",
+      "sha256": "8a40c6ebe30d79db1c219ff7a30e4c69af7b47e5ed67cfc3260f51e5a992fd37"
+    },
+    "records": {
+      "record_count": 100,
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/records.jsonl",
+      "sha256": "9e7dc9d48f98a8b9d73dde96f0f61836463578efca6aae67b3bd2d1806c30eef"
+    },
+    "report": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/structural_saturation_report_v0_1.md",
+      "sha256": "af39956a809656f465062dce79e6fcdb9b033121404df7766e4233a7d2e1f942"
+    }
+  },
+  "run_id": "ai_question_structure_scale_v0_1_run_001",
+  "run_status": "complete",
+  "schema_version": "ai_question_structure_scale_run_manifest_v0_1",
+  "tool_version": "ai_question_structure_scale_exploration_tool_v0_1"
+}
