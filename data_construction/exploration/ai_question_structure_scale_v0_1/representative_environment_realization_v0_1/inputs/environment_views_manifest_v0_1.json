@@ -1,0 +1,917 @@
+{
+  "answer_field_projected": false,
+  "contract_freeze_commit": "2e8f6a2c8ee2eb7a3d8a175ea7b8d7f94213175c",
+  "dataset_provided_question_table_binding": true,
+  "full_table_link_closure_supplied": true,
+  "gold_claimed": false,
+  "human_evidence_count": 0,
+  "implementation_commit": "78fe487327d2fda43cc2ec79203c0a3223d1645b",
+  "machine_local_absolute_path_recorded": false,
+  "official_answer_or_trace_fields_in_views": false,
+  "official_dev_blob_read_for_question_to_table_mapping": true,
+  "official_source_contract": {
+    "linked_environment_source": {
+      "checkout_directory": "WikiTables-WithLinks-dc066e1",
+      "git_tree_sha1": "b4f2d5e0eeb2d18cf95bf6e6a583bc499c53b68c",
+      "pinned_commit": "dc066e1a6d5281511d8b73a6107d5ad2824cc2b2",
+      "repository_url": "https://github.com/wenhuchen/WikiTables-WithLinks.git",
+      "request_artifact": {
+        "canonical_content_list_sha256": "bc289b9aa6d397369b44cbf9b54250539a5a0cf01287f94c9a5572e79e8cd916",
+        "file_count": 15316,
+        "git_tree_sha1": "f1c1a1dab31b2341f338a6a7bf626b5b8c569f20",
+        "repository_relative_path": "request_tok"
+      },
+      "source_id": "hybridqa_linked_tables_and_passages",
+      "tables_artifact": {
+        "canonical_content_list_sha256": "3969fcf6c0192d6085ad999e3abd41f0039a73c878ffd30d7cd8b7786ea62c92",
+        "file_count": 15316,
+        "git_tree_sha1": "772e97624b08e0bd5534b8991a8c2dd8fb6b153f",
+        "repository_relative_path": "tables_tok"
+      }
+    },
+    "question_source": {
+      "checkout_directory": "HybridQA-db22fda",
+      "dev_artifact": {
+        "question_id_set_sha256": "70ee935abae8409251e0858a46d7a92f7875e2bfa0d8084f8ab3bb1cd591f584",
+        "record_count": 3466,
+        "repository_relative_path": "released_data/dev.json",
+        "sha256": "424272b233735a70ed8ef5af4a615373d114f472168c686c4370d54c92d58ac1"
+      },
+      "git_tree_sha1": "1e1ef6a6168ef6c6cf362264d8f7b75859ce8fdf",
+      "pinned_commit": "db22fda8c5951438fade3c69d75b350335ba93b3",
+      "released_data_tree_sha1": "e3746c1ae9de9b8ecc85f8a6326faa1edf58a90f",
+      "repository_url": "https://github.com/wenhuchen/HybridQA.git",
+      "source_id": "hybridqa_questions_and_code"
+    },
+    "schema_version": "representative_environment_source_contract_v0_1"
+  },
+  "plan_artifact": {
+    "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_environment_realization_plan_v0_1.json",
+    "sha256": "17941b6006aa8db7b06c063c868c46c1c116a9e7e68ef75bc17ff4abc83a2ec6"
+  },
+  "question_or_answer_guided_environment_pruning": false,
+  "run_id": "hybridqa_n300_representative_environment_realization_v0_1_run_001",
+  "schema_version": "representative_environment_views_manifest_v0_1",
+  "selected_question_ids": [
+    "653d221ec832d13c",
+    "0d48bffa70ef4acf",
+    "735834c0f75f137a",
+    "75a7ccb3abefa128",
+    "736e042b2c205104",
+    "63cf68ef83853c8a",
+    "7dc78b5327210208",
+    "8259c70c392c5b75",
+    "c787f84fcdd3c4b8",
+    "e9232821cf7ef702",
+    "1e674ae4b655c1a1",
+    "1ca8ffcd3e20e498",
+    "9b030f07965328b8",
+    "82b28c175b1cb108",
+    "c67ea18da325ac4d",
+    "ba563b015b09bf21",
+    "411562d9ce68b1e8",
+    "8fb7b7d6e47937e7",
+    "e8f872dde8b82875",
+    "50d916167643e093",
+    "0ccec805fd3393f1",
+    "ad20a4c31ba3dba9",
+    "f08600ded0c4be3f",
+    "0f7b9d689e856c5a",
+    "5ed50dcd4d5264ab",
+    "67f5d01fa7df9bed",
+    "b99fc5c636ea823c",
+    "773655dc61bff645",
+    "89460c0d91f35d50",
+    "d8b4bad4f5a73509",
+    "cc681cfdba9badd5",
+    "3dc3aaaa06cbfc49",
+    "c722cd2efc12bd14",
+    "016665beb450ca4e",
+    "857ba79b2fe601be",
+    "846fc6ee43ca7f7d",
+    "21148417ac3a50ca",
+    "3d207ccb8be56fd9",
+    "2bd28d7d29059abf",
+    "bd8704d4254c01c6",
+    "7c3e89b072c6145f",
+    "05d8934842b3479c",
+    "dcedafe32d109937",
+    "bafd6781c04a1897",
+    "078b72dd6976dc29",
+    "b7e8bf58404aba35",
+    "42a182821bb86560",
+    "e4fdd71f9bcd619c",
+    "0503a6ef0129abd8",
+    "d00587e410e6a6fb",
+    "743c4e765fcd76e5",
+    "2f8484f7e3324d0e",
+    "7fdc558f6b822b6a",
+    "500759e6b5e9256c",
+    "d3b6320429b12095",
+    "cfe21c5fecaab724",
+    "a021a5ae2b2dec59",
+    "eb023128000a9684",
+    "09828a9a107af8a4",
+    "e2958b5a8eccc251",
+    "50f4456de0b2a380",
+    "c785e669858ec6f2",
+    "9aab93e9f9d29b5c",
+    "d0ae5921e77b1e73",
+    "0f774ac4950905c4",
+    "639da22b64b0a499",
+    "1e2e4e4f72a64bbf",
+    "8719f5ca3711aa45",
+    "0fae312ba3d6ef76",
+    "dd7056864066ae9b",
+    "2c1e60c344e2b104"
+  ],
+  "selected_question_ids_ordered_sha256": "5403debe2cbe9c7f55ded0a01b49d7c42bf03e53a71350efe269bbd3c0bdcb2e",
+  "selected_question_ids_set_sha256": "9b6e05650834871ce30acc1c2dfde18fc64910dcd238982f5d482f6a31e15680",
+  "selected_source_artifacts": [
+    {
+      "repository_relative_path": "request_tok/1950_Italian_Grand_Prix_0.json",
+      "sha256": "f5276239254f329d9a6c73c20718a517d34e5b5f38397f13d2c52068c88754de",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/1968_International_Cross_Country_Championships_3.json",
+      "sha256": "90003a9cda5f09223914e454a08ffb0a7e0952b1b8bad1873fd42ccd4c8202c9",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/1996_IAAF_World_Half_Marathon_Championships_1.json",
+      "sha256": "05ead713de9620192de69bf284465a532b242718ed418f3652a64dcb198eb827",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/1999_College_Baseball_All-America_Team_0.json",
+      "sha256": "694f020c62f9a745809837741fe19c8a2a83f857dd245ee5d413c05c0d089f67",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/2000_Buy.com_Tour_0.json",
+      "sha256": "63afe3b93ff326a71258197013352a77c0e8dea7afab034bdae661d96308a267",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/2002_MLS_SuperDraft_4.json",
+      "sha256": "28d8a2d278f7c750fc479437abf8cf02dc34a9d3eeb8ca598f0d5fa33e506b91",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/2003_MLS_SuperDraft_5.json",
+      "sha256": "7422d2a7d2a7cb185d4dbb493ce6fec80b6a570e52e14e2834bd54f8b550cc04",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/2004_LPGA_Tour_0.json",
+      "sha256": "68e70d96f0b6ace26e36379a124042968117458fb82b31a9fa295d014e4a4bd6",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/2008_NCAA_Division_II_National_Football_Championship_playoffs_2.json",
+      "sha256": "8bf52e9af4391a659523993552cd8e8dded0cfe9fef6c6a2c85ae905ecb01c29",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/2010_in_American_television_6.json",
+      "sha256": "86f2c8bbf2669584a79f256ded18617d3f2a40d793402843225448bdce399219",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/2011_ALPG_Tour_2.json",
+      "sha256": "b542570488e8ce3e0536e0d3cd66998d4e76a5bb477f4c73311265b8cac0522f",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/2011_CONCACAF_Gold_Cup_disciplinary_record_2.json",
+      "sha256": "2c6b1e32c64c4a79ad0a6e3e6a0cbf6ac6a650fde0740992b6a8c6bcfc34b373",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/American_Association_(19th_century)_0.json",
+      "sha256": "1294101ca0c8566a0b13136e78df884807cea661ddf28e63105c259d0e1ad719",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Anna_Paquin_2.json",
+      "sha256": "1b6f4bba3cb7bafa8faa6fe7fdcc7d069188bfabb8643e51e7565b7b301f866f",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Best-selling_albums_by_year_in_the_United_States_4.json",
+      "sha256": "833d5a397c68a17e6b5ee931e74ecbb4c3ef68c4bfa8fe253caf62cc27464efe",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Boden_Professor_of_Sanskrit_0.json",
+      "sha256": "a04d1d3a12c511baa0c82df7e26c3ab1abd48b7f22e0ecc1d0c41ffcf92154a7",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Brazil_at_the_2004_Summer_Olympics_0.json",
+      "sha256": "f1bc1bd64b8c20b2f447914c948f77fa6680d65e1aeaace721ae2df661a7a9f7",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Chinese_Super_League_3.json",
+      "sha256": "e45fded07c6b1b143b10f923437a58c23e3ad0c702a4b18f69a4b7f43ba46478",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Copa_Sudamericana_records_and_statistics_0.json",
+      "sha256": "eb118f36f04f45d949dac036b5ed592c3e04930dba6aa64a66ad699c1999261a",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Discus_throw_2.json",
+      "sha256": "723cdf609a3d1cce5ab5af271aff84f37273a23f72ef66e181badd607bf51146",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/E._J._Lennox_0.json",
+      "sha256": "a8231c04eef7ab7dac3ca9b1795f12345b904ae48a9f17bb7ee343f3ee2492a5",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Economy_of_Germany_1.json",
+      "sha256": "a9361cef8c4ba4953d456ac0a349ca8017941a19bb3633eee85a020aef8f62a8",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Endorsements_for_the_Republican_Party_presidential_primaries,_2012_21.json",
+      "sha256": "f297245cbc120db6b1d07bea4f195f8ec19afac4540caf2e5a379c097f238337",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/FA_Women's_Premier_League_Cup_0.json",
+      "sha256": "9f4a5d6b25ebdae9b44f5551de4ceb395277bb14d89d3aaeb133738934b7d6eb",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/FIBA_Basketball_World_Cup_records_1.json",
+      "sha256": "6f7bae4dbb792206506a7939fdc67d2a3d94c05093569fa99d04e9ed5cda71a3",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Grammy_Award_for_Best_Contemporary_R&B_Album_0.json",
+      "sha256": "94e45b963baf10ddc47e54f04039d698b25026998c76c282888e95df0449f595",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Hungary_at_the_2012_Summer_Olympics_0.json",
+      "sha256": "beee8feaaa2058b5afb193cdeee4b41d15e8ee07b470f83484c5933a998c1921",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Indonesia_at_the_Asian_Games_36.json",
+      "sha256": "059dd47a6f25649c75958b27bc1d124fb8cde0ba7ce8b8c615a5784b652ed851",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/La_Libertad_Region_0.json",
+      "sha256": "53731fb5dffb039caf1e6e70f523ff5de3154bf5a550c2fc9d91a6c54a4b188e",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_Constituencies_of_the_Lok_Sabha_28.json",
+      "sha256": "b3e2027c811c7652998d92016e2c221ca132f465a204c48135aa25fddaa48797",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_Major_League_Baseball_doubles_records_2.json",
+      "sha256": "7bba1e2c0f2eaae4675af6cbf3a1c5f52c12f69eb912154dab88da6001e0dd7a",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_Major_League_Baseball_franchise_postseason_droughts_2.json",
+      "sha256": "78223b529ab91a91aca3414fc1a97f174666e0d2e271222bccbe69df0913bf43",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_Masonic_buildings_in_the_United_States_48.json",
+      "sha256": "bfbb711f0d27fdb2685f078258c36066329a885b7e206234a2113d4e3a7577fb",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_National_Football_League_attendance_figures_1.json",
+      "sha256": "e0b047673bf145e840e8b9c5f695d6434c374e44376d9ca76d4b297b3d0e89f1",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_National_Historic_Landmarks_in_Hawaii_0.json",
+      "sha256": "2fad1c96a02e8da0e49c58e06dd1d39a469f4b5e9f7beddf623d20ae1a5b61d8",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_National_Treasures_of_Japan_(writings:_Japanese_books)_0.json",
+      "sha256": "fd574e9b5ccae511e72f09cc837bd3a15e1b87f2849418aca8fd2982b641f568",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_New_York_University_alumni_25.json",
+      "sha256": "982650eeb9973b94fb70fded04b8584cfa3b36463b8f1be6daa1586e64c5e849",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_Olympic_medalists_in_Nordic_combined_1.json",
+      "sha256": "c2588087599d4201c5d69aff2d73ab0ed44643d4f80b46981375b9fc5e597925",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_Presbyterian_churches_7.json",
+      "sha256": "ca443a7e8b5e8d7c18d862625e1539fceff6f37ecd9661c93019a01ea631e060",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_The_Avengers:_Earth's_Mightiest_Heroes_characters_4.json",
+      "sha256": "971a14d74f2f6483df906f309bd31b2178195eae4e31c499258e01d996dbbb75",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_U.S._Air_Force_Test_Pilot_School_alumni_1.json",
+      "sha256": "1a0be277681a695b543576fab524c0c7ab9e5962f7a16dde4f6b93235cbea19e",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_University_of_Oregon_alumni_20.json",
+      "sha256": "9a211356bd238842cc1d9eed76987c4cd8d102c9f7140a3369554683c2a0f196",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_airports_in_Belize_1.json",
+      "sha256": "a2904b6ee9f4956ef7d89042cd83cecef94f8af9f8478d60c9fcc8a5f47bee3b",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_airports_in_the_Greater_Houston_Area_0.json",
+      "sha256": "02dc640b947f3d2d9eeb75048f691f32f34c25740833363f627f252a6c610b16",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_bus_stations_in_Wales_0.json",
+      "sha256": "1a5dc9465bd1aa13a2e061763830a8592618309c30e99ed878495cdd20dd04e8",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_cities_and_towns_in_India_12.json",
+      "sha256": "253f464ef707881faee757cfe26f01c1f1abdf25a1ec2b030030731bd5f1b5fb",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_doping_cases_in_athletics_2.json",
+      "sha256": "9b1f5cea8bb6e495b6e1d53ab9a952225d9be0f2ee22bf18b6f22a204fdacc9b",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_flag_bearers_for_Madagascar_at_the_Olympics_0.json",
+      "sha256": "bb3cfc01bbf5f33eff706b6fa3d50b144c61908ae911c73393fb7066609a6727",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_hillside_letters_0.json",
+      "sha256": "a0946bbaa8eba948a70da82e2d64b79498357047fdb36a85489166cfb0b3b75e",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_honorary_British_knights_and_dames_6.json",
+      "sha256": "f7df95921c02c3d74e6fd5bcafbd22569269627c3982b1e183153572dd4ed6f1",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_museums_in_Bedfordshire_0.json",
+      "sha256": "41082fb735c7200fd236e9ee7869d31d93e9bd776cc30456722e6b22a352c02f",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_nature_centers_in_Missouri_0.json",
+      "sha256": "92699633d5ab19b8c3027fa28f4c521035b0b15383b8f3118eed0e5290864c5d",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_prehistoric_insects_4.json",
+      "sha256": "02f3531cec475a88477f77008683b81583d62e73e0f541d589af08839efbf64d",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_programs_broadcast_by_Showtime_4.json",
+      "sha256": "eba46e699035ca437f72a6c6ea3e4ec66facb5af4470f7808777c92dd4c2caf9",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_railway_stations_in_Worcestershire_0.json",
+      "sha256": "bd00bccea42df20831536f50043ccb1f1a2b639ff19084a149ae22318ee0e2d4",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_schools_in_Darling_Downs_6.json",
+      "sha256": "d6dd1b751f9b60469e588eac25a7fd0041b5b071418400a2fa15c987c13b53f3",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_submissions_to_the_39th_Academy_Awards_for_Best_Foreign_Language_Film_0.json",
+      "sha256": "f27cfa3ef58d55c8ec29ae37baf7c9cd7bd2737ea8b91df2284cc4144776e9a3",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_television_stations_in_the_United_States_by_call_sign_(initial_letter_K)_0.json",
+      "sha256": "33cdf4e0e6eced2737125ad42701f630c559019ff6397d952c9a902fdb9bc438",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/List_of_townships_in_North_Dakota_26.json",
+      "sha256": "8125c86f45c248ade5310344ee22245cc6393cbeb17c2efe50b7bbf53c7e1c35",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Malaysia_at_the_1998_Commonwealth_Games_1.json",
+      "sha256": "0f8c05e82ede9523cd407c9494619129ee7343299e4dbacc7abfd0c47f9c350f",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Missouri_Valley_Conference_Men's_Basketball_Tournament_1.json",
+      "sha256": "834c97efa7157352449312e4769f378b7f8bf917a1d704d60e3f08305cfd9410",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Municipalities_of_Switzerland_1.json",
+      "sha256": "b9863d1d32a3f7e0199f8b636f1567af6c95eba19b5fe0048d58b288e1e999f5",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/National_Register_of_Historic_Places_listings_in_Hardin_County,_Iowa_0.json",
+      "sha256": "0702015ffe71d2c91ef011406c8326f6dbe5facbe8d7a9c7967996e64da1ed6f",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Performance_Ranking_of_Scientific_Papers_for_World_Universities_5.json",
+      "sha256": "51b818ce8e86d54cb3a909184ad521872f4fbd92c9bccaf5ac2c22e1fd551deb",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Project_Runway_(season_1)_0.json",
+      "sha256": "0337b12756532cf1233139e1270912c4ae624ac1a8f3d48fc6ba4f31cbd3adeb",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Ronnie_O'Sullivan_0.json",
+      "sha256": "0390a29057688d6b4f236f7fb2c49bd51be2df5456fb54d84dd1fad16488e484",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Scottish_Championship_0.json",
+      "sha256": "482a4e0c56856734916f4a8a18ca4d9ffc07a2482728727df956a913ae59f388",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Tom_Berenger_0.json",
+      "sha256": "9064f3a21979f743aa8e2e764ae0a246254e87aeebbc86bcfce9c016b2673282",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/Turkish_Cup_0.json",
+      "sha256": "1e9609c61b493724a4a0a6f6644c3f563fe578b5f65eff9747677a54b10913ba",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/UCI_Mountain_Bike_World_Cup_6.json",
+      "sha256": "05fea0f351932b98d11803dade1672ff15debc24aac3050f5106c8593900f601",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "request_tok/UEFA_Women's_Champions_League_2.json",
+      "sha256": "9d674a87d97104b299c1656e699d9dbe84296e990c01ba94563be11d9afc3e46",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/1950_Italian_Grand_Prix_0.json",
+      "sha256": "34eb933d5ddc1d893c710394ba6312e2a096bd865eb625802170f8515ec48d66",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/1968_International_Cross_Country_Championships_3.json",
+      "sha256": "14033eaf15675e6cbd06166a01f426ffcd8210b5c3e5f1070c6e7fe0cf0b5c95",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/1996_IAAF_World_Half_Marathon_Championships_1.json",
+      "sha256": "915ac57910fbf141c68ea1854f6f7b6a268bd79c97fd78d6798849c9c147753b",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/1999_College_Baseball_All-America_Team_0.json",
+      "sha256": "efe0a6a68f2bd95f03ce476e3b288e1a4cb6e08b005e27cffb9642bb5b3d3580",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/2000_Buy.com_Tour_0.json",
+      "sha256": "89b35985e9965c5fb3dafa7f5515230839c33b7c00cce4f101127ccf6dbd4b55",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/2002_MLS_SuperDraft_4.json",
+      "sha256": "8313f87826bc452d5ea348923ab873f52aa1a0ca9a0ba2b09ca92e7dc066d3e2",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/2003_MLS_SuperDraft_5.json",
+      "sha256": "ca59ec7dc03dca0dcaaa79da9f483e8cf8301e74098dbe99ead38ddeda952d9b",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/2004_LPGA_Tour_0.json",
+      "sha256": "ed2058330012a45f7f6da345d8181a1606c5e652801eb3a4d3cec213d87828a1",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/2008_NCAA_Division_II_National_Football_Championship_playoffs_2.json",
+      "sha256": "8b317b6c79e91fc32c59c6f87b98902a25a374e9f7f57aba620d8053585bb1a0",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/2010_in_American_television_6.json",
+      "sha256": "edf2b48de72aa383c1088801a96ad1ba67f93d399778d53e491c20c8922f3dbb",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/2011_ALPG_Tour_2.json",
+      "sha256": "f3f4cff4d7dad9998812e3f8096f5a730b1eadd78b4561c27a9d37d9f19ba5ef",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/2011_CONCACAF_Gold_Cup_disciplinary_record_2.json",
+      "sha256": "a3af37a3cb9ae7c561375b7e1e6edba322272b7fa9bfc257126251028ebb7461",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/American_Association_(19th_century)_0.json",
+      "sha256": "d72672111fdbbcde1b17f0201293cc706da8fd149f8cddadc4726f749d5470fa",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Anna_Paquin_2.json",
+      "sha256": "9ed90b3b53d5f586ebcb77a660e04fe3a116f988759d9901de3c8cbe7d5e651c",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Best-selling_albums_by_year_in_the_United_States_4.json",
+      "sha256": "5f3b80ca29dbb3e6f3bd3e5a5e96c0c444f0a150017265533090b9b77ed23c89",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Boden_Professor_of_Sanskrit_0.json",
+      "sha256": "45319f5aaad6834bff4c6e9d7acb794b4e1b762f4bd3e3cb1a26c5178b97be23",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Brazil_at_the_2004_Summer_Olympics_0.json",
+      "sha256": "c168f0852518f9de193b1341854f98ef3390dad7d24faca727580f4f381749be",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Chinese_Super_League_3.json",
+      "sha256": "1fc94be36c929dd98d3c570c7960a00e668351905e33184026cfdef480b002ff",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Copa_Sudamericana_records_and_statistics_0.json",
+      "sha256": "98081e59a736b8c427a88d347010dc398d22cc75d0791abbaf48f9c080efd4a6",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Discus_throw_2.json",
+      "sha256": "1b60869b1226f3ff11361dc36ff69b5f1c841877bcb696c866140f3f2c96263b",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/E._J._Lennox_0.json",
+      "sha256": "304988c7bd03cc8a339ec98847a5893ba8a52c69688c5a3b8b7abb6d3bc90ccd",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Economy_of_Germany_1.json",
+      "sha256": "d5586be94821709bb5d83589afef2349e7ec64359f16c2916225f239bccca3c8",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Endorsements_for_the_Republican_Party_presidential_primaries,_2012_21.json",
+      "sha256": "2305484bb72fd8791184c72e5d9d3df355b32ccc9d8c8daac429d5fce10d0cde",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/FA_Women's_Premier_League_Cup_0.json",
+      "sha256": "540f4ce7b34337933b0d773eb73a8a9f3777a99078772bed9ef21d71b0df2413",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/FIBA_Basketball_World_Cup_records_1.json",
+      "sha256": "91c16c7ed73addb1b786be5ace4586efbf086b7f83524bb9a5c44072a058be2e",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Grammy_Award_for_Best_Contemporary_R&B_Album_0.json",
+      "sha256": "d4547d2f2c27f8506ef1c2dd15b1c7d1927b63fe1aafe76d65a240a030739397",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Hungary_at_the_2012_Summer_Olympics_0.json",
+      "sha256": "ea9449195d1b004fa15412cad956d017e68e2786577d93bad55195f30c5bd89e",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Indonesia_at_the_Asian_Games_36.json",
+      "sha256": "b8ef7079733bd290a17446fb287a545dd01b4b6d477553fc78635f3cd08912e6",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/La_Libertad_Region_0.json",
+      "sha256": "acbdeeaf59b3ee07d09522cecb7f0a616566a221b83931497f246937b7e0c274",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_Constituencies_of_the_Lok_Sabha_28.json",
+      "sha256": "32865a38b9ac53d5f96230594e34f137ae9664fb5f3e221b2fc3420ba0d69950",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_Major_League_Baseball_doubles_records_2.json",
+      "sha256": "7518388692ea919ca42684e981df4e9b197c733bd73a9919fb742fc048ec930f",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_Major_League_Baseball_franchise_postseason_droughts_2.json",
+      "sha256": "24b5727598ecfa086692e87b2accc57323f70e3bd813bb342ff792a8b62b126d",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_Masonic_buildings_in_the_United_States_48.json",
+      "sha256": "6350f18fcedcb580755802e365c06d51e08d1fb5cc19dd0b4e73b08bcf1c3761",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_National_Football_League_attendance_figures_1.json",
+      "sha256": "745ad59d8d7ae4408052fb23bd8ab6062df5f92677ec9b96c366a0eda5688ad9",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_National_Historic_Landmarks_in_Hawaii_0.json",
+      "sha256": "df9597e33b39bb8ed4af6ca0ca7699b19e844de8af44eebfc26f1d54578fa99b",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_National_Treasures_of_Japan_(writings:_Japanese_books)_0.json",
+      "sha256": "fbc57ef8275058481360a60cd775f613a94e6d2fe3692c50c00065efec2c95da",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_New_York_University_alumni_25.json",
+      "sha256": "a3a04afc94e1e665f2e82c3ea799ce095aa9f19d6b9ade1030c7ac1771953493",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_Olympic_medalists_in_Nordic_combined_1.json",
+      "sha256": "87754aa45f633e72dc80cef416fffab154a229c2250d26d2758c53a1127401b8",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_Presbyterian_churches_7.json",
+      "sha256": "d5cecf072025f8ffb558f3baff6bc4f2b2ae9f2da6df75e66e40be7a2b2bac2c",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_The_Avengers:_Earth's_Mightiest_Heroes_characters_4.json",
+      "sha256": "c5b655330f2a44dc6e82209a673d77c4b8738c7dce42670d6d00a120165d698d",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_U.S._Air_Force_Test_Pilot_School_alumni_1.json",
+      "sha256": "5a1c9ae7b62987cac6460665b367d316ca7476b94eff6fda05d900f6c13f5094",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_University_of_Oregon_alumni_20.json",
+      "sha256": "99b8251b49677435050bd81e6fdebdfc1879d1ae82507f48830ce6a03cd22a06",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_airports_in_Belize_1.json",
+      "sha256": "e2d31874c59fbe732d53f6bfbf706538fc3ff7bc349c85bfd1c3e959fb0cbe8d",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_airports_in_the_Greater_Houston_Area_0.json",
+      "sha256": "86fbc3e652f6c81ea4d82c6359a76d52a649eb5d0b69ed395a3c44a9283aea89",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_bus_stations_in_Wales_0.json",
+      "sha256": "4ca2784934224283130787ab7f4604be8c6bc0ea59101ff9140178faae2952d7",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_cities_and_towns_in_India_12.json",
+      "sha256": "411e792c96a80755fb38a0b8e2b4f41a6fd779d03e0754860ea5444cdf9e5767",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_doping_cases_in_athletics_2.json",
+      "sha256": "16345850815536817b10aab9b1a32b8ca351af3eb13f6f17a40e95efd8e5fbdf",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_flag_bearers_for_Madagascar_at_the_Olympics_0.json",
+      "sha256": "f527db082f47bf4538c18b0f327ca6061fa4f14d4a6bea966bfb42a9e299d49b",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_hillside_letters_0.json",
+      "sha256": "9ac1f2518e3adfe29b3869c3d678aa6b739b40226cf9d58af79ee356ea62f04f",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_honorary_British_knights_and_dames_6.json",
+      "sha256": "8739a4aa165acccc84b9aec2e50c7c7598b01062bda850d1b8b416ced46d6375",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_museums_in_Bedfordshire_0.json",
+      "sha256": "407950bfe8b8ded038e35ef5e8df542082f2574e4f6131d358e6124bc8ef50b5",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_nature_centers_in_Missouri_0.json",
+      "sha256": "f73887cf55e4ebf5637564d369dc6c4531846c4e3c626183aad4bba43552c8a6",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_prehistoric_insects_4.json",
+      "sha256": "3299a8787fa8344d84dc225fc13288ce4d1f1a7f38125969fb01acecb44959fa",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_programs_broadcast_by_Showtime_4.json",
+      "sha256": "be753fc3713a68ca3c281dd4a41adef800132e8c014435758640b6bf8ba2f757",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_railway_stations_in_Worcestershire_0.json",
+      "sha256": "495b6d68c16307bc8ef4f7296021b59fbc7702857a70eec7cbde30866a943675",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_schools_in_Darling_Downs_6.json",
+      "sha256": "ed60b977c275977a09e0ae25d050404cd10c9aecb69ea56a5171468b3e2cd0a9",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_submissions_to_the_39th_Academy_Awards_for_Best_Foreign_Language_Film_0.json",
+      "sha256": "8231dc81a83879f102975e066c801ef76e4a4aaf0c1707e67fdddf0ac507b3c7",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_television_stations_in_the_United_States_by_call_sign_(initial_letter_K)_0.json",
+      "sha256": "270c746e03ea8a0366d872ada4f3b35b27396ba41e13e0d776a7fa5f579a4e44",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/List_of_townships_in_North_Dakota_26.json",
+      "sha256": "efa7e60c6b7bb89aaa7b6567a87a462b163eb15ca233698400fae97355d9802f",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Malaysia_at_the_1998_Commonwealth_Games_1.json",
+      "sha256": "efdb0f60200f21bfb97192ab746ec6ce3b43d2b8fe63b79b6f813ad95970962f",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Missouri_Valley_Conference_Men's_Basketball_Tournament_1.json",
+      "sha256": "5535dd1bf1f9fdbfc7f74388afc2f16b46e3dea54df9432a3aeb9921a7b40583",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Municipalities_of_Switzerland_1.json",
+      "sha256": "dec90fe366a0176f58d0bba1dea0f052ffa5ecbf69a8b0ced73fe5aad150ed8b",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/National_Register_of_Historic_Places_listings_in_Hardin_County,_Iowa_0.json",
+      "sha256": "36c505b1129aae7c5a1ca112b73c3fcf4426c7593152f7f356212916d0c29dba",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Performance_Ranking_of_Scientific_Papers_for_World_Universities_5.json",
+      "sha256": "30bb12cec0a98a47ba3a9ff49959f701e37b692cb4f984187f79631702f77aa0",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Project_Runway_(season_1)_0.json",
+      "sha256": "c0942cca10e1e8b74783734917b99b953ce66db2abe24de5df834fb30545e851",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Ronnie_O'Sullivan_0.json",
+      "sha256": "7c4b3a81915ddead911afd908ba67fc1bb48f55f2c8da7f5a7853ed5aea26e28",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Scottish_Championship_0.json",
+      "sha256": "1cf06fd2b9ae66bf7f9b45ad0efc74c71525e2f73d8db84c32b94621d6f93be7",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Tom_Berenger_0.json",
+      "sha256": "5130aa46e97192c4db690c2aea5fe351bd6ce0245eb1dae65bbcf94effd3819c",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/Turkish_Cup_0.json",
+      "sha256": "8617307c2828b2f9558544b9a819eb1218cc0bdcd44649168fc83c070e748bd9",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/UCI_Mountain_Bike_World_Cup_6.json",
+      "sha256": "27329069f79b46e2121e22dd2c512a010442872727942e0422c7cde6ae19b5fd",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "tables_tok/UEFA_Women's_Champions_League_2.json",
+      "sha256": "da7b5bae975b86cb88125a817d0abde8651cd48a94ad73380779947a14606af7",
+      "source_id": "hybridqa_linked_tables_and_passages"
+    },
+    {
+      "repository_relative_path": "released_data/dev.json",
+      "sha256": "424272b233735a70ed8ef5af4a615373d114f472168c686c4370d54c92d58ac1",
+      "source_id": "hybridqa_questions_and_code"
+    }
+  ],
+  "selection_id": "hybridqa_n300_candidate_backbone_coverage_sample_v0_1",
+  "source_commit": "78fe487327d2fda43cc2ec79203c0a3223d1645b",
+  "source_verification": {
+    "linked_environment_source": {
+      "git_tree_sha1": "b4f2d5e0eeb2d18cf95bf6e6a583bc499c53b68c",
+      "pinned_commit": "dc066e1a6d5281511d8b73a6107d5ad2824cc2b2",
+      "request_tree_sha1": "f1c1a1dab31b2341f338a6a7bf626b5b8c569f20",
+      "source_id": "hybridqa_linked_tables_and_passages",
+      "tables_tree_sha1": "772e97624b08e0bd5534b8991a8c2dd8fb6b153f"
+    },
+    "question_source": {
+      "dev_artifact": {
+        "repository_relative_path": "released_data/dev.json",
+        "sha256": "424272b233735a70ed8ef5af4a615373d114f472168c686c4370d54c92d58ac1"
+      },
+      "git_tree_sha1": "1e1ef6a6168ef6c6cf362264d8f7b75859ce8fdf",
+      "pinned_commit": "db22fda8c5951438fade3c69d75b350335ba93b3",
+      "released_data_tree_sha1": "e3746c1ae9de9b8ecc85f8a6326faa1edf58a90f",
+      "source_id": "hybridqa_questions_and_code"
+    },
+    "status": "verified_exact_official_pins"
+  },
+  "source_verification_stable_during_extraction": true,
+  "status": "materialized_from_pinned_git_blobs",
+  "table_retrieval_evaluated": false,
+  "trace_or_reference_artifact_read": false,
+  "views_artifact": {
+    "bytes": 3218214,
+    "record_count": 71,
+    "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views.jsonl",
+    "sha256": "9cf0d6b81554066f5ff3175122e83dedf74f4d0a2d15ae9d64d65b873a9c72c7"
+  },
+  "visibility_contract": {
+    "allowed_authoring_inputs": [
+      "stage_prompt_and_output_schema",
+      "opaque_record_identity_provenance_and_fixed_output_bindings",
+      "question_text",
+      "frozen_question_only_answer_spec_primary_and_preserved_alternative_backbones",
+      "full_pinned_table_rows_and_cells",
+      "table_link_reachable_pinned_document_text"
+    ],
+    "dataset_provided_question_table_binding": true,
+    "environment_may_naturally_contain_answer_bearing_facts": true,
+    "environment_truncation": "none",
+    "excluded_anchoring_metadata": [
+      "candidate_source_record_status",
+      "candidate_uncertainty_label",
+      "cross_record_canonical_family_graph"
+    ],
+    "forbidden_authoring_inputs": [
+      "official_answer_field_or_reference",
+      "official_or_historical_trace",
+      "historical_execution_graph",
+      "prior_coarse_medium_fine_operator_proposal",
+      "oracle_document_selection",
+      "grounding_label",
+      "execution_result",
+      "answer_recovery_result"
+    ],
+    "full_table_link_closure_supplied": true,
+    "linked_document_scope": "all_document_ids_reachable_from_any_table_header_or_data_cell_link",
+    "machine_authentication_scope": "exact_projection_and_bound_artifacts_not_global_human_nonexposure",
+    "official_question_source_projection": [
+      "question_id",
+      "question",
+      "table_id"
+    ],
+    "question_or_answer_guided_environment_pruning": false,
+    "table_retrieval_evaluated": false
+  }
+}
