@@ -1,0 +1,427 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ai_question_structure_scale_semantic_backbone_record_v0_1.json",
+  "title": "Question-only AI semantic-backbone exploration record v0.1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "evidence_class",
+    "producer_partition",
+    "question_id",
+    "question",
+    "question_view_sha256",
+    "visibility",
+    "status",
+    "answer_spec",
+    "primary_graph",
+    "alternative_graphs",
+    "uncertainty",
+    "not_representable_reason"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "question_only_semantic_backbone_ai_v0_1"
+    },
+    "run_id": {
+      "const": "ai_question_structure_scale_v0_1_run_001"
+    },
+    "evidence_class": {
+      "const": "ai_exploratory_non_human_non_gold"
+    },
+    "producer_partition": {
+      "type": "string",
+      "pattern": "^partition_[0-9]{2}$"
+    },
+    "question_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "question_view_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "visibility": {
+      "const": "question_only_no_environment_answer_or_proposals"
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "uncertain",
+        "not_representable"
+      ]
+    },
+    "answer_spec": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/answer_spec"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "primary_graph": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/graph"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "alternative_graphs": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "alternative_id",
+          "reason",
+          "graph"
+        ],
+        "properties": {
+          "alternative_id": {
+            "type": "string",
+            "pattern": "^alt[1-9][0-9]*$"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "graph": {
+            "$ref": "#/$defs/graph"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "uncertainty": {
+      "$ref": "#/$defs/uncertainty"
+    },
+    "not_representable_reason": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 2048
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "not_representable"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "answer_spec": {
+            "type": "null"
+          },
+          "primary_graph": {
+            "type": "null"
+          },
+          "alternative_graphs": {
+            "maxItems": 0
+          },
+          "not_representable_reason": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "answer_spec": {
+            "$ref": "#/$defs/answer_spec"
+          },
+          "primary_graph": {
+            "$ref": "#/$defs/graph"
+          },
+          "not_representable_reason": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_grounded_text": {
+      "type": "object",
+      "required": [
+        "description",
+        "source_cues",
+        "implicit_rationale"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048,
+          "pattern": "\\S"
+        },
+        "source_cues": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          }
+        },
+        "implicit_rationale": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 2048
+        }
+      }
+    },
+    "answer_spec": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/source_grounded_text"
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "cardinality"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "entity",
+                "attribute_value",
+                "numeric_value",
+                "date_time",
+                "boolean",
+                "textual_explanation",
+                "other",
+                "unknown"
+              ]
+            },
+            "cardinality": {
+              "enum": [
+                "one",
+                "multiple",
+                "unknown"
+              ]
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "semantic_role": {
+      "enum": [
+        "RESOLVE_REFERENT",
+        "ACQUIRE_PROPERTY",
+        "COMPARE",
+        "AGGREGATE",
+        "ORDER_OR_EXTREMUM",
+        "DERIVE",
+        "VERIFY",
+        "COMBINE",
+        "OTHER"
+      ]
+    },
+    "node": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/source_grounded_text"
+        },
+        {
+          "type": "object",
+          "required": [
+            "node_id",
+            "role",
+            "other_role_description",
+            "depends_on"
+          ],
+          "properties": {
+            "node_id": {
+              "type": "string",
+              "pattern": "^n[1-9][0-9]*$"
+            },
+            "role": {
+              "$ref": "#/$defs/semantic_role"
+            },
+            "other_role_description": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 1024
+            },
+            "depends_on": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^n[1-9][0-9]*$"
+              },
+              "uniqueItems": true
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "role": {
+                "const": "OTHER"
+              }
+            },
+            "required": [
+              "role"
+            ]
+          },
+          "then": {
+            "properties": {
+              "other_role_description": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "other_role_description": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "graph": {
+      "type": "object",
+      "required": [
+        "nodes",
+        "entry_node_ids",
+        "output_node_ids"
+      ],
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/node"
+          }
+        },
+        "entry_node_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^n[1-9][0-9]*$"
+          },
+          "uniqueItems": true
+        },
+        "output_node_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^n[1-9][0-9]*$"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "uncertainty": {
+      "type": "object",
+      "required": [
+        "present",
+        "tags",
+        "note"
+      ],
+      "properties": {
+        "present": {
+          "type": "boolean"
+        },
+        "tags": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "REFERENT",
+              "CARDINALITY",
+              "SCOPE",
+              "TEMPORAL",
+              "MEASUREMENT",
+              "COMPARISON",
+              "GRAMMAR",
+              "OTHER"
+            ]
+          }
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 2048
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "present": {
+                "const": true
+              }
+            },
+            "required": [
+              "present"
+            ]
+          },
+          "then": {
+            "properties": {
+              "tags": {
+                "minItems": 1
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "tags": {
+                "maxItems": 0
+              },
+              "note": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

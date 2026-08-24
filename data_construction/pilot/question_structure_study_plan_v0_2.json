@@ -1,0 +1,188 @@
+{
+  "schema_version": "question_structure_study_plan_v0_2",
+  "decision_date": "2026-08-24",
+  "status": "scale_first_ai_question_structure_exploration_active",
+  "supersedes_as_active_sequence": "data_construction/pilot/question_structure_study_plan_v0_1.json",
+  "preservation_contract": {
+    "v0_1_bytes_modified": false,
+    "v0_1_human_calibration_completed": false,
+    "v0_1_human_evidence_count": 0,
+    "v0_1_workflow_disposition": "preserved_deferred_not_active_gate",
+    "ai_diagnostic_run_001_role": "direction_finding_engineering_and_hypothesis_input_only",
+    "ai_diagnostic_correctness_evidence": false
+  },
+  "research_hypotheses": [
+    "HybridQA question text contains recurrent environment-independent semantic dependency backbones.",
+    "A small provisional semantic-role vocabulary plus composition can cover many questions without forcing every question into one graph.",
+    "The rate of genuinely new recurrent structures should decline as the question pool expands if a compact backbone system is feasible.",
+    "Environment-aware and executable graphs should be treated as later realizations of a question-level backbone rather than as the same object."
+  ],
+  "primary_research_questions": [
+    "How many deterministic semantic-DAG and topology families recur under a frozen question-only extractor?",
+    "How much of the new-question expansion is covered by families observed in the contract-development prefix?",
+    "How much apparent novelty disappears under deterministic same-role linear split/merge contraction?",
+    "Does the provisional role vocabulary require OTHER often enough to justify a new version?",
+    "Which recurrent and rare backbones should later be realized and executed in the HybridQA environment?"
+  ],
+  "phase_order": [
+    "scale_0_preserve_and_reinterpret_direction_finding_diagnostic",
+    "scale_1_freeze_question_only_extractor_normalizer_and_metrics",
+    "scale_2_cumulative_n100_extraction_and_saturation_analysis",
+    "scale_3_unchanged_n300_expansion_if_triggered",
+    "scale_4_unchanged_n1000_expansion_if_triggered",
+    "scale_5_candidate_backbone_library_and_composition_rules",
+    "scale_6_representative_environment_realization",
+    "scale_7_grounding_execution_and_answer_recovery",
+    "scale_8_optional_targeted_human_audit_if_needed_for_claims"
+  ],
+  "sampling_contract": {
+    "dataset": "HybridQA",
+    "source_split": "dev",
+    "source_identity": "pinned_official_dev_from_source_manifest_v0_1",
+    "selection_method": "ascending_sha256(seed + NUL + question_id)",
+    "seed": "hybridqa-semantic-topology-v0.1",
+    "cumulative_targets": [
+      30,
+      100,
+      300,
+      1000
+    ],
+    "historical_exposed_ids_excluded": true,
+    "historical_locked_eval_ids_excluded": true,
+    "existing_30_must_be_exact_prefix": true,
+    "new_corpus_role_allocation": false,
+    "untouched_unallocated_reserve_required": true,
+    "every_ai_processed_question_excluded_from_future_unseen_evaluation": true,
+    "split_manifest_v0_1_modified": false
+  },
+  "extraction_contract": {
+    "one_primary_ai_record_per_question": true,
+    "full_multi_reviewer_duplication_required": false,
+    "input_allowlist": [
+      "schema_version",
+      "visibility",
+      "question_id",
+      "question"
+    ],
+    "forbidden_inputs": [
+      "table_identity_schema_rows_cells_or_values",
+      "linked_document_identity_text_or_capabilities",
+      "answer_text_span_or_weak_trace",
+      "operator_proposal_or_vocabulary",
+      "grounding_or_execution_graph",
+      "historical_graph_or_label",
+      "another_worker_record",
+      "downstream_family_or_metric"
+    ],
+    "raw_output_contains_family_id": false,
+    "raw_output_contains_model_generated_signature": false,
+    "provisional_roles": [
+      "RESOLVE_REFERENT",
+      "ACQUIRE_PROPERTY",
+      "COMPARE",
+      "AGGREGATE",
+      "ORDER_OR_EXTREMUM",
+      "DERIVE",
+      "VERIFY",
+      "COMBINE",
+      "OTHER"
+    ],
+    "other_escape_hatch_required": true,
+    "model_prompt_schema_or_role_change_requires_new_version": true,
+    "in_run_revision_allowed": false
+  },
+  "deterministic_normalization_contract": {
+    "transitive_reduction_before_signature": true,
+    "node_id_and_array_order_invariant_canonicalization": true,
+    "signature_levels": [
+      "fine_semantic_dag",
+      "contracted_semantic_dag",
+      "topology_shape",
+      "task"
+    ],
+    "same_role_linear_split_merge_contraction": true,
+    "post_hoc_ai_cluster_merges_count_toward_saturation": false,
+    "exact_graph_match_is_sole_correctness_target": false,
+    "family_definition": "equality_under_one_pre_frozen_deterministic_signature"
+  },
+  "metrics_contract": {
+    "report_each_signature_level_separately": true,
+    "metrics": [
+      "observed_family_count",
+      "cumulative_family_curve_in_committed_order",
+      "new_family_count_per_ten_question_block",
+      "question_novelty_rate_per_block",
+      "top_1_5_10_20_question_coverage",
+      "singleton_and_doubleton_family_count",
+      "singleton_question_mass",
+      "good_turing_unseen_mass_diagnostic",
+      "exact_order_independent_rarefaction",
+      "new70_transfer_from_first30",
+      "OTHER_node_and_question_rate",
+      "uncertain_and_not_representable_rate",
+      "alternative_graph_rate",
+      "branch_join_depth_distribution",
+      "semantic_role_and_directed_transition_frequency",
+      "fine_novelty_absorbed_by_contracted_known_family"
+    ],
+    "n100_universal_saturation_claim_allowed": false,
+    "n100_allowed_curve_claim": "flattening_or_not_flattening_under_the_frozen_extractor_only"
+  },
+  "stage_gates": {
+    "n100": {
+      "status": "active",
+      "required_outputs": [
+        "100_hash_bound_question_only_AI_records",
+        "100_passing_deterministic_checks",
+        "100_deterministically_derived_signature_records",
+        "structural_saturation_metrics_v0_1",
+        "structural_saturation_report_v0_1",
+        "question_exposure_ledger_v0_1",
+        "run_manifest"
+      ],
+      "decision": "expand_to_n300_or_freeze_candidate_library_for_environment_realization"
+    },
+    "n300": {
+      "status": "conditional_not_yet_allocated",
+      "trigger": "material_recurring_new_families_OR_high_singleton_mass_OR_material_OTHER_rate_OR_nonflattening_curve_at_n100",
+      "same_extractor_and_normalizer_required": true
+    },
+    "n1000": {
+      "status": "conditional_not_yet_allocated",
+      "trigger": "material_recurring_new_families_OR_high_singleton_mass_OR_nonflattening_curve_at_n300",
+      "same_extractor_and_normalizer_required": true
+    }
+  },
+  "targeted_robustness_audit": {
+    "full_second_reviewer_lane_required": false,
+    "eligible_triggers": [
+      "new_or_rare_family",
+      "low_confidence_or_uncertain_record",
+      "not_representable_record",
+      "validation_retry",
+      "high_frequency_representative",
+      "execution_success_with_semantically_suspicious_plan"
+    ],
+    "default_scope": "small_stratified_AI_recheck_after_scale_metrics",
+    "human_audit_status": "deferred_optional_targeted_not_active_gate"
+  },
+  "later_environment_realization": {
+    "entry_condition": "candidate_backbone_families_or_composition_rules_selected_from_scale_evidence",
+    "sampling": "frequency_and_rarity_stratified_representatives_precommitted_before_execution_results",
+    "semantic_backbone_and_environment_operator_graph_kept_separate": true,
+    "grounding_execution_and_answer_recovery_evaluated_separately": true,
+    "execution_failure_equals_semantic_plan_failure": false
+  },
+  "truthfulness_contract": {
+    "human_evidence_count": 0,
+    "gold_claimed": false,
+    "semantic_correctness_claimed": false,
+    "human_agreement_claimed": false,
+    "universal_semantic_topology_claimed": false,
+    "common_executable_graph_claimed": false,
+    "operator_vocabulary_selected": false,
+    "grounding_or_execution_evaluated": false,
+    "modeling_ready_claimed": false,
+    "current_decision": "UNDECIDED_NEEDS_SCALE_EVIDENCE"
+  }
+}
