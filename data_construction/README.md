@@ -1,6 +1,6 @@
 # Hierarchical HybridQA data construction
 
-이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 versioned 연구 계약과 탐색 artifact이며 gold corpus가 아니다. 동결된 question-only AI extractor/normalizer의 누적 N=300 실험이 완료됐고, 사전 선언 판정에 따라 N=1,000 확장 대신 후보 backbone library와 대표 환경 실현 단계로 이동한다. 인간 검토는 현재 필수 gate가 아니라 향후 주장에 필요한 경우의 선택적 표본 감사로 연기됐다.
+이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 versioned 연구 계약과 탐색 artifact이며 gold corpus가 아니다. 동결된 question-only AI extractor/normalizer의 누적 N=300 실험과 30-family candidate-backbone library/71-question pre-environment sample이 완료됐다. 현재 단계는 그 71개에 대한 environment input-view 및 realization protocol을 먼저 동결한 뒤 대표 환경 실현을 수행하는 것이다. 인간 검토는 현재 필수 gate가 아니라 향후 주장에 필요한 경우의 선택적 표본 감사로 연기됐다.
 
 ## 현재 상태
 
@@ -14,7 +14,8 @@
 - 누적 N=300은 300/300 structurally valid record와 byte-exact N=100 prefix를 보존한다. Fine/contracted/topology/task family는 각각 39/30/10/70개이고, contracted singleton mass 0.0467, N100→new200 transfer 0.915, top-10 coverage 0.9133이다. Uncertain은 94/300, provisional `OTHER` 사용은 0/300이다.
 - 사전 선언된 N=1,000 trigger 네 개가 모두 false이므로 현재 운영 판정은 `FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION`이다. 마지막 50문항 novelty 0.10은 strict `>0.10`을 넘지 않았고, material cross-partition 신규 contracted family는 기준 2개에 못 미치는 1개다.
 - N=100과 N=300의 evidence class는 모두 `ai_exploratory_non_human_non_gold`이다. 하나의 동결된 AI extractor와 결정론적 normalizer 아래의 반복성·곡선 모양만 기술하며, semantic correctness, human agreement, universal saturation, common executable graph, grounding/execution, gold 또는 modeling readiness를 뜻하지 않는다.
-- 다음 작업은 누적 300개 환경을 보기 전에 30개 contracted family 전체와 fine/topology/task crosswalk를 보존하는 versioned candidate-library 계약을 먼저 동결하고, frequency/rarity-stratified 대표 ID를 결정론적으로 선택·commit하는 것이다. 그 뒤에만 question backbone과 분리된 environment-aware operator realization을 작성한다.
+- candidate-backbone library v0.1은 300개 전부를 30개 family에 정확히 한 번 배정하고, 9 recurrent/7 doubleton/14 singleton을 보존한다. 대표 표본은 30개 family 전체를 덮는 71개 deterministic coverage-stress sample이며 ordered-ID SHA-256은 `5403debe2cbe9c7f55ded0a01b49d7c42bf03e53a71350efe269bbd3c0bdcb2e`이다. 이는 희귀 family를 의도적으로 과대표집하므로 확률표본이나 prevalence 추정 표본이 아니다.
+- 다음 작업은 committed 71-ID order와 pinned official source에 결속된 environment input-view/realization protocol을 이 realization 단계의 row/cell 값과 linked-document 본문을 열람하기 전에 동결하는 것이다. 이후 sanitized table/document view를 materialize하고 question backbone과 분리된 environment-aware operator realization을 작성한다. 저작 view에는 factual answer, official trace, historical graph, execution outcome, 과거 operator proposal을 넣지 않는다.
 - `diagnostics/ai_question_structure_pipeline_v0_1/`의 이전 two-reviewer shadow run은 byte-preserved direction-finding/engineering evidence다. 두 AI reviewer의 60개 구조화 record, 30개 blinded alignment, 20개 독립 topology-only record와 최종 분석은 검증됐지만 모두 `non_human_non_gold`이고 correctness나 human agreement 근거가 아니다.
 - v0.1 human question-only view·packet·validator도 byte-preserved됐으나 현재 active gate가 아니다. Human raw file/record, agreement observation, adjudication은 모두 0이며 인간 절차를 나중에 재개하더라도 별도 blinded alignment/adjudication 계약 전에는 agreement나 A2 readiness를 주장하지 않는다.
 - `locked_eval`은 prompt, rubric, schema, 연산자 어휘 조정에 사용하지 않는다.
@@ -112,7 +113,7 @@ python3 data_construction/tools/build_review_packet.py \
 
 ## 활성 scale-first question-only 구조 탐색
 
-`pilot/question_structure_study_plan_v0_2.json`이 단계 순서를, `reports/research_sequencing_decision_v0_3.md`가 완료된 N=300 판정과 현재 exact task를 기록한다. 질문마다 opaque ID와 exact question text만 입력하고, 하나의 primary AI semantic-backbone record를 만든 뒤 model output과 독립된 deterministic normalizer로 fine semantic DAG, same-role split/merge contracted DAG, topology shape, task signature를 계산했다.
+`pilot/question_structure_study_plan_v0_2.json`이 scale-first 단계 순서를, `reports/research_sequencing_decision_v0_3.md`가 완료된 N=300 판정을, `reports/research_sequencing_decision_v0_4.md`가 candidate library 결과와 현재 exact task를 기록한다. 질문마다 opaque ID와 exact question text만 입력하고, 하나의 primary AI semantic-backbone record를 만든 뒤 model output과 독립된 deterministic normalizer로 fine semantic DAG, same-role split/merge contracted DAG, topology shape, task signature를 계산했다.
 
 완료된 `exploration/ai_question_structure_scale_v0_1/run_001/`의 기계적 결과는 다음과 같다.
 
@@ -128,12 +129,15 @@ Primary metric의 마지막 판정은 원래 동결한 규칙을 정확히 실�
 
 누적 N=300 산출물은 `exploration/ai_question_structure_scale_v0_1/cumulative_n300_v0_1/`에 있다. 300/300 record가 통과했고 N=100 bytes는 exact prefix다. Contracted family는 30개, singleton mass는 0.0467, N100→new200 transfer는 0.915, final-50 sequential novelty는 0.10이다. N=100에 없던 contracted family 13개 중 3개가 반복되고 2개가 cross-partition에서 반복되지만 material rule을 만족한 것은 1개다. 네 N=1,000 trigger가 모두 false이므로 같은 extractor로 N=1,000까지 확장하지 않는다.
 
-정확한 다음 작업은 environment/answer/execution 결과를 보기 전에 candidate-backbone library와 representative-sampling contract를 새 version으로 동결하는 것이다. 30개 contracted family를 사후 의미 병합 없이 모두 유지하고 frequency, segment/partition/block support, fine/topology/task crosswalk, member ID, canonical graph를 기록한다. Recurrent/doubleton/singleton evidence를 구분하고 frequency/rarity-stratified 대표 ID를 commit한 뒤에만 environment-aware realization을 시작한다. Fine/contracted/partition 차이는 항상 함께 보고하며, same-role contraction을 semantic equivalence로 취급하지 않는다.
+Candidate-backbone library와 representative-sampling contract는 `exploration/ai_question_structure_scale_v0_1/contracts/candidate_backbone_library_plan_v0_1.json` 및 `candidate_backbone_library_v0_1/`에 동결·materialize됐다. 30개 contracted family를 사후 의미 병합 없이 유지하며 frequency, segment/partition/block support, fine/topology/task crosswalk, member ID, canonical graph를 기록한다. Recurrent/doubleton/singleton family는 각각 9/7/14개이고, 71개 대표 ID는 environment/outcome field를 selection input으로 사용하지 않은 계약에서 commit됐다. 이것은 별도의 이전 작업에서 중첩 ID의 schema/capability metadata를 본 적이 없다는 사실까지 machine-authenticate하지는 않는다. Fine/contracted/partition 차이는 항상 함께 보고하며, same-role contraction을 semantic equivalence로 취급하지 않는다.
+
+다음 exact task는 그 71개를 위한 versioned environment input-view 및 realization protocol을 먼저 동결하는 것이다. 이 계약은 pinned source, exact representative order, visibility allowlist, alternative-realization 처리, instance-level backbone-adequacy 기록을 고정해야 한다. 그 뒤에만 sanitized table/document 환경을 materialize한다. Operator realization 저작 단계에서는 factual answer, official trace, historical graph, grounding/execution outcome, 기존 coarse/medium/fine candidate proposal을 입력으로 쓰지 않으며, 기존 candidate vocabulary를 final ontology로 간주하지 않는다. Backbone adequacy, environment realization, grounding, execution, answer recovery는 서로 독립된 신호다.
 
 누적 산출물은 다음 명령으로 재검증할 수 있다.
 
 ```sh
 .venv/bin/python data_construction/tools/analyze_ai_question_structure_cumulative_n300.py --validate-only
+.venv/bin/python data_construction/tools/build_candidate_backbone_library.py --validate-only
 ```
 
 ## 보존된 v0.1 Phase A human question-only 계약

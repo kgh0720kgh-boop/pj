@@ -113,6 +113,15 @@ for required_file in \
     data_construction/exploration/ai_question_structure_scale_v0_1/README.md \
     data_construction/exploration/ai_question_structure_scale_v0_1/contracts/exploration_plan_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/contracts/semantic_backbone_record_schema_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/candidate_backbone_library_plan_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/candidate_backbone_family_schema_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_selection_schema_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/environment_realization_outcome_schema_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/candidate_backbone_families_v0_1.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/representative_selection_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/checks.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/report_v0_1.md \
+    data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/run_manifest.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/prompts/primary_extraction_v0_1.md \
     data_construction/exploration/ai_question_structure_scale_v0_1/pool/question_only_views_n100.jsonl \
     data_construction/exploration/ai_question_structure_scale_v0_1/run_001/parts/partition_01.jsonl \
@@ -161,6 +170,8 @@ for required_file in \
     data_construction/reports/DATA_CONSTRUCTION_RESEARCH_REPORT.md \
     data_construction/reports/research_sequencing_decision_v0_1.md \
     data_construction/reports/research_sequencing_decision_v0_2.md \
+    data_construction/reports/research_sequencing_decision_v0_3.md \
+    data_construction/reports/research_sequencing_decision_v0_4.md \
     data_construction/reports/operator_granularity_metrics_v0_1.json \
     data_construction/tools/_common.py \
     data_construction/tools/build_historical_manifest.py \
@@ -175,6 +186,7 @@ for required_file in \
     data_construction/tools/build_ai_question_structure_exploration_pool.py \
     data_construction/tools/run_ai_question_structure_scale_exploration.py \
     data_construction/tools/audit_ai_question_structure_partition_sensitivity.py \
+    data_construction/tools/build_candidate_backbone_library.py \
     data_construction/tools/validate_ir_v0_2_reference.py \
     data_construction/tools/build_review_packet.py \
     data_construction/tools/build_granularity_views.py \
@@ -187,6 +199,7 @@ for required_file in \
     tests/test_ir_v0_2_reference.py \
     tests/test_question_structure_scale_exploration.py \
     tests/test_question_structure_partition_sensitivity.py \
+    tests/test_candidate_backbone_library.py \
     historical/README.md \
     historical/ir_v0_2/recovery_manifest_v0_1.json \
     historical/ir_v0_2/ir/spec_v0_2.md \
@@ -260,6 +273,14 @@ paths = [
     Path("data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/run_manifest.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/exploration_plan_v0_1.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/semantic_backbone_record_schema_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/candidate_backbone_library_plan_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/candidate_backbone_family_schema_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_selection_schema_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/environment_realization_outcome_schema_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/candidate_backbone_families_v0_1.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/representative_selection_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/checks.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/run_manifest.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/pool/question_only_views_n100.jsonl"),
     Path("data_construction/manifests/ai_question_structure_exploratory_pool_v0_1.json"),
     Path("data_construction/manifests/question_exposure_ledger_v0_1.json"),
@@ -1344,15 +1365,21 @@ elif state.get("current_scientific_decision") in {
         "FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_"
         "REPRESENTATIVE_ENVIRONMENT_REALIZATION"
     ):
-        if state.get("active_phase") != "phase_2b_candidate_backbone_library_freeze":
-            errors.append("candidate-library state has an unexpected active_phase")
-        if state.get("scientific_decision_status") != (
-            "n300_complete_candidate_backbone_library_freeze_required_"
-            "human_validation_deferred"
+        if state.get("active_phase") != (
+            "phase_2c_representative_environment_realization_contract_freeze"
         ):
-            errors.append("candidate-library state has an unexpected scientific_decision_status")
-        if "CANDIDATE_BACKBONE_LIBRARY_NOT_FROZEN" not in state_gates:
-            errors.append("candidate-library state lacks CANDIDATE_BACKBONE_LIBRARY_NOT_FROZEN")
+            errors.append("environment-realization state has an unexpected active_phase")
+        if state.get("scientific_decision_status") != (
+            "candidate_backbone_library_and_pre_environment_representative_selection_"
+            "complete_environment_realization_not_started_human_validation_deferred"
+        ):
+            errors.append(
+                "environment-realization state has an unexpected scientific_decision_status"
+            )
+        if "CANDIDATE_BACKBONE_LIBRARY_NOT_FROZEN" in state_gates:
+            errors.append("materialized candidate-library state retains its stale freeze gate")
+        if "REPRESENTATIVE_ENVIRONMENT_REALIZATION_NOT_STARTED" not in state_gates:
+            errors.append("environment-realization state lacks its active next-stage gate")
         if "N300_SCALE_EXPANSION_NOT_PERFORMED" in state_gates:
             errors.append("candidate-library state retains the completed N300 gate")
         if "QUESTION_ONLY_CALIBRATION_NOT_PERFORMED" in state_gates:
@@ -1526,24 +1553,145 @@ elif state.get("current_scientific_decision") in {
         candidate = state.get("artifact_status", {}).get(
             "candidate_backbone_library", {}
         )
-        expected_candidate = {
-            "status": "not_created_contract_freeze_required",
-            "active_gate": True,
+        expected_candidate_summary = {
+            "status": "complete_candidate_non_gold_not_established",
+            "active_gate": False,
+            "library_id": "hybridqa_n300_contracted_candidate_backbone_library_v0_1",
+            "selection_id": "hybridqa_n300_candidate_backbone_coverage_sample_v0_1",
+            "implementation_commit": "66bd21948d5269f75d5f816e3f7cfba3941229d5",
+            "contract_freeze_commit": "f3ac5c47527b46234543d89bc1d7d8034f2723f1",
+            "materialization_commit": "80ce8c2e992e56b1175cf144ff52b0765755dcd2",
             "source_record_count": 300,
-            "source_contracted_family_count": 30,
+            "candidate_family_count": 30,
+            "member_question_count": 300,
+            "all_source_members_assigned_exactly_once": True,
             "post_hoc_semantic_family_merging_allowed": False,
-            "representative_selection_status": (
-                "not_created_must_precede_environment_inspection"
+            "evidence_tier_family_counts": {
+                "recurrent": 9,
+                "doubleton": 7,
+                "singleton": 14,
+            },
+            "representative_selection_status": "complete_committed_before_environment_inspection",
+            "representative_selection_kind": (
+                "deterministic_family_complete_frequency_rarity_coverage_stress_sample"
             ),
+            "representative_question_count": 71,
+            "selected_family_count": 30,
+            "deterministic_check_count": 102,
+            "selected_question_ids_ordered_sha256": (
+                "5403debe2cbe9c7f55ded0a01b49d7c42bf03e53a71350efe269bbd3c0bdcb2e"
+            ),
+            "selected_question_ids_set_sha256": (
+                "9b6e05650834871ce30acc1c2dfde18fc64910dcd238982f5d482f6a31e15680"
+            ),
+            "probability_sample": False,
+            "prevalence_estimation_supported": False,
+            "environment_or_outcome_used_for_ranking": False,
+            "question_text_used_for_ranking": False,
             "environment_content_inspected_for_selection": False,
-            "environment_realization_status": "not_started",
-            "grounding_or_execution_evaluated": False,
+            "environment_noninspection_claim_basis": (
+                "tool_input_allowlist_plus_procedural_research_boundary_not_global_authentication"
+            ),
+            "environment_noninspection_machine_authenticated": False,
+            "actual_environment_realization_status": "not_started",
+            "grounding_evaluated": False,
+            "execution_evaluated": False,
+            "answer_recovery_evaluated": False,
+            "human_evidence_count": 0,
+            "gold_claimed": False,
+            "semantic_correctness_evaluated": False,
+            "modeling_ready_claimed": False,
+        }
+        for key, expected_value in expected_candidate_summary.items():
+            if candidate.get(key) != expected_value:
+                errors.append(f"candidate-backbone library state mismatch for {key}")
+
+        expected_candidate_artifacts = {
+            "sequencing_decision": "data_construction/reports/research_sequencing_decision_v0_4.md",
+            "builder": "data_construction/tools/build_candidate_backbone_library.py",
+            "freeze_plan": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "contracts/candidate_backbone_library_plan_v0_1.json"
+            ),
+            "family_schema": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "contracts/candidate_backbone_family_schema_v0_1.json"
+            ),
+            "selection_schema": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "contracts/representative_selection_schema_v0_1.json"
+            ),
+            "environment_outcome_schema": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "contracts/environment_realization_outcome_schema_v0_1.json"
+            ),
+            "families": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "candidate_backbone_library_v0_1/"
+                "candidate_backbone_families_v0_1.jsonl"
+            ),
+            "representative_selection": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "candidate_backbone_library_v0_1/representative_selection_v0_1.json"
+            ),
+            "checks": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "candidate_backbone_library_v0_1/checks.jsonl"
+            ),
+            "generated_report": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "candidate_backbone_library_v0_1/report_v0_1.md"
+            ),
+            "run_manifest": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "candidate_backbone_library_v0_1/run_manifest.json"
+            ),
+        }
+        candidate_artifacts = candidate.get("artifacts", {})
+        if not isinstance(candidate_artifacts, dict) or set(candidate_artifacts) != set(
+            expected_candidate_artifacts
+        ):
+            errors.append("candidate-backbone artifact inventory mismatch")
+            candidate_artifacts = (
+                candidate_artifacts if isinstance(candidate_artifacts, dict) else {}
+            )
+        for label, expected_path in expected_candidate_artifacts.items():
+            reference = candidate_artifacts.get(label)
+            path = Path(expected_path)
+            if not isinstance(reference, dict) or reference.get("path") != expected_path:
+                errors.append(f"candidate-backbone state lacks artifact {label}")
+            elif not path.is_file():
+                errors.append(f"candidate-backbone artifact is missing: {label}")
+            elif reference.get("sha256") != hashlib.sha256(path.read_bytes()).hexdigest():
+                errors.append(f"candidate-backbone artifact hash mismatch: {label}")
+
+        realization = state.get("artifact_status", {}).get(
+            "representative_environment_realization", {}
+        )
+        expected_realization = {
+            "status": "not_started_protocol_not_frozen",
+            "active_gate": True,
+            "selection_id": "hybridqa_n300_candidate_backbone_coverage_sample_v0_1",
+            "required_question_count": 71,
+            "required_family_count": 30,
+            "input_view_and_visibility_contract_status": "not_frozen",
+            "operator_realization_protocol_status": "not_frozen",
+            "run_plan_status": "not_created",
+            "outcome_record_schema_status": "frozen_five_signal_separation_scaffold_only",
+            "actual_environment_view_count": 0,
+            "actual_record_count": 0,
+            "backbone_adequacy_evaluated_count": 0,
+            "environment_operator_realization_evaluated_count": 0,
+            "grounding_evaluated_count": 0,
+            "execution_evaluated_count": 0,
+            "answer_recovery_evaluated_count": 0,
+            "operator_vocabulary_selected": False,
             "human_evidence_count": 0,
             "gold_claimed": False,
             "modeling_ready_claimed": False,
         }
-        if candidate != expected_candidate:
-            errors.append("candidate-backbone library pending-state mismatch")
+        if realization != expected_realization:
+            errors.append("representative environment-realization pending-state mismatch")
 else:
     errors.append("project_state has an unsupported current scientific decision")
 
@@ -2390,6 +2538,20 @@ PY
         pass_check "AI_QUESTION_STRUCTURE_CUMULATIVE_N300_LIVE: $n300_live_output"
     else
         fail_check "AI_QUESTION_STRUCTURE_CUMULATIVE_N300_LIVE_FAILED: $n300_live_output"
+    fi
+
+    if [ "$dependency_rc" -eq 0 ]; then
+        candidate_backbone_output=$("$PYTHON_BIN" -B \
+            data_construction/tools/build_candidate_backbone_library.py \
+            --validate-only 2>&1)
+        candidate_backbone_rc=$?
+        if [ "$candidate_backbone_rc" -eq 0 ]; then
+            pass_check "CANDIDATE_BACKBONE_LIBRARY_LIVE: $candidate_backbone_output"
+        else
+            fail_check "CANDIDATE_BACKBONE_LIBRARY_LIVE_FAILED: $candidate_backbone_output"
+        fi
+    else
+        block_check 'CANDIDATE_BACKBONE_LIBRARY_VALIDATION_NOT_RUN: exact pinned dependencies are unavailable in the selected runtime'
     fi
 
     ir_reference_output=$("$PYTHON_BIN" -B - <<'PY' 2>&1

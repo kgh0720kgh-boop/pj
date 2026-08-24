@@ -51,8 +51,29 @@ cross-partition-support rule.
 
 All four precommitted N=1,000 triggers are false. The operational decision is
 `FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION`.
-This is not universal saturation or semantic correctness. The next task is to
-freeze a versioned library-and-representative-sampling contract, retain all 30
-contracted families with their fine/topology/task crosswalks and evidence
-strength, and commit frequency/rarity-stratified representative IDs before
-inspecting environment or execution outcomes.
+This is not universal saturation or semantic correctness.
+
+The versioned candidate library and representative sample are now frozen and
+materialized under `candidate_backbone_library_v0_1/`. All 300 questions occur
+in exactly one of 30 unmerged contracted-signature families: 9 recurrent, 7
+doubleton, and 14 singleton. The deterministic coverage-stress sample contains
+71 questions and covers all 30 families. It is deliberately rarity
+overrepresenting and is not a probability or prevalence-estimation sample.
+Question text is not used for ranking, and environment/answer/outcome content
+was excluded by the bound input contract.
+
+The next task is to freeze a versioned environment input-view and realization
+protocol bound to the committed 71-ID order, then materialize sanitized pinned
+table/document views and begin instance-level environment-aware realization.
+Answer, official trace, historical graph, grounding/execution outcome, and old
+operator-proposal content remain outside the authoring view. Backbone adequacy,
+operator realization, grounding, execution, and answer recovery must remain
+separate signals.
+
+The library is reproduced without writes by:
+
+```sh
+.venv/bin/python -B \
+  data_construction/tools/build_candidate_backbone_library.py \
+  --validate-only
+```
