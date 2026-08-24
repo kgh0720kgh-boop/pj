@@ -2,42 +2,36 @@
 
 Date: 2026-08-25
 
-Current research phase: **representative environment-realization contract
-freeze after the candidate-backbone library and pre-environment sample were
-frozen and materialized.**
+Current research phase: **equivalence-aware operator normalization contract
+freeze before grounding.**
 
 Active branch: `main`
 
-Expected handoff baseline: `80ce8c2e992e56b1175cf144ff52b0765755dcd2`
+Expected handoff baseline: `4d4d86885a5294af40653a48cbf12346f699db53`
 
-The expected baseline contains the implementation contract, a separately
-committed freeze plan, and the deterministic candidate-library/sample outputs.
+The expected baseline contains the completed representative environment run.
 This metadata handoff is one linear descendant of that baseline.
 
-Last completed task: retained all 30 cumulative N=300 contracted-signature
-families without post-hoc semantic merging, materialized their complete
-membership/support/crosswalk records, and committed a deterministic
-71-question coverage-stress sample without environment or outcome fields as
-selection features.
+Last completed task: froze and executed the 71-question representative
+environment study, keeping backbone adequacy (E1), open operator realization
+(E2), grounding, execution, and answer recovery as separate signals.
 
-Next exact task: before inspecting row/cell values or linked-document contents
-for this 71-ID realization stage, freeze a versioned environment input-view and
-realization protocol bound to the committed ID order and pinned official
-sources. Then materialize sanitized environment views and begin instance-level
-environment-aware operator realization, while keeping backbone adequacy,
-grounding, execution, and answer recovery separate.
+Next exact task: implement and test a reversible, label-free two-layer
+equivalence normalizer for all 93 open realization candidates, then commit a
+separate plan while normalized outputs are absent. Do not begin grounding or
+consume fresh reserve questions first.
 
 Current scientific decision:
-`FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION`.
+`FREEZE_EQUIVALENCE_AWARE_OPERATOR_NORMALIZATION_BEFORE_GROUNDING`.
 
 Study status:
-`candidate_backbone_library_and_pre_environment_representative_selection_complete_environment_realization_not_started_human_validation_deferred`.
+`representative_environment_e1_e2_complete_equivalence_normalization_required_before_grounding_or_common_graph_claim`.
 
 Synchronization state: `LOCAL_COMMIT_NOT_PUSHED`.
 
-Handoff readiness: Not ready. At the expected baseline, local `main` is 40
+Handoff readiness: Not ready. At the expected baseline, local `main` is 46
 commits ahead of local `origin/main`; the metadata commit containing this
-handoff is projected to make it 41 commits ahead. No push was performed or
+handoff is projected to make it 47 commits ahead. No push was performed or
 authorized.
 
 ## Authoritative status
@@ -45,122 +39,95 @@ authorized.
 | Area | Current evidence |
 | --- | --- |
 | Official source | HybridQA table corpus and released train/dev remain pinned and hash-audited at manifest-recorded upstream commits |
-| Historical exposure | Five recovered Week 1--3 files are byte-preserved; 100 unique exposed IDs and 15 locked-evaluation IDs; strict errors=0 |
-| Historical IR v0.2 | Ten files are quarantined read-only; 50 graphs/520 nodes validate with 0 parse/schema/validator errors and 455 preserved `DEAD_NODE` warnings |
-| Released role allocation | `split_manifest_v0_1.json` remains unchanged: annotation-pilot=30, train=0, dev=0, locked-eval=0 |
-| N=300 extraction integrity | 300/300 question-only records pass; N=100 bytes are an exact prefix; all 300 IDs are AI-exposed and 3,066 official-dev questions remain unexposed/unallocated |
-| N=300 recurrence | Fine/contracted/topology/task families=39/30/10/70; contracted singleton mass=0.0467; N100-to-new200 transfer=0.915; final-50 novelty=0.10 |
-| N=1,000 branch | All four precommitted triggers are false, selecting candidate-library freeze and representative environment realization |
-| Candidate library | 30/30 contracted-signature families materialized; 300/300 IDs occur exactly once; no post-hoc semantic merge |
-| Family evidence tiers | Recurrent=9, doubleton=7, singleton=14; these labels record recurrence only, not correctness |
-| Representative sample | 71 unique questions cover all 30 families; ordered-ID SHA-256=`5403debe2cbe9c7f55ded0a01b49d7c42bf03e53a71350efe269bbd3c0bdcb2e` |
-| Sample interpretation | Deterministic rarity/variation coverage stress test, not a probability sample and not a prevalence estimate |
-| Candidate checks | 102/102 pass: one bundle, 30 family, and 71 selection checks |
-| Outcome separation | Future schema requires backbone adequacy, environment realization, grounding, execution, and answer recovery as independent signals |
-| Environment realization | Input/visibility/run protocol not frozen; new 71-ID representative environment views=0; realization records=0; actual status=`not_started` |
-| Human evidence | Human raw files=0, records=0, agreement observations=0, adjudications=0; the preserved human-first lane remains deferred |
-| Operator granularity | The old 30-record/90-representation feasibility bundle remains deferred; no vocabulary is selected |
+| Historical exposure | Five Week 1--3 files remain byte-preserved; 100 unique exposed IDs and 15 locked-evaluation IDs; strict errors=0 |
+| Historical IR v0.2 | Ten files remain quarantined read-only; 50 graphs/520 nodes validate with zero parse/schema/validator errors and 455 preserved `DEAD_NODE` warnings |
+| Released role allocation | Annotation-pilot=30; train=0, dev=0, locked-eval=0 |
+| N=300 question-only extraction | 300/300 records pass; fine/contracted/topology/task families=39/30/10/70; the 300 IDs are AI-exposed and 3,066 official-dev questions remain unexposed/unallocated |
+| Candidate library/sample | 30/30 contracted families, 300/300 exhaustive membership, and a deterministic 71-question rarity/variation coverage-stress sample |
+| Environment views | 71/71 full-table plus table-link-closure views; official answer and trace fields are absent |
+| E1 backbone adequacy | adequate=64, partially adequate=5, indeterminate=2, inadequate=0 |
+| E2 open realization | available=71; 72 target variants; 93 ungrounded candidate DAGs |
+| E2 mappings | one-to-one=278, many-to-one=4, one-to-many=1 |
+| Deterministic integrity | 285/285 run checks pass and `--validate-only` reconstructs the committed outputs exactly |
+| Later signals | grounding=0, execution=0, answer recovery=0; all 71 outcomes remain truthfully `in_progress` after only the first two signals |
+| Human evidence | human raw files/records/agreement/adjudication all remain zero; human review is not the active gate |
+| Gold/model status | no semantic gold, final vocabulary, common exact graph, selected corpus, or modeling readiness is claimed |
 
-## What the library result means
+## Scientific interpretation
 
-The 30 families are exact equivalence classes under one frozen AI
-question-only extractor and one deterministic same-role-contracted signature.
-The library preserves all observed families rather than merging similar-looking
-ones after seeing frequency. It also keeps fine, topology, and task crosswalks
-so contraction sensitivity remains visible.
+The run establishes a narrow feasibility result: under an intentionally open
+notation, an ungrounded operator candidate could be authored for every sampled
+target semantic variant. It does not establish that any candidate is grounded,
+executable, answer-producing, or uniquely correct.
 
-The frequency distribution is highly uneven: one dominant family contains 201
-questions, while 14 families are singletons and seven are doubletons. A simple
-uniform or prevalence-oriented sample does not guarantee coverage of rare
-shapes, so the frozen quota `min(n, 1 + ceil(log2(n)))` deliberately selects at
-least one member of every family and more members from internally varied
-high-frequency families. The result is 71 questions:
+Most mappings preserve the semantic backbone, so a common layered interface is
+plausible: a semantic obligation kernel plus a bounded environment adapter. The
+evidence does not support one common exact executable DAG.
 
-| Frequency stratum | Families | Source questions | Selected |
-| --- | ---: | ---: | ---: |
-| singleton 1 | 14 | 14 | 14 |
-| doubleton 2 | 7 | 14 | 14 |
-| recurrent 3--9 | 5 | 27 | 18 |
-| recurrent 10--19 | 2 | 24 | 10 |
-| recurrent 20--99 | 1 | 20 | 6 |
-| dominant 100+ | 1 | 201 | 9 |
+Raw graph variation is strongly confounded with producer style:
 
-Within each family, the rule greedily covers fine signature, topology
-signature, task signature, N100/new200 slice, producer partition, record
-status, and alternative-graph presence; ties use a frozen seeded SHA-256 rank.
-Question text is not a ranking feature.
+| E2 partition | Records | Candidates | Multi-candidate records | Environment-extension nodes |
+| --- | ---: | ---: | ---: | ---: |
+| 01 | 18 | 36 | 18 | 95 |
+| 02 | 18 | 19 | 1 | 2 |
+| 03 | 18 | 21 | 3 | 47 |
+| 04 | 17 | 17 | 0 | 0 |
 
-This design is useful for finding realization failures across structural and
-diagnostic variation. It cannot estimate population prevalence because rare
-families are intentionally overrepresented, the axes are correlated,
-N100/new200 and producer context are partly confounded, producer partitions are
-not independent reviewers, and status/alternative presence are AI-generated.
+The generated all-candidate metric reports multiple raw structural profiles in
+17/30 families, but 16 of those 17 include within-question alternatives that
+themselves contribute different profiles, and four contain only one selected
+question. On the primary `candidate1` projection, 67/71 questions have zero
+node/edge/depth-count delta from their target backbone. Consequently, raw node
+counts, candidate multiplicity, and `17/30` cannot be attributed to question or
+environment structure alone.
 
-Nothing here establishes semantic correctness, universal saturation, a common
-executable graph, operator-vocabulary adequacy, grounding success, execution
-success, or answer accuracy. Same-role contraction can still hide distinct
-referent hops, and a `complete` source record is not a correctness label.
+The 64/71 E1 headline is also not a calibrated accuracy estimate. The sample
+overrepresents rare families and each question was assigned to only one AI
+producer. Six of the seven non-adequate-or-indeterminate cases involve
+multiplicity, tie, or referent ambiguity. Any common representation must retain
+referent identity, cardinality/tie semantics, and set-valued or ambiguous
+outcomes rather than reducing everything to a simple chain.
 
-## Freeze and provenance sequence
+## Freeze/provenance sequence
 
-The ordering is part of the evidence:
+1. `78fe487327d2fda43cc2ec79203c0a3223d1645b` committed implementation, v0.1/v0.2 schemas, prompts, and tests.
+2. `2e8f6a2c8ee2eb7a3d8a175ea7b8d7f94213175c` committed the exact plan while planned outputs were absent and before selected raw environment access.
+3. `1ff98d3a9cbd7cdd7ae5c7de6676818a57481ec7` materialized 71 pinned views, routing, and E1 packets.
+4. `c3ed836c633859d3575bab1f29d7cf0274df6780` froze 71 E1 assessments and E2 packets containing hash-only E1 bindings.
+5. `4d4d86885a5294af40653a48cbf12346f699db53` committed 71 E2 records/93 candidates, outcomes, 285 checks, metrics, report, exposure ledger, and run manifest.
 
-1. `66bd21948d5269f75d5f816e3f7cfba3941229d5` committed the builder, three schemas, and regression tests. It also binds the common runtime, frozen N=300 analyzer/normalizer, question-only source schema, and exact committed source bytes.
-2. `f3ac5c47527b46234543d89bc1d7d8034f2723f1` committed the plan while all five planned outputs were absent. The plan freezes the 30-family result, 71 selected IDs, strata, hashes, and five independent future outcomes.
-3. `80ce8c2e992e56b1175cf144ff52b0765755dcd2` materialized the 30-family JSONL, 71-question selection, 102 checks, report, and run manifest.
+E1 and E2 were partition-authored in fresh contexts, and E2 authors did not
+receive E1 judgments or rationales. This limits direct stage leakage; it does
+not make the four partitions independent reviewers or statistically identify a
+producer effect.
 
-The builder rejects dirty or untracked source/implementation bytes, external
-input paths, environment-like keys in source records, changed trigger or
-exposure contracts, unsafe output paths, uncommitted plans, incorrect Git
-ancestry, outputs that existed at freeze time, and any byte mismatch during
-`--validate-only` reconstruction.
+## Exact next task: reversible two-layer normalization
+
+1. Add a new versioned normalization schema, deterministic implementation, and regression tests without changing any committed representative-run artifact.
+2. Before normalized outputs exist, commit a plan bound to the exact 93 candidates, 72 variants, E2 hash, producer routing, and stopping branches.
+3. Supply only a structural projection: target semantic topology, operator adjacency, semantic-to-operator mappings, roles, typed unresolved slots, variation axes, opaque IDs, and producer route. Exclude question/environment text, factual answers, E1 content, operator labels/descriptions, and preserved vocabularies.
+4. Produce a reversible semantic quotient that checks coverage/dependency preservation and a separate environment-adapter signature retaining modality, cardinality/tie, output arity, access placement, and fused-versus-explicit access.
+5. Initially allow only alpha-renaming, independent-node ordering, transitive-reduction differences, and meaning/input-output-preserving access split/fuse. Leave grounding-dependent cases `provisionally_equivalent`.
+6. Compare alternative candidates as sets within each question, then normalized sets within multi-question families. Report producer partition sensitivity; do not treat `candidate1` as preferred truth.
+7. Precommit the fallback before inspecting normalized results. If the fixed question/producer assignment still prevents attribution, reuse 16 already exposed questions (four per existing partition, all seven E1 challenge cases plus nine adequate controls) in a two-new-author fully crossed AI sensitivity run. This is a confound diagnostic, not human majority review, and uses no fresh reserve IDs.
+8. Proceed to a provisional non-final grounding adapter only if loss, family instability, and producer sensitivity meet the frozen branch criteria. Otherwise revise the normalization contract in a new version.
+
+## Evidence and exposure boundaries
+
+- The 300 question-only records and all representative E1/E2 records are `ai_exploratory_non_human_non_gold`.
+- The 71 selected IDs were already part of the 300-ID AI-exposed set. The run consumed no fresh reserve or locked-evaluation ID.
+- Sanitized views omit official answers/traces, but include table and linked-document content; their 71 IDs are environment-exposed development evidence.
+- `71/71 available` is expressive representability under an open validator, not execution success.
+- Record-local E2 labels are not vocabulary entries and their recurrence has not been established.
+- Exact model revision, seed, and raw interface response were unavailable; structured partition files are the primary capture and exact generation replayability is not claimed.
+- Human review remains deferred and is not a blocker for deterministic normalization. Later targeted review may be warranted for ambiguous or execution-suspicious cases.
 
 ## Declared blockers
 
 - `LOCAL_COMMIT_NOT_PUSHED`: portable work exists only in local commits; remote writes were not authorized.
-- `REPRESENTATIVE_ENVIRONMENT_REALIZATION_NOT_STARTED`: the 71-ID environment input/visibility/run protocol and sanitized views have not been frozen or materialized.
+- `OPERATOR_EQUIVALENCE_NORMALIZATION_NOT_STARTED`: the reversible quotient and its precommitted branch criteria do not yet exist.
 
-`CANDIDATE_BACKBONE_LIBRARY_NOT_FROZEN` is resolved. The absence of human review
-is not a current blocker; it remains a truthful zero-count evidence boundary
-and may become relevant for later targeted claims.
-
-## Exact next task: representative environment realization
-
-1. Freeze a versioned environment-view schema, visibility allowlist, source-binding contract, realization record schema, prompt/procedure, and planned output paths before inspecting row/cell values or linked-document contents for this 71-ID realization stage.
-2. Bind the contract to the exact 71-ID selection order and pinned official HybridQA table/document source hashes.
-3. Permit only question/backbone context and environment content needed to author a realization. Exclude factual answers, official traces, historical condition-C graphs, execution outcomes, and prior coarse/medium/fine operator proposals.
-4. Do not silently choose one preserved candidate operator vocabulary. Treat operator granularity as an empirical question and allow unsupported or alternative realizations.
-5. After the contract is committed, materialize sanitized environment views for exactly the selected 71 IDs and validate their ID/order/hash/source bindings.
-6. Produce instance-level environment-aware operator realizations and separately assess whether each frozen candidate backbone remains adequate in its actual environment.
-7. Leave grounding, execution, and answer recovery unscored until their own versioned inputs and procedures are invoked; later downstream results must not overwrite upstream semantic assessments.
-
-This is not authorization to use historical answer-bearing condition-C files or
-official answers/traces as realization-authoring inputs.
-
-## Evidence and exposure boundaries
-
-- All 300 source records and all 30 families are `ai_exploratory_non_human_non_gold`.
-- All 300 processed IDs are excluded from future unseen-evaluation claims; selection of 71 changes no corpus role.
-- The library builder enforces a bound question-only source schema. Table/document identity or content, factual answers, traces, operator proposals, grounding, execution, and answer-recovery outcomes are forbidden selection inputs.
-- The artifacts establish that environment and outcome fields were not supplied to the selection ranker. Any claim about what researchers may have seen in separate earlier work is procedural, not globally machine-authenticated.
-- The stable model identity contract is `codex_gpt-5`; no immutable exact revision or seed was exposed, and exact generation replayability or statistical reviewer independence is not claimed.
-- The v0.1 human packet and non-evidentiary AI diagnostic remain preserved and contribute zero human evidence.
-- The candidate library exists, but no family is established as semantic gold; no operator vocabulary, corpus, or model is selected or modeling-ready.
-
-## Portable commits
-
-| Commit | Role |
-| --- | --- |
-| `dc64c89` | Added the N=300 pool builder, cumulative analyzer, frozen trigger implementation, and tests |
-| `98a1627` | Committed exact N=300 selection/routing/exposure plan before model outputs |
-| `1f9c118` | Committed five positions-101--300 AI JSONL parts |
-| `5c73da7` | Committed cumulative N=300 records/checks/signatures/metrics/report/manifest/exposure |
-| `66bd219` | Added candidate-library schemas, builder, source/provenance guards, and tests |
-| `f3ac5c4` | Froze the exact candidate-library and 71-ID sampling plan before outputs |
-| `80ce8c2` | Materialized and validated the 30-family library and 71-question sample |
-| metadata child | Updates AGENTS, handoff/state, docs, preflight, and sequencing decision v0.4; one descendant of the expected baseline |
-
-No push was performed.
+The prior representative-environment-realization blocker is resolved.
 
 ## Validation commands
 
@@ -172,21 +139,20 @@ python3 -m json.tool state/project_state.json >/dev/null
 .venv/bin/python data_construction/tools/validate_ir_v0_2_reference.py --all
 .venv/bin/python data_construction/tools/analyze_ai_question_structure_cumulative_n300.py --validate-only
 .venv/bin/python -B data_construction/tools/build_candidate_backbone_library.py --validate-only
+.venv/bin/python -B data_construction/tools/build_representative_environment_realization.py --validate-only
 .venv/bin/python -B -m unittest discover -s tests -v
 sh -n scripts/cross_device_preflight.sh
 sh scripts/cross_device_preflight.sh
 ```
 
-Expected current result after this metadata update:
+Expected result after this metadata update:
 
-- central schema bundle: 11 schemas and 3 vocabulary instances, zero errors/warnings under the exact pin;
-- exploration-local candidate schemas: Draft 2020-12 valid and exercised by the builder/tests;
-- IR adapter: 50 records, 520 nodes, zero parse/schema/validator errors, 455 `DEAD_NODE` warnings;
-- cumulative N=300 validation: 300 records, 300 passing checks, byte-exact N=100 prefix;
-- candidate library validation: 30 families, 300 exhaustive members, 71 representatives, 102 passing checks, exact byte reconstruction;
-- unit tests: 117 passed, 0 failed;
-- core JSON/JSONL parse set: 60 files;
-- preflight: zero deterministic validation failures, `RESULT=NOT_READY`, exit 2 only for synchronization and representative-environment-realization gates.
+- central bundle: 11 schemas and three vocabulary instances, zero errors/warnings under the exact pin;
+- historical adapter: 50 records/520 nodes, zero errors and 455 preserved warnings;
+- N=300, candidate-library, and representative-run validate-only checks reconstruct committed artifacts exactly;
+- core JSON/JSONL parse set: 76 files;
+- unit tests: 157 passed, zero failed;
+- preflight: zero deterministic validation failures, `RESULT=NOT_READY`, exit 2 only for synchronization and operator-equivalence-normalization gates.
 
 The preflight compares local remote-tracking refs. Fetch only when remote reads
 are authorized; never pull over, reset, or rewrite this continuation.

@@ -117,11 +117,32 @@ for required_file in \
     data_construction/exploration/ai_question_structure_scale_v0_1/contracts/candidate_backbone_family_schema_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_selection_schema_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/contracts/environment_realization_outcome_schema_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/backbone_adequacy_assessment_schema_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/environment_realization_outcome_schema_v0_2.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/environment_realization_outcome_v0_1_to_v0_2_migration.md \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/open_operator_realization_schema_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_environment_realization_plan_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_environment_view_schema_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/candidate_backbone_families_v0_1.jsonl \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/representative_selection_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/checks.jsonl \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/report_v0_1.md \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/run_manifest.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/prompts/backbone_adequacy_assessment_v0_1.md \
+    data_construction/exploration/ai_question_structure_scale_v0_1/prompts/open_operator_realization_v0_1.md \
+    data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views_manifest_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/producer_routing_manifest_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/backbone_adequacy_assessments.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/assessment_bindings_for_e2.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/open_operator_realizations.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/outcomes.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/checks.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/metrics_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/report_v0_1.md \
+    data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/interpretive_addendum_v0_1.md \
+    data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/environment_exposure_ledger_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/run_manifest.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/prompts/primary_extraction_v0_1.md \
     data_construction/exploration/ai_question_structure_scale_v0_1/pool/question_only_views_n100.jsonl \
     data_construction/exploration/ai_question_structure_scale_v0_1/run_001/parts/partition_01.jsonl \
@@ -172,6 +193,7 @@ for required_file in \
     data_construction/reports/research_sequencing_decision_v0_2.md \
     data_construction/reports/research_sequencing_decision_v0_3.md \
     data_construction/reports/research_sequencing_decision_v0_4.md \
+    data_construction/reports/research_sequencing_decision_v0_5.md \
     data_construction/reports/operator_granularity_metrics_v0_1.json \
     data_construction/tools/_common.py \
     data_construction/tools/build_historical_manifest.py \
@@ -187,6 +209,8 @@ for required_file in \
     data_construction/tools/run_ai_question_structure_scale_exploration.py \
     data_construction/tools/audit_ai_question_structure_partition_sensitivity.py \
     data_construction/tools/build_candidate_backbone_library.py \
+    data_construction/tools/_representative_environment_source.py \
+    data_construction/tools/build_representative_environment_realization.py \
     data_construction/tools/validate_ir_v0_2_reference.py \
     data_construction/tools/build_review_packet.py \
     data_construction/tools/build_granularity_views.py \
@@ -200,6 +224,7 @@ for required_file in \
     tests/test_question_structure_scale_exploration.py \
     tests/test_question_structure_partition_sensitivity.py \
     tests/test_candidate_backbone_library.py \
+    tests/test_representative_environment_realization.py \
     historical/README.md \
     historical/ir_v0_2/recovery_manifest_v0_1.json \
     historical/ir_v0_2/ir/spec_v0_2.md \
@@ -277,10 +302,26 @@ paths = [
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/candidate_backbone_family_schema_v0_1.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_selection_schema_v0_1.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/environment_realization_outcome_schema_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/backbone_adequacy_assessment_schema_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/environment_realization_outcome_schema_v0_2.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/open_operator_realization_schema_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_environment_realization_plan_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_environment_view_schema_v0_1.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/candidate_backbone_families_v0_1.jsonl"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/representative_selection_v0_1.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/checks.jsonl"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/run_manifest.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views_manifest_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/producer_routing_manifest_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/backbone_adequacy_assessments.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/assessment_bindings_for_e2.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/open_operator_realizations.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/outcomes.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/checks.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/metrics_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/environment_exposure_ledger_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/run_manifest.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/pool/question_only_views_n100.jsonl"),
     Path("data_construction/manifests/ai_question_structure_exploratory_pool_v0_1.json"),
     Path("data_construction/manifests/question_exposure_ledger_v0_1.json"),
@@ -885,7 +926,7 @@ elif state.get("current_scientific_decision") in {
     "DATA_SOURCE_READY_FOR_ANNOTATION_PILOT",
     "UNDECIDED_NEEDS_ANNOTATION_EVIDENCE",
     "UNDECIDED_NEEDS_SCALE_EVIDENCE",
-    "FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION",
+    "FREEZE_EQUIVALENCE_AWARE_OPERATOR_NORMALIZATION_BEFORE_GROUNDING",
 }:
     if history_complete is not True or historical_shape != "strict_builder":
         errors.append("pilot-ready state requires a complete strict historical audit")
@@ -1362,24 +1403,25 @@ elif state.get("current_scientific_decision") in {
             elif reference.get("sha256") != hashlib.sha256(path.read_bytes()).hexdigest():
                 errors.append(f"AI scale-exploration artifact hash mismatch: {label}")
     elif state.get("current_scientific_decision") == (
-        "FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_"
-        "REPRESENTATIVE_ENVIRONMENT_REALIZATION"
+        "FREEZE_EQUIVALENCE_AWARE_OPERATOR_NORMALIZATION_BEFORE_GROUNDING"
     ):
         if state.get("active_phase") != (
-            "phase_2c_representative_environment_realization_contract_freeze"
+            "phase_2d_operator_equivalence_normalization_contract_freeze"
         ):
-            errors.append("environment-realization state has an unexpected active_phase")
+            errors.append("operator-normalization state has an unexpected active_phase")
         if state.get("scientific_decision_status") != (
-            "candidate_backbone_library_and_pre_environment_representative_selection_"
-            "complete_environment_realization_not_started_human_validation_deferred"
+            "representative_environment_e1_e2_complete_equivalence_normalization_"
+            "required_before_grounding_or_common_graph_claim"
         ):
             errors.append(
-                "environment-realization state has an unexpected scientific_decision_status"
+                "operator-normalization state has an unexpected scientific_decision_status"
             )
         if "CANDIDATE_BACKBONE_LIBRARY_NOT_FROZEN" in state_gates:
             errors.append("materialized candidate-library state retains its stale freeze gate")
-        if "REPRESENTATIVE_ENVIRONMENT_REALIZATION_NOT_STARTED" not in state_gates:
-            errors.append("environment-realization state lacks its active next-stage gate")
+        if "OPERATOR_EQUIVALENCE_NORMALIZATION_NOT_STARTED" not in state_gates:
+            errors.append("operator-normalization state lacks its active next-stage gate")
+        if "REPRESENTATIVE_ENVIRONMENT_REALIZATION_NOT_STARTED" in state_gates:
+            errors.append("operator-normalization state retains the completed realization gate")
         if "N300_SCALE_EXPANSION_NOT_PERFORMED" in state_gates:
             errors.append("candidate-library state retains the completed N300 gate")
         if "QUESTION_ONLY_CALIBRATION_NOT_PERFORMED" in state_gates:
@@ -1593,7 +1635,7 @@ elif state.get("current_scientific_decision") in {
                 "tool_input_allowlist_plus_procedural_research_boundary_not_global_authentication"
             ),
             "environment_noninspection_machine_authenticated": False,
-            "actual_environment_realization_status": "not_started",
+            "actual_environment_realization_status": "complete_first_two_signals_evaluated",
             "grounding_evaluated": False,
             "execution_evaluated": False,
             "answer_recovery_evaluated": False,
@@ -1668,30 +1710,160 @@ elif state.get("current_scientific_decision") in {
         realization = state.get("artifact_status", {}).get(
             "representative_environment_realization", {}
         )
-        expected_realization = {
-            "status": "not_started_protocol_not_frozen",
-            "active_gate": True,
+        expected_realization_summary = {
+            "status": "complete_first_two_signals_evaluated_non_human_non_gold",
+            "active_gate": False,
+            "run_id": "hybridqa_n300_representative_environment_realization_v0_1_run_001",
             "selection_id": "hybridqa_n300_candidate_backbone_coverage_sample_v0_1",
+            "implementation_commit": "78fe487327d2fda43cc2ec79203c0a3223d1645b",
+            "contract_freeze_commit": "2e8f6a2c8ee2eb7a3d8a175ea7b8d7f94213175c",
+            "environment_view_freeze_commit": "1ff98d3a9cbd7cdd7ae5c7de6676818a57481ec7",
+            "e1_freeze_commit": "c3ed836c633859d3575bab1f29d7cf0274df6780",
+            "materialization_commit": "4d4d86885a5294af40653a48cbf12346f699db53",
             "required_question_count": 71,
             "required_family_count": 30,
-            "input_view_and_visibility_contract_status": "not_frozen",
-            "operator_realization_protocol_status": "not_frozen",
-            "run_plan_status": "not_created",
-            "outcome_record_schema_status": "frozen_five_signal_separation_scaffold_only",
-            "actual_environment_view_count": 0,
-            "actual_record_count": 0,
-            "backbone_adequacy_evaluated_count": 0,
-            "environment_operator_realization_evaluated_count": 0,
+            "input_view_and_visibility_contract_status": (
+                "frozen_before_selected_raw_environment_access"
+            ),
+            "operator_realization_protocol_status": "frozen_before_authoring",
+            "run_plan_status": "frozen_before_all_planned_outputs",
+            "outcome_record_schema_status": (
+                "v0_2_frozen_five_signal_separation_and_validated"
+            ),
+            "actual_environment_view_count": 71,
+            "e1_assessment_count": 71,
+            "e2_realization_record_count": 71,
+            "target_variant_count": 72,
+            "realization_candidate_count": 93,
+            "outcome_record_count": 71,
+            "deterministic_check_count": 285,
+            "backbone_adequacy_status_counts": {
+                "adequate": 64,
+                "partially_adequate": 5,
+                "indeterminate": 2,
+                "inadequate": 0,
+            },
+            "environment_operator_realization_status_counts": {
+                "available": 71,
+                "partially_available": 0,
+                "unavailable": 0,
+                "indeterminate": 0,
+            },
+            "candidate_count_distribution": {"one": 49, "two": 22},
+            "semantic_to_operator_mapping_counts": {
+                "one_to_one": 278,
+                "many_to_one": 4,
+                "one_to_many": 1,
+                "many_to_many": 0,
+            },
+            "producer_partition_sensitivity": {
+                "question_and_producer_effects_separable": False,
+                "candidate_counts": [36, 19, 21, 17],
+                "records_with_multiple_candidates": [18, 1, 3, 0],
+                "environment_extension_node_counts": [95, 2, 47, 0],
+                "raw_family_heterogeneity_is_intrinsic_question_property": False,
+            },
             "grounding_evaluated_count": 0,
             "execution_evaluated_count": 0,
             "answer_recovery_evaluated_count": 0,
             "operator_vocabulary_selected": False,
+            "common_exact_graph_claimed": False,
             "human_evidence_count": 0,
             "gold_claimed": False,
             "modeling_ready_claimed": False,
         }
-        if realization != expected_realization:
-            errors.append("representative environment-realization pending-state mismatch")
+        for key, expected_value in expected_realization_summary.items():
+            if realization.get(key) != expected_value:
+                errors.append(
+                    f"representative environment-realization state mismatch for {key}"
+                )
+
+        expected_realization_artifacts = {
+            "freeze_plan": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "contracts/representative_environment_realization_plan_v0_1.json"
+            ),
+            "environment_views": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "representative_environment_realization_v0_1/inputs/"
+                "environment_views.jsonl"
+            ),
+            "environment_views_manifest": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "representative_environment_realization_v0_1/inputs/"
+                "environment_views_manifest_v0_1.json"
+            ),
+            "producer_routing_manifest": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "representative_environment_realization_v0_1/inputs/"
+                "producer_routing_manifest_v0_1.json"
+            ),
+            "e1_assessments": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "representative_environment_realization_v0_1/stage_e1/"
+                "backbone_adequacy_assessments.jsonl"
+            ),
+            "e1_hash_bindings_for_e2": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "representative_environment_realization_v0_1/stage_e1/"
+                "assessment_bindings_for_e2.json"
+            ),
+            "e2_realizations": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "representative_environment_realization_v0_1/stage_e2/"
+                "open_operator_realizations.jsonl"
+            ),
+            "outcomes": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "representative_environment_realization_v0_1/outcomes.jsonl"
+            ),
+            "checks": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "representative_environment_realization_v0_1/checks.jsonl"
+            ),
+            "metrics": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "representative_environment_realization_v0_1/metrics_v0_1.json"
+            ),
+            "generated_report": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "representative_environment_realization_v0_1/report_v0_1.md"
+            ),
+            "environment_exposure_ledger": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "representative_environment_realization_v0_1/"
+                "environment_exposure_ledger_v0_1.json"
+            ),
+            "run_manifest": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "representative_environment_realization_v0_1/run_manifest.json"
+            ),
+        }
+        realization_artifacts = realization.get("artifacts", {})
+        if not isinstance(realization_artifacts, dict) or set(
+            realization_artifacts
+        ) != set(expected_realization_artifacts):
+            errors.append("representative environment-realization artifact inventory mismatch")
+            realization_artifacts = (
+                realization_artifacts
+                if isinstance(realization_artifacts, dict)
+                else {}
+            )
+        for label, expected_path in expected_realization_artifacts.items():
+            reference = realization_artifacts.get(label)
+            path = Path(expected_path)
+            if not isinstance(reference, dict) or reference.get("path") != expected_path:
+                errors.append(
+                    f"representative environment-realization state lacks artifact {label}"
+                )
+            elif not path.is_file():
+                errors.append(
+                    f"representative environment-realization artifact is missing: {label}"
+                )
+            elif reference.get("sha256") != hashlib.sha256(path.read_bytes()).hexdigest():
+                errors.append(
+                    f"representative environment-realization artifact hash mismatch: {label}"
+                )
 else:
     errors.append("project_state has an unsupported current scientific decision")
 
@@ -2552,6 +2724,20 @@ PY
         fi
     else
         block_check 'CANDIDATE_BACKBONE_LIBRARY_VALIDATION_NOT_RUN: exact pinned dependencies are unavailable in the selected runtime'
+    fi
+
+    if [ "$dependency_rc" -eq 0 ]; then
+        representative_realization_output=$("$PYTHON_BIN" -B \
+            data_construction/tools/build_representative_environment_realization.py \
+            --validate-only 2>&1)
+        representative_realization_rc=$?
+        if [ "$representative_realization_rc" -eq 0 ]; then
+            pass_check "REPRESENTATIVE_ENVIRONMENT_REALIZATION_LIVE: $representative_realization_output"
+        else
+            fail_check "REPRESENTATIVE_ENVIRONMENT_REALIZATION_LIVE_FAILED: $representative_realization_output"
+        fi
+    else
+        block_check 'REPRESENTATIVE_ENVIRONMENT_REALIZATION_VALIDATION_NOT_RUN: exact pinned dependencies are unavailable in the selected runtime'
     fi
 
     ir_reference_output=$("$PYTHON_BIN" -B - <<'PY' 2>&1

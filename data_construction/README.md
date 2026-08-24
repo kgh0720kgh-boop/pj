@@ -1,6 +1,6 @@
 # Hierarchical HybridQA data construction
 
-이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 versioned 연구 계약과 탐색 artifact이며 gold corpus가 아니다. 동결된 question-only AI extractor/normalizer의 누적 N=300 실험과 30-family candidate-backbone library/71-question pre-environment sample이 완료됐다. 현재 단계는 그 71개에 대한 environment input-view 및 realization protocol을 먼저 동결한 뒤 대표 환경 실현을 수행하는 것이다. 인간 검토는 현재 필수 gate가 아니라 향후 주장에 필요한 경우의 선택적 표본 감사로 연기됐다.
+이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 versioned 연구 계약과 탐색 artifact이며 gold corpus가 아니다. 동결된 question-only AI extractor/normalizer의 누적 N=300 실험, 30-family candidate-backbone library, 71-question representative environment realization이 완료됐다. 현재 단계는 raw open graph의 저자별 split/fuse 차이를 제거할 수 있는 label-free equivalence normalization 계약을 grounding 전에 동결하는 것이다. 인간 검토는 현재 필수 gate가 아니라 향후 주장에 필요한 경우의 선택적 표본 감사로 연기됐다.
 
 ## 현재 상태
 
@@ -12,10 +12,12 @@
 - 기존 30개 model-assisted record/90 coarse-medium-fine 표현, 90개 deterministic check, HTML packet 3개, v0.1 metric은 byte-preserved Phase B 선행 가능성 증거로 남긴다. 기존 packet은 현재 Phase A나 미래 blinded Phase B의 승인된 UI가 아니며 사용하지 않는다.
 - 이전의 reviewer×granularity 6파일/180판정 task는 철회됐다. 미래 Phase B는 Phase A2 뒤 동결한 6개 stratum에서 12문항×3 granularity×2 reviewer=72판정으로 시작하고, 사전 선언 trigger에 따라 90, 최대 108판정까지만 확장한다. 정확한 ID는 A2 normalization 전에는 배정하지 않는다.
 - 누적 N=300은 300/300 structurally valid record와 byte-exact N=100 prefix를 보존한다. Fine/contracted/topology/task family는 각각 39/30/10/70개이고, contracted singleton mass 0.0467, N100→new200 transfer 0.915, top-10 coverage 0.9133이다. Uncertain은 94/300, provisional `OTHER` 사용은 0/300이다.
-- 사전 선언된 N=1,000 trigger 네 개가 모두 false이므로 현재 운영 판정은 `FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION`이다. 마지막 50문항 novelty 0.10은 strict `>0.10`을 넘지 않았고, material cross-partition 신규 contracted family는 기준 2개에 못 미치는 1개다.
+- 사전 선언된 N=1,000 trigger 네 개가 모두 false여서 candidate-library branch를 택했고, 그 후 대표 환경 실현까지 완료했다. 현재 운영 판정은 `FREEZE_EQUIVALENCE_AWARE_OPERATOR_NORMALIZATION_BEFORE_GROUNDING`이다.
 - N=100과 N=300의 evidence class는 모두 `ai_exploratory_non_human_non_gold`이다. 하나의 동결된 AI extractor와 결정론적 normalizer 아래의 반복성·곡선 모양만 기술하며, semantic correctness, human agreement, universal saturation, common executable graph, grounding/execution, gold 또는 modeling readiness를 뜻하지 않는다.
 - candidate-backbone library v0.1은 300개 전부를 30개 family에 정확히 한 번 배정하고, 9 recurrent/7 doubleton/14 singleton을 보존한다. 대표 표본은 30개 family 전체를 덮는 71개 deterministic coverage-stress sample이며 ordered-ID SHA-256은 `5403debe2cbe9c7f55ded0a01b49d7c42bf03e53a71350efe269bbd3c0bdcb2e`이다. 이는 희귀 family를 의도적으로 과대표집하므로 확률표본이나 prevalence 추정 표본이 아니다.
-- 다음 작업은 committed 71-ID order와 pinned official source에 결속된 environment input-view/realization protocol을 이 realization 단계의 row/cell 값과 linked-document 본문을 열람하기 전에 동결하는 것이다. 이후 sanitized table/document view를 materialize하고 question backbone과 분리된 environment-aware operator realization을 작성한다. 저작 view에는 factual answer, official trace, historical graph, execution outcome, 과거 operator proposal을 넣지 않는다.
+- 대표 환경 run은 71개 view, 71개 E1 backbone 적합성 판단, 71개 E2 record/93개 open candidate, 71개 five-signal outcome, 285개 통과 check를 materialize했다. E1은 adequate 64, partially adequate 5, indeterminate 2였고 E2는 71개 모두 available이었다. Grounding·execution·answer recovery는 모두 미평가다.
+- Raw E2는 producer partition에 매우 민감했다. Partition별 candidate 수는 36/19/21/17, environment-extension node 수는 95/2/47/0이므로 17/30 family의 raw structural heterogeneity를 질문 고유 특성이나 공통 exact graph의 반증으로 해석할 수 없다.
+- 다음 작업은 93개 candidate의 structural-only projection에 대해 semantic quotient와 environment-adapter signature를 분리하는 equivalence-aware normalizer를 구현·테스트하고, normalized output이 없는 상태에서 별도 plan을 commit하는 것이다. Question/environment text, factual answer, E1 판단, operator label/description, 기존 vocabulary는 normalizer 입력에서 제외한다.
 - `diagnostics/ai_question_structure_pipeline_v0_1/`의 이전 two-reviewer shadow run은 byte-preserved direction-finding/engineering evidence다. 두 AI reviewer의 60개 구조화 record, 30개 blinded alignment, 20개 독립 topology-only record와 최종 분석은 검증됐지만 모두 `non_human_non_gold`이고 correctness나 human agreement 근거가 아니다.
 - v0.1 human question-only view·packet·validator도 byte-preserved됐으나 현재 active gate가 아니다. Human raw file/record, agreement observation, adjudication은 모두 0이며 인간 절차를 나중에 재개하더라도 별도 blinded alignment/adjudication 계약 전에는 agreement나 A2 readiness를 주장하지 않는다.
 - `locked_eval`은 prompt, rubric, schema, 연산자 어휘 조정에 사용하지 않는다.
@@ -73,6 +75,7 @@ sh scripts/cross_device_preflight.sh
 ```sh
 .venv/bin/python data_construction/tools/check_schema_bundle.py --require-jsonschema
 .venv/bin/python data_construction/tools/validate_ir_v0_2_reference.py --all
+.venv/bin/python -B data_construction/tools/build_representative_environment_realization.py --validate-only
 .venv/bin/python -m unittest discover -s tests -v
 ```
 
@@ -113,7 +116,7 @@ python3 data_construction/tools/build_review_packet.py \
 
 ## 활성 scale-first question-only 구조 탐색
 
-`pilot/question_structure_study_plan_v0_2.json`이 scale-first 단계 순서를, `reports/research_sequencing_decision_v0_3.md`가 완료된 N=300 판정을, `reports/research_sequencing_decision_v0_4.md`가 candidate library 결과와 현재 exact task를 기록한다. 질문마다 opaque ID와 exact question text만 입력하고, 하나의 primary AI semantic-backbone record를 만든 뒤 model output과 독립된 deterministic normalizer로 fine semantic DAG, same-role split/merge contracted DAG, topology shape, task signature를 계산했다.
+`pilot/question_structure_study_plan_v0_2.json`이 scale-first 단계 순서를, `reports/research_sequencing_decision_v0_3.md`가 완료된 N=300 판정을, `reports/research_sequencing_decision_v0_4.md`가 candidate library와 대표 환경 run 진입을, `reports/research_sequencing_decision_v0_5.md`가 완료된 대표 run의 해석과 다음 exact task를 기록한다. 질문마다 opaque ID와 exact question text만 입력하고, 하나의 primary AI semantic-backbone record를 만든 뒤 model output과 독립된 deterministic normalizer로 fine semantic DAG, same-role split/merge contracted DAG, topology shape, task signature를 계산했다.
 
 완료된 `exploration/ai_question_structure_scale_v0_1/run_001/`의 기계적 결과는 다음과 같다.
 
@@ -131,13 +134,16 @@ Primary metric의 마지막 판정은 원래 동결한 규칙을 정확히 실�
 
 Candidate-backbone library와 representative-sampling contract는 `exploration/ai_question_structure_scale_v0_1/contracts/candidate_backbone_library_plan_v0_1.json` 및 `candidate_backbone_library_v0_1/`에 동결·materialize됐다. 30개 contracted family를 사후 의미 병합 없이 유지하며 frequency, segment/partition/block support, fine/topology/task crosswalk, member ID, canonical graph를 기록한다. Recurrent/doubleton/singleton family는 각각 9/7/14개이고, 71개 대표 ID는 environment/outcome field를 selection input으로 사용하지 않은 계약에서 commit됐다. 이것은 별도의 이전 작업에서 중첩 ID의 schema/capability metadata를 본 적이 없다는 사실까지 machine-authenticate하지는 않는다. Fine/contracted/partition 차이는 항상 함께 보고하며, same-role contraction을 semantic equivalence로 취급하지 않는다.
 
-다음 exact task는 그 71개를 위한 versioned environment input-view 및 realization protocol을 먼저 동결하는 것이다. 이 계약은 pinned source, exact representative order, visibility allowlist, alternative-realization 처리, instance-level backbone-adequacy 기록을 고정해야 한다. 그 뒤에만 sanitized table/document 환경을 materialize한다. Operator realization 저작 단계에서는 factual answer, official trace, historical graph, grounding/execution outcome, 기존 coarse/medium/fine candidate proposal을 입력으로 쓰지 않으며, 기존 candidate vocabulary를 final ontology로 간주하지 않는다. Backbone adequacy, environment realization, grounding, execution, answer recovery는 서로 독립된 신호다.
+대표 환경 run은 implementation→pre-raw plan→environment views→E1 commit→fresh-context E2 순서로 동결됐다. 71/71 question에 full table과 table-link closure를 제공하되 official answer/trace는 투영하지 않았고, E2에는 E1 내용 대신 commit된 hash binding만 제공했다. 결과는 open notation에서 71/71 target의 ungrounded realization이 가능하다는 expressivity evidence다. 이는 실행 가능성이나 정답 회수 성공을 뜻하지 않는다.
+
+다음 exact task는 grounding 전에 equivalence-aware operator normalization을 동결하는 것이다. Normalizer는 target semantic topology, operator adjacency, semantic-to-operator mapping, operator role, typed unresolved slot, variation axis, opaque ID와 producer routing만 사용한다. Semantic coverage/dependency를 보존하면서 허용된 split/fuse를 quotient하는 signature와 modality·extension placement·fused/explicit access를 보존하는 environment-adapter signature를 분리하고, candidate를 단일 `candidate1`이 아니라 set으로 비교하며 producer partition별 민감도를 보고한다. 이 계약이 안정적인 공통 interface를 보일 때만 provisional adapter를 동결하고 대표 grounding/execution으로 진행한다.
 
 누적 산출물은 다음 명령으로 재검증할 수 있다.
 
 ```sh
 .venv/bin/python data_construction/tools/analyze_ai_question_structure_cumulative_n300.py --validate-only
 .venv/bin/python data_construction/tools/build_candidate_backbone_library.py --validate-only
+.venv/bin/python -B data_construction/tools/build_representative_environment_realization.py --validate-only
 ```
 
 ## 보존된 v0.1 Phase A human question-only 계약

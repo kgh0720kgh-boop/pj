@@ -2,30 +2,30 @@
   "schema_version": "project_state_v0_1",
   "state_updated_date": "2026-08-25",
   "project": "hierarchical_data_construction_for_semantic_execution_topology_induction",
-  "active_phase": "phase_2c_representative_environment_realization_contract_freeze",
+  "active_phase": "phase_2d_operator_equivalence_normalization_contract_freeze",
   "active_branch": "main",
-  "expected_head": "80ce8c2e992e56b1175cf144ff52b0765755dcd2",
-  "last_completed_task": "completed_frozen_30_family_candidate_backbone_library_and_pre_environment_71_question_coverage_stress_sample",
-  "next_task": "freeze_a_versioned_representative_environment_input_view_visibility_operator_and_run_contract_for_exactly_the_71_committed_ids_then_materialize_pinned_environment_views_and_assess_backbone_adequacy_and_environment_operator_realization_while_grounding_execution_and_answer_recovery_remain_separate_not_evaluated_signals",
-  "current_scientific_decision": "FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION",
-  "scientific_decision_status": "candidate_backbone_library_and_pre_environment_representative_selection_complete_environment_realization_not_started_human_validation_deferred",
+  "expected_head": "4d4d86885a5294af40653a48cbf12346f699db53",
+  "last_completed_task": "completed_frozen_71_question_representative_environment_realization_with_backbone_adequacy_and_open_operator_topology_as_separate_first_two_signals",
+  "next_task": "implement_and_test_a_reversible_label_free_two_layer_operator_equivalence_normalizer_then_commit_a_separate_plan_while_normalized_outputs_are_absent_bound_to_all_93_candidates_72_variants_and_producer_routing_before_any_grounding_or_fresh_reserve_use",
+  "current_scientific_decision": "FREEZE_EQUIVALENCE_AWARE_OPERATOR_NORMALIZATION_BEFORE_GROUNDING",
+  "scientific_decision_status": "representative_environment_e1_e2_complete_equivalence_normalization_required_before_grounding_or_common_graph_claim",
   "synchronization_state": "LOCAL_COMMIT_NOT_PUSHED",
   "handoff_readiness": "not_ready",
   "blocked_gates": [
-    "LOCAL_COMMIT_NOT_PUSHED: forty-one local commits will be ahead of origin/main after this metadata commit and remote writes are not authorized",
-    "REPRESENTATIVE_ENVIRONMENT_REALIZATION_NOT_STARTED: the committed 71-question sample requires a frozen input-view and realization protocol followed by actual environment-aware realization"
+    "LOCAL_COMMIT_NOT_PUSHED: this metadata commit makes local main forty-seven commits ahead of origin/main and remote writes are not authorized",
+    "OPERATOR_EQUIVALENCE_NORMALIZATION_NOT_STARTED: the 93 open realization candidates require a separately frozen reversible structural quotient before grounding or a common-interface claim"
   ],
   "repository": {
     "git_root": "repository root (resolve with git rev-parse --show-toplevel)",
     "current_branch": "main",
-    "head": "80ce8c2e992e56b1175cf144ff52b0765755dcd2",
+    "head": "4d4d86885a5294af40653a48cbf12346f699db53",
     "head_role": "expected_handoff_baseline_parent_of_metadata_commit",
     "remotes": [
       "origin https://github.com/kgh0720kgh-boop/pj.git"
     ],
     "working_tree_status": "clean",
     "untracked_files": 0,
-    "unpushed_commits": 41,
+    "unpushed_commits": 47,
     "stash_state": "empty"
   },
   "artifact_status": {
@@ -375,7 +375,7 @@
       "environment_content_inspected_for_selection": false,
       "environment_noninspection_claim_basis": "tool_input_allowlist_plus_procedural_research_boundary_not_global_authentication",
       "environment_noninspection_machine_authenticated": false,
-      "actual_environment_realization_status": "not_started",
+      "actual_environment_realization_status": "complete_first_two_signals_evaluated",
       "grounding_evaluated": false,
       "execution_evaluated": false,
       "answer_recovery_evaluated": false,
@@ -431,26 +431,134 @@
       }
     },
     "representative_environment_realization": {
-      "status": "not_started_protocol_not_frozen",
-      "active_gate": true,
+      "status": "complete_first_two_signals_evaluated_non_human_non_gold",
+      "active_gate": false,
+      "run_id": "hybridqa_n300_representative_environment_realization_v0_1_run_001",
       "selection_id": "hybridqa_n300_candidate_backbone_coverage_sample_v0_1",
+      "implementation_commit": "78fe487327d2fda43cc2ec79203c0a3223d1645b",
+      "contract_freeze_commit": "2e8f6a2c8ee2eb7a3d8a175ea7b8d7f94213175c",
+      "environment_view_freeze_commit": "1ff98d3a9cbd7cdd7ae5c7de6676818a57481ec7",
+      "e1_freeze_commit": "c3ed836c633859d3575bab1f29d7cf0274df6780",
+      "materialization_commit": "4d4d86885a5294af40653a48cbf12346f699db53",
       "required_question_count": 71,
       "required_family_count": 30,
-      "input_view_and_visibility_contract_status": "not_frozen",
-      "operator_realization_protocol_status": "not_frozen",
-      "run_plan_status": "not_created",
-      "outcome_record_schema_status": "frozen_five_signal_separation_scaffold_only",
-      "actual_environment_view_count": 0,
-      "actual_record_count": 0,
-      "backbone_adequacy_evaluated_count": 0,
-      "environment_operator_realization_evaluated_count": 0,
+      "input_view_and_visibility_contract_status": "frozen_before_selected_raw_environment_access",
+      "operator_realization_protocol_status": "frozen_before_authoring",
+      "run_plan_status": "frozen_before_all_planned_outputs",
+      "outcome_record_schema_status": "v0_2_frozen_five_signal_separation_and_validated",
+      "actual_environment_view_count": 71,
+      "e1_assessment_count": 71,
+      "e2_realization_record_count": 71,
+      "target_variant_count": 72,
+      "realization_candidate_count": 93,
+      "outcome_record_count": 71,
+      "deterministic_check_count": 285,
+      "backbone_adequacy_status_counts": {
+        "adequate": 64,
+        "partially_adequate": 5,
+        "indeterminate": 2,
+        "inadequate": 0
+      },
+      "environment_operator_realization_status_counts": {
+        "available": 71,
+        "partially_available": 0,
+        "unavailable": 0,
+        "indeterminate": 0
+      },
+      "candidate_count_distribution": {
+        "one": 49,
+        "two": 22
+      },
+      "semantic_to_operator_mapping_counts": {
+        "one_to_one": 278,
+        "many_to_one": 4,
+        "one_to_many": 1,
+        "many_to_many": 0
+      },
+      "producer_partition_sensitivity": {
+        "question_and_producer_effects_separable": false,
+        "candidate_counts": [
+          36,
+          19,
+          21,
+          17
+        ],
+        "records_with_multiple_candidates": [
+          18,
+          1,
+          3,
+          0
+        ],
+        "environment_extension_node_counts": [
+          95,
+          2,
+          47,
+          0
+        ],
+        "raw_family_heterogeneity_is_intrinsic_question_property": false
+      },
       "grounding_evaluated_count": 0,
       "execution_evaluated_count": 0,
       "answer_recovery_evaluated_count": 0,
       "operator_vocabulary_selected": false,
+      "common_exact_graph_claimed": false,
       "human_evidence_count": 0,
       "gold_claimed": false,
-      "modeling_ready_claimed": false
+      "modeling_ready_claimed": false,
+      "artifacts": {
+        "freeze_plan": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_environment_realization_plan_v0_1.json",
+          "sha256": "17941b6006aa8db7b06c063c868c46c1c116a9e7e68ef75bc17ff4abc83a2ec6"
+        },
+        "environment_views": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views.jsonl",
+          "sha256": "9cf0d6b81554066f5ff3175122e83dedf74f4d0a2d15ae9d64d65b873a9c72c7"
+        },
+        "environment_views_manifest": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views_manifest_v0_1.json",
+          "sha256": "a01d609b8e4d7c035198f0cd8897d6e178dcf07e5474328ae8c9d881ee00a0c8"
+        },
+        "producer_routing_manifest": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/producer_routing_manifest_v0_1.json",
+          "sha256": "bb1e5551b8055bfb669cb0141baea9377d13e9ed3f17bd2f44b9099eeb743fc0"
+        },
+        "e1_assessments": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/backbone_adequacy_assessments.jsonl",
+          "sha256": "a87dbce8a6731ad433f868ec78747e4285eae49f3ca751e36f163308b8c6c792"
+        },
+        "e1_hash_bindings_for_e2": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/assessment_bindings_for_e2.json",
+          "sha256": "4190bfc82252db8082801b6eb62bb2e14676d4e9378fc38b9bc117ce7c481c8a"
+        },
+        "e2_realizations": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/open_operator_realizations.jsonl",
+          "sha256": "2e465f0dcb1b7575be92c0377f352eb886c7b1253cd338927d816a5e1593ed29"
+        },
+        "outcomes": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/outcomes.jsonl",
+          "sha256": "1823a8441ac93907c8798f9a3982a0376bda1d450c376ecdd159a99bcf0c6aa5"
+        },
+        "checks": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/checks.jsonl",
+          "sha256": "542f59ac604d32fd6d1cb017fe4a8f7ac460c01625e2dd13dbbb64795a773020"
+        },
+        "metrics": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/metrics_v0_1.json",
+          "sha256": "4faf301fff82aa57e991c29f82d782bd8ee95c0d3c813eaab4223d98d515bad3"
+        },
+        "generated_report": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/report_v0_1.md",
+          "sha256": "f74eb9f69fd4045d54e5237f355f2de4efff0c58cf107cef0847aca9cf359718"
+        },
+        "environment_exposure_ledger": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/environment_exposure_ledger_v0_1.json",
+          "sha256": "9b46afeeda319fcff7d6ce34b4c687ed1915b17eccecaa9806e9d7ea45d7a74a"
+        },
+        "run_manifest": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/run_manifest.json",
+          "sha256": "7248826207b070c4e743888452c379bfe3893521d83b5362ac057b3f90909f1c"
+        }
+      }
     },
     "ai_question_structure_pipeline_diagnostic": {
       "status": "complete_non_evidentiary_shadow_run",
@@ -591,7 +699,7 @@
     "tools": {
       "status": "implemented",
       "test_entry_point": ".venv/bin/python -B -m unittest discover -s tests -v",
-      "final_integration_test_status": "passed_117_tests_in_project_local_exact_pin_environment"
+      "final_integration_test_status": "passed_157_tests_in_project_local_exact_pin_environment"
     }
   },
   "preflight_status": {
@@ -599,8 +707,8 @@
     "result": "NOT_READY",
     "exit_code": 2,
     "validation_failures": 0,
-    "core_json_files_parsed": 60,
-    "unit_tests_passed": 117,
+    "core_json_files_parsed": 76,
+    "unit_tests_passed": 157,
     "unit_tests_failed": 0,
     "ir_v0_2_records_validated": 50,
     "ir_v0_2_validator_errors": 0
@@ -645,6 +753,7 @@
     "data_construction/reports/research_sequencing_decision_v0_2.md",
     "data_construction/reports/research_sequencing_decision_v0_3.md",
     "data_construction/reports/research_sequencing_decision_v0_4.md",
+    "data_construction/reports/research_sequencing_decision_v0_5.md",
     "data_construction/schemas/",
     "data_construction/operator_design/",
     "data_construction/tools/",
