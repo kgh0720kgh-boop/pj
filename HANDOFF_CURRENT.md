@@ -1,96 +1,128 @@
 # Current handoff
 
-Date: 2026-08-24
+Date: 2026-08-25
 
-Current research phase: **cumulative question-only AI semantic-backbone exploration; N=100 is complete and the active gate is the precommitted N=300 expansion.**
+Current research phase: **candidate-backbone library and representative-sampling contract freeze after the completed cumulative N=300 question-only exploration.**
 
 Active branch: `main`
 
-Expected handoff baseline: `74bf961a10420e0d222b23e0af0c5323985f95fd`
+Expected handoff baseline: `5c73da72e93fa534711e222eb53ac02140596946`
 
-The expected baseline is the committed N=100 partition/normalization sensitivity audit. This metadata handoff is one linear descendant of that baseline.
+The expected baseline is the committed cumulative N=300 records, deterministic
+analysis, and completion exposure ledger. This metadata handoff is one linear
+descendant of that baseline.
 
-Last completed task: froze and ran the cumulative N=100 question-only extraction contract, validated 100 records, derived four deterministic signature resolutions, computed recurrence/saturation metrics, recorded all AI exposure, and added a separately versioned post-hoc partition/normalization sensitivity audit without rewriting the primary result.
+Last completed task: froze the cumulative N=300 selection and routing before
+model output, generated positions 101--300 under the unchanged N=100 contract,
+validated the cumulative 300 records with a byte-exact N=100 prefix, computed
+all precommitted metrics, and applied the frozen N=1,000 decision rule.
 
-Next exact task: freeze a separately versioned cumulative N=300 selection, question-only pool, and exposure manifest with the current 100 as an exact prefix and 200 newly selected eligible questions. Then generate positions 101–300 with the N=100 prompt, schema, role set, and normalizer unchanged, distribute committed positions across producer contexts rather than contiguous worker blocks, and recompute cumulative and partition-sensitivity metrics.
+Next exact task: before inspecting table/document contents or execution
+outcomes, create and commit a versioned candidate-backbone/library-and-
+representative-sampling contract. Retain all 30 contracted families without
+post-hoc semantic merging, preserve their fine/topology/task crosswalks and
+evidence strength, and deterministically commit frequency/rarity-stratified
+representative IDs. Then begin environment-aware operator realization while
+keeping backbone adequacy, grounding, execution, and answer recovery separate.
 
-Current scientific decision: `UNDECIDED_NEEDS_SCALE_EVIDENCE`.
+Current scientific decision:
+`FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION`.
 
-Study status: `n100_complete_n300_expansion_required_human_validation_deferred`.
+Study status:
+`n300_complete_candidate_backbone_library_freeze_required_human_validation_deferred`.
 
 Synchronization state: `LOCAL_COMMIT_NOT_PUSHED`.
 
-Handoff readiness: Not ready. At the expected baseline, local `main` is 31 commits ahead of local `origin/main`; the metadata commit containing this handoff is projected to make it 32 commits ahead. No push was performed or authorized.
+Handoff readiness: Not ready. At the expected baseline, local `main` is 36
+commits ahead of local `origin/main`; the metadata commit containing this
+handoff is projected to make it 37 commits ahead. No push was performed or
+authorized.
 
 ## Authoritative status
 
 | Area | Current evidence |
 | --- | --- |
-| Official source | HybridQA table corpus and released train/dev remain pinned and hash-audited at the manifest-recorded upstream commits |
-| Historical exposure | Five recovered Week 1–3 files are byte-preserved; 100 unique exposed IDs and 15 locked-evaluation IDs; strict errors=0 |
+| Official source | HybridQA table corpus and released train/dev remain pinned and hash-audited at manifest-recorded upstream commits |
+| Historical exposure | Five recovered Week 1--3 files are byte-preserved; 100 unique exposed IDs and 15 locked-evaluation IDs; strict errors=0 |
 | Historical IR v0.2 | Ten files are quarantined read-only; 50 graphs/520 nodes validate with 0 parse/schema/validator errors and 455 preserved `DEAD_NODE` warnings |
 | Released role allocation | `split_manifest_v0_1.json` remains unchanged: annotation-pilot=30, train=0, dev=0, locked-eval=0 |
-| N=100 exploratory allocation | Prior 30 are the exact prefix; 70 fresh eligible questions were added; historical overlap=0; 3,266 official-dev questions remain unexposed and unallocated |
-| N=100 extraction integrity | 100/100 records pass Draft 2020-12 schema, exact question/order/hash/cue, forbidden-key, reference, root/sink, and DAG checks |
-| N=100 recurrence | Fine labeled families=23; same-role-contracted families=17; topology shapes=6; task signatures=38 |
-| Contracted-family diagnostics | Singleton mass=0.09; top-10 coverage=0.93; first-30→new-70 transfer=50/70=0.7142857; final block novelty=0.30 and 0.00 |
-| Record diagnostics | Complete=71, uncertain=29; provisional `OTHER` questions=0; alternative graph questions=1 |
-| Precommitted N=100 outcome | `EXPAND_UNCHANGED_TO_N300`; the active trigger is five first-30-unseen contracted families recurring at least twice in the new 70 |
-| Post-hoc partition sensitivity | All five triggering families recur only within one producer partition; cross-partition recurrence=0. This limits semantic-novelty interpretation but does not replace the precommitted operational decision |
-| Graph normalization sensitivity | Raw dependency branch/join counts=5/6; after transitive reduction=0/1. Fine dominant family=46 questions; contracted dominant family=62 |
-| Human evidence | Human raw files=0, human records=0, agreement observations=0, adjudications=0; the v0.1 human-first lane is preserved but deferred and is not the active gate |
-| Prior AI diagnostic | The two-reviewer/alignment/topology rehearsal remains non-human/non-gold direction-finding evidence and is not pooled with the N=100 primary records |
+| N=300 exploratory allocation | Frozen N=100 is the exact prefix; 200 fresh eligible questions were added; historical overlap=0; 3,066 official-dev questions remain unexposed/unallocated |
+| N=300 extraction integrity | 300/300 records pass Draft 2020-12 schema, exact question/order/hash/cue, forbidden-key, reference, root/sink, and DAG checks; N=100 bytes are an exact prefix |
+| N=300 recurrence | Fine labeled families=39; same-role-contracted families=30; topology shapes=10; task signatures=70 |
+| Contracted diagnostics | Singleton mass=0.0467; top-10 coverage=0.9133; N100-to-new200 transfer=183/200=0.915; final-50 sequential novelty=5/50=0.10 |
+| New-family support | 13 contracted families are absent from N=100; 3 recur in new200, 2 recur across new producer partitions, and 1 meets the material cross-partition rule |
+| Record diagnostics | Complete=206, uncertain=94; provisional `OTHER` questions=0; alternative-graph questions=1 |
+| Graph profile | Raw branch/join=6/11; transitive-reduced branch/join=1/6; reduced mean edges=1.3933 |
+| Precommitted N=1,000 outcome | All four triggers are false; selected branch is candidate-library freeze and representative environment realization |
+| Human evidence | Human raw files=0, human records=0, agreement observations=0, adjudications=0; the v0.1 human-first lane is preserved but deferred |
+| Prior AI diagnostic | The two-reviewer/alignment/topology rehearsal remains non-human/non-gold direction-finding evidence and is not pooled with the N=300 primary records |
 | Operator granularity | The 30-record/90-representation/90-check/three-packet feasibility bundle remains deferred; no vocabulary is selected and human reviews remain 0 |
 
-## What the N=100 result means
+## What the N=300 result means
 
-The result supports one narrow claim: under one frozen question-only AI extraction contract and deterministic normalizer, many HybridQA questions map to recurrent small semantic-DAG shapes. A small number of families cover much of this sample, but the curve is not yet a universal saturation result.
+Under one frozen question-only AI extractor and deterministic normalizer, most
+new HybridQA questions reuse families already seen in N=100. The contracted
+view transfers 91.5% of the new 200 questions into N=100 families, and its
+singleton question mass falls from 0.09 at N=100 to 0.0467 at N=300.
 
-The operational N=300 expansion remains appropriate because more scale is the conservative response to unresolved novelty. However, the sole active trigger is not clean evidence of new semantic families: the first 30 occur in partition 01, most new questions occur in partitions 02 and 03, and all five recurring-new families are partition-local. Producer-context style and question novelty are therefore confounded in N=100.
+The frozen N=1,000 rule used four `ANY` triggers. None fired:
 
-The same-role-contracted view must also be treated as a sensitivity bound, not semantic equivalence. It increases the dominant family from 46 to 62 questions by merging linear hops with the same role, including cases where those hops can correspond to distinct referents. Always report fine and contracted results together.
+- contracted singleton mass 0.0467 is not greater than 0.05;
+- `OTHER` rate 0 is not greater than 0.05;
+- final-50 novelty is exactly 0.10, not greater than 0.10, although it contains five new families;
+- one material cross-partition family is below the required two.
 
-None of these measurements evaluates factual answers, table/document realization, grounding, execution, human agreement, semantic correctness, universal topology, or a common executable graph.
+This makes environment realization the selected next measurement. It does not
+mean that the 30 contracted families are semantic gold or that all HybridQA
+structure is saturated. Fine singleton mass remains 0.0667, task singleton
+mass remains 0.13, and same-role contraction can hide distinct referent hops.
+Producer-context profiles also vary, so partition support is a robustness
+diagnostic rather than reviewer agreement.
+
+No result here evaluates factual answers, table/document realization,
+grounding, execution, human agreement, semantic correctness, a universal
+topology, or a common executable graph.
 
 ## Declared blockers
 
-- `LOCAL_COMMIT_NOT_PUSHED`: the portable work exists only in local commits; remote writes were not authorized.
-- `N300_SCALE_EXPANSION_NOT_PERFORMED`: the precommitted N=100 result requires a versioned N=300 extension before candidate-backbone freeze or environment realization.
+- `LOCAL_COMMIT_NOT_PUSHED`: portable work exists only in local commits; remote writes were not authorized.
+- `CANDIDATE_BACKBONE_LIBRARY_NOT_FROZEN`: the precommitted N=300 branch requires a versioned candidate library and representative-sampling contract before environment realization.
 
-The absence of human review is no longer a current blocker. It remains a truthful zero-count evidence boundary and may become relevant later for targeted validation claims.
+The absence of human review is not a current blocker. It remains a truthful
+zero-count evidence boundary and may become relevant later for targeted claims.
 
-## Exact next task: cumulative N=300
+## Exact next task: library and sampling freeze
 
-1. Reacquire the pinned official dev source only through `source_manifest_v0_1.json` if the machine-local cache is absent.
-2. Create a new versioned exploratory selection and question-only pool of 300 questions using the same seed/ranking rule, with all current N=100 IDs and bytes as the exact prefix.
-3. Exclude every historical exposure and retain the released split allocation unchanged; add 200 AI-processed IDs to a new exposure-ledger version and mark all 300 ineligible for future unseen-evaluation claims.
-4. Commit the N=300 selection, pool, producer-routing plan, and hashes before generating positions 101–300.
-5. Keep `primary_extraction_v0_1`, the semantic-backbone record schema, provisional roles, and deterministic normalizer unchanged. Any extractor/normalizer change starts a different experiment version.
-6. Route new committed positions across producer contexts deterministically, rather than assigning a contiguous question range to one context. Preserve producer identity on every record.
-7. Validate all 300 records and recompute fine, contracted, topology, and task families, rarity/coverage curves, block novelty, transfer, `OTHER`, uncertainty, alternatives, normalized graph profile, and cross-partition support.
-8. Only after the cumulative N=300 evidence is frozen, apply the separately precommitted N=1,000 trigger or freeze a candidate backbone library and precommit representative environment-realization sampling.
+1. Define and commit the library/sampling schema, builder contract, and deterministic representative-selection rule before reading any environment content or outcomes.
+2. Materialize all 30 contracted signatures as candidate families; do not perform post-hoc semantic family merging.
+3. Bind each family to its canonical contracted graph, cumulative/N100/new200 frequency, producer-partition and ten-question-block support, member IDs, and fine/topology/task crosswalks.
+4. Label evidence strength separately for recurrent, doubleton, and singleton families; `candidate` must not be relabeled `gold` or `established`.
+5. Preserve observed role/transition composition evidence separately from family identity and state that same-role contraction does not prove semantic equivalence.
+6. Select and commit frequency/rarity-stratified representative IDs before table/document text, answers, grounding, execution traces, or outcome metrics are inspected.
+7. Only then produce environment-aware operator realizations, recording semantic-backbone adequacy, environment realization, grounding, execution, and final-answer recovery as separate signals.
 
-This is a scale task, not a request to resume full duplicate human review.
+This is not a request to resume full duplicate human review and is not an
+authorization to use the historical condition-C answer-bearing files as an
+early-layer input.
 
 ## Evidence and exposure boundaries
 
-- N=100 records are `ai_exploratory_non_human_non_gold`.
-- The post-hoc sensitivity audit is separately versioned and does not rewrite the frozen primary contract, records, metrics, report, or decision.
-- All 100 processed questions are excluded from future unseen-evaluation claims; this is exposure accounting, not a correctness label.
+- All 300 primary records are `ai_exploratory_non_human_non_gold`.
+- All 300 processed IDs are excluded from future unseen-evaluation claims; this is exposure accounting, not a correctness label.
 - Table identity/schema/rows/cells, linked-document identity/text, answers, traces, operator proposals, grounding, and historical graphs were forbidden inputs to the question-only extractor.
-- The interface exposed no exact model revision and supported no seed. Structured partition JSONL is the primary capture; exact generation replayability and statistical independence are not claimed.
-- The v0.1 human packet and AI diagnostic remain preserved. Neither contributes human evidence to this run.
-- No operator vocabulary, candidate-backbone library, corpus, or model is selected, gold, or modeling-ready.
+- The stable model identity contract is `codex_gpt-5`; no immutable exact revision or seed was available. Structured partition JSONL is the primary capture, and exact generation replayability or statistical independence is not claimed.
+- The v0.1 human packet and AI diagnostic remain preserved and contribute zero human evidence.
+- No operator vocabulary, candidate-backbone library, corpus, or model is selected, gold, universally supported, or modeling-ready.
 
 ## Portable commits
 
 | Commit | Role |
 | --- | --- |
-| `14b3cb0` | Added the scale-first v0.2 study machinery, N=100 builder/analyzer, frozen prompt/schema, and tests |
-| `5adb852` | Froze the exact cumulative N=100 selection, contract bindings, and N=300 trigger before model records |
-| `0bed27e` | Committed 100 primary records, checks, deterministic signatures, metrics/report, run manifest, and exposure ledger |
-| `74bf961` | Added the separately versioned post-hoc partition and normalization sensitivity audit |
-| metadata child | Updates AGENTS, handoff/state, documentation, and preflight bindings; one descendant of the expected baseline |
+| `dc64c89` | Added the N=300 pool builder, cumulative analyzer, frozen trigger implementation, and tests |
+| `98a1627` | Committed exact N=300 selection, five-way routing, exposure v0.2, and analysis plan before model outputs |
+| `1f9c118` | Committed five positions-101--300 AI JSONL parts, 40 records each |
+| `5c73da7` | Committed cumulative 300 records/checks/signatures/metrics/report, run manifest, and exposure v0.3 |
+| metadata child | Updates AGENTS, handoff/state, documentation, preflight, and N=300 sequencing report; one descendant of the expected baseline |
 
 No push was performed.
 
@@ -102,12 +134,7 @@ Run from the repository root:
 python3 -m json.tool state/project_state.json >/dev/null
 .venv/bin/python data_construction/tools/check_schema_bundle.py --require-jsonschema
 .venv/bin/python data_construction/tools/validate_ir_v0_2_reference.py --all
-.venv/bin/python data_construction/tools/run_ai_question_structure_scale_exploration.py \
-  --validate-only \
-  data_construction/exploration/ai_question_structure_scale_v0_1/run_001/parts/partition_01.jsonl \
-  data_construction/exploration/ai_question_structure_scale_v0_1/run_001/parts/partition_02.jsonl \
-  data_construction/exploration/ai_question_structure_scale_v0_1/run_001/parts/partition_03.jsonl
-.venv/bin/python data_construction/tools/audit_ai_question_structure_partition_sensitivity.py
+.venv/bin/python data_construction/tools/analyze_ai_question_structure_cumulative_n300.py --validate-only
 .venv/bin/python -m unittest discover -s tests -v
 sh -n scripts/cross_device_preflight.sh
 sh scripts/cross_device_preflight.sh
@@ -117,9 +144,10 @@ Expected current result after this metadata update:
 
 - schema bundle: 11 schemas and 3 vocabulary instances, zero errors/warnings under the exact pin;
 - IR adapter: 50 records, 520 nodes, zero parse/schema/validator errors, 455 `DEAD_NODE` warnings;
-- N=100 primary validation: 100 records, zero errors;
-- sensitivity audit: recurring-new=5, cross-partition=0;
-- unit tests: 87 passed, 0 failed;
-- preflight: zero deterministic validation failures, `RESULT=NOT_READY`, exit 2 only for the declared synchronization and N=300 gates.
+- cumulative N=300 validation: 300 records, 300 passing checks, byte-exact N=100 prefix;
+- N=1,000 trigger: four false conditions and the candidate-library decision;
+- unit tests: 105 passed, 0 failed;
+- preflight: zero deterministic validation failures, `RESULT=NOT_READY`, exit 2 only for synchronization and candidate-library gates.
 
-The preflight compares local remote-tracking refs. Fetch only when remote reads are authorized; never pull over, reset, or rewrite this continuation.
+The preflight compares local remote-tracking refs. Fetch only when remote reads
+are authorized; never pull over, reset, or rewrite this continuation.

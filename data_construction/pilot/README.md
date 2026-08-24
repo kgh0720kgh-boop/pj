@@ -1,6 +1,6 @@
 # Pilot artifacts
 
-이 디렉터리는 30-question `annotation_schema_pilot`의 v0.1 human question-only artifact와 byte-preserved operator-granularity Phase B 선행 증거를 함께 보존한다. 이 human-first lane은 현재 deferred이며 active gate가 아니다. 활성 순서는 `question_structure_study_plan_v0_2.json`에 따라 scale-first question-only AI 탐색 N=100→300→조건부 1,000, 후보 backbone 구성, 대표 환경 실현·grounding·execution으로 진행된다. Packet이나 schema의 존재는 human evidence, semantic confirmation, gold를 뜻하지 않는다.
+이 디렉터리는 30-question `annotation_schema_pilot`의 v0.1 human question-only artifact와 byte-preserved operator-granularity Phase B 선행 증거를 함께 보존한다. 이 human-first lane은 현재 deferred이며 active gate가 아니다. `question_structure_study_plan_v0_2.json`의 누적 N=300 단계는 완료됐고, 사전 선언 판정에 따라 N=1,000 대신 후보 backbone library, 대표 환경 실현, grounding, execution 순서로 진행된다. Packet이나 schema의 존재는 human evidence, semantic confirmation, gold를 뜻하지 않는다.
 
 ## 현재 artifact
 
@@ -41,11 +41,11 @@ Question-only packet과 raw validator는 commit·검증됐지만 사람 수집�
 
 ## 현재 상태와 다음 작업
 
-`../exploration/ai_question_structure_scale_v0_1/run_001/`의 N=100 active run은 100/100 structurally valid AI record를 만들었다. Contracted semantic-DAG 기준 17 family, singleton question mass 0.09, first-30→new-70 transfer 0.7143이며 uncertain은 29/100, provisional `OTHER`는 0/100이다. Evidence class는 `ai_exploratory_non_human_non_gold`이고 semantic correctness, human agreement, universal saturation, executable graph, gold 또는 modeling readiness를 주장하지 않는다.
+`../exploration/ai_question_structure_scale_v0_1/cumulative_n300_v0_1/`은 300/300 structurally valid AI record와 byte-exact N=100 prefix를 보존한다. Fine/contracted/topology/task family는 39/30/10/70개이고, contracted singleton mass 0.0467, N100→new200 transfer 0.915, top-10 coverage 0.9133이다. Uncertain은 94/300, provisional `OTHER`는 0/300이다. Evidence class는 `ai_exploratory_non_human_non_gold`이고 semantic correctness, human agreement, universal saturation, executable graph, gold 또는 modeling readiness를 주장하지 않는다.
 
-사전 선언된 판정은 `EXPAND_UNCHANGED_TO_N300`이다. 사후 audit에서는 이 판정을 발동한 반복 신규 contracted family 5개 모두가 single-partition support이고 cross-partition support는 0임을 확인했다. Raw branch/join 5/6도 transitive-reduced view에서는 0/1이다. 그러므로 판정은 보수적 확장 결정으로 유지하지만 semantic novelty evidence로 과장하지 않는다.
+사전 선언된 N=1,000 trigger 네 개는 모두 false다. Contracted singleton mass는 strict 0.05 아래이고, 마지막 50문항 novelty는 strict `>0.10`과 같은 0.10이며, material cross-partition 신규 family는 기준 2개보다 적은 1개다. 따라서 판정은 `FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION`이다. 이 판정은 운영 순서이며 universal saturation evidence가 아니다.
 
-정확한 다음 작업은 기존 N=100을 exact prefix로 유지하고 신규 200개를 추가하는 cumulative N=300 selection, question-only pool, exposure manifest를 새 version으로 먼저 동결하는 것이다. 그 뒤 N=100의 prompt, schema, provisional role set, deterministic normalizer를 바꾸지 않고 positions 101–300을 생성·검증하며 동일 saturation/transfer 지표를 cumulative 300개에 계산한다. 신규 position은 producer partition에 분산 배정하고 partition sensitivity도 반복한다. Human 수집과 보존된 operator-granularity 검토는 이 작업의 active gate가 아니다.
+정확한 다음 작업은 environment/answer/execution을 보기 전에 30개 contracted family 전체와 fine/topology/task crosswalk를 보존하는 candidate-library 및 representative-sampling 계약을 새 version으로 동결하는 것이다. Recurrent/doubleton/singleton evidence를 구분하고 frequency/rarity-stratified 대표 ID를 먼저 commit한 뒤에만 environment-aware realization을 시작한다. Human 수집과 보존된 operator-granularity 검토는 이 작업의 active gate가 아니다.
 
 `../reports/operator_granularity_metrics_v0_1.json`의 `structural_integrity_complete_human_calibration_pending`은 보존된 v0.1 Phase B artifact 상태다. 사람 review record와 disagreement 관측은 모두 0이고 rate는 `null`이다. Vocabulary는 선택·동결되지 않았으며 corpus는 gold 또는 modeling-ready가 아니다.
 

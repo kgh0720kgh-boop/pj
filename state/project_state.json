@@ -1,31 +1,31 @@
 {
   "schema_version": "project_state_v0_1",
-  "state_updated_date": "2026-08-24",
+  "state_updated_date": "2026-08-25",
   "project": "hierarchical_data_construction_for_semantic_execution_topology_induction",
-  "active_phase": "phase_2a_ai_scale_first_question_structure_exploration",
+  "active_phase": "phase_2b_candidate_backbone_library_freeze",
   "active_branch": "main",
-  "expected_head": "74bf961a10420e0d222b23e0af0c5323985f95fd",
-  "last_completed_task": "completed_frozen_cumulative_n100_question_only_ai_semantic_backbone_extraction_deterministic_saturation_analysis_and_separately_versioned_partition_normalization_sensitivity_audit",
-  "next_task": "freeze_a_separately_versioned_cumulative_n300_selection_question_only_pool_and_exposure_manifest_with_n100_as_exact_prefix_then_generate_positions_101_to_300_using_the_unchanged_prompt_schema_roles_and_normalizer_with_partition_balanced_routing_and_recompute_cumulative_metrics",
-  "current_scientific_decision": "UNDECIDED_NEEDS_SCALE_EVIDENCE",
-  "scientific_decision_status": "n100_complete_n300_expansion_required_human_validation_deferred",
+  "expected_head": "5c73da72e93fa534711e222eb53ac02140596946",
+  "last_completed_task": "completed_frozen_cumulative_n300_question_only_ai_semantic_backbone_extraction_deterministic_saturation_transfer_partition_support_analysis_and_precommitted_n1000_decision",
+  "next_task": "freeze_a_versioned_candidate_backbone_library_and_frequency_rarity_stratified_representative_sampling_contract_from_all_30_contracted_n300_families_before_environment_inspection_then_begin_separate_environment_aware_operator_realization",
+  "current_scientific_decision": "FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION",
+  "scientific_decision_status": "n300_complete_candidate_backbone_library_freeze_required_human_validation_deferred",
   "synchronization_state": "LOCAL_COMMIT_NOT_PUSHED",
   "handoff_readiness": "not_ready",
   "blocked_gates": [
-    "LOCAL_COMMIT_NOT_PUSHED: thirty-two local commits will be ahead of origin/main after this metadata commit and remote writes are not authorized",
-    "N300_SCALE_EXPANSION_NOT_PERFORMED: the precommitted N100 decision requires a separately versioned cumulative N300 pool and 200 new question-only records before candidate-backbone freeze or environment realization"
+    "LOCAL_COMMIT_NOT_PUSHED: thirty-seven local commits will be ahead of origin/main after this metadata commit and remote writes are not authorized",
+    "CANDIDATE_BACKBONE_LIBRARY_NOT_FROZEN: the precommitted N300 decision requires a versioned 30-family candidate library and representative-sampling contract before environment realization"
   ],
   "repository": {
     "git_root": "repository root (resolve with git rev-parse --show-toplevel)",
     "current_branch": "main",
-    "head": "74bf961a10420e0d222b23e0af0c5323985f95fd",
+    "head": "5c73da72e93fa534711e222eb53ac02140596946",
     "head_role": "expected_handoff_baseline_parent_of_metadata_commit",
     "remotes": [
       "origin https://github.com/kgh0720kgh-boop/pj.git"
     ],
     "working_tree_status": "clean",
     "untracked_files": 0,
-    "unpushed_commits": 32,
+    "unpushed_commits": 37,
     "stash_state": "empty"
   },
   "artifact_status": {
@@ -154,36 +154,56 @@
       }
     },
     "ai_question_structure_scale_exploration": {
-      "status": "n100_complete_n300_expansion_required_partition_sensitivity_audited",
-      "active_gate": true,
+      "status": "cumulative_n300_complete_candidate_library_branch_selected",
+      "active_gate": false,
       "run_id": "ai_question_structure_scale_v0_1_run_001",
       "evidence_class": "ai_exploratory_non_human_non_gold",
-      "contract_freeze_commit": "5adb85277928676eb82fa5189390c442fd6c70bc",
-      "question_count": 100,
+      "contract_freeze_commit": "98a162708104877129a46a6a4a88c555ffe20be4",
+      "question_count": 300,
       "prefix_contract_development_count": 30,
-      "new_expansion_count": 70,
-      "valid_record_count": 100,
+      "new_expansion_count": 200,
+      "valid_record_count": 300,
       "invalid_record_count": 0,
-      "contracted_family_count": 17,
-      "contracted_singleton_question_mass": 0.09,
-      "contracted_new70_transfer_rate": 0.7142857142857143,
-      "uncertain_record_count": 29,
+      "fine_family_count": 39,
+      "contracted_family_count": 30,
+      "topology_family_count": 10,
+      "task_family_count": 70,
+      "contracted_singleton_question_mass": 0.04666666666666667,
+      "contracted_n100_to_new200_transfer_rate": 0.915,
+      "contracted_top_10_coverage": 0.9133333333333333,
+      "uncertain_record_count": 94,
       "other_question_count": 0,
-      "precommitted_decision": "EXPAND_UNCHANGED_TO_N300",
-      "decision_trigger": "at_least_2_new_contracted_families_each_recur_at_least_twice_in_new70",
+      "alternative_graph_question_count": 1,
+      "precommitted_decision": "FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION",
+      "decision_trigger": "none_of_four_precommitted_n1000_conditions_true",
+      "n1000_trigger_values": {
+        "cumulative_contracted_singleton_question_mass_above_0_05": false,
+        "cumulative_OTHER_question_rate_above_0_05": false,
+        "tail_50_sequential_contracted_novelty_above_0_10_with_at_least_2_new_families": false,
+        "at_least_2_material_cross_partition_new_contracted_families": false
+      },
+      "n1000_trigger_observations": {
+        "contracted_singleton_question_mass": 0.04666666666666667,
+        "other_question_rate": 0.0,
+        "tail_50_sequential_question_novelty_rate": 0.1,
+        "tail_50_sequential_new_family_count": 5,
+        "material_cross_partition_new_contracted_family_count": 1
+      },
       "partition_sensitivity": {
-        "status": "post_hoc_audit_complete",
-        "recurring_new_contracted_family_count": 5,
-        "cross_partition_recurring_new_contracted_family_count": 0,
-        "partition_confounding_detected": true,
-        "raw_branch_question_count": 5,
-        "reduced_branch_question_count": 0,
-        "raw_join_question_count": 6,
-        "reduced_join_question_count": 1,
+        "status": "precommitted_cumulative_analysis_complete",
+        "recurring_new_contracted_family_count": 3,
+        "cross_partition_recurring_new_contracted_family_count": 2,
+        "material_cross_partition_new_contracted_family_count": 1,
+        "partition_confounding_detected": false,
+        "producer_context_sensitivity_present": true,
+        "raw_branch_question_count": 6,
+        "reduced_branch_question_count": 1,
+        "raw_join_question_count": 11,
+        "reduced_join_question_count": 6,
         "operational_decision_changed": false
       },
-      "ai_exposed_question_count": 100,
-      "unexposed_unallocated_reserve_count": 3266,
+      "ai_exposed_question_count": 300,
+      "unexposed_unallocated_reserve_count": 3066,
       "human_evidence_count": 0,
       "gold_claimed": false,
       "semantic_correctness_claimed": false,
@@ -198,6 +218,10 @@
           "sha256": "74f56eb853b9d9164eea8ed48cf563ecde4996639e13df2efe74e0b318d427ce"
         },
         "sequencing_decision": {
+          "path": "data_construction/reports/research_sequencing_decision_v0_3.md",
+          "sha256": "c37b25c7a2312ee7990bf0702e947046af9153913eb45cd668dcf0a173d174b5"
+        },
+        "frozen_sequencing_decision_v0_2": {
           "path": "data_construction/reports/research_sequencing_decision_v0_2.md",
           "sha256": "d20c095bbadd72f8508c11eb258f92a2a1d8924e8e044c0084b435b3531b001d"
         },
@@ -260,8 +284,78 @@
         "interpretive_addendum": {
           "path": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/interpretive_addendum_v0_1.md",
           "sha256": "d201dc2296f3fdf678fcfeda309b9c3bd0def85f59a8dc8c16a6db17a5b9532f"
+        },
+        "n300_pool_builder": {
+          "path": "data_construction/tools/build_ai_question_structure_n300_pool.py",
+          "sha256": "2860fc67795510197b6a361dd4771ef7050137a8eb8fbc528a2758f603e51b6b"
+        },
+        "n300_analyzer": {
+          "path": "data_construction/tools/analyze_ai_question_structure_cumulative_n300.py",
+          "sha256": "105cb161806e5e6adb4c3867e21e87b62d85d97f79be28036cbc694b61340957"
+        },
+        "n300_analysis_plan": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/cumulative_n300_analysis_plan_v0_1.json",
+          "sha256": "bcf8846ca51154a7eadbb75367539fc947870aa6caa12dcd8ac27e17ef3f144f"
+        },
+        "n300_pool_views": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/pool/question_only_views_n300.jsonl",
+          "sha256": "1af3fd6791a9be88ced73f245185d72cfe679277ebe06f0fcfa72c2acdb00b96"
+        },
+        "n300_pool_manifest": {
+          "path": "data_construction/manifests/ai_question_structure_exploratory_pool_v0_2.json",
+          "sha256": "cc2d675b5203e2d99e77586e1211807d2ac0100f277f7da8fabe19fbc5426322"
+        },
+        "n300_selection_exposure_ledger": {
+          "path": "data_construction/manifests/question_exposure_ledger_v0_2.json",
+          "sha256": "7cc1e928f2fc4ab67ef03082f768e15969adf95a6e67f9a51e3332232e736d0a"
+        },
+        "n300_routing_manifest": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/n300_extension_v0_1/producer_routing_manifest_v0_1.json",
+          "sha256": "5cc10e65e04a6f67984ac91adedc9f2f295df2d8530c6040dfc0543ba96204ca"
+        },
+        "n300_records": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/cumulative_n300_v0_1/records.jsonl",
+          "sha256": "bd601a5be2113f0de4f041f50eefcf415f338fbc3a89eaa35f5b867cca286629"
+        },
+        "n300_checks": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/cumulative_n300_v0_1/checks.jsonl",
+          "sha256": "a25cb8fd7aef0891e8e5c14234b1e5957bc79f43f0f05b4f2874d832ef8cce10"
+        },
+        "n300_derived_signatures": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/cumulative_n300_v0_1/analysis/derived_signatures_v0_1.jsonl",
+          "sha256": "8dc034cc817791eeaedf56745933ca0f35197c1642c4a1a94f6d1d91c74d344d"
+        },
+        "n300_metrics": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/cumulative_n300_v0_1/analysis/cumulative_n300_structural_saturation_metrics_v0_1.json",
+          "sha256": "bd12a5df1922a3feeb96c7b82c9289f74718eb9bf9e06736ac8285134f112232"
+        },
+        "n300_generated_report": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/cumulative_n300_v0_1/analysis/cumulative_n300_structural_saturation_report_v0_1.md",
+          "sha256": "6b429622e95e2e741ac0bef825aff7eb9df31d7360e06ca6422a57f03ecdd0fd"
+        },
+        "n300_run_manifest": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/cumulative_n300_v0_1/run_manifest.json",
+          "sha256": "8dd1897e09fe9f9af7beccd8250cf7c12660308a50fb0da220fab44c083b70cc"
+        },
+        "n300_completion_exposure_ledger": {
+          "path": "data_construction/manifests/question_exposure_ledger_v0_3.json",
+          "sha256": "643809989c084a83c09ab13c4bfc89a21f2d5d57c1a1a7a6a14361313840faed"
         }
       }
+    },
+    "candidate_backbone_library": {
+      "status": "not_created_contract_freeze_required",
+      "active_gate": true,
+      "source_record_count": 300,
+      "source_contracted_family_count": 30,
+      "post_hoc_semantic_family_merging_allowed": false,
+      "representative_selection_status": "not_created_must_precede_environment_inspection",
+      "environment_content_inspected_for_selection": false,
+      "environment_realization_status": "not_started",
+      "grounding_or_execution_evaluated": false,
+      "human_evidence_count": 0,
+      "gold_claimed": false,
+      "modeling_ready_claimed": false
     },
     "ai_question_structure_pipeline_diagnostic": {
       "status": "complete_non_evidentiary_shadow_run",
@@ -402,7 +496,7 @@
     "tools": {
       "status": "implemented",
       "test_entry_point": ".venv/bin/python -B -m unittest discover -s tests -v",
-      "final_integration_test_status": "passed_87_tests_in_project_local_exact_pin_environment"
+      "final_integration_test_status": "passed_105_tests_in_project_local_exact_pin_environment"
     }
   },
   "preflight_status": {
@@ -411,7 +505,7 @@
     "exit_code": 2,
     "validation_failures": 0,
     "core_json_files_parsed": 52,
-    "unit_tests_passed": 87,
+    "unit_tests_passed": 105,
     "unit_tests_failed": 0,
     "ir_v0_2_records_validated": 50,
     "ir_v0_2_validator_errors": 0
@@ -441,7 +535,10 @@
     "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/",
     "data_construction/exploration/ai_question_structure_scale_v0_1/",
     "data_construction/manifests/ai_question_structure_exploratory_pool_v0_1.json",
+    "data_construction/manifests/ai_question_structure_exploratory_pool_v0_2.json",
     "data_construction/manifests/question_exposure_ledger_v0_1.json",
+    "data_construction/manifests/question_exposure_ledger_v0_2.json",
+    "data_construction/manifests/question_exposure_ledger_v0_3.json",
     "data_construction/pilot/granularity_representation_plan_v0_1.json",
     "data_construction/pilot/granularity_input_views.jsonl",
     "data_construction/pilot/granularity_input_views_manifest_v0_1.json",
@@ -451,6 +548,7 @@
     "data_construction/reports/operator_granularity_metrics_v0_1.json",
     "data_construction/reports/research_sequencing_decision_v0_1.md",
     "data_construction/reports/research_sequencing_decision_v0_2.md",
+    "data_construction/reports/research_sequencing_decision_v0_3.md",
     "data_construction/schemas/",
     "data_construction/operator_design/",
     "data_construction/tools/",
@@ -459,6 +557,8 @@
     "tests/test_ir_v0_2_reference.py",
     "tests/test_question_structure_scale_exploration.py",
     "tests/test_question_structure_partition_sensitivity.py",
+    "tests/test_question_structure_n300_pool.py",
+    "tests/test_question_structure_cumulative_n300.py",
     "historical/README.md",
     "historical/ir_v0_2/recovery_manifest_v0_1.json"
   ],

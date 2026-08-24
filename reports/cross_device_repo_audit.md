@@ -8,19 +8,21 @@ This addendum supersedes the active-status statements in the 2026-08-23 addendum
 | --- | --- |
 | Git root | resolved repository root |
 | Branch | `main` |
-| Expected handoff baseline | `74bf961a10420e0d222b23e0af0c5323985f95fd` |
+| Expected handoff baseline | `5c73da72e93fa534711e222eb53ac02140596946` |
 | Remote-write authorization | not granted |
 | Synchronization state | `LOCAL_COMMIT_NOT_PUSHED` |
-| Scientific decision | `UNDECIDED_NEEDS_SCALE_EVIDENCE` |
-| Active gate | cumulative N=300 scale expansion |
+| Scientific decision | `FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION` |
+| Active gate | candidate-backbone library and representative-sampling contract freeze |
 
-The active sequence is now scale-first question-only AI semantic-backbone exploration. The preserved v0.1 human lane is deferred rather than deleted or completed; all human evidence counts remain zero. The released split manifest remains unchanged at 30 annotation-pilot questions and zero train/dev/locked-eval allocations.
+The scale-first question-only AI semantic-backbone exploration is complete through cumulative N=300. The preserved v0.1 human lane is deferred rather than deleted or completed; all human evidence counts remain zero. The released split manifest remains unchanged at 30 annotation-pilot questions and zero train/dev/locked-eval allocations.
 
 The frozen cumulative N=100 run produced 100/100 structurally valid, non-human, non-gold records. Its deterministic summaries contain 23 fine labeled families, 17 same-role-contracted families, six topology shapes, and 38 task signatures. Contracted singleton mass is 0.09 and first-30-to-new-70 transfer is 50/70. The precommitted rule returns `EXPAND_UNCHANGED_TO_N300`.
 
 A separately versioned post-hoc audit records that all five triggering recurring-new contracted families are confined to one producer partition and have zero cross-partition recurrence. Raw branch/join counts of 5/6 reduce to normalized counts of 0/1, and same-role contraction grows the dominant family from 46 to 62 questions. These facts restrict interpretation without rewriting the frozen primary decision: N=300 is a conservative next measurement, not proof that the five families are semantically novel.
 
-The exact next task is to freeze a versioned cumulative N=300 selection, question-only pool, exposure update, and producer-routing plan with N=100 as the exact prefix, then generate 200 new records using the unchanged extractor/normalizer. New committed positions must be distributed across producer contexts so question order is not aligned with a single contiguous worker block. All 100 already processed IDs are excluded from future unseen-evaluation claims, and 3,266 official-dev questions remain unexposed and unallocated before the N=300 selection.
+The cumulative N=300 run preserves N=100 as a byte-exact prefix and validates 300/300 records. Fine/contracted/topology/task family counts are 39/30/10/70, contracted singleton mass is 0.0467, and N100-to-new200 transfer is 0.915. All four precommitted N=1,000 triggers are false, so the selected branch is candidate-library freeze and representative environment realization. All 300 processed IDs are excluded from future unseen-evaluation claims, and 3,066 official-dev questions remain unexposed and unallocated.
+
+The exact next task is to freeze a versioned 30-family candidate library and frequency/rarity-stratified representative-selection contract before environment inspection. Fine/topology/task crosswalks, evidence strength, and support information must remain explicit; same-role contraction is not semantic equivalence. Only after representative IDs are committed may environment-aware operator realization begin.
 
 ## Current-state addendum — 2026-08-23
 

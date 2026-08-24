@@ -3,6 +3,12 @@
 감사 시각: 2026-08-21T12:50:32+09:00  
 범위: 공식 HybridQA 질문 데이터, 공식 연결 테이블/문서 환경, Week 1–3 지정 ID 파일의 정확 경로 확인 및 사용 가능한 홈 영역의 깊이 제한 검색
 
+## 2026-08-24 N=300 exposure addendum
+
+아래 source/history 감사 결론과 보존 bytes는 변경하지 않는다. 활성 scale-first 실험은 pinned official dev에서 역사 노출을 제외한 누적 300문항을 처리했고, `question_exposure_ledger_v0_3.json`에 모두 기록했다. 기존 N=100은 exact prefix이며 신규 200개는 다섯 producer context에 분산됐다. 따라서 300개 ID는 future unseen-evaluation claim에 사용할 수 없고, 3,066개 official-dev question은 계속 unexposed/unallocated reserve다. `split_manifest_v0_1.json`의 annotation-pilot/train/dev/locked-eval 역할은 변경되지 않았다.
+
+N=300의 사전 선언 판정은 `FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION`이다. 정확한 다음 작업은 environment를 보기 전에 candidate-library와 representative-sampling 계약을 동결하는 것이며, human evidence는 계속 0이고 현재 gate가 아니다. 아래 2026-08-23 human-first 문단은 당시 sequencing snapshot으로 보존한다.
+
 ## 2026-08-23 현재 상태 addendum
 
 이 절은 아래 2026-08-21 감사 본문을 삭제하거나 소급 수정하지 않고, 당시 차단 조건이 이후 어떻게 해제됐는지를 기록한다. 아래 본문의 “역사 파일 부재”, “비중복 증명 불가”, “새 split 차단”은 2026-08-21 당시에는 참인 관찰이었지만 현재 상태는 아니다.

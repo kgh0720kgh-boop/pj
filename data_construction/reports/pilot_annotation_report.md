@@ -2,11 +2,11 @@
 
 ## 2026-08-24 scale-first exploration addendum
 
-현재 active gate는 human batch 수집이 아니라 cumulative N=300 question-only AI scale expansion이다. N=100 run은 100/100 structurally valid non-human/non-gold record를 생성했고, fine/contracted/topology/task family 수는 각각 23/17/6/38이다. Contracted singleton mass 0.09와 first-30→new-70 transfer 50/70을 기록했으며 사전 선언 판정은 `EXPAND_UNCHANGED_TO_N300`이다.
+현재 active gate는 human batch 수집이 아니라 candidate-backbone library와 representative-sampling contract freeze다. 누적 N=300 run은 300/300 structurally valid non-human/non-gold record와 byte-exact N=100 prefix를 생성했고, fine/contracted/topology/task family 수는 각각 39/30/10/70이다. Contracted singleton mass 0.0467과 N100→new200 transfer 0.915를 기록했다.
 
-사후 민감도 감사에서 반복 신규 contracted family 5개 모두가 single producer partition support이고 cross-partition recurrence는 0이었다. Raw branch/join 5/6은 transitive-reduced graph에서 0/1이며, dominant family는 same-role contraction 전후 46→62다. 이 때문에 N=300 판정은 유지하되 semantic novelty confirmation으로 해석하지 않는다. 다음 run은 N=100 exact prefix, 신규 200개, unchanged extractor/normalizer, producer-context 분산 routing을 먼저 version/freeze한다.
+N=1,000 trigger 네 개는 모두 false다. 마지막 50문항 novelty 0.10은 strict `>0.10`을 넘지 않았고 material cross-partition 신규 contracted family는 1개다. 따라서 사전 선언 판정은 `FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION`이다. 다음 artifact는 환경 결과를 보기 전 30개 contracted family와 crosswalk/evidence strength를 고정하고 frequency/rarity 대표 ID를 먼저 commit해야 한다.
 
-보존된 v0.1 human packet은 여전히 human annotation 0건이며 active gate가 아니다. 기존 AI diagnostic과 operator-granularity proposal도 방향 탐색/feasibility evidence일 뿐 이 N=100 primary record와 합치거나 gold로 승격하지 않는다.
+보존된 v0.1 human packet은 여전히 human annotation 0건이며 active gate가 아니다. 기존 AI diagnostic과 operator-granularity proposal도 방향 탐색/feasibility evidence일 뿐 이 N=300 primary record와 합치거나 gold로 승격하지 않는다.
 
 ## 2026-08-23 question-first sequencing addendum
 

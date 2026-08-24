@@ -2,15 +2,17 @@
 
 This namespace implements the scale-first follow-up selected after the separate
 30-question AI diagnostic. It asks whether recurrent question-only semantic
-backbones and topology shapes appear across a cumulative 100-question pool.
+backbones and topology shapes appear across cumulative 100- and 300-question
+pools.
 
 The prior human Phase A1 contract and diagnostic run remain byte-preserved. This
 exploration does not complete them and does not create human evidence or gold
 annotations.
 
-The N=100 pool is an exact cumulative prefix under the existing pinned-dev seed:
-the original 30 question-only views are the exact first 30 records, 70 new
-questions are added, and 3,266 official-dev questions remain unexposed and
+The N=300 pool is cumulative under the existing pinned-dev seed. The original
+30 views are the first 30 records, the frozen N=100 records are preserved as an
+exact byte prefix, and positions 101--300 add 200 newly eligible questions.
+After completion, 3,066 official-dev questions remain unexposed and
 unallocated. The existing split manifest is unchanged.
 
 Raw model records contain free-text descriptions plus a deliberately small,
@@ -39,7 +41,18 @@ transitive-reduced counts (0/1), and records dominant-family growth from 46 to
 conservative next measurement, not confirmation that those families are
 semantically novel.
 
-The next run must freeze a cumulative N=300 pool with this N=100 as its exact
-prefix, add 200 newly eligible questions to a new exposure-ledger version, keep
-the prompt/schema/role set/normalizer unchanged, and distribute committed
-positions across producer contexts rather than using contiguous worker blocks.
+The cumulative N=300 extension is now complete with 300/300 structurally valid
+records and a byte-exact N=100 prefix. It yields 39 fine families, 30
+same-role-contracted families, 10 topology shapes, and 70 task signatures.
+Contracted singleton mass is 0.0467, N100-to-new200 transfer is 0.915, top-10
+coverage is 0.9133, and `OTHER` use is zero. The final 50-question contracted
+novelty rate is exactly 0.10; one new family meets the material
+cross-partition-support rule.
+
+All four precommitted N=1,000 triggers are false. The operational decision is
+`FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION`.
+This is not universal saturation or semantic correctness. The next task is to
+freeze a versioned library-and-representative-sampling contract, retain all 30
+contracted families with their fine/topology/task crosswalks and evidence
+strength, and commit frequency/rarity-stratified representative IDs before
+inspecting environment or execution outcomes.

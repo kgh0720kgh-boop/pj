@@ -864,6 +864,7 @@ elif state.get("current_scientific_decision") in {
     "DATA_SOURCE_READY_FOR_ANNOTATION_PILOT",
     "UNDECIDED_NEEDS_ANNOTATION_EVIDENCE",
     "UNDECIDED_NEEDS_SCALE_EVIDENCE",
+    "FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION",
 }:
     if history_complete is not True or historical_shape != "strict_builder":
         errors.append("pilot-ready state requires a complete strict historical audit")
@@ -1339,6 +1340,210 @@ elif state.get("current_scientific_decision") in {
                 errors.append(f"AI scale-exploration artifact is missing: {label}")
             elif reference.get("sha256") != hashlib.sha256(path.read_bytes()).hexdigest():
                 errors.append(f"AI scale-exploration artifact hash mismatch: {label}")
+    elif state.get("current_scientific_decision") == (
+        "FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_"
+        "REPRESENTATIVE_ENVIRONMENT_REALIZATION"
+    ):
+        if state.get("active_phase") != "phase_2b_candidate_backbone_library_freeze":
+            errors.append("candidate-library state has an unexpected active_phase")
+        if state.get("scientific_decision_status") != (
+            "n300_complete_candidate_backbone_library_freeze_required_"
+            "human_validation_deferred"
+        ):
+            errors.append("candidate-library state has an unexpected scientific_decision_status")
+        if "CANDIDATE_BACKBONE_LIBRARY_NOT_FROZEN" not in state_gates:
+            errors.append("candidate-library state lacks CANDIDATE_BACKBONE_LIBRARY_NOT_FROZEN")
+        if "N300_SCALE_EXPANSION_NOT_PERFORMED" in state_gates:
+            errors.append("candidate-library state retains the completed N300 gate")
+        if "QUESTION_ONLY_CALIBRATION_NOT_PERFORMED" in state_gates:
+            errors.append("candidate-library state retains the deferred human-calibration gate")
+
+        calibration = state.get("artifact_status", {}).get(
+            "question_only_semantic_calibration", {}
+        )
+        expected_deferred_calibration = {
+            "status": "phase_a0_materialized_human_collection_deferred",
+            "active_gate": False,
+            "workflow_disposition": "preserved_deferred_not_active_gate",
+            "human_raw_artifact_count": 0,
+            "human_raw_record_count": 0,
+            "semantic_agreement_claimed": False,
+            "held_out_confirmation_complete": False,
+        }
+        for key, expected_value in expected_deferred_calibration.items():
+            if calibration.get(key) != expected_value:
+                errors.append(f"deferred question-only calibration state mismatch for {key}")
+
+        scale = state.get("artifact_status", {}).get(
+            "ai_question_structure_scale_exploration", {}
+        )
+        expected_scale_summary = {
+            "status": "cumulative_n300_complete_candidate_library_branch_selected",
+            "active_gate": False,
+            "run_id": "ai_question_structure_scale_v0_1_run_001",
+            "evidence_class": "ai_exploratory_non_human_non_gold",
+            "contract_freeze_commit": "98a162708104877129a46a6a4a88c555ffe20be4",
+            "question_count": 300,
+            "prefix_contract_development_count": 30,
+            "new_expansion_count": 200,
+            "valid_record_count": 300,
+            "invalid_record_count": 0,
+            "fine_family_count": 39,
+            "contracted_family_count": 30,
+            "topology_family_count": 10,
+            "task_family_count": 70,
+            "contracted_singleton_question_mass": 0.04666666666666667,
+            "contracted_n100_to_new200_transfer_rate": 0.915,
+            "contracted_top_10_coverage": 0.9133333333333333,
+            "uncertain_record_count": 94,
+            "other_question_count": 0,
+            "alternative_graph_question_count": 1,
+            "precommitted_decision": (
+                "FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_"
+                "REPRESENTATIVE_ENVIRONMENT_REALIZATION"
+            ),
+            "decision_trigger": "none_of_four_precommitted_n1000_conditions_true",
+            "ai_exposed_question_count": 300,
+            "unexposed_unallocated_reserve_count": 3066,
+            "human_evidence_count": 0,
+            "gold_claimed": False,
+            "semantic_correctness_claimed": False,
+            "human_agreement_claimed": False,
+            "universal_saturation_claimed": False,
+            "common_executable_graph_claimed": False,
+            "grounding_or_execution_evaluated": False,
+            "modeling_ready_claimed": False,
+        }
+        for key, expected_value in expected_scale_summary.items():
+            if scale.get(key) != expected_value:
+                errors.append(f"cumulative N300 state mismatch for {key}")
+        expected_trigger_values = {
+            "cumulative_contracted_singleton_question_mass_above_0_05": False,
+            "cumulative_OTHER_question_rate_above_0_05": False,
+            "tail_50_sequential_contracted_novelty_above_0_10_with_at_least_2_new_families": False,
+            "at_least_2_material_cross_partition_new_contracted_families": False,
+        }
+        if scale.get("n1000_trigger_values") != expected_trigger_values:
+            errors.append("cumulative N300 trigger-value summary mismatch")
+        expected_trigger_observations = {
+            "contracted_singleton_question_mass": 0.04666666666666667,
+            "other_question_rate": 0.0,
+            "tail_50_sequential_question_novelty_rate": 0.1,
+            "tail_50_sequential_new_family_count": 5,
+            "material_cross_partition_new_contracted_family_count": 1,
+        }
+        if scale.get("n1000_trigger_observations") != expected_trigger_observations:
+            errors.append("cumulative N300 trigger-observation summary mismatch")
+        expected_partition_sensitivity = {
+            "status": "precommitted_cumulative_analysis_complete",
+            "recurring_new_contracted_family_count": 3,
+            "cross_partition_recurring_new_contracted_family_count": 2,
+            "material_cross_partition_new_contracted_family_count": 1,
+            "partition_confounding_detected": False,
+            "producer_context_sensitivity_present": True,
+            "raw_branch_question_count": 6,
+            "reduced_branch_question_count": 1,
+            "raw_join_question_count": 11,
+            "reduced_join_question_count": 6,
+            "operational_decision_changed": False,
+        }
+        if scale.get("partition_sensitivity") != expected_partition_sensitivity:
+            errors.append("cumulative N300 partition-sensitivity summary mismatch")
+
+        required_n300_artifacts = {
+            "sequencing_decision": (
+                "data_construction/reports/research_sequencing_decision_v0_3.md"
+            ),
+            "n300_pool_builder": (
+                "data_construction/tools/build_ai_question_structure_n300_pool.py"
+            ),
+            "n300_analyzer": (
+                "data_construction/tools/analyze_ai_question_structure_cumulative_n300.py"
+            ),
+            "n300_analysis_plan": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "contracts/cumulative_n300_analysis_plan_v0_1.json"
+            ),
+            "n300_pool_views": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "pool/question_only_views_n300.jsonl"
+            ),
+            "n300_pool_manifest": (
+                "data_construction/manifests/"
+                "ai_question_structure_exploratory_pool_v0_2.json"
+            ),
+            "n300_selection_exposure_ledger": (
+                "data_construction/manifests/question_exposure_ledger_v0_2.json"
+            ),
+            "n300_routing_manifest": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "n300_extension_v0_1/producer_routing_manifest_v0_1.json"
+            ),
+            "n300_records": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "cumulative_n300_v0_1/records.jsonl"
+            ),
+            "n300_checks": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "cumulative_n300_v0_1/checks.jsonl"
+            ),
+            "n300_derived_signatures": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "cumulative_n300_v0_1/analysis/derived_signatures_v0_1.jsonl"
+            ),
+            "n300_metrics": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "cumulative_n300_v0_1/analysis/"
+                "cumulative_n300_structural_saturation_metrics_v0_1.json"
+            ),
+            "n300_generated_report": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "cumulative_n300_v0_1/analysis/"
+                "cumulative_n300_structural_saturation_report_v0_1.md"
+            ),
+            "n300_run_manifest": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "cumulative_n300_v0_1/run_manifest.json"
+            ),
+            "n300_completion_exposure_ledger": (
+                "data_construction/manifests/question_exposure_ledger_v0_3.json"
+            ),
+        }
+        scale_artifacts = scale.get("artifacts", {})
+        if not isinstance(scale_artifacts, dict):
+            errors.append("cumulative N300 artifact inventory must be an object")
+            scale_artifacts = {}
+        for label, expected_path in required_n300_artifacts.items():
+            reference = scale_artifacts.get(label)
+            path = Path(expected_path)
+            if not isinstance(reference, dict) or reference.get("path") != expected_path:
+                errors.append(f"cumulative N300 state lacks artifact {label}")
+            elif not path.is_file():
+                errors.append(f"cumulative N300 artifact is missing: {label}")
+            elif reference.get("sha256") != hashlib.sha256(path.read_bytes()).hexdigest():
+                errors.append(f"cumulative N300 artifact hash mismatch: {label}")
+
+        candidate = state.get("artifact_status", {}).get(
+            "candidate_backbone_library", {}
+        )
+        expected_candidate = {
+            "status": "not_created_contract_freeze_required",
+            "active_gate": True,
+            "source_record_count": 300,
+            "source_contracted_family_count": 30,
+            "post_hoc_semantic_family_merging_allowed": False,
+            "representative_selection_status": (
+                "not_created_must_precede_environment_inspection"
+            ),
+            "environment_content_inspected_for_selection": False,
+            "environment_realization_status": "not_started",
+            "grounding_or_execution_evaluated": False,
+            "human_evidence_count": 0,
+            "gold_claimed": False,
+            "modeling_ready_claimed": False,
+        }
+        if candidate != expected_candidate:
+            errors.append("candidate-backbone library pending-state mismatch")
 else:
     errors.append("project_state has an unsupported current scientific decision")
 
@@ -2018,6 +2223,173 @@ PY
         pass_check "AI_SCALE_PARTITION_SENSITIVITY_LIVE: $sensitivity_live_output"
     else
         fail_check "AI_SCALE_PARTITION_SENSITIVITY_LIVE_FAILED: $sensitivity_live_output"
+    fi
+
+    n300_cli_output=$("$PYTHON_BIN" -B \
+        data_construction/tools/analyze_ai_question_structure_cumulative_n300.py \
+        --validate-only 2>&1)
+    n300_cli_rc=$?
+    if [ "$n300_cli_rc" -eq 0 ]; then
+        pass_check "AI_QUESTION_STRUCTURE_CUMULATIVE_N300_CLI: $n300_cli_output"
+    else
+        fail_check "AI_QUESTION_STRUCTURE_CUMULATIVE_N300_CLI_FAILED: $n300_cli_output"
+    fi
+
+    n300_live_output=$("$PYTHON_BIN" -B - <<'PY' 2>&1
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path("data_construction/tools").resolve()))
+from _common import json_file_bytes, jsonl_file_bytes
+import analyze_ai_question_structure_cumulative_n300 as analyzer
+
+plan, views, routing, _, pool = analyzer.validate_contract(
+    analyzer.DEFAULT_PLAN,
+    analyzer.DEFAULT_SCHEMA,
+    analyzer.DEFAULT_PROMPT,
+    analyzer.DEFAULT_VIEWS,
+    analyzer.DEFAULT_ROUTING,
+    analyzer.DEFAULT_POOL_MANIFEST,
+    analyzer.DEFAULT_PRIOR_EXPOSURE,
+    analyzer.DEFAULT_PREFIX_RECORDS,
+)
+planned_parts = analyzer._validate_planned_paths(
+    plan,
+    part_paths=list(analyzer.DEFAULT_PARTS),
+    cumulative_outputs={
+        "records": analyzer.DEFAULT_RECORDS_OUTPUT,
+        "checks": analyzer.DEFAULT_CHECKS,
+        "derived_signatures": analyzer.DEFAULT_SIGNATURES,
+        "metrics": analyzer.DEFAULT_METRICS,
+        "report": analyzer.DEFAULT_REPORT,
+        "run_manifest": analyzer.DEFAULT_RUN_MANIFEST,
+        "completion_exposure_ledger": analyzer.DEFAULT_EXPOSURE_OUTPUT,
+    },
+)
+contract_freeze_commit = analyzer.verify_contract_freeze(
+    analyzer.DEFAULT_PLAN, plan
+)
+new_records, part_bindings = analyzer.merge_partition_parts(
+    list(analyzer.DEFAULT_PARTS), routing, planned_parts
+)
+records_payload, records, prefix_preservation = analyzer.build_cumulative_records_payload(
+    analyzer.DEFAULT_PREFIX_RECORDS, new_records
+)
+checks, errors = analyzer.validate_records(
+    records, views, routing, analyzer.DEFAULT_SCHEMA
+)
+if errors or len(checks) != 300 or any(item["status"] != "pass" for item in checks):
+    raise SystemExit("cumulative N300 live validation is not exactly 300 passes")
+derived = analyzer.derive_signatures(records)
+source_bindings = {
+    "analysis_plan": analyzer._binding(analyzer.DEFAULT_PLAN),
+    "record_schema": analyzer._binding(analyzer.DEFAULT_SCHEMA),
+    "extraction_prompt": analyzer._binding(analyzer.DEFAULT_PROMPT),
+    "question_only_views": analyzer._binding(
+        analyzer.DEFAULT_VIEWS, record_count=analyzer.TARGET_COUNT
+    ),
+    "producer_routing": analyzer._binding(analyzer.DEFAULT_ROUTING),
+    "pool_manifest": analyzer._binding(analyzer.DEFAULT_POOL_MANIFEST),
+    "prior_exposure_ledger_v0_2": analyzer._binding(
+        analyzer.DEFAULT_PRIOR_EXPOSURE
+    ),
+    "frozen_n100_records": analyzer._binding(
+        analyzer.DEFAULT_PREFIX_RECORDS, record_count=analyzer.PREFIX_COUNT
+    ),
+    "n300_model_parts": part_bindings,
+    "cumulative_n300_records": analyzer._planned_artifact(
+        analyzer.DEFAULT_RECORDS_OUTPUT,
+        records_payload,
+        record_count=analyzer.TARGET_COUNT,
+    ),
+    "frozen_n100_analyzer_and_normalizer": analyzer._binding(
+        analyzer.FROZEN_ANALYZER
+    ),
+    "analysis_implementation": analyzer._binding(Path(analyzer.__file__)),
+}
+metrics = analyzer.build_metrics(
+    records,
+    derived,
+    prefix_preservation=prefix_preservation,
+    source_bindings=source_bindings,
+)
+exposure = analyzer.build_completion_exposure_ledger(
+    question_ids=plan["question_ids"],
+    pool=pool,
+    prior_exposure_path=analyzer.DEFAULT_PRIOR_EXPOSURE,
+    plan_path=analyzer.DEFAULT_PLAN,
+    pool_manifest_path=analyzer.DEFAULT_POOL_MANIFEST,
+    routing_path=analyzer.DEFAULT_ROUTING,
+    cumulative_records_path=analyzer.DEFAULT_RECORDS_OUTPUT,
+    cumulative_records_payload=records_payload,
+    contract_freeze_commit=contract_freeze_commit,
+)
+payloads = {
+    "records": (analyzer.DEFAULT_RECORDS_OUTPUT, records_payload),
+    "checks": (analyzer.DEFAULT_CHECKS, jsonl_file_bytes(checks)),
+    "derived_signatures": (
+        analyzer.DEFAULT_SIGNATURES,
+        jsonl_file_bytes(derived),
+    ),
+    "metrics": (analyzer.DEFAULT_METRICS, json_file_bytes(metrics)),
+    "report": (
+        analyzer.DEFAULT_REPORT,
+        analyzer.render_report(metrics).encode("utf-8"),
+    ),
+    "completion_exposure_ledger": (
+        analyzer.DEFAULT_EXPOSURE_OUTPUT,
+        json_file_bytes(exposure),
+    ),
+}
+run_manifest = analyzer.build_run_manifest(
+    source_bindings=source_bindings,
+    output_payloads=payloads,
+    contract_freeze_commit=contract_freeze_commit,
+)
+payloads["run_manifest"] = (
+    analyzer.DEFAULT_RUN_MANIFEST,
+    json_file_bytes(run_manifest),
+)
+for label, (path, expected_bytes) in payloads.items():
+    if path.read_bytes() != expected_bytes:
+        raise SystemExit(f"cumulative N300 {label} differs from reconstruction")
+
+contracted = metrics["signature_levels"]["contracted_semantic_dag"]
+decision = metrics["n1000_precommitted_decision"]
+profile = metrics["segment_record_profiles"]["cumulative_n300"]
+graph = metrics["graph_profiles"]["cumulative_n300"]
+if (
+    contracted["cumulative_n300"]["observed_family_count"] != 30
+    or contracted["cumulative_n300"]["singleton_question_mass"]
+    != 0.04666666666666667
+    or contracted["new_200_transfer_from_n100"]["transfer_rate"] != 0.915
+    or decision["decision"]
+    != "FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION"
+    or any(decision["trigger_values"].values())
+    or profile["uncertain_count"] != 94
+    or profile["other_question_count"] != 0
+    or graph["transitive_reduced_normalized_dependencies"]["branch_question_count"]
+    != 1
+    or graph["transitive_reduced_normalized_dependencies"]["join_question_count"]
+    != 6
+    or exposure["ai_question_structure_exploration"]["processed_count"] != 300
+    or exposure["unexposed_unallocated_reserve"]["count"] != 3066
+):
+    raise SystemExit("cumulative N300 core metrics or evidence boundary mismatch")
+print(
+    "records=300;checks=300_pass;contracted_families=30;"
+    "singleton_mass=0.04666666666666667;new200_transfer=0.915;"
+    "uncertain=94;OTHER=0;normalized_branch_join=1,6;"
+    "decision=FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_"
+    "REPRESENTATIVE_ENVIRONMENT_REALIZATION"
+)
+PY
+    )
+    n300_live_rc=$?
+    if [ "$n300_live_rc" -eq 0 ]; then
+        pass_check "AI_QUESTION_STRUCTURE_CUMULATIVE_N300_LIVE: $n300_live_output"
+    else
+        fail_check "AI_QUESTION_STRUCTURE_CUMULATIVE_N300_LIVE_FAILED: $n300_live_output"
     fi
 
     ir_reference_output=$("$PYTHON_BIN" -B - <<'PY' 2>&1

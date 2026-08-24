@@ -1,6 +1,6 @@
 # Hierarchical HybridQA data construction
 
-이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 versioned 연구 계약과 탐색 artifact이며 gold corpus가 아니다. 활성 연구 순서는 동결된 question-only AI extractor/normalizer로 N=100→300→조건부 1,000 구조 반복성과 포화도를 조사한 뒤, 후보 backbone과 조합 규칙을 만들고 대표 사례의 환경 실현·grounding·execution을 분리 평가하는 것이다. 인간 검토는 현재 필수 gate가 아니라 향후 주장에 필요한 경우의 선택적 표본 감사로 연기됐다.
+이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 versioned 연구 계약과 탐색 artifact이며 gold corpus가 아니다. 동결된 question-only AI extractor/normalizer의 누적 N=300 실험이 완료됐고, 사전 선언 판정에 따라 N=1,000 확장 대신 후보 backbone library와 대표 환경 실현 단계로 이동한다. 인간 검토는 현재 필수 gate가 아니라 향후 주장에 필요한 경우의 선택적 표본 감사로 연기됐다.
 
 ## 현재 상태
 
@@ -11,10 +11,10 @@
 - pinned official dev에서 30개 질문을 `annotation_schema_pilot`에 결정론적으로 할당했다. 역사 노출과 overlap은 0, override는 없고 train/dev/locked-eval은 각각 0이다.
 - 기존 30개 model-assisted record/90 coarse-medium-fine 표현, 90개 deterministic check, HTML packet 3개, v0.1 metric은 byte-preserved Phase B 선행 가능성 증거로 남긴다. 기존 packet은 현재 Phase A나 미래 blinded Phase B의 승인된 UI가 아니며 사용하지 않는다.
 - 이전의 reviewer×granularity 6파일/180판정 task는 철회됐다. 미래 Phase B는 Phase A2 뒤 동결한 6개 stratum에서 12문항×3 granularity×2 reviewer=72판정으로 시작하고, 사전 선언 trigger에 따라 90, 최대 108판정까지만 확장한다. 정확한 ID는 A2 normalization 전에는 배정하지 않는다.
-- 현재 결정은 `UNDECIDED_NEEDS_SCALE_EVIDENCE`이다. `exploration/ai_question_structure_scale_v0_1/run_001/`의 N=100 run은 100/100 structurally valid record를 만들었고, contracted semantic-DAG 기준 17 family, singleton question mass 0.09, first-30→new-70 transfer 0.7143을 기록했다. Uncertain은 29/100, provisional `OTHER` 사용은 0/100이다.
-- 이 N=100 결과의 evidence class는 `ai_exploratory_non_human_non_gold`이다. 하나의 동결된 AI extractor와 결정론적 normalizer 아래의 반복성·곡선 모양만 기술하며, semantic correctness, human agreement, universal saturation, common executable graph, grounding/execution, gold 또는 modeling readiness를 뜻하지 않는다.
-- 사후 partition-sensitivity audit에서 N=300 trigger를 만든 반복 신규 contracted family 5개가 모두 각자 한 producer partition 안에만 있었고 cross-partition 재현은 0개였다. 또한 raw branch/join 5/6은 transitive reduction 뒤 0/1이며, same-role contraction은 dominant family를 46개에서 62개로 키웠다. 따라서 `EXPAND_UNCHANGED_TO_N300`은 보수적 운영 판정으로 유지하되 semantic novelty 증명으로 읽지 않고 fine/contracted/partition 결과를 함께 본다.
-- 다음 작업은 기존 100개를 exact prefix로 보존하고 신규 200개를 더한 cumulative N=300 selection/question-only pool/exposure manifest를 별도 version으로 동결한 뒤, N=100의 prompt·schema·role set·normalizer를 바꾸지 않고 추출과 동일 지표 분석을 수행하는 것이다. 신규 committed position은 producer context별 연속 구간이 되지 않도록 분산 배정하고 partition sensitivity도 다시 계산한다.
+- 누적 N=300은 300/300 structurally valid record와 byte-exact N=100 prefix를 보존한다. Fine/contracted/topology/task family는 각각 39/30/10/70개이고, contracted singleton mass 0.0467, N100→new200 transfer 0.915, top-10 coverage 0.9133이다. Uncertain은 94/300, provisional `OTHER` 사용은 0/300이다.
+- 사전 선언된 N=1,000 trigger 네 개가 모두 false이므로 현재 운영 판정은 `FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION`이다. 마지막 50문항 novelty 0.10은 strict `>0.10`을 넘지 않았고, material cross-partition 신규 contracted family는 기준 2개에 못 미치는 1개다.
+- N=100과 N=300의 evidence class는 모두 `ai_exploratory_non_human_non_gold`이다. 하나의 동결된 AI extractor와 결정론적 normalizer 아래의 반복성·곡선 모양만 기술하며, semantic correctness, human agreement, universal saturation, common executable graph, grounding/execution, gold 또는 modeling readiness를 뜻하지 않는다.
+- 다음 작업은 누적 300개 환경을 보기 전에 30개 contracted family 전체와 fine/topology/task crosswalk를 보존하는 versioned candidate-library 계약을 먼저 동결하고, frequency/rarity-stratified 대표 ID를 결정론적으로 선택·commit하는 것이다. 그 뒤에만 question backbone과 분리된 environment-aware operator realization을 작성한다.
 - `diagnostics/ai_question_structure_pipeline_v0_1/`의 이전 two-reviewer shadow run은 byte-preserved direction-finding/engineering evidence다. 두 AI reviewer의 60개 구조화 record, 30개 blinded alignment, 20개 독립 topology-only record와 최종 분석은 검증됐지만 모두 `non_human_non_gold`이고 correctness나 human agreement 근거가 아니다.
 - v0.1 human question-only view·packet·validator도 byte-preserved됐으나 현재 active gate가 아니다. Human raw file/record, agreement observation, adjudication은 모두 0이며 인간 절차를 나중에 재개하더라도 별도 blinded alignment/adjudication 계약 전에는 agreement나 A2 readiness를 주장하지 않는다.
 - `locked_eval`은 prompt, rubric, schema, 연산자 어휘 조정에 사용하지 않는다.
@@ -112,7 +112,7 @@ python3 data_construction/tools/build_review_packet.py \
 
 ## 활성 scale-first question-only 구조 탐색
 
-`pilot/question_structure_study_plan_v0_2.json`과 `reports/research_sequencing_decision_v0_2.md`가 현재 활성 순서를 정의한다. N=100 계약은 질문마다 opaque ID와 exact question text만 입력하고, 하나의 primary AI semantic-backbone record를 만든 뒤 model output과 독립된 deterministic normalizer로 fine semantic DAG, same-role split/merge contracted DAG, topology shape, task signature를 계산한다.
+`pilot/question_structure_study_plan_v0_2.json`이 단계 순서를, `reports/research_sequencing_decision_v0_3.md`가 완료된 N=300 판정과 현재 exact task를 기록한다. 질문마다 opaque ID와 exact question text만 입력하고, 하나의 primary AI semantic-backbone record를 만든 뒤 model output과 독립된 deterministic normalizer로 fine semantic DAG, same-role split/merge contracted DAG, topology shape, task signature를 계산했다.
 
 완료된 `exploration/ai_question_structure_scale_v0_1/run_001/`의 기계적 결과는 다음과 같다.
 
@@ -126,7 +126,15 @@ python3 data_construction/tools/build_review_packet.py \
 
 Primary metric의 마지막 판정은 원래 동결한 규칙을 정확히 실행한 값이다. 별도 `partition_sensitivity_metrics_v0_1.json`과 `interpretive_addendum_v0_1.md`는 그 판정을 소급 변경하지 않으면서, 반복 신규 family 5개 중 cross-partition 지지를 받은 것은 0개이고 raw 5/6 branch/join이 normalized 0/1이라는 해석 제한을 추가한다. Contracted dominant family 62개는 fine dominant family 46개보다 넓으므로 contracted recurrence는 same-role split/merge 민감도의 상한으로 취급한다.
 
-이 결과는 N=100에서 universal saturation을 선언하지 않는다. 정확한 다음 작업은 cumulative N=300을 위한 새 versioned selection/pool/exposure manifest를 먼저 동결하는 것이다. 기존 100개는 exact prefix로 유지하고, 역사 노출 ID를 제외한 신규 200개를 추가하며, 처리된 모든 ID는 future unseen evaluation에서 제외한다. 그 뒤 N=100의 `primary_extraction_v0_1` prompt, semantic-backbone schema, provisional role set, deterministic contraction/signature 규칙을 변경하지 않고 positions 101–300을 생성·검증하고 동일 지표를 cumulative 300개에 다시 계산한다. 신규 position은 producer context 사이에 분산해 question order와 한 worker context가 공선이 되지 않게 하고, cross-partition recurrence와 raw/reduced topology sensitivity도 반복한다. 이 중 하나라도 extractor/normalizer 자체를 바꾸면 연속 확장이 아니라 새 experiment version이다.
+누적 N=300 산출물은 `exploration/ai_question_structure_scale_v0_1/cumulative_n300_v0_1/`에 있다. 300/300 record가 통과했고 N=100 bytes는 exact prefix다. Contracted family는 30개, singleton mass는 0.0467, N100→new200 transfer는 0.915, final-50 sequential novelty는 0.10이다. N=100에 없던 contracted family 13개 중 3개가 반복되고 2개가 cross-partition에서 반복되지만 material rule을 만족한 것은 1개다. 네 N=1,000 trigger가 모두 false이므로 같은 extractor로 N=1,000까지 확장하지 않는다.
+
+정확한 다음 작업은 environment/answer/execution 결과를 보기 전에 candidate-backbone library와 representative-sampling contract를 새 version으로 동결하는 것이다. 30개 contracted family를 사후 의미 병합 없이 모두 유지하고 frequency, segment/partition/block support, fine/topology/task crosswalk, member ID, canonical graph를 기록한다. Recurrent/doubleton/singleton evidence를 구분하고 frequency/rarity-stratified 대표 ID를 commit한 뒤에만 environment-aware realization을 시작한다. Fine/contracted/partition 차이는 항상 함께 보고하며, same-role contraction을 semantic equivalence로 취급하지 않는다.
+
+누적 산출물은 다음 명령으로 재검증할 수 있다.
+
+```sh
+.venv/bin/python data_construction/tools/analyze_ai_question_structure_cumulative_n300.py --validate-only
+```
 
 ## 보존된 v0.1 Phase A human question-only 계약
 

@@ -1,5 +1,15 @@
 # Data Construction Research Report
 
+## 2026-08-24 cumulative N=300 decision
+
+누적 question-only AI semantic-backbone 실험은 300/300 structurally valid record와 byte-exact N=100 prefix로 완료됐다. Fine/contracted/topology/task family는 각각 39/30/10/70개다. Contracted singleton question mass는 0.0467, top-10 coverage는 0.9133, N100→new200 transfer는 0.915이며, 마지막 50문항의 sequential novelty는 정확히 0.10이다. Uncertain은 94/300, `OTHER`는 0/300이다.
+
+Positions 101–300은 다섯 producer context에 round-robin으로 40개씩 배정됐다. N=100에 없던 contracted family 13개 중 3개가 새 200에서 반복되고, 2개가 두 개 이상의 새 partition에 걸쳐 반복되며, 사전 선언한 material cross-partition rule을 충족한 family는 1개다. Transitive-reduced graph 기준 branch/join은 1/6이고 raw dependency 기준은 6/11이다.
+
+N=300 output 전에 동결한 N=1,000 trigger 네 개는 모두 false다. Singleton mass와 `OTHER` rate는 0.05를 넘지 않고, tail novelty는 strict `>0.10`에 대해 0.10이며, material cross-partition family는 최소 2개에 못 미치는 1개다. 따라서 운영 판정은 `FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION`이다. 이는 universal saturation이나 semantic correctness가 아니라 같은 extractor로 700문항을 더 처리하는 대신 다음 층을 시험한다는 순서 결정이다.
+
+정확한 다음 작업은 environment, answer, execution outcome을 보기 전에 30개 contracted family 전체와 fine/topology/task crosswalk, evidence strength, member/support 정보를 보존하는 candidate-library 및 representative-sampling 계약을 새 version으로 동결하는 것이다. Frequency/rarity-stratified 대표 ID를 먼저 commit한 뒤 question backbone과 environment-aware operator realization을 분리해 작성한다. Human evidence는 계속 0이며 현재 gate가 아니다.
+
 ## 2026-08-24 scale-first N=100 result
 
 활성 연구 순서는 question-only AI semantic-backbone의 누적 규모 탐색으로 바뀌었다. 보존된 v0.1 human-first lane은 삭제·완료된 것이 아니라 deferred 상태이고 human evidence는 계속 0건이다. 현재 결정은 `UNDECIDED_NEEDS_SCALE_EVIDENCE`이며, N=100→300→조건부 1,000에서 반복 구조와 희귀화 곡선을 확인한 뒤 후보 backbone/조합 규칙과 대표 환경 실현으로 이동한다.

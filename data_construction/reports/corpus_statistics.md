@@ -2,21 +2,21 @@
 
 ## 2026-08-24 scale-first exploration addendum
 
-Resolved annotation corpus는 계속 0건이다. 새 N=100 artifact는 corpus가 아니라 `ai_exploratory_non_human_non_gold` question-only 구조 탐색 record 100개다. 모든 record는 구조 검사를 통과했지만 semantic correctness나 human agreement 검사를 통과했다는 뜻이 아니다.
+Resolved annotation corpus는 계속 0건이다. 누적 N=300 artifact는 corpus가 아니라 `ai_exploratory_non_human_non_gold` question-only 구조 탐색 record 300개다. 모든 record는 구조 검사를 통과했지만 semantic correctness나 human agreement 검사를 통과했다는 뜻이 아니다.
 
 | 항목 | 현재 값 |
 | --- | ---: |
-| N=100 AI exploratory record | 100 structurally valid |
-| Fine / contracted / topology / task family | 23 / 17 / 6 / 38 |
-| Contracted singleton mass | 0.09 |
-| First-30→new-70 contracted transfer | 50/70 (0.7142857) |
-| Uncertain / `OTHER` question | 29 / 0 |
-| Recurring-new contracted family | 5 — 모두 single-partition support |
-| Cross-partition recurring-new family | 0 |
+| N=300 AI exploratory record | 300 structurally valid |
+| Fine / contracted / topology / task family | 39 / 30 / 10 / 70 |
+| Contracted singleton mass | 0.0467 |
+| N100→new200 contracted transfer | 183/200 (0.915) |
+| Uncertain / `OTHER` question | 94 / 0 |
+| N100-unseen recurring contracted family | 3 |
+| Cross-partition recurring / material family | 2 / 1 |
 | Human raw/review/agreement/adjudication | 0 / 0 / 0 / 0 |
 | Resolved corpus record | 0 — NOT_BUILT |
 
-AI가 처리한 100개 ID는 future unseen-evaluation claim에서 제외됐고, N=100 선택 뒤 3,266 official-dev questions가 unexposed/unallocated reserve로 남았다. 사전 선언 판정은 `EXPAND_UNCHANGED_TO_N300`이지만, partition confound 때문에 이 값은 semantic novelty confirmation이 아니라 보수적 확장 결정이다. 다음 N=300 selection은 current 100 exact prefix, 신규 200, unchanged extractor/normalizer, producer-context 분산 routing을 먼저 version/freeze한다.
+AI가 처리한 300개 ID는 future unseen-evaluation claim에서 제외됐고, N=300 선택 뒤 3,066 official-dev questions가 unexposed/unallocated reserve로 남았다. 네 N=1,000 trigger가 모두 false여서 판정은 `FREEZE_CANDIDATE_BACKBONE_LIBRARY_AND_BEGIN_REPRESENTATIVE_ENVIRONMENT_REALIZATION`이다. 다음 작업은 environment를 보기 전에 30개 contracted family library와 frequency/rarity representative selection을 version/freeze하는 것이다.
 
 ## 2026-08-23 question-first sequencing addendum
 
