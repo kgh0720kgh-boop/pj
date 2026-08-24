@@ -31,9 +31,10 @@ Study status:
 
 Synchronization state: `SYNCED_TO_REMOTE`.
 
-Handoff readiness: Not scientifically ready because operator-equivalence
-normalization has not started. Git synchronization is complete: local `main`
-and `origin/main` resolve to the same final synchronization-status commit.
+Handoff readiness: Not ready. The remaining blocker is scientific:
+operator-equivalence normalization has not started. Git synchronization is
+complete; local `main` and `origin/main` resolve to the same final
+synchronization-status commit after the final push.
 
 ## Authoritative status
 
