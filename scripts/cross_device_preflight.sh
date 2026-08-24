@@ -77,6 +77,7 @@ for required_file in \
     data_construction/pilot/README.md \
     data_construction/pilot/questions.jsonl \
     data_construction/pilot/question_structure_study_plan_v0_1.json \
+    data_construction/pilot/question_structure_study_plan_v0_2.json \
     data_construction/pilot/question_only_semantic_views_v0_1.jsonl \
     data_construction/pilot/question_only_semantic_views_manifest_v0_1.json \
     data_construction/pilot/question_structure_review_packets/question_structure_calibration_batch_1_v0_1.html \
@@ -109,6 +110,24 @@ for required_file in \
     data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/analysis/final_report_v0_1.md \
     data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/analysis/interpretive_addendum_v0_1.md \
     data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/run_manifest.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/README.md \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/exploration_plan_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/semantic_backbone_record_schema_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/prompts/primary_extraction_v0_1.md \
+    data_construction/exploration/ai_question_structure_scale_v0_1/pool/question_only_views_n100.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/run_001/parts/partition_01.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/run_001/parts/partition_02.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/run_001/parts/partition_03.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/run_001/records.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/run_001/checks.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/derived_signatures_v0_1.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/structural_saturation_metrics_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/structural_saturation_report_v0_1.md \
+    data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/partition_sensitivity_metrics_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/interpretive_addendum_v0_1.md \
+    data_construction/exploration/ai_question_structure_scale_v0_1/run_001/run_manifest.json \
+    data_construction/manifests/ai_question_structure_exploratory_pool_v0_1.json \
+    data_construction/manifests/question_exposure_ledger_v0_1.json \
     data_construction/pilot/granularity_representation_plan_v0_1.json \
     data_construction/pilot/granularity_input_views.jsonl \
     data_construction/pilot/granularity_input_views_manifest_v0_1.json \
@@ -141,6 +160,7 @@ for required_file in \
     data_construction/reports/corpus_statistics.md \
     data_construction/reports/DATA_CONSTRUCTION_RESEARCH_REPORT.md \
     data_construction/reports/research_sequencing_decision_v0_1.md \
+    data_construction/reports/research_sequencing_decision_v0_2.md \
     data_construction/reports/operator_granularity_metrics_v0_1.json \
     data_construction/tools/_common.py \
     data_construction/tools/build_historical_manifest.py \
@@ -152,6 +172,9 @@ for required_file in \
     data_construction/tools/validate_annotation.py \
     data_construction/tools/validate_question_structure_annotations.py \
     data_construction/tools/run_ai_question_structure_diagnostic.py \
+    data_construction/tools/build_ai_question_structure_exploration_pool.py \
+    data_construction/tools/run_ai_question_structure_scale_exploration.py \
+    data_construction/tools/audit_ai_question_structure_partition_sensitivity.py \
     data_construction/tools/validate_ir_v0_2_reference.py \
     data_construction/tools/build_review_packet.py \
     data_construction/tools/build_granularity_views.py \
@@ -162,6 +185,8 @@ for required_file in \
     data_construction/tools/compute_annotation_stats.py \
     tests/test_data_construction_tools.py \
     tests/test_ir_v0_2_reference.py \
+    tests/test_question_structure_scale_exploration.py \
+    tests/test_question_structure_partition_sensitivity.py \
     historical/README.md \
     historical/ir_v0_2/recovery_manifest_v0_1.json \
     historical/ir_v0_2/ir/spec_v0_2.md \
@@ -223,6 +248,7 @@ paths = [
     Path("data_construction/manifests/split_manifest_v0_1.json"),
     Path("historical/ir_v0_2/recovery_manifest_v0_1.json"),
     Path("data_construction/pilot/question_structure_study_plan_v0_1.json"),
+    Path("data_construction/pilot/question_structure_study_plan_v0_2.json"),
     Path("data_construction/pilot/question_only_semantic_views_manifest_v0_1.json"),
     Path("data_construction/pilot/question_structure_review_packets/question_structure_calibration_batch_1_v0_1_manifest.json"),
     Path("data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/diagnostic_plan_v0_1.json"),
@@ -232,6 +258,20 @@ paths = [
     Path("data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/independent_topology_schema_v0_1.json"),
     Path("data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/analysis/metrics_v0_1.json"),
     Path("data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/run_manifest.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/exploration_plan_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/semantic_backbone_record_schema_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/pool/question_only_views_n100.jsonl"),
+    Path("data_construction/manifests/ai_question_structure_exploratory_pool_v0_1.json"),
+    Path("data_construction/manifests/question_exposure_ledger_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/run_001/parts/partition_01.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/run_001/parts/partition_02.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/run_001/parts/partition_03.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/run_001/records.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/run_001/checks.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/derived_signatures_v0_1.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/structural_saturation_metrics_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/partition_sensitivity_metrics_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/run_001/run_manifest.json"),
     Path("data_construction/pilot/granularity_representation_plan_v0_1.json"),
     Path("data_construction/pilot/granularity_input_views_manifest_v0_1.json"),
     Path("data_construction/reports/operator_granularity_metrics_v0_1.json"),
@@ -244,7 +284,14 @@ paths.extend(sorted(Path("data_construction/operator_design").glob("*.json")))
 errors = []
 for path in paths:
     try:
-        json.loads(path.read_text(encoding="utf-8"))
+        if path.suffix == ".jsonl":
+            for line_number, line in enumerate(
+                path.read_text(encoding="utf-8").splitlines(), start=1
+            ):
+                if line.strip():
+                    json.loads(line)
+        else:
+            json.loads(path.read_text(encoding="utf-8"))
     except Exception as exc:
         errors.append(f"{path}: {exc}")
 if errors:
@@ -816,6 +863,7 @@ if state.get("current_scientific_decision") == "DATA_SOURCE_BLOCKED":
 elif state.get("current_scientific_decision") in {
     "DATA_SOURCE_READY_FOR_ANNOTATION_PILOT",
     "UNDECIDED_NEEDS_ANNOTATION_EVIDENCE",
+    "UNDECIDED_NEEDS_SCALE_EVIDENCE",
 }:
     if history_complete is not True or historical_shape != "strict_builder":
         errors.append("pilot-ready state requires a complete strict historical audit")
@@ -1087,6 +1135,210 @@ elif state.get("current_scientific_decision") in {
                 != diagnostic_metrics.get("canonical_research_status")
             ):
                 errors.append("AI diagnostic manifest status or evidence boundary mismatch")
+    elif state.get("current_scientific_decision") == "UNDECIDED_NEEDS_SCALE_EVIDENCE":
+        if state.get("active_phase") != "phase_2a_ai_scale_first_question_structure_exploration":
+            errors.append("scale-first state has an unexpected active_phase")
+        if state.get("scientific_decision_status") != (
+            "n100_complete_n300_expansion_required_human_validation_deferred"
+        ):
+            errors.append("scale-first state has an unexpected scientific_decision_status")
+        if "N300_SCALE_EXPANSION_NOT_PERFORMED" not in state_gates:
+            errors.append("scale-first state lacks N300_SCALE_EXPANSION_NOT_PERFORMED")
+        if "QUESTION_ONLY_CALIBRATION_NOT_PERFORMED" in state_gates:
+            errors.append("scale-first state retains the deferred human-calibration gate")
+
+        calibration = state.get("artifact_status", {}).get(
+            "question_only_semantic_calibration", {}
+        )
+        expected_deferred_calibration = {
+            "status": "phase_a0_materialized_human_collection_deferred",
+            "active_gate": False,
+            "workflow_disposition": "preserved_deferred_not_active_gate",
+            "human_raw_artifact_count": 0,
+            "human_raw_record_count": 0,
+            "semantic_agreement_claimed": False,
+            "held_out_confirmation_complete": False,
+        }
+        for key, expected_value in expected_deferred_calibration.items():
+            if calibration.get(key) != expected_value:
+                errors.append(f"deferred question-only calibration state mismatch for {key}")
+
+        expected_calibration_artifacts = {
+            "study_plan": "data_construction/pilot/question_structure_study_plan_v0_1.json",
+            "sequencing_decision": (
+                "data_construction/reports/research_sequencing_decision_v0_1.md"
+            ),
+            "question_views": (
+                "data_construction/pilot/question_only_semantic_views_v0_1.jsonl"
+            ),
+            "question_views_manifest": (
+                "data_construction/pilot/question_only_semantic_views_manifest_v0_1.json"
+            ),
+            "question_view_schema": (
+                "data_construction/schemas/question_only_semantic_view_v0_1.json"
+            ),
+            "raw_annotation_schema": (
+                "data_construction/schemas/question_structure_annotation_v0_1.json"
+            ),
+            "active_packet": (
+                "data_construction/pilot/question_structure_review_packets/"
+                "question_structure_calibration_batch_1_v0_1.html"
+            ),
+            "active_packet_manifest": (
+                "data_construction/pilot/question_structure_review_packets/"
+                "question_structure_calibration_batch_1_v0_1_manifest.json"
+            ),
+        }
+        calibration_artifacts = calibration.get("artifacts", {})
+        if not isinstance(calibration_artifacts, dict) or set(calibration_artifacts) != set(
+            expected_calibration_artifacts
+        ):
+            errors.append("deferred question-only calibration artifact inventory mismatch")
+            calibration_artifacts = (
+                calibration_artifacts if isinstance(calibration_artifacts, dict) else {}
+            )
+        for label, expected_path in expected_calibration_artifacts.items():
+            reference = calibration_artifacts.get(label)
+            path = Path(expected_path)
+            if not isinstance(reference, dict) or reference.get("path") != expected_path:
+                errors.append(f"deferred question-only calibration lacks artifact {label}")
+            elif not path.is_file():
+                errors.append(f"deferred question-only calibration artifact is missing: {label}")
+            elif reference.get("sha256") != hashlib.sha256(path.read_bytes()).hexdigest():
+                errors.append(f"deferred question-only calibration artifact hash mismatch: {label}")
+
+        scale = state.get("artifact_status", {}).get(
+            "ai_question_structure_scale_exploration", {}
+        )
+        expected_scale_summary = {
+            "status": "n100_complete_n300_expansion_required_partition_sensitivity_audited",
+            "active_gate": True,
+            "run_id": "ai_question_structure_scale_v0_1_run_001",
+            "evidence_class": "ai_exploratory_non_human_non_gold",
+            "contract_freeze_commit": "5adb85277928676eb82fa5189390c442fd6c70bc",
+            "question_count": 100,
+            "prefix_contract_development_count": 30,
+            "new_expansion_count": 70,
+            "valid_record_count": 100,
+            "invalid_record_count": 0,
+            "contracted_family_count": 17,
+            "contracted_singleton_question_mass": 0.09,
+            "contracted_new70_transfer_rate": 0.7142857142857143,
+            "uncertain_record_count": 29,
+            "other_question_count": 0,
+            "precommitted_decision": "EXPAND_UNCHANGED_TO_N300",
+            "decision_trigger": (
+                "at_least_2_new_contracted_families_each_recur_at_least_twice_in_new70"
+            ),
+            "ai_exposed_question_count": 100,
+            "unexposed_unallocated_reserve_count": 3266,
+            "human_evidence_count": 0,
+            "gold_claimed": False,
+            "semantic_correctness_claimed": False,
+            "human_agreement_claimed": False,
+            "universal_saturation_claimed": False,
+            "common_executable_graph_claimed": False,
+            "grounding_or_execution_evaluated": False,
+            "modeling_ready_claimed": False,
+        }
+        for key, expected_value in expected_scale_summary.items():
+            if scale.get(key) != expected_value:
+                errors.append(f"AI scale-exploration state mismatch for {key}")
+
+        expected_partition_sensitivity = {
+            "status": "post_hoc_audit_complete",
+            "recurring_new_contracted_family_count": 5,
+            "cross_partition_recurring_new_contracted_family_count": 0,
+            "partition_confounding_detected": True,
+            "raw_branch_question_count": 5,
+            "reduced_branch_question_count": 0,
+            "raw_join_question_count": 6,
+            "reduced_join_question_count": 1,
+            "operational_decision_changed": False,
+        }
+        if scale.get("partition_sensitivity") != expected_partition_sensitivity:
+            errors.append("AI scale-exploration partition-sensitivity summary mismatch")
+
+        expected_scale_artifacts = {
+            "study_plan": "data_construction/pilot/question_structure_study_plan_v0_2.json",
+            "sequencing_decision": (
+                "data_construction/reports/research_sequencing_decision_v0_2.md"
+            ),
+            "exploration_plan": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "contracts/exploration_plan_v0_1.json"
+            ),
+            "record_schema": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "contracts/semantic_backbone_record_schema_v0_1.json"
+            ),
+            "prompt": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "prompts/primary_extraction_v0_1.md"
+            ),
+            "pool_views": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "pool/question_only_views_n100.jsonl"
+            ),
+            "pool_manifest": (
+                "data_construction/manifests/"
+                "ai_question_structure_exploratory_pool_v0_1.json"
+            ),
+            "records": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "run_001/records.jsonl"
+            ),
+            "checks": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "run_001/checks.jsonl"
+            ),
+            "derived_signatures": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "run_001/analysis/derived_signatures_v0_1.jsonl"
+            ),
+            "metrics": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "run_001/analysis/structural_saturation_metrics_v0_1.json"
+            ),
+            "generated_report": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "run_001/analysis/structural_saturation_report_v0_1.md"
+            ),
+            "exposure_ledger": (
+                "data_construction/manifests/question_exposure_ledger_v0_1.json"
+            ),
+            "run_manifest": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "run_001/run_manifest.json"
+            ),
+            "partition_sensitivity_tool": (
+                "data_construction/tools/"
+                "audit_ai_question_structure_partition_sensitivity.py"
+            ),
+            "partition_sensitivity_metrics": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "run_001/analysis/partition_sensitivity_metrics_v0_1.json"
+            ),
+            "interpretive_addendum": (
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "run_001/analysis/interpretive_addendum_v0_1.md"
+            ),
+        }
+        scale_artifacts = scale.get("artifacts", {})
+        if not isinstance(scale_artifacts, dict) or set(scale_artifacts) != set(
+            expected_scale_artifacts
+        ):
+            errors.append("AI scale-exploration artifact inventory mismatch")
+            scale_artifacts = scale_artifacts if isinstance(scale_artifacts, dict) else {}
+        for label, expected_path in expected_scale_artifacts.items():
+            reference = scale_artifacts.get(label)
+            path = Path(expected_path)
+            if not isinstance(reference, dict) or reference.get("path") != expected_path:
+                errors.append(f"AI scale-exploration state lacks artifact {label}")
+            elif not path.is_file():
+                errors.append(f"AI scale-exploration artifact is missing: {label}")
+            elif reference.get("sha256") != hashlib.sha256(path.read_bytes()).hexdigest():
+                errors.append(f"AI scale-exploration artifact hash mismatch: {label}")
 else:
     errors.append("project_state has an unsupported current scientific decision")
 
@@ -1575,6 +1827,197 @@ PY
         pass_check "AI_QUESTION_STRUCTURE_PIPELINE_DIAGNOSTIC: $ai_diagnostic_output"
     else
         fail_check "AI_QUESTION_STRUCTURE_PIPELINE_DIAGNOSTIC_FAILED: $ai_diagnostic_output"
+    fi
+
+    ai_scale_output=$("$PYTHON_BIN" -B - <<'PY' 2>&1
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path("data_construction/tools").resolve()))
+from _common import iter_json_records, json_file_bytes, jsonl_file_bytes
+import run_ai_question_structure_scale_exploration as analyzer
+
+base = Path("data_construction/exploration/ai_question_structure_scale_v0_1")
+run = base / "run_001"
+records_path = run / "records.jsonl"
+checks_path = run / "checks.jsonl"
+signatures_path = run / "analysis/derived_signatures_v0_1.jsonl"
+metrics_path = run / "analysis/structural_saturation_metrics_v0_1.json"
+report_path = run / "analysis/structural_saturation_report_v0_1.md"
+exposure_path = Path("data_construction/manifests/question_exposure_ledger_v0_1.json")
+manifest_path = run / "run_manifest.json"
+
+plan, views, pool = analyzer.validate_contract()
+records = []
+partition_counts = {}
+for partition in plan["partitions"]:
+    part_path = Path(partition["output"])
+    part_records = list(iter_json_records(part_path))
+    expected_count = partition["expected_record_count"]
+    expected_ids = plan["question_ids"][
+        partition["committed_order_start"] - 1 : partition["committed_order_end"]
+    ]
+    if len(part_records) != expected_count:
+        raise SystemExit(
+            f"{partition['producer_partition']} count mismatch: "
+            f"expected {expected_count}, observed {len(part_records)}"
+        )
+    if [record.get("question_id") for record in part_records] != expected_ids:
+        raise SystemExit(f"{partition['producer_partition']} committed-order mismatch")
+    if any(
+        record.get("producer_partition") != partition["producer_partition"]
+        for record in part_records
+    ):
+        raise SystemExit(f"{partition['producer_partition']} producer binding mismatch")
+    partition_counts[partition["producer_partition"]] = len(part_records)
+    records.extend(part_records)
+
+checks, errors = analyzer.validate_records(records, views)
+if errors:
+    raise SystemExit("live N=100 validation failed: " + " | ".join(errors))
+if len(checks) != 100 or any(check.get("status") != "pass" for check in checks):
+    raise SystemExit("live N=100 checks are not exactly 100 passing records")
+derived = [analyzer.signature_bundle(record) for record in records]
+metrics = analyzer.build_metrics(records, derived)
+exposure = analyzer.build_exposure_ledger(plan, pool, records)
+
+expected_payloads = {
+    "records": (jsonl_file_bytes(records), records_path),
+    "checks": (jsonl_file_bytes(checks), checks_path),
+    "derived signatures": (jsonl_file_bytes(derived), signatures_path),
+    "metrics": (json_file_bytes(metrics), metrics_path),
+    "report": (analyzer.render_report(metrics).encode("utf-8"), report_path),
+    "exposure ledger": (json_file_bytes(exposure), exposure_path),
+}
+for label, (reconstructed, committed_path) in expected_payloads.items():
+    if reconstructed != committed_path.read_bytes():
+        raise SystemExit(f"{label} differs from frozen-analyzer reconstruction")
+
+manifest = analyzer.build_run_manifest(
+    plan=plan,
+    records_path=records_path,
+    checks_path=checks_path,
+    signatures_path=signatures_path,
+    metrics_path=metrics_path,
+    report_path=report_path,
+    exposure_path=exposure_path,
+)
+if json_file_bytes(manifest) != manifest_path.read_bytes():
+    raise SystemExit("run manifest differs from frozen-analyzer reconstruction")
+
+contracted = metrics["family_metrics"]["contracted_semantic_dag"]
+validation = metrics["validation"]
+decision = metrics["n100_precommitted_decision"]
+last_blocks = contracted["block_novelty_committed_order"][-2:]
+if (
+    validation != {
+        "valid_record_count": 100,
+        "invalid_record_count": 0,
+        "human_evidence_count": 0,
+        "gold_claimed": False,
+        "semantic_correctness_evaluated": False,
+        "grounding_or_execution_evaluated": False,
+    }
+    or contracted["observed_family_count"] != 17
+    or contracted["singleton_question_mass"] != 0.09
+    or contracted["new_70_transfer"]["transfer_rate"] != 0.7142857142857143
+    or [block["question_novelty_rate"] for block in last_blocks] != [0.3, 0.0]
+    or metrics["uncertainty"]["question_count"] != 29
+    or metrics["provisional_role_escape_hatch"]["other_question_count"] != 0
+    or decision["recurring_new_contracted_family_count"] != 5
+    or decision["decision"] != "EXPAND_UNCHANGED_TO_N300"
+    or exposure["ai_question_structure_exploration"]["count"] != 100
+    or exposure["unexposed_unallocated_reserve"]["count"] != 3266
+):
+    raise SystemExit("live N=100 core scale metrics or evidence boundary mismatch")
+
+print(
+    "records=100;checks=100_pass;signatures=100;families=17;"
+    "singleton_mass=0.09;new70_transfer=0.7142857142857143;"
+    "final_novelty=0.3,0.0;uncertain=29;OTHER=0;"
+    "decision=EXPAND_UNCHANGED_TO_N300;"
+    f"partitions={partition_counts}"
+)
+PY
+    )
+    ai_scale_rc=$?
+    if [ "$ai_scale_rc" -eq 0 ]; then
+        pass_check "AI_QUESTION_STRUCTURE_SCALE_EXPLORATION_LIVE: $ai_scale_output"
+    else
+        fail_check "AI_QUESTION_STRUCTURE_SCALE_EXPLORATION_LIVE_FAILED: $ai_scale_output"
+    fi
+
+    sensitivity_cli_output=$("$PYTHON_BIN" -B \
+        data_construction/tools/audit_ai_question_structure_partition_sensitivity.py \
+        2>&1)
+    sensitivity_cli_rc=$?
+    if [ "$sensitivity_cli_rc" -eq 0 ]; then
+        pass_check "AI_SCALE_PARTITION_SENSITIVITY_CLI: $sensitivity_cli_output"
+    else
+        fail_check "AI_SCALE_PARTITION_SENSITIVITY_CLI_FAILED: $sensitivity_cli_output"
+    fi
+
+    sensitivity_live_output=$("$PYTHON_BIN" -B - <<'PY' 2>&1
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path("data_construction/tools").resolve()))
+from _common import iter_json_records, json_file_bytes, read_json
+import audit_ai_question_structure_partition_sensitivity as audit
+import run_ai_question_structure_scale_exploration as primary
+
+base = Path("data_construction/exploration/ai_question_structure_scale_v0_1/run_001")
+records_path = base / "records.jsonl"
+primary_metrics_path = base / "analysis/structural_saturation_metrics_v0_1.json"
+metrics_path = base / "analysis/partition_sensitivity_metrics_v0_1.json"
+addendum_path = base / "analysis/interpretive_addendum_v0_1.md"
+records = list(iter_json_records(records_path))
+primary_metrics = read_json(primary_metrics_path)
+source_bindings = {
+    "records": audit._input_binding(records_path, record_count=len(records)),
+    "primary_metrics": audit._input_binding(primary_metrics_path),
+    "primary_canonicalizer": audit._input_binding(Path(primary.__file__)),
+    "audit_implementation": audit._input_binding(Path(audit.__file__)),
+}
+metrics = audit.build_metrics(
+    records,
+    primary_metrics,
+    prefix_count=30,
+    source_bindings=source_bindings,
+)
+if json_file_bytes(metrics) != metrics_path.read_bytes():
+    raise SystemExit("partition-sensitivity metrics differ from function reconstruction")
+if audit.render_addendum(metrics).encode("utf-8") != addendum_path.read_bytes():
+    raise SystemExit("partition-sensitivity addendum differs from function reconstruction")
+
+recurring = metrics["recurring_new_contracted_family_partition_sensitivity"]
+profile = metrics["raw_vs_transitive_reduced_graph_profile"]
+raw = profile["raw_declared_dependencies"]
+reduced = profile["transitive_reduced_dependencies"]
+decision = metrics["primary_decision_preservation"]
+if (
+    recurring["recurring_new_contracted_family_count"] != 5
+    or recurring["cross_partition_recurring_new_contracted_family_count"] != 0
+    or recurring["all_recurring_new_contracted_families_are_partition_local"] is not True
+    or raw["branch_question_count"] != 5
+    or reduced["branch_question_count"] != 0
+    or raw["join_question_count"] != 6
+    or reduced["join_question_count"] != 1
+    or decision["precommitted_decision"] != "EXPAND_UNCHANGED_TO_N300"
+    or decision["changed_by_post_hoc_audit"] is not False
+):
+    raise SystemExit("partition-sensitivity core audit values mismatch")
+print(
+    "recurring_new=5;cross_partition=0;branch_raw_to_reduced=5_to_0;"
+    "join_raw_to_reduced=6_to_1;decision_unchanged=true"
+)
+PY
+    )
+    sensitivity_live_rc=$?
+    if [ "$sensitivity_live_rc" -eq 0 ]; then
+        pass_check "AI_SCALE_PARTITION_SENSITIVITY_LIVE: $sensitivity_live_output"
+    else
+        fail_check "AI_SCALE_PARTITION_SENSITIVITY_LIVE_FAILED: $sensitivity_live_output"
     fi
 
     ir_reference_output=$("$PYTHON_BIN" -B - <<'PY' 2>&1

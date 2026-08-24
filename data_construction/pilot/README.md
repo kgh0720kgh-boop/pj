@@ -1,13 +1,14 @@
 # Pilot artifacts
 
-이 디렉터리는 30-question `annotation_schema_pilot`의 question-only Phase A artifact와 byte-preserved operator-granularity Phase B 선행 증거를 함께 보존한다. 현재 순서는 raw open coding → 별도 blinded alignment/freeze → held-out confirmation → operator granularity → grounding/execution이다. Packet이나 schema의 존재는 human evidence, semantic confirmation, gold를 뜻하지 않는다.
+이 디렉터리는 30-question `annotation_schema_pilot`의 v0.1 human question-only artifact와 byte-preserved operator-granularity Phase B 선행 증거를 함께 보존한다. 이 human-first lane은 현재 deferred이며 active gate가 아니다. 활성 순서는 `question_structure_study_plan_v0_2.json`에 따라 scale-first question-only AI 탐색 N=100→300→조건부 1,000, 후보 backbone 구성, 대표 환경 실현·grounding·execution으로 진행된다. Packet이나 schema의 존재는 human evidence, semantic confirmation, gold를 뜻하지 않는다.
 
 ## 현재 artifact
 
 - `questions.jsonl`: pinned official dev에서 결정론적으로 할당된 30개 질문. 역사 노출 overlap과 diagnostic override는 0이다.
-- `question_structure_study_plan_v0_1.json`: 세 개의 committed-order 10문항 batch, Phase A stopping branch, Phase B 72→90→108 sampling rule을 고정한 machine-readable plan.
+- `question_structure_study_plan_v0_1.json`: 세 개의 committed-order 10문항 batch, Phase A stopping branch, Phase B 72→90→108 sampling rule을 고정한 보존된 human-first plan.
+- `question_structure_study_plan_v0_2.json`: 동결된 question-only AI extractor와 deterministic normalizer를 이용한 누적 30→100→300→조건부 1,000 scale-first 활성 plan. v0.1 bytes나 human evidence 상태를 변경하지 않는다.
 - `question_only_semantic_views_v0_1.jsonl`과 manifest: opaque question ID와 exact question text만 담는 committed 30개 projection. 환경·answer·trace·proposal을 포함하지 않는다.
-- `question_structure_review_packets/`: active batch의 committed 10-question blank open-coding packet과 manifest. Scaffold는 answer request, candidate structure, required information unit, dependency를 묻지만, 그 scaffold 자체가 검증할 구조 가설이며 closed semantic/operator enum을 제공하지 않는다. Packet-only 검사는 통과했고 human annotation은 0이다.
+- `question_structure_review_packets/`: 보존된 v0.1 batch의 committed 10-question blank open-coding packet과 manifest. Scaffold는 answer request, candidate structure, required information unit, dependency를 묻지만, 그 scaffold 자체가 검증할 구조 가설이며 closed semantic/operator enum을 제공하지 않는다. Packet-only 검사는 통과했고 human annotation은 0이다.
 - `granularity_input_views.jsonl`과 `granularity_input_views_manifest_v0_1.json`: 질문별 question view와 leakage-reduced operator view. 표의 identity/title/section, column label·index·link capability, 환경 capability만 보이며 row/cell 값, linked-document ID/text, answer, trace, grounding은 보이지 않는다.
 - `granularity_representation_plan_v0_1.json`: 30개 질문과 coarse/medium/fine 후보를 담은 structured proposal plan.
 - `granularity_representations.jsonl`: plan을 live view와 세 vocabulary에 결속한 30개 record, 90개 candidate representation.
@@ -16,9 +17,9 @@
 
 현재 proposal provenance는 `model_id=codex_gpt-5`를 기록한다. Exact model revision과 raw model output은 인터페이스에서 노출되지 않았고 seed도 지원되지 않아 각각 `revision_not_exposed`, `not_exposed_by_interface`, `not_supported`로 기록했다. 따라서 structured artifact는 hash-bound이지만 original generation의 exact replay는 주장할 수 없다.
 
-## 현재 Phase A raw observation 계약
+## 보존된 v0.1 Phase A raw observation 계약
 
-Question-only packet과 raw validator는 commit·검증됐다. 이제 연구자가 수동으로 승인한 서로 다른 실제 사람 2명은 상호 상담이나 외부 lookup 없이 committed order의 첫 10문항을 독립 작성한다. 각 reviewer가 immutable 10-record 파일 하나를 제출하므로 총 2파일/20 raw record다. Reviewer identity, independence, approval, prior-exposure attestation은 procedural/manual이며 machine-authenticated가 아니다. 한 HTML 안의 batch-wide lock은 정상 UI staging일 뿐 source/DOM inspection에 맞선 server-enforced blinding이 아니며, key 기반 금지 검사는 허용 free-text의 의미 contamination까지 탐지하지 못한다.
+Question-only packet과 raw validator는 commit·검증됐지만 사람 수집은 시작되지 않았고 현재 scale-first 작업의 gate가 아니다. 이 lane을 나중에 재개한다면 연구자가 수동으로 승인한 서로 다른 실제 사람 2명이 상호 상담이나 외부 lookup 없이 committed order의 첫 10문항을 독립 작성한다. 각 reviewer가 immutable 10-record 파일 하나를 제출하므로 총 2파일/20 raw record다. Reviewer identity, independence, approval, prior-exposure attestation은 procedural/manual이며 machine-authenticated가 아니다. 한 HTML 안의 batch-wide lock은 정상 UI staging일 뿐 source/DOM inspection에 맞선 server-enforced blinding이 아니며, key 기반 금지 검사는 허용 free-text의 의미 contamination까지 탐지하지 못한다.
 
 질문 1에 관한 앞선 대화는 protocol 분석이고 human evidence는 0이다. Environment view, candidate graph, model rationale, answer, trace 등 later-layer material을 본 사람은 영향받은 exposure-naive 작업에서 제외한다. Raw record가 schema-valid·hash-bound·substantive여도 이는 observation integrity만 뜻한다. Canonical human semantic-unit normalization, reviewer alignment, agreement score, adjudication은 아직 구현되지 않았으며, 두 human raw set 뒤 별도 versioned blind contract와 comparator를 결과 해석 전에 동결해야 한다. `../diagnostics/ai_question_structure_pipeline_v0_1/`의 AI-only alignment와 topology rehearsal은 이 human/scientific gate를 충족하지 않는다.
 
@@ -40,8 +41,12 @@ Question-only packet과 raw validator는 commit·검증됐다. 이제 연구자�
 
 ## 현재 상태와 다음 작업
 
-`../reports/operator_granularity_metrics_v0_1.json`의 `structural_integrity_complete_human_calibration_pending`은 보존된 v0.1 Phase B artifact 상태다. 사람 review record와 disagreement 관측은 모두 0이고 rate는 `null`이다. 현재 전체 결정은 계속 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`이며 vocabulary는 선택·동결되지 않았고 corpus는 gold 또는 modeling-ready가 아니다.
+`../exploration/ai_question_structure_scale_v0_1/run_001/`의 N=100 active run은 100/100 structurally valid AI record를 만들었다. Contracted semantic-DAG 기준 17 family, singleton question mass 0.09, first-30→new-70 transfer 0.7143이며 uncertain은 29/100, provisional `OTHER`는 0/100이다. Evidence class는 `ai_exploratory_non_human_non_gold`이고 semantic correctness, human agreement, universal saturation, executable graph, gold 또는 modeling readiness를 주장하지 않는다.
 
-다음 human task는 materialized Phase A0 packet의 첫 10문항에 대한 exposure-naive 독립 open coding 2파일/20 raw record다. 그 다음 technical task는 blinded alignment/adjudication 계약과 comparator의 versioning·freeze다. 정확한 명령은 `../README.md` 및 최신 handoff에 있다.
+사전 선언된 판정은 `EXPAND_UNCHANGED_TO_N300`이다. 사후 audit에서는 이 판정을 발동한 반복 신규 contracted family 5개 모두가 single-partition support이고 cross-partition support는 0임을 확인했다. Raw branch/join 5/6도 transitive-reduced view에서는 0/1이다. 그러므로 판정은 보수적 확장 결정으로 유지하지만 semantic novelty evidence로 과장하지 않는다.
+
+정확한 다음 작업은 기존 N=100을 exact prefix로 유지하고 신규 200개를 추가하는 cumulative N=300 selection, question-only pool, exposure manifest를 새 version으로 먼저 동결하는 것이다. 그 뒤 N=100의 prompt, schema, provisional role set, deterministic normalizer를 바꾸지 않고 positions 101–300을 생성·검증하며 동일 saturation/transfer 지표를 cumulative 300개에 계산한다. 신규 position은 producer partition에 분산 배정하고 partition sensitivity도 반복한다. Human 수집과 보존된 operator-granularity 검토는 이 작업의 active gate가 아니다.
+
+`../reports/operator_granularity_metrics_v0_1.json`의 `structural_integrity_complete_human_calibration_pending`은 보존된 v0.1 Phase B artifact 상태다. 사람 review record와 disagreement 관측은 모두 0이고 rate는 `null`이다. Vocabulary는 선택·동결되지 않았으며 corpus는 gold 또는 modeling-ready가 아니다.
 
 기존 allocation, view, representation, packet을 단지 새로 만들기 위해 덮어쓰지 않는다. 변경이 과학 계약을 바꾸면 새 versioned artifact와 migration note를 만든다. Diagnostic override 산출물은 release 가능한 pilot이나 locked-eval 근거로 승격할 수 없다.

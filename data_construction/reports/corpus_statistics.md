@@ -1,5 +1,23 @@
 # Corpus statistics
 
+## 2026-08-24 scale-first exploration addendum
+
+Resolved annotation corpus는 계속 0건이다. 새 N=100 artifact는 corpus가 아니라 `ai_exploratory_non_human_non_gold` question-only 구조 탐색 record 100개다. 모든 record는 구조 검사를 통과했지만 semantic correctness나 human agreement 검사를 통과했다는 뜻이 아니다.
+
+| 항목 | 현재 값 |
+| --- | ---: |
+| N=100 AI exploratory record | 100 structurally valid |
+| Fine / contracted / topology / task family | 23 / 17 / 6 / 38 |
+| Contracted singleton mass | 0.09 |
+| First-30→new-70 contracted transfer | 50/70 (0.7142857) |
+| Uncertain / `OTHER` question | 29 / 0 |
+| Recurring-new contracted family | 5 — 모두 single-partition support |
+| Cross-partition recurring-new family | 0 |
+| Human raw/review/agreement/adjudication | 0 / 0 / 0 / 0 |
+| Resolved corpus record | 0 — NOT_BUILT |
+
+AI가 처리한 100개 ID는 future unseen-evaluation claim에서 제외됐고, N=100 선택 뒤 3,266 official-dev questions가 unexposed/unallocated reserve로 남았다. 사전 선언 판정은 `EXPAND_UNCHANGED_TO_N300`이지만, partition confound 때문에 이 값은 semantic novelty confirmation이 아니라 보수적 확장 결정이다. 다음 N=300 selection은 current 100 exact prefix, 신규 200, unchanged extractor/normalizer, producer-context 분산 routing을 먼저 version/freeze한다.
+
 ## 2026-08-23 question-first sequencing addendum
 
 Resolved annotation corpus는 여전히 0건이다. 현재 순서는 question-only raw open coding → 별도 blinded alignment/freeze → held-out confirmation → deferred operator granularity → representative grounding/execution이다. 기존 30 model-assisted record, 90 coarse-medium-fine representation, 90 deterministic check, 세 packet, v0.1 metric은 byte-preserved Phase B feasibility statistics이고 corpus record가 아니다. 기존 packet은 승인된 Phase A/Phase B human UI가 아니며 이전 180-decision task는 철회됐다.

@@ -23,3 +23,23 @@ All findings are descriptive under the frozen extractor and normalizer. They do
 not establish semantic correctness, natural-language universality, a common
 executable graph, operator-vocabulary adequacy, grounding success, or answer
 accuracy.
+
+Run 001 is complete with 100/100 structurally valid records. It yields 23 fine
+labeled families, 17 same-role-contracted families, six topology shapes, and 38
+task signatures. At the contracted level, singleton mass is 0.09 and
+first-30-to-new-70 transfer is 50/70. The precommitted decision is
+`EXPAND_UNCHANGED_TO_N300`.
+
+The primary metrics and report remain unchanged. A separately versioned
+post-hoc sensitivity audit records that all five recurring-new contracted
+families are confined to one producer partition, with zero cross-partition
+recurrence. It also separates raw branch/join counts (5/6) from
+transitive-reduced counts (0/1), and records dominant-family growth from 46 to
+62 questions after same-role contraction. Therefore the N=300 decision is a
+conservative next measurement, not confirmation that those families are
+semantically novel.
+
+The next run must freeze a cumulative N=300 pool with this N=100 as its exact
+prefix, add 200 newly eligible questions to a new exposure-ledger version, keep
+the prompt/schema/role set/normalizer unchanged, and distribute committed
+positions across producer contexts rather than using contiguous worker blocks.

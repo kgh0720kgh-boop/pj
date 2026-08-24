@@ -2,30 +2,30 @@
   "schema_version": "project_state_v0_1",
   "state_updated_date": "2026-08-24",
   "project": "hierarchical_data_construction_for_semantic_execution_topology_induction",
-  "active_phase": "phase_2a_question_only_semantic_calibration",
+  "active_phase": "phase_2a_ai_scale_first_question_structure_exploration",
   "active_branch": "main",
-  "expected_head": "40f8961b5e9ad21fa7e80a11a047754311d5e91c",
-  "last_completed_task": "completed_separately_namespaced_non_evidentiary_two_ai_reviewer_shadow_pipeline_through_blinded_alignment_shadow_holdout_independent_topology_downstream_connector_preview_and_final_analysis_without_changing_human_gates",
-  "next_task": "obtain_manual_researcher_signoff_then_collect_two_mutually_independent_exposure_naive_real_human_10_record_raw_files_for_phase_a1_batch_01_validate_each_file_then_version_freeze_and_validate_the_separate_blinded_alignment_adjudication_contract_and_comparator",
-  "current_scientific_decision": "UNDECIDED_NEEDS_ANNOTATION_EVIDENCE",
-  "scientific_decision_status": "question_only_calibration_required_phase_b_deferred",
+  "expected_head": "74bf961a10420e0d222b23e0af0c5323985f95fd",
+  "last_completed_task": "completed_frozen_cumulative_n100_question_only_ai_semantic_backbone_extraction_deterministic_saturation_analysis_and_separately_versioned_partition_normalization_sensitivity_audit",
+  "next_task": "freeze_a_separately_versioned_cumulative_n300_selection_question_only_pool_and_exposure_manifest_with_n100_as_exact_prefix_then_generate_positions_101_to_300_using_the_unchanged_prompt_schema_roles_and_normalizer_with_partition_balanced_routing_and_recompute_cumulative_metrics",
+  "current_scientific_decision": "UNDECIDED_NEEDS_SCALE_EVIDENCE",
+  "scientific_decision_status": "n100_complete_n300_expansion_required_human_validation_deferred",
   "synchronization_state": "LOCAL_COMMIT_NOT_PUSHED",
   "handoff_readiness": "not_ready",
   "blocked_gates": [
-    "LOCAL_COMMIT_NOT_PUSHED: twenty-seven local commits will be ahead of origin/main after this metadata commit and remote writes are not authorized",
-    "QUESTION_ONLY_CALIBRATION_NOT_PERFORMED: no researcher-signed-off pair of mutually independent exposure-naive real-human raw files exists; Phase A1 alignment, agreement, held-out confirmation, and downstream claims remain unavailable"
+    "LOCAL_COMMIT_NOT_PUSHED: thirty-two local commits will be ahead of origin/main after this metadata commit and remote writes are not authorized",
+    "N300_SCALE_EXPANSION_NOT_PERFORMED: the precommitted N100 decision requires a separately versioned cumulative N300 pool and 200 new question-only records before candidate-backbone freeze or environment realization"
   ],
   "repository": {
     "git_root": "repository root (resolve with git rev-parse --show-toplevel)",
     "current_branch": "main",
-    "head": "40f8961b5e9ad21fa7e80a11a047754311d5e91c",
+    "head": "74bf961a10420e0d222b23e0af0c5323985f95fd",
     "head_role": "expected_handoff_baseline_parent_of_metadata_commit",
     "remotes": [
       "origin https://github.com/kgh0720kgh-boop/pj.git"
     ],
     "working_tree_status": "clean",
     "untracked_files": 0,
-    "unpushed_commits": 27,
+    "unpushed_commits": 32,
     "stash_state": "empty"
   },
   "artifact_status": {
@@ -83,7 +83,9 @@
       "warning_interpretation": "historical_planner_failure_evidence_not_current_granularity_evidence"
     },
     "question_only_semantic_calibration": {
-      "status": "phase_a0_materialized_phase_a1_human_collection_pending",
+      "status": "phase_a0_materialized_human_collection_deferred",
+      "active_gate": false,
+      "workflow_disposition": "preserved_deferred_not_active_gate",
       "instrument_contract_frozen": true,
       "question_view_count": 30,
       "question_view_field_allowlist": [
@@ -148,6 +150,116 @@
         "active_packet_manifest": {
           "path": "data_construction/pilot/question_structure_review_packets/question_structure_calibration_batch_1_v0_1_manifest.json",
           "sha256": "6fffe2238df8b6c4178b6ca465d473811ad958d4dce1e84e8f44415bfdbda971"
+        }
+      }
+    },
+    "ai_question_structure_scale_exploration": {
+      "status": "n100_complete_n300_expansion_required_partition_sensitivity_audited",
+      "active_gate": true,
+      "run_id": "ai_question_structure_scale_v0_1_run_001",
+      "evidence_class": "ai_exploratory_non_human_non_gold",
+      "contract_freeze_commit": "5adb85277928676eb82fa5189390c442fd6c70bc",
+      "question_count": 100,
+      "prefix_contract_development_count": 30,
+      "new_expansion_count": 70,
+      "valid_record_count": 100,
+      "invalid_record_count": 0,
+      "contracted_family_count": 17,
+      "contracted_singleton_question_mass": 0.09,
+      "contracted_new70_transfer_rate": 0.7142857142857143,
+      "uncertain_record_count": 29,
+      "other_question_count": 0,
+      "precommitted_decision": "EXPAND_UNCHANGED_TO_N300",
+      "decision_trigger": "at_least_2_new_contracted_families_each_recur_at_least_twice_in_new70",
+      "partition_sensitivity": {
+        "status": "post_hoc_audit_complete",
+        "recurring_new_contracted_family_count": 5,
+        "cross_partition_recurring_new_contracted_family_count": 0,
+        "partition_confounding_detected": true,
+        "raw_branch_question_count": 5,
+        "reduced_branch_question_count": 0,
+        "raw_join_question_count": 6,
+        "reduced_join_question_count": 1,
+        "operational_decision_changed": false
+      },
+      "ai_exposed_question_count": 100,
+      "unexposed_unallocated_reserve_count": 3266,
+      "human_evidence_count": 0,
+      "gold_claimed": false,
+      "semantic_correctness_claimed": false,
+      "human_agreement_claimed": false,
+      "universal_saturation_claimed": false,
+      "common_executable_graph_claimed": false,
+      "grounding_or_execution_evaluated": false,
+      "modeling_ready_claimed": false,
+      "artifacts": {
+        "study_plan": {
+          "path": "data_construction/pilot/question_structure_study_plan_v0_2.json",
+          "sha256": "74f56eb853b9d9164eea8ed48cf563ecde4996639e13df2efe74e0b318d427ce"
+        },
+        "sequencing_decision": {
+          "path": "data_construction/reports/research_sequencing_decision_v0_2.md",
+          "sha256": "d20c095bbadd72f8508c11eb258f92a2a1d8924e8e044c0084b435b3531b001d"
+        },
+        "exploration_plan": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/exploration_plan_v0_1.json",
+          "sha256": "bce9bd4985105890d56537316eaf2c94615d364fcac0cfa6942122e7377a36ad"
+        },
+        "record_schema": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/semantic_backbone_record_schema_v0_1.json",
+          "sha256": "22663e1d8cd2b56c99cd6ee95493384a8cc4a9ab845209ad3b783e9495ffebb4"
+        },
+        "prompt": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/prompts/primary_extraction_v0_1.md",
+          "sha256": "081007e4006fd1f41aa53c30a8690bc6f9b388fba43b2a022ed1d5b7022cdc0f"
+        },
+        "pool_views": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/pool/question_only_views_n100.jsonl",
+          "sha256": "8cece2fdc33776a077ed32b3dd88d023c9d89273876683b109c6f0f24fc5d14d"
+        },
+        "pool_manifest": {
+          "path": "data_construction/manifests/ai_question_structure_exploratory_pool_v0_1.json",
+          "sha256": "fa89d07a35582936f3824f90cf36476b9035ca01257b119c84d434ca77f7ff96"
+        },
+        "records": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/records.jsonl",
+          "sha256": "9e7dc9d48f98a8b9d73dde96f0f61836463578efca6aae67b3bd2d1806c30eef"
+        },
+        "checks": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/checks.jsonl",
+          "sha256": "2e06141f8c91f82d64828190c4efdf979834535d0702bba1329ef12d9b8b371d"
+        },
+        "derived_signatures": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/derived_signatures_v0_1.jsonl",
+          "sha256": "cc7d7850aab91284115461bac45948d18970350239b2194d2ee1aef3df5988de"
+        },
+        "metrics": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/structural_saturation_metrics_v0_1.json",
+          "sha256": "8a40c6ebe30d79db1c219ff7a30e4c69af7b47e5ed67cfc3260f51e5a992fd37"
+        },
+        "generated_report": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/structural_saturation_report_v0_1.md",
+          "sha256": "af39956a809656f465062dce79e6fcdb9b033121404df7766e4233a7d2e1f942"
+        },
+        "exposure_ledger": {
+          "path": "data_construction/manifests/question_exposure_ledger_v0_1.json",
+          "sha256": "681c3e8c8d0fd7490c88e8e8085b6c9421008223f97cc9d5baefd59801ae6b7c"
+        },
+        "run_manifest": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/run_manifest.json",
+          "sha256": "e8af6d6e13df38c0741167ee35f8806d366c796df8fdcf0e1f1f030ed7fa1917"
+        },
+        "partition_sensitivity_tool": {
+          "path": "data_construction/tools/audit_ai_question_structure_partition_sensitivity.py",
+          "sha256": "32b8ca9b7867766e9eb802559013129462001893500c19d9689582ab16f7ddc8"
+        },
+        "partition_sensitivity_metrics": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/partition_sensitivity_metrics_v0_1.json",
+          "sha256": "93c8be06296edffe0ef03470af38192787ed329c8ce8b8d7168e048b14433fae"
+        },
+        "interpretive_addendum": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/run_001/analysis/interpretive_addendum_v0_1.md",
+          "sha256": "d201dc2296f3fdf678fcfeda309b9c3bd0def85f59a8dc8c16a6db17a5b9532f"
         }
       }
     },
@@ -290,7 +402,7 @@
     "tools": {
       "status": "implemented",
       "test_entry_point": ".venv/bin/python -B -m unittest discover -s tests -v",
-      "final_integration_test_status": "passed_68_tests_in_project_local_exact_pin_environment"
+      "final_integration_test_status": "passed_87_tests_in_project_local_exact_pin_environment"
     }
   },
   "preflight_status": {
@@ -298,8 +410,8 @@
     "result": "NOT_READY",
     "exit_code": 2,
     "validation_failures": 0,
-    "core_json_files_parsed": 37,
-    "unit_tests_passed": 68,
+    "core_json_files_parsed": 52,
+    "unit_tests_passed": 87,
     "unit_tests_failed": 0,
     "ir_v0_2_records_validated": 50,
     "ir_v0_2_validator_errors": 0
@@ -322,10 +434,14 @@
     "data_construction/manifests/split_manifest_v0_1.json",
     "data_construction/pilot/questions.jsonl",
     "data_construction/pilot/question_structure_study_plan_v0_1.json",
+    "data_construction/pilot/question_structure_study_plan_v0_2.json",
     "data_construction/pilot/question_only_semantic_views_v0_1.jsonl",
     "data_construction/pilot/question_only_semantic_views_manifest_v0_1.json",
     "data_construction/pilot/question_structure_review_packets/",
     "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/",
+    "data_construction/exploration/ai_question_structure_scale_v0_1/",
+    "data_construction/manifests/ai_question_structure_exploratory_pool_v0_1.json",
+    "data_construction/manifests/question_exposure_ledger_v0_1.json",
     "data_construction/pilot/granularity_representation_plan_v0_1.json",
     "data_construction/pilot/granularity_input_views.jsonl",
     "data_construction/pilot/granularity_input_views_manifest_v0_1.json",
@@ -334,12 +450,15 @@
     "data_construction/pilot/review_packets/",
     "data_construction/reports/operator_granularity_metrics_v0_1.json",
     "data_construction/reports/research_sequencing_decision_v0_1.md",
+    "data_construction/reports/research_sequencing_decision_v0_2.md",
     "data_construction/schemas/",
     "data_construction/operator_design/",
     "data_construction/tools/",
     "data_construction/reports/",
     "tests/test_data_construction_tools.py",
     "tests/test_ir_v0_2_reference.py",
+    "tests/test_question_structure_scale_exploration.py",
+    "tests/test_question_structure_partition_sensitivity.py",
     "historical/README.md",
     "historical/ir_v0_2/recovery_manifest_v0_1.json"
   ],

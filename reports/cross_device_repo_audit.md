@@ -1,5 +1,27 @@
 # Cross-Device Repository Audit
 
+## Current-state addendum — 2026-08-24
+
+This addendum supersedes the active-status statements in the 2026-08-23 addendum while preserving both older sections as dated evidence.
+
+| Field | Current state |
+| --- | --- |
+| Git root | resolved repository root |
+| Branch | `main` |
+| Expected handoff baseline | `74bf961a10420e0d222b23e0af0c5323985f95fd` |
+| Remote-write authorization | not granted |
+| Synchronization state | `LOCAL_COMMIT_NOT_PUSHED` |
+| Scientific decision | `UNDECIDED_NEEDS_SCALE_EVIDENCE` |
+| Active gate | cumulative N=300 scale expansion |
+
+The active sequence is now scale-first question-only AI semantic-backbone exploration. The preserved v0.1 human lane is deferred rather than deleted or completed; all human evidence counts remain zero. The released split manifest remains unchanged at 30 annotation-pilot questions and zero train/dev/locked-eval allocations.
+
+The frozen cumulative N=100 run produced 100/100 structurally valid, non-human, non-gold records. Its deterministic summaries contain 23 fine labeled families, 17 same-role-contracted families, six topology shapes, and 38 task signatures. Contracted singleton mass is 0.09 and first-30-to-new-70 transfer is 50/70. The precommitted rule returns `EXPAND_UNCHANGED_TO_N300`.
+
+A separately versioned post-hoc audit records that all five triggering recurring-new contracted families are confined to one producer partition and have zero cross-partition recurrence. Raw branch/join counts of 5/6 reduce to normalized counts of 0/1, and same-role contraction grows the dominant family from 46 to 62 questions. These facts restrict interpretation without rewriting the frozen primary decision: N=300 is a conservative next measurement, not proof that the five families are semantically novel.
+
+The exact next task is to freeze a versioned cumulative N=300 selection, question-only pool, exposure update, and producer-routing plan with N=100 as the exact prefix, then generate 200 new records using the unchanged extractor/normalizer. New committed positions must be distributed across producer contexts so question order is not aligned with a single contiguous worker block. All 100 already processed IDs are excluded from future unseen-evaluation claims, and 3,266 official-dev questions remain unexposed and unallocated before the N=300 selection.
+
 ## Current-state addendum — 2026-08-23
 
 This addendum records the state after the dated 2026-08-21 audit below. The older absence/blocking observations remain intact as historical evidence; they no longer describe the current repository.

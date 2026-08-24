@@ -1,5 +1,15 @@
 # Data Construction Research Report
 
+## 2026-08-24 scale-first N=100 result
+
+활성 연구 순서는 question-only AI semantic-backbone의 누적 규모 탐색으로 바뀌었다. 보존된 v0.1 human-first lane은 삭제·완료된 것이 아니라 deferred 상태이고 human evidence는 계속 0건이다. 현재 결정은 `UNDECIDED_NEEDS_SCALE_EVIDENCE`이며, N=100→300→조건부 1,000에서 반복 구조와 희귀화 곡선을 확인한 뒤 후보 backbone/조합 규칙과 대표 환경 실현으로 이동한다.
+
+동결된 N=100 run은 100/100 structurally valid, `ai_exploratory_non_human_non_gold` record를 만들었다. Deterministic signature 기준 fine labeled family 23개, same-role-contracted family 17개, topology shape 6개, task signature 38개다. Contracted singleton mass는 0.09, top-10 coverage는 0.93, first-30→new-70 transfer는 50/70이며 uncertainty는 29/100, `OTHER` 사용은 0/100이다. 사전 선언 rule의 판정은 `EXPAND_UNCHANGED_TO_N300`이다.
+
+별도 post-hoc sensitivity audit는 이 판정의 해석 한계를 보존한다. Trigger를 만든 반복 신규 contracted family 5개는 모두 single producer partition 안에서만 반복되어 cross-partition support가 0이다. Raw dependency branch/join 5/6도 transitive reduction 뒤 0/1이 되고, same-role contraction은 dominant family를 46개에서 62개로 키운다. 따라서 N=300은 보수적 다음 측정이지만, N=100이 새 의미 family 5개를 확정했다는 결론은 내리지 않는다. Fine/contracted/partition sensitivity를 항상 함께 보고한다.
+
+정확한 다음 작업은 기존 100개를 exact prefix로 유지한 cumulative N=300 selection, question-only pool, exposure manifest, producer-routing plan을 새 version으로 먼저 동결하고 신규 200개를 같은 prompt/schema/role/normalizer로 처리하는 것이다. 신규 committed position은 producer context에 분산해 질문 순서와 한 작업자 context가 공선이 되지 않게 한다. 이 단계는 answer, environment realization, grounding, execution, semantic correctness, human agreement, gold 또는 modeling readiness를 평가하지 않는다.
+
 ## 2026-08-23 question-first sequencing decision
 
 핵심 연구 대상을 다시 분리했다. 먼저 질문 문장만으로 semantic obligation과 environment-independent topology를 open-code하고, 별도 blinded alignment/freeze와 held-out confirmation으로 구조 안정성을 확인한다. 그 다음에만 환경 capability를 반영한 operator topology granularity를 비교하고, 마지막에 대표 사례 grounding과 execution을 별도 signal로 평가한다.

@@ -1,6 +1,6 @@
 # Hierarchical HybridQA data construction
 
-이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 데이터 구축용 **v0.1 계약과 도구**이며 gold corpus가 아니다. 현재 연구 순서는 question-only raw open coding → 별도 blinded alignment/freeze → held-out confirmation → 환경 의존 operator granularity → 대표 사례 grounding/execution이다.
+이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 versioned 연구 계약과 탐색 artifact이며 gold corpus가 아니다. 활성 연구 순서는 동결된 question-only AI extractor/normalizer로 N=100→300→조건부 1,000 구조 반복성과 포화도를 조사한 뒤, 후보 backbone과 조합 규칙을 만들고 대표 사례의 환경 실현·grounding·execution을 분리 평가하는 것이다. 인간 검토는 현재 필수 gate가 아니라 향후 주장에 필요한 경우의 선택적 표본 감사로 연기됐다.
 
 ## 현재 상태
 
@@ -11,9 +11,12 @@
 - pinned official dev에서 30개 질문을 `annotation_schema_pilot`에 결정론적으로 할당했다. 역사 노출과 overlap은 0, override는 없고 train/dev/locked-eval은 각각 0이다.
 - 기존 30개 model-assisted record/90 coarse-medium-fine 표현, 90개 deterministic check, HTML packet 3개, v0.1 metric은 byte-preserved Phase B 선행 가능성 증거로 남긴다. 기존 packet은 현재 Phase A나 미래 blinded Phase B의 승인된 UI가 아니며 사용하지 않는다.
 - 이전의 reviewer×granularity 6파일/180판정 task는 철회됐다. 미래 Phase B는 Phase A2 뒤 동결한 6개 stratum에서 12문항×3 granularity×2 reviewer=72판정으로 시작하고, 사전 선언 trigger에 따라 90, 최대 108판정까지만 확장한다. 정확한 ID는 A2 normalization 전에는 배정하지 않는다.
-- 현재 결정은 `UNDECIDED_NEEDS_ANNOTATION_EVIDENCE`이다. A0의 30개 question-only view와 첫 10문항 packet이 commit됐고 packet-only 검사가 통과했다. 이제 연구자가 승인한 상호 독립·무노출 실제 사람 2명이 `phase_a1_batch_01`만 question-only로 독립 open-code하여 2개 파일/20개 raw record를 만든다.
-- `diagnostics/ai_question_structure_pipeline_v0_1/`에는 전체 흐름을 보기 위한 별도 AI shadow run이 있다. 두 AI reviewer의 60개 구조화 record, 30개 blinded alignment, 20개 독립 topology-only record와 최종 분석이 검증됐지만, 모두 `non_human_non_gold`이며 human count와 Phase A/B gate 변화는 0이다. 핵심 DAG concordance는 높았으나 reviewer별 instrument issue가 19 대 0으로 갈렸고 alternative-plan 존재 여부도 20/30만 일치했다.
-- 1번 질문을 둘러싼 기존 대화는 protocol 분석일 뿐 human evidence는 0건이다. Later-layer 자료에 노출된 사람은 영향받은 exposure-naive 작업에서 제외한다. Reviewer 정체성·독립성·승인·노출 여부는 수동 절차이고 기계 인증이 아니다. Raw schema/hash validity는 semantic agreement를 뜻하지 않으며, 별도 blinded alignment/adjudication 계약과 comparator를 version/freeze하기 전에는 Phase A1 agreement나 A2 readiness를 주장하지 않는다.
+- 현재 결정은 `UNDECIDED_NEEDS_SCALE_EVIDENCE`이다. `exploration/ai_question_structure_scale_v0_1/run_001/`의 N=100 run은 100/100 structurally valid record를 만들었고, contracted semantic-DAG 기준 17 family, singleton question mass 0.09, first-30→new-70 transfer 0.7143을 기록했다. Uncertain은 29/100, provisional `OTHER` 사용은 0/100이다.
+- 이 N=100 결과의 evidence class는 `ai_exploratory_non_human_non_gold`이다. 하나의 동결된 AI extractor와 결정론적 normalizer 아래의 반복성·곡선 모양만 기술하며, semantic correctness, human agreement, universal saturation, common executable graph, grounding/execution, gold 또는 modeling readiness를 뜻하지 않는다.
+- 사후 partition-sensitivity audit에서 N=300 trigger를 만든 반복 신규 contracted family 5개가 모두 각자 한 producer partition 안에만 있었고 cross-partition 재현은 0개였다. 또한 raw branch/join 5/6은 transitive reduction 뒤 0/1이며, same-role contraction은 dominant family를 46개에서 62개로 키웠다. 따라서 `EXPAND_UNCHANGED_TO_N300`은 보수적 운영 판정으로 유지하되 semantic novelty 증명으로 읽지 않고 fine/contracted/partition 결과를 함께 본다.
+- 다음 작업은 기존 100개를 exact prefix로 보존하고 신규 200개를 더한 cumulative N=300 selection/question-only pool/exposure manifest를 별도 version으로 동결한 뒤, N=100의 prompt·schema·role set·normalizer를 바꾸지 않고 추출과 동일 지표 분석을 수행하는 것이다. 신규 committed position은 producer context별 연속 구간이 되지 않도록 분산 배정하고 partition sensitivity도 다시 계산한다.
+- `diagnostics/ai_question_structure_pipeline_v0_1/`의 이전 two-reviewer shadow run은 byte-preserved direction-finding/engineering evidence다. 두 AI reviewer의 60개 구조화 record, 30개 blinded alignment, 20개 독립 topology-only record와 최종 분석은 검증됐지만 모두 `non_human_non_gold`이고 correctness나 human agreement 근거가 아니다.
+- v0.1 human question-only view·packet·validator도 byte-preserved됐으나 현재 active gate가 아니다. Human raw file/record, agreement observation, adjudication은 모두 0이며 인간 절차를 나중에 재개하더라도 별도 blinded alignment/adjudication 계약 전에는 agreement나 A2 readiness를 주장하지 않는다.
 - `locked_eval`은 prompt, rubric, schema, 연산자 어휘 조정에 사용하지 않는다.
 - LLM 생성물의 최초 상태는 `llm_proposed`이며 `gold`가 아니다.
 
@@ -39,6 +42,7 @@
 - `operator_design/`: coarse/medium/fine 후보 어휘; 파일럿 전에는 어느 것도 gold/final이 아님
 - `pilot/`: 질문, question-only view/study plan, raw open-coding packet, 보존된 `llm_proposed` granularity 표현, 결정론 검사, 외부 사람 관측, 해결 주석
 - `diagnostics/`: canonical human evidence와 격리한 non-evidentiary pipeline rehearsal, 계약, AI 산출물, 검증, 분석
+- `exploration/`: 활성 scale-first question-only AI extraction, deterministic signature, exposure ledger, 포화도 metric/report; 모두 non-human/non-gold
 - `corpus/`: 검토가 끝난 train/dev/locked-eval 번들만 저장
 - `tools/`: 샘플링, 검증, 세분성 비교, 리뷰 패킷, 통계 도구
 - `reports/`: 근거·차단점·측정값·최종 연구 결론
@@ -106,13 +110,31 @@ python3 data_construction/tools/build_review_packet.py \
 
 리뷰 패킷은 질문/제안 ID 집합이 정확히 같고, 제안 bytes에 1:1로 결속된 full-schema+structural validator pass가 있어야 한다. 허용된 review view 안에서 금지 키가 발견되면 삭제 후 계속하지 않고 실패한다. topology 단계에는 환경 schema·capability metadata만 투영하고 row/cell/passage 값은 숨긴다. 다운로드 시 익명 reviewer ID, 완료 시각, schema-compatible decision, 검토 view와 packet payload SHA-256을 기록한다. 이것은 리뷰를 수행할 수 있는 형식일 뿐 실제 사람 검토가 수행됐다는 주장이 아니다.
 
-## Phase A question-only 구조 발견
+## 활성 scale-first question-only 구조 탐색
 
-`pilot/question_structure_study_plan_v0_1.json`과 `reports/research_sequencing_decision_v0_1.md`가 현재 phase order, 세 개의 committed-order 10문항 batch, 중단 분기, Phase B 72→90→108 규칙을 고정한다. A0 instrument의 첫 화면에는 opaque question ID, question text, unconstrained free-observation field만 보인다. 열 질문의 자유 관찰이 모두 nonempty가 된 뒤 한 번의 batch-wide action으로 열 개를 모두 read-only로 잠그고 나서야 정상 UI가 stage-2 scaffold 전체를 표시한다. Answer request, candidate structure, required information unit, dependency scaffold는 정답 ontology가 아니라 검증할 구조 가설이다. Closed semantic label, answer/cardinality/candidate kind enum, semantic-function enum, operator vocabulary, 표·열·capability·연결 문서·answer·trace·proposal·metric은 정상 view에 보이지 않는다.
+`pilot/question_structure_study_plan_v0_2.json`과 `reports/research_sequencing_decision_v0_2.md`가 현재 활성 순서를 정의한다. N=100 계약은 질문마다 opaque ID와 exact question text만 입력하고, 하나의 primary AI semantic-backbone record를 만든 뒤 model output과 독립된 deterministic normalizer로 fine semantic DAG, same-role split/merge contracted DAG, topology shape, task signature를 계산한다.
+
+완료된 `exploration/ai_question_structure_scale_v0_1/run_001/`의 기계적 결과는 다음과 같다.
+
+- valid records: 100/100
+- contracted semantic-DAG families: 17
+- contracted singleton question mass: 0.09
+- first-30에서 new-70으로의 contracted-family transfer: 0.7143
+- uncertain records: 29/100
+- provisional `OTHER` questions: 0/100
+- precommitted decision: `EXPAND_UNCHANGED_TO_N300`
+
+Primary metric의 마지막 판정은 원래 동결한 규칙을 정확히 실행한 값이다. 별도 `partition_sensitivity_metrics_v0_1.json`과 `interpretive_addendum_v0_1.md`는 그 판정을 소급 변경하지 않으면서, 반복 신규 family 5개 중 cross-partition 지지를 받은 것은 0개이고 raw 5/6 branch/join이 normalized 0/1이라는 해석 제한을 추가한다. Contracted dominant family 62개는 fine dominant family 46개보다 넓으므로 contracted recurrence는 same-role split/merge 민감도의 상한으로 취급한다.
+
+이 결과는 N=100에서 universal saturation을 선언하지 않는다. 정확한 다음 작업은 cumulative N=300을 위한 새 versioned selection/pool/exposure manifest를 먼저 동결하는 것이다. 기존 100개는 exact prefix로 유지하고, 역사 노출 ID를 제외한 신규 200개를 추가하며, 처리된 모든 ID는 future unseen evaluation에서 제외한다. 그 뒤 N=100의 `primary_extraction_v0_1` prompt, semantic-backbone schema, provisional role set, deterministic contraction/signature 규칙을 변경하지 않고 positions 101–300을 생성·검증하고 동일 지표를 cumulative 300개에 다시 계산한다. 신규 position은 producer context 사이에 분산해 question order와 한 worker context가 공선이 되지 않게 하고, cross-partition recurrence와 raw/reduced topology sensitivity도 반복한다. 이 중 하나라도 extractor/normalizer 자체를 바꾸면 연속 확장이 아니라 새 experiment version이다.
+
+## 보존된 v0.1 Phase A human question-only 계약
+
+`pilot/question_structure_study_plan_v0_1.json`과 `reports/research_sequencing_decision_v0_1.md`는 이전 human-first phase order, 세 개의 committed-order 10문항 batch, 중단 분기, Phase B 72→90→108 규칙을 보존한다. 이 계약과 산출물은 덮어쓰거나 N=100 결과로 소급 변경하지 않는다. A0 instrument의 첫 화면에는 opaque question ID, question text, unconstrained free-observation field만 보인다. 열 질문의 자유 관찰이 모두 nonempty가 된 뒤 한 번의 batch-wide action으로 열 개를 모두 read-only로 잠그고 나서야 정상 UI가 stage-2 scaffold 전체를 표시한다. Answer request, candidate structure, required information unit, dependency scaffold는 정답 ontology가 아니라 검증할 구조 가설이다. Closed semantic label, answer/cardinality/candidate kind enum, semantic-function enum, operator vocabulary, 표·열·capability·연결 문서·answer·trace·proposal·metric은 정상 view에 보이지 않는다.
 
 이 전환은 하나의 self-contained HTML 안에서 구현한 procedural UI staging이다. Stage 2 bytes는 같은 파일에 있으므로 source/devtools/DOM 조작에 맞선 server-enforced blinding이 아니며, validator도 browser history를 인증하지 못한다. Reviewer는 이를 우회하지 않았다고 attestation한다. 또한 later-layer 금지 검사는 key 구조를 탐지할 뿐 허용된 notes/description/free-text에 붙여 넣은 의미 내용을 판별하지 못한다. 따라서 packet-only/raw pass를 stage-transition 또는 free-text contamination의 기계적 무결성 증명으로 해석하지 않는다.
 
-아래 CLI로 committed question-only 30개 view와 active batch packet을 결정론적으로 재검증할 수 있다. Builder는 tracked implementation identity에 결속되므로 uncommitted implementation으로 canonical output을 만들지 않는다. 현재 versioned output은 이미 생성·commit됐으므로 bytes를 교체하려고 재실행하지 않는다.
+아래 CLI로 committed question-only 30개 view와 보존된 batch packet을 결정론적으로 재검증할 수 있다. Builder는 tracked implementation identity에 결속되므로 uncommitted implementation으로 canonical output을 만들지 않는다. 현재 versioned output은 이미 생성·commit됐으므로 bytes를 교체하려고 재실행하지 않는다.
 
 ```sh
 python3 data_construction/tools/build_question_only_semantic_views.py
@@ -139,11 +161,11 @@ python3 data_construction/tools/validate_question_structure_annotations.py \
 
 Validator는 exact packet reconstruction, schema/canonical hash, UTC·pseudonym·attestation, batch/order/single-reviewer, exposure=false, 최소·국소 source-cue substring의 localization integrity, ID/reference/DAG/root/sink, complete topology의 obligation coverage, later-layer 금지 key를 검사한다. 이 검사는 자유문장의 의미 contamination, cue의 semantic alignment, reviewer identity/approval, browser 조작 이력, 사람 간 agreement를 인증하지 않는다. 연구자 승인은 아직 별도 machine-authenticatable registry가 없는 procedural manual gate다.
 
-Packet과 validator가 준비됐으므로, 다음에는 연구자 수동 승인을 받은 서로 다른 실제 사람 2명이 상담·외부 lookup 없이 첫 10문항을 독립 작성한다. 각자 한 개의 immutable 10-record 파일을 제출해 총 20 raw record가 된다. Q1 대화는 evidence가 아니며, proposal/환경/answer 등 금지 입력을 본 사람은 영향받은 무노출 작업에서 제외한다. Raw validity는 observation integrity일 뿐 semantic confirmation이 아니다. 같은 scaffold 안에서 semantic skeleton, obligations, topology를 연결해 유도한 raw triple은 `elicited_linked_representation`이며 질문 구조에서 common executable graph로 가는 독립 evidence가 아니다. 두 raw set을 얻은 다음 exact technical task는 두 파일에 결속되는 별도 blinded alignment/adjudication schema·artifact·comparator를 만들고 결과를 보기 전에 version을 동결하는 것이다. Phase B normalization이나 cross-level claim 전에 upstream mapping reference를 보지 않는 별도 pass·다른 annotator의 versioned frozen independent/blinded topology elicitation 또는 prediction과 held-out evaluation gate가 추가로 필요하다.
+이 human lane은 현재 deferred이며 N=300보다 앞선 next task가 아니다. 나중에 재개한다면 연구자 수동 승인을 받은 서로 다른 실제 사람 2명이 상담·외부 lookup 없이 첫 10문항을 독립 작성하고, 각자 immutable 10-record 파일 하나를 제출해 총 20 raw record를 만든다는 v0.1 계약을 그대로 따른다. Q1 대화는 evidence가 아니며, proposal/환경/answer 등 금지 입력을 본 사람은 영향받은 무노출 작업에서 제외한다. Raw validity는 observation integrity일 뿐 semantic confirmation이 아니다. 두 raw set 뒤에도 결과를 해석하기 전 별도 blinded alignment/adjudication schema·artifact·comparator를 version/freeze해야 한다.
 
 ## Non-evidentiary AI shadow pipeline
 
-`diagnostics/ai_question_structure_pipeline_v0_1/`은 위 human 순서를 대체하지 않고 mechanics만 끝까지 실행한 별도 namespace다. 계약·prompt·comparator는 commit `fb2ba9e29221c16dd8e1ee71439339d17a92818a`에서 model output 전에 동결됐다. Run 001은 stage-1 60건, structured representation 60건, identity-blinded alignment 30건, upstream structure를 보지 않은 held-out topology 20건을 포함하며 deterministic live reconstruction이 통과한다.
+`diagnostics/ai_question_structure_pipeline_v0_1/`은 보존된 human 계약의 mechanics를 끝까지 rehearsal한 별도 namespace다. 현재 scale-first run과 합치거나 그 산출물을 새 correctness 근거로 재분류하지 않는다. 계약·prompt·comparator는 commit `fb2ba9e29221c16dd8e1ee71439339d17a92818a`에서 model output 전에 동결됐다. Run 001은 stage-1 60건, structured representation 60건, identity-blinded alignment 30건, upstream structure를 보지 않은 held-out topology 20건을 포함하며 deterministic live reconstruction이 통과한다.
 
 Compact result는 10 full-equivalence/20 compatible-variation, independent topology structural-signature match 0.85/0.90이다. 그러나 ambiguity flag는 25/30, alternative-plan presence는 20/30만 일치했고 reviewer 1은 instrument issue 19개를, reviewer 2는 0개를 보고했다. 또한 v0.1 question disposition은 scalar alternative-plan conflict 2건을 grouped core conflict가 없다는 이유로 compatible variation에 남긴다. 따라서 headline compatibility rate를 correctness, zero conflict, human agreement, Phase A1 pass, Phase A2 held-out evidence, common graph로 읽지 않는다. `run_001/analysis/interpretive_addendum_v0_1.md`가 이 제한을 보존한다.
 
@@ -256,4 +278,4 @@ Granularity representation에 자체 기입한 불일치 표시는 사람 근거
 - `blocked`: 외부 입력 또는 연구자 결정 없이는 과학적으로 안전하게 진행 불가
 - `planned_not_run`: 실행하지 않았으며 결과가 없는 상태
 
-빈 파일이나 0건 통계를 성공한 corpus로 취급하지 않는다. 현재처럼 packet만 있고 사람 검토가 0건이면 `human_calibration_complete=false`, disagreement 관측 수 0, rate `null`로 기록한다.
+빈 파일이나 0건 통계를 성공한 corpus로 취급하지 않는다. 보존된 human lane처럼 packet만 있고 사람 검토가 0건이면 `human_calibration_complete=false`, disagreement 관측 수 0, rate `null`로 기록한다. N=100의 100 structurally valid AI records도 human count나 gold/corpus status를 변경하지 않는다.
