@@ -1,0 +1,78 @@
+{
+  "canonical_effects": {
+    "common_executable_graph_claimed": false,
+    "current_scientific_decision": "UNDECIDED_NEEDS_ANNOTATION_EVIDENCE",
+    "gold_claimed": false,
+    "grounding_or_execution_evaluated": false,
+    "human_agreement_observation_count": 0,
+    "human_evidence_count": 0,
+    "modeling_ready_claimed": false,
+    "phase_a1_pass_claimed": false,
+    "phase_a2_entry_claimed": false,
+    "phase_b_entry_claimed": false
+  },
+  "contract_freeze_commit": "fb2ba9e29221c16dd8e1ee71439339d17a92818a",
+  "contract_plan": {
+    "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/contracts/diagnostic_plan_v0_1.json",
+    "sha256": "3c083a415490c4c94fac46c8903c80d8377cf6852e807c23c0bcddc11c56aad2"
+  },
+  "inputs": {
+    "alignment_packet": {
+      "record_count": 30,
+      "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/alignment/blinded_pairs.jsonl",
+      "sha256": "ded898788eaac297041c4868ade89549321742f82b22d22d9e2cb62f76693b09"
+    },
+    "alignments": {
+      "record_count": 30,
+      "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/alignment/records.jsonl",
+      "sha256": "ce5abf9fe27c530bb9561ff4868dd7e683137e5bd0968fd4bfd5f8fa516f5f16"
+    },
+    "independent_topology": {
+      "record_count": 20,
+      "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/independent_topology/records.jsonl",
+      "sha256": "6395ab3934d67b77d6f72721f0c620f9aff0ff0fc3767d6bb18ea394412dcb59"
+    },
+    "reviewer_01_annotations": {
+      "record_count": 30,
+      "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/reviewer_01/annotations.jsonl",
+      "sha256": "0d81b43ab3e5b3a65132f807e675d2b0fe2d8986295f23e74223146c91c4e4e7"
+    },
+    "reviewer_01_stage1": {
+      "record_count": 30,
+      "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/reviewer_01/stage1.jsonl",
+      "sha256": "7fe4f8e8b257ddb0efc4bea250479a8c7329687226193725a6e660d0bc818612"
+    },
+    "reviewer_02_annotations": {
+      "record_count": 30,
+      "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/reviewer_02/annotations.jsonl",
+      "sha256": "08aad71e6375b2be1bc1971ef6d8bd9c982e42a5a6a275e1892ad349097abd0c"
+    },
+    "reviewer_02_stage1": {
+      "record_count": 30,
+      "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/reviewer_02/stage1.jsonl",
+      "sha256": "5de5d0169a12a93738683bbd8337002361fccb3b560258cca9d964adb015f0c0"
+    }
+  },
+  "model_provenance": {
+    "aligner_model_id": "codex_gpt-5",
+    "exact_revision_status": "revision_not_exposed",
+    "reviewer_model_id": "codex_gpt-5",
+    "seed_status": "not_supported",
+    "separate_raw_response_status": "structured_artifacts_are_primary_capture_no_separate_raw_responses",
+    "topology_model_id": "codex_gpt-5"
+  },
+  "outputs": {
+    "metrics": {
+      "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/analysis/metrics_v0_1.json",
+      "sha256": "ce354643f2e2e6ebb56ecd793d13b4cfdeac2fb4da3aacc41dc1655c2ee2bd67"
+    },
+    "report": {
+      "repository_relative_path": "data_construction/diagnostics/ai_question_structure_pipeline_v0_1/run_001/analysis/final_report_v0_1.md",
+      "sha256": "e28dd3dc5c0335653c0acb09c130b80a6219cf334a45972c7d31e636ab57fe80"
+    }
+  },
+  "run_id": "ai_question_structure_pipeline_v0_1_run_001",
+  "run_status": "complete",
+  "schema_version": "ai_question_structure_pipeline_diagnostic_run_manifest_v0_1",
+  "tool_version": "ai_question_structure_diagnostic_tool_v0_1"
+}

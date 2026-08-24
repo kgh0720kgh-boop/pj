@@ -1,0 +1,2797 @@
+{
+  "alignment": {
+    "all_questions": {
+      "compatible_or_full_question_rate": 1.0,
+      "disposition_counts": {
+        "COMPATIBLE_VARIATION": 20,
+        "FULL_EQUIVALENCE": 10
+      },
+      "mean_obligation_symmetric_compatible_coverage": 1.0,
+      "mean_projected_direct_edge_dice": 1.0,
+      "mean_projected_reachability_dice": 1.0,
+      "mean_topology_node_symmetric_compatible_coverage": 1.0,
+      "question_count": 30
+    },
+    "calibration": {
+      "compatible_or_full_question_rate": 1.0,
+      "disposition_counts": {
+        "COMPATIBLE_VARIATION": 6,
+        "FULL_EQUIVALENCE": 4
+      },
+      "mean_obligation_symmetric_compatible_coverage": 1.0,
+      "mean_projected_direct_edge_dice": 1.0,
+      "mean_projected_reachability_dice": 1.0,
+      "mean_topology_node_symmetric_compatible_coverage": 1.0,
+      "question_count": 10
+    },
+    "component_status_counts": {
+      "alternative_plans:compatible_split_merge": 1,
+      "alternative_plans:equivalent": 16,
+      "alternative_plans:partial_overlap": 11,
+      "alternative_plans:substantive_conflict": 2,
+      "ambiguity:equivalent": 17,
+      "ambiguity:partial_overlap": 13,
+      "answer_shape:equivalent": 27,
+      "answer_shape:partial_overlap": 3,
+      "answer_target:equivalent": 30,
+      "candidate_structure:compatible_split_merge": 1,
+      "candidate_structure:equivalent": 29
+    },
+    "determinism_scope": "metrics_are_deterministic_conditional_on_the_frozen_ai_crosswalk",
+    "per_question": [
+      {
+        "disposition": "FULL_EQUIVALENCE",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 1,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 1
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "8259c70c392c5b75"
+      },
+      {
+        "disposition": "FULL_EQUIVALENCE",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 1,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 1
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "1d48a5ffb05c7de2"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 1,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 2,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 1
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 0.3333333333333333,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 0.5,
+            "split_merge_group_count": 1,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 0.4,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 0.3333333333333333,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 0.5,
+            "split_merge_group_count": 1,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 0.4,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 0.3333333333333333,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 0.5,
+            "split_merge_group_count": 1,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 0.4,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "743c4e765fcd76e5"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 1,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 1
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "ab5eb9535349cd7a"
+      },
+      {
+        "disposition": "FULL_EQUIVALENCE",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 1,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 1
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "b3550375a684a870"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 2,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 2
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "f36270c917a195c7"
+      },
+      {
+        "disposition": "FULL_EQUIVALENCE",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 1,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 1
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "8524304318e5f09a"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 2,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 2
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "c26cafcd706efe0d"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 2,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 2
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "3d207ccb8be56fd9"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 2,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 2
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "b16c668f54c230e7"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 2,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 2
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "f7426693930a6ab2"
+      },
+      {
+        "disposition": "FULL_EQUIVALENCE",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 1,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 1
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "fb5717774d243073"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 1,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 1
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "1e674ae4b655c1a1"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 2,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 2
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "bd8704d4254c01c6"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 4,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 4
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 4,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 4,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 4,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 4,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 4,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 4,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "0503a6ef0129abd8"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 2,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 2
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "254c5c25421f60da"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 1,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 1
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "1518b9d0da2d3711"
+      },
+      {
+        "disposition": "FULL_EQUIVALENCE",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 1,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 1
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "be6ebff950e35063"
+      },
+      {
+        "disposition": "FULL_EQUIVALENCE",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 1,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 1
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "5ee2a90fe9a3cd56"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 1,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 1
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "6926f4190bebd390"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 2,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 2
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "d8b4bad4f5a73509"
+      },
+      {
+        "disposition": "FULL_EQUIVALENCE",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 1,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 1
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "6a9c00243f104ad3"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 2,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 2
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "e650aba3f1a9239e"
+      },
+      {
+        "disposition": "FULL_EQUIVALENCE",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 1,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 1
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "c597434242009fe6"
+      },
+      {
+        "disposition": "FULL_EQUIVALENCE",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 1,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 1
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "86245b7523f7a645"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 1,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 1,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": true,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": true,
+          "right_collapsed_within_group_edges": 1,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 1
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 0.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 0.0,
+            "split_merge_group_count": 1,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 0.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 0.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 0.0,
+            "split_merge_group_count": 1,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 0.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 0.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 0.0,
+            "split_merge_group_count": 1,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 0.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "1754cff04f90d4ba"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 1,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 1,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 2
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 0.5,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 0.3333333333333333,
+            "split_merge_group_count": 1,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 0.4,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 0.5,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 0.3333333333333333,
+            "split_merge_group_count": 1,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 0.4,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 0.5,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 0.3333333333333333,
+            "split_merge_group_count": 1,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 0.4,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "2e4366c597bbfb87"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 1,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 2,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 1,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 2
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 0.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 0.0,
+            "split_merge_group_count": 2,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 0.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 0.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 0.0,
+            "split_merge_group_count": 2,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 0.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 0.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 0.0,
+            "split_merge_group_count": 2,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 0.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "639da22b64b0a499"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 1,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 1
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 2,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 2,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "fc9605cb355ae05c"
+      },
+      {
+        "disposition": "COMPATIBLE_VARIATION",
+        "graph_metrics": {
+          "left_collapsed_within_group_edges": 0,
+          "left_endpoint_alignable_edge_rate": 1.0,
+          "left_total_edges": 2,
+          "mapped_root_jaccard": 1.0,
+          "mapped_sink_jaccard": 1.0,
+          "projected_direct_edge_dice": 1.0,
+          "projected_direct_edges_joint_empty": false,
+          "projected_reachability_dice": 1.0,
+          "projected_reachability_joint_empty": false,
+          "right_collapsed_within_group_edges": 0,
+          "right_endpoint_alignable_edge_rate": 1.0,
+          "right_total_edges": 2
+        },
+        "layer_coverage": {
+          "obligation": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "required_information_unit": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          },
+          "topology_node": {
+            "conflict_group_count": 0,
+            "left_compatible_coverage": 1.0,
+            "left_item_count": 3,
+            "left_strict_coverage": 1.0,
+            "material_unmatched_item_count": 0,
+            "partial_overlap_group_count": 0,
+            "right_compatible_coverage": 1.0,
+            "right_item_count": 3,
+            "right_strict_coverage": 1.0,
+            "split_merge_group_count": 0,
+            "symmetric_compatible_coverage": 1.0,
+            "symmetric_strict_coverage": 1.0,
+            "unmatched_item_count": 0
+          }
+        },
+        "question_id": "f08d137b8650f452"
+      }
+    ],
+    "semantic_judgment_source": "separate_ai_alignment_assistant",
+    "shadow_holdout": {
+      "compatible_or_full_question_rate": 1.0,
+      "disposition_counts": {
+        "COMPATIBLE_VARIATION": 14,
+        "FULL_EQUIVALENCE": 6
+      },
+      "mean_obligation_symmetric_compatible_coverage": 1.0,
+      "mean_projected_direct_edge_dice": 1.0,
+      "mean_projected_reachability_dice": 1.0,
+      "mean_topology_node_symmetric_compatible_coverage": 1.0,
+      "question_count": 20
+    }
+  },
+  "canonical_research_status": {
+    "common_executable_graph_claimed": false,
+    "current_scientific_decision": "UNDECIDED_NEEDS_ANNOTATION_EVIDENCE",
+    "gold_claimed": false,
+    "grounding_or_execution_evaluated": false,
+    "human_agreement_observation_count": 0,
+    "human_evidence_count": 0,
+    "modeling_ready_claimed": false,
+    "phase_a1_pass_claimed": false,
+    "phase_a2_entry_claimed": false,
+    "phase_b_entry_claimed": false
+  },
+  "categorical_pair_metrics": {
+    "alternative_plan_present": {
+      "exact_match_count": 20,
+      "question_count": 30,
+      "rate": 0.6666666666666666
+    },
+    "ambiguity_present": {
+      "exact_match_count": 25,
+      "question_count": 30,
+      "rate": 0.8333333333333334
+    },
+    "back_mapping_requirement_present": {
+      "exact_match_count": 30,
+      "question_count": 30,
+      "rate": 1.0
+    },
+    "representation_outcome": {
+      "exact_match_count": 30,
+      "question_count": 30,
+      "rate": 1.0
+    },
+    "selection_requirement_present": {
+      "exact_match_count": 30,
+      "question_count": 30,
+      "rate": 1.0
+    }
+  },
+  "downstream_connector_preview": {
+    "phase_b_human_review_performed": false,
+    "phase_c_grounding_or_execution_performed": false,
+    "preserved_deterministic_checks_artifact": {
+      "passing_check_count": 90,
+      "path": "data_construction/pilot/granularity_deterministic_checks.jsonl",
+      "record_count": 90,
+      "sha256": "9500afcb6d529e2b8b5f8842d2170bdc5dc1c34d39b299f18b4c531b70a55c05"
+    },
+    "preserved_metrics_artifact": {
+      "path": "data_construction/reports/operator_granularity_metrics_v0_1.json",
+      "sha256": "271f773bab77b5a49368944dc4b5131c88d41a8791fe7fe2154f58e31d2cf8ec"
+    },
+    "preserved_representation_artifact": {
+      "path": "data_construction/pilot/granularity_representations.jsonl",
+      "record_count": 30,
+      "sha256": "75cb1b5ae1c03d1f931acf720c37f52686d247046389e982ffbe43a610a44583",
+      "status": "preexisting_llm_proposed_deferred_phase_b_evidence_unchanged"
+    },
+    "semantic_plan_correctness_evaluated": false,
+    "structural_only_comparison": {
+      "coarse": {
+        "exact_structural_signature_rate": 0.45,
+        "mean_absolute_depth_difference": 0.55,
+        "mean_absolute_node_count_difference": 0.6,
+        "question_count": 20
+      },
+      "fine": {
+        "exact_structural_signature_rate": 0.0,
+        "mean_absolute_depth_difference": 4.5,
+        "mean_absolute_node_count_difference": 4.45,
+        "question_count": 20
+      },
+      "medium": {
+        "exact_structural_signature_rate": 0.0,
+        "mean_absolute_depth_difference": 2.5,
+        "mean_absolute_node_count_difference": 2.45,
+        "question_count": 20
+      }
+    }
+  },
+  "evidence_class": "non_evidentiary_ai_shadow_pipeline",
+  "independent_topology": {
+    "interpretation": "descriptive_structure_only_not_semantic_prediction_or_execution",
+    "per_question": [
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "f7426693930a6ab2",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": true,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "fb5717774d243073",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": true,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "1e674ae4b655c1a1",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": true,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "bd8704d4254c01c6",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": true,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      },
+      {
+        "independent": {
+          "branch_present": true,
+          "edge_count": 4,
+          "join_present": true,
+          "longest_path_node_count": 3,
+          "node_count": 4,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "0503a6ef0129abd8",
+        "reviewer_01": {
+          "branch_present": true,
+          "edge_count": 4,
+          "join_present": true,
+          "longest_path_node_count": 3,
+          "node_count": 4,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": true,
+        "reviewer_02": {
+          "branch_present": true,
+          "edge_count": 4,
+          "join_present": true,
+          "longest_path_node_count": 3,
+          "node_count": 4,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "254c5c25421f60da",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": false,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": false
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "1518b9d0da2d3711",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": true,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "be6ebff950e35063",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": true,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "5ee2a90fe9a3cd56",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": true,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "6926f4190bebd390",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": true,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "d8b4bad4f5a73509",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": true,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "6a9c00243f104ad3",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": true,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "e650aba3f1a9239e",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": true,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "c597434242009fe6",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": true,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "86245b7523f7a645",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": true,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 0,
+          "join_present": false,
+          "longest_path_node_count": 1,
+          "node_count": 1,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "1754cff04f90d4ba",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": false,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": false
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "2e4366c597bbfb87",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": false,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "639da22b64b0a499",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": true,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "fc9605cb355ae05c",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": true,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 1,
+          "join_present": false,
+          "longest_path_node_count": 2,
+          "node_count": 2,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      },
+      {
+        "independent": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "question_id": "f08d137b8650f452",
+        "reviewer_01": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_01_signature_exact": true,
+        "reviewer_02": {
+          "branch_present": false,
+          "edge_count": 2,
+          "join_present": false,
+          "longest_path_node_count": 3,
+          "node_count": 3,
+          "root_count": 1,
+          "sink_count": 1
+        },
+        "reviewer_02_signature_exact": true
+      }
+    ],
+    "question_count": 20,
+    "reviewer_01": {
+      "boolean_exact_match_rate": {
+        "branch_present": 1.0,
+        "join_present": 1.0
+      },
+      "exact_signature_rate": 0.85,
+      "mean_absolute_difference": {
+        "edge_count": 0.15,
+        "longest_path_node_count": 0.15,
+        "node_count": 0.15,
+        "root_count": 0.0,
+        "sink_count": 0.0
+      }
+    },
+    "reviewer_02": {
+      "boolean_exact_match_rate": {
+        "branch_present": 1.0,
+        "join_present": 1.0
+      },
+      "exact_signature_rate": 0.9,
+      "mean_absolute_difference": {
+        "edge_count": 0.1,
+        "longest_path_node_count": 0.1,
+        "node_count": 0.1,
+        "root_count": 0.0,
+        "sink_count": 0.0
+      }
+    }
+  },
+  "limitations": [
+    "Both reviewers are AI invocations from one model family; statistical independence is not claimed.",
+    "Context isolation and absence of other-output consultation are procedural, not machine-authenticated.",
+    "Semantic alignment is another AI judgment and is not human agreement or correctness.",
+    "The shadow hold-out continues by design even if calibration concordance is low; it is not Phase A2 evidence.",
+    "Independent topology comparison uses graph invariants without semantic node alignment.",
+    "No answer, grounding, executable graph, or execution result is evaluated in this diagnostic."
+  ],
+  "pipeline_execution_status": "complete",
+  "raw_integrity": {
+    "expected_stage1_record_count": 60,
+    "expected_structured_record_count": 60,
+    "observed_stage1_record_count": 60,
+    "observed_structured_record_count": 60,
+    "reviewer_quality": {
+      "ai_reviewer_01": {
+        "complete_count": 30,
+        "instrument_issue_count": 19,
+        "not_annotatable_count": 0,
+        "record_count": 30,
+        "schema_gap_count": 0
+      },
+      "ai_reviewer_02": {
+        "complete_count": 30,
+        "instrument_issue_count": 0,
+        "not_annotatable_count": 0,
+        "record_count": 30,
+        "schema_gap_count": 0
+      }
+    },
+    "schema_hash_cue_reference_and_dag_validation": "pass"
+  },
+  "run_id": "ai_question_structure_pipeline_v0_1_run_001",
+  "schema_version": "ai_question_structure_pipeline_diagnostic_metrics_v0_1",
+  "scientific_gate_status": "NOT_EVALUATED_AI_SUBSTITUTE"
+}
