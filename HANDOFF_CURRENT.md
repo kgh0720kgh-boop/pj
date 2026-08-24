@@ -7,11 +7,12 @@ freeze before grounding.**
 
 Active branch: `main`
 
-Expected handoff baseline: `0c9f293336709f1f8526d03cc0aad0bc7fb881c5`
+Expected handoff baseline: `a6a35a544894989a48300c6935ac9447a337c796`
 
-The expected baseline contains the completed representative environment run
-and its normalization-gate interpretation. This authentication-status handoff
-is one linear descendant of that baseline.
+The expected baseline contains the completed representative environment run,
+its normalization-gate interpretation, and the resolved authentication audit.
+This synchronization-status handoff is one linear descendant of that baseline;
+both are present on `origin/main` after the final push.
 
 Last completed task: froze and executed the 71-question representative
 environment study, keeping backbone adequacy (E1), open operator realization
@@ -28,13 +29,11 @@ Current scientific decision:
 Study status:
 `representative_environment_e1_e2_complete_equivalence_normalization_required_before_grounding_or_common_graph_claim`.
 
-Synchronization state: `BLOCKED_REMOTE_AUTH`.
+Synchronization state: `SYNCED_TO_REMOTE`.
 
-Handoff readiness: Not ready. After an authorized fetch, `origin/main` had zero
-new commits and local `main` was 47 commits ahead. The authorized HTTPS push
-failed because this workstation has no GitHub credentials. This
-authentication-status commit is projected to make local `main` 48 commits
-ahead.
+Handoff readiness: Not scientifically ready because operator-equivalence
+normalization has not started. Git synchronization is complete: local `main`
+and `origin/main` resolve to the same final synchronization-status commit.
 
 ## Authoritative status
 
@@ -126,10 +125,10 @@ producer effect.
 
 ## Declared blockers
 
-- `BLOCKED_REMOTE_AUTH`: push was authorized and attempted, but this workstation has no HTTPS credential helper, GitHub CLI login, SSH identity, or GitHub token.
 - `OPERATOR_EQUIVALENCE_NORMALIZATION_NOT_STARTED`: the reversible quotient and its precommitted branch criteria do not yet exist.
 
-The prior representative-environment-realization blocker is resolved.
+The prior representative-environment-realization and remote-authentication
+blockers are resolved.
 
 ## Validation commands
 
@@ -154,7 +153,7 @@ Expected result after this metadata update:
 - N=300, candidate-library, and representative-run validate-only checks reconstruct committed artifacts exactly;
 - core JSON/JSONL parse set: 76 files;
 - unit tests: 157 passed, zero failed;
-- preflight: zero deterministic validation failures, `RESULT=NOT_READY`, exit 2 only for synchronization and operator-equivalence-normalization gates.
+- preflight: zero deterministic validation failures, `RESULT=NOT_READY`, exit 2 only for the operator-equivalence-normalization gate.
 
 The preflight compares local remote-tracking refs. Fetch only when remote reads
 are authorized; never pull over, reset, or rewrite this continuation.
