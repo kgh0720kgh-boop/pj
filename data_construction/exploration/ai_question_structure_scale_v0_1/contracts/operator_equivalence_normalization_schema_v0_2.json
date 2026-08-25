@@ -1,0 +1,344 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "operator_equivalence_normalization_schema_v0_2.json",
+  "title": "Candidate-sensitive factorized operator equivalence normalization v0.2",
+  "description": "A reversible label-free normalization that separates full semantic-set eligibility from candidate-sensitive semantic identity and factors the environment adapter into modality/cardinality, semantic-relative placement, split/fuse boundary, and output-arity components.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "normalization_id",
+    "source_candidate_key",
+    "source_cohort",
+    "source_author_id",
+    "question_id",
+    "family_id",
+    "producer_partition",
+    "candidate_id",
+    "target_backbone_variant_id",
+    "source_v0_1_normalization_sha256",
+    "source_v0_1_equivalence_status",
+    "source_projection_sha256",
+    "candidate_semantic_profile",
+    "equivalence_eligibility",
+    "factorized_environment_adapter",
+    "reversibility_ledger",
+    "evidence_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "operator_equivalence_normalization_v0_2"},
+    "normalization_id": {"type": "string", "pattern": "^operator_equivalence_normalization_v0_2:[A-Za-z0-9_.:-]+$"},
+    "source_candidate_key": {"type": "string", "pattern": "^(original|crossed):[A-Za-z0-9_.:-]+$"},
+    "source_cohort": {"enum": ["original", "crossed_author"]},
+    "source_author_id": {
+      "oneOf": [
+        {"type": "null"},
+        {"enum": ["crossed_author_01", "crossed_author_02"]}
+      ]
+    },
+    "question_id": {"$ref": "#/$defs/id"},
+    "family_id": {"type": "string", "pattern": "^cbf_v0_1:[0-9a-f]{64}$"},
+    "producer_partition": {"type": "string", "pattern": "^e2_author_partition_[0-9]{2}$"},
+    "candidate_id": {"type": "string", "pattern": "^candidate[1-9][0-9]*$"},
+    "target_backbone_variant_id": {
+      "oneOf": [
+        {"const": "primary"},
+        {"type": "string", "pattern": "^alt[1-9][0-9]*$"}
+      ]
+    },
+    "source_v0_1_normalization_sha256": {"$ref": "#/$defs/sha256"},
+    "source_v0_1_equivalence_status": {"enum": ["equivalent", "provisionally_equivalent", "not_equivalent"]},
+    "source_projection_sha256": {"$ref": "#/$defs/sha256"},
+    "candidate_semantic_profile": {"$ref": "#/$defs/candidate_semantic_profile"},
+    "equivalence_eligibility": {"$ref": "#/$defs/equivalence_eligibility"},
+    "factorized_environment_adapter": {"$ref": "#/$defs/factorized_adapter"},
+    "reversibility_ledger": {"$ref": "#/$defs/reversibility_ledger"},
+    "evidence_boundary": {"$ref": "#/$defs/evidence_boundary"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$", "maxLength": 320},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "sq_id": {"type": "string", "pattern": "^sq[1-9][0-9]*$"},
+    "sq_id_array": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/sq_id"}
+    },
+    "semantic_node": {
+      "type": "object",
+      "required": ["node_id", "role", "depends_on"],
+      "properties": {
+        "node_id": {"$ref": "#/$defs/sq_id"},
+        "role": {"$ref": "#/$defs/id"},
+        "depends_on": {"$ref": "#/$defs/sq_id_array"}
+      },
+      "additionalProperties": false
+    },
+    "semantic_edge": {
+      "type": "object",
+      "required": ["source_node_id", "target_node_id"],
+      "properties": {
+        "source_node_id": {"$ref": "#/$defs/sq_id"},
+        "target_node_id": {"$ref": "#/$defs/sq_id"}
+      },
+      "additionalProperties": false
+    },
+    "candidate_semantic_profile": {
+      "type": "object",
+      "required": [
+        "canonicalization",
+        "target_semantic_quotient_sha256",
+        "supported_semantic_nodes",
+        "supported_entry_node_ids",
+        "supported_output_node_ids",
+        "missing_semantic_node_ids",
+        "missing_output_node_ids",
+        "preserved_required_dependencies",
+        "missing_required_dependencies",
+        "extra_candidate_dependencies",
+        "signature_sha256"
+      ],
+      "properties": {
+        "canonicalization": {"const": "candidate_support_output_and_dependency_profile_over_canonical_target_v0_2"},
+        "target_semantic_quotient_sha256": {"$ref": "#/$defs/sha256"},
+        "supported_semantic_nodes": {"type": "array", "items": {"$ref": "#/$defs/semantic_node"}},
+        "supported_entry_node_ids": {"$ref": "#/$defs/sq_id_array"},
+        "supported_output_node_ids": {"$ref": "#/$defs/sq_id_array"},
+        "missing_semantic_node_ids": {"$ref": "#/$defs/sq_id_array"},
+        "missing_output_node_ids": {"$ref": "#/$defs/sq_id_array"},
+        "preserved_required_dependencies": {"type": "array", "items": {"$ref": "#/$defs/semantic_edge"}},
+        "missing_required_dependencies": {"type": "array", "items": {"$ref": "#/$defs/semantic_edge"}},
+        "extra_candidate_dependencies": {"type": "array", "items": {"$ref": "#/$defs/semantic_edge"}},
+        "signature_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "equivalence_eligibility": {
+      "type": "object",
+      "required": [
+        "status",
+        "included_in_full_eligible_semantic_set",
+        "source_coverage_status",
+        "complete_semantic_node_coverage",
+        "required_dependencies_preserved",
+        "no_extra_candidate_dependencies",
+        "mapped_output_coverage_complete",
+        "output_arity_preserved",
+        "ineligible_reasons",
+        "provisional_reasons",
+        "failure_profile_sha256"
+      ],
+      "properties": {
+        "status": {"enum": ["full_eligible", "provisional_only", "ineligible"]},
+        "included_in_full_eligible_semantic_set": {"type": "boolean"},
+        "source_coverage_status": {"enum": ["complete_for_target_variant", "partial_for_target_variant"]},
+        "complete_semantic_node_coverage": {"type": "boolean"},
+        "required_dependencies_preserved": {"type": "boolean"},
+        "no_extra_candidate_dependencies": {"type": "boolean"},
+        "mapped_output_coverage_complete": {"type": "boolean"},
+        "output_arity_preserved": {"type": "boolean"},
+        "ineligible_reasons": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "provisional_reasons": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "failure_profile_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "typed_slot_count": {
+      "type": "object",
+      "required": ["environment_modality", "cardinality", "count"],
+      "properties": {
+        "environment_modality": {"$ref": "#/$defs/id"},
+        "cardinality": {"enum": ["one", "multiple", "unknown"]},
+        "count": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "placement_count": {
+      "type": "object",
+      "required": [
+        "access_mode",
+        "fused_semantic_node_ids",
+        "upstream_semantic_node_ids",
+        "downstream_semantic_node_ids",
+        "count"
+      ],
+      "properties": {
+        "access_mode": {"enum": ["fused", "explicit"]},
+        "fused_semantic_node_ids": {"$ref": "#/$defs/sq_id_array"},
+        "upstream_semantic_node_ids": {"$ref": "#/$defs/sq_id_array"},
+        "downstream_semantic_node_ids": {"$ref": "#/$defs/sq_id_array"},
+        "count": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "boundary_count": {
+      "type": "object",
+      "required": [
+        "mapping_kind",
+        "semantic_node_ids",
+        "operator_node_count",
+        "environment_extension_operator_count",
+        "count"
+      ],
+      "properties": {
+        "mapping_kind": {"enum": ["one_to_one", "one_to_many", "many_to_one", "many_to_many"]},
+        "semantic_node_ids": {"$ref": "#/$defs/sq_id_array"},
+        "operator_node_count": {"type": "integer", "minimum": 1},
+        "environment_extension_operator_count": {"type": "integer", "minimum": 0},
+        "count": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "modality_component": {
+      "type": "object",
+      "required": ["typed_slot_multiset", "signature_sha256"],
+      "properties": {
+        "typed_slot_multiset": {"type": "array", "items": {"$ref": "#/$defs/typed_slot_count"}},
+        "signature_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "placement_component": {
+      "type": "object",
+      "required": ["semantic_relative_access_multiset", "signature_sha256"],
+      "properties": {
+        "semantic_relative_access_multiset": {"type": "array", "items": {"$ref": "#/$defs/placement_count"}},
+        "signature_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "boundary_component": {
+      "type": "object",
+      "required": ["semantic_operator_boundary_multiset", "signature_sha256"],
+      "properties": {
+        "semantic_operator_boundary_multiset": {"type": "array", "items": {"$ref": "#/$defs/boundary_count"}},
+        "signature_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "output_component": {
+      "type": "object",
+      "required": [
+        "target_output_node_ids",
+        "mapped_output_node_ids",
+        "operator_output_arity",
+        "semantic_operator_output_arity",
+        "unmapped_operator_output_count",
+        "signature_sha256"
+      ],
+      "properties": {
+        "target_output_node_ids": {"$ref": "#/$defs/sq_id_array"},
+        "mapped_output_node_ids": {"$ref": "#/$defs/sq_id_array"},
+        "operator_output_arity": {"type": "integer", "minimum": 1},
+        "semantic_operator_output_arity": {"type": "integer", "minimum": 0},
+        "unmapped_operator_output_count": {"type": "integer", "minimum": 0},
+        "signature_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "component_signatures": {
+      "type": "object",
+      "required": ["modality_cardinality", "semantic_relative_placement", "split_fuse_boundary", "output_arity"],
+      "properties": {
+        "modality_cardinality": {"$ref": "#/$defs/sha256"},
+        "semantic_relative_placement": {"$ref": "#/$defs/sha256"},
+        "split_fuse_boundary": {"$ref": "#/$defs/sha256"},
+        "output_arity": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "classification_coverage": {
+      "type": "object",
+      "required": [
+        "typed_slot_source_count",
+        "typed_slot_classified_count",
+        "access_operator_source_count",
+        "access_operator_classified_count",
+        "mapping_source_count",
+        "mapping_classified_count",
+        "operator_output_source_count",
+        "operator_output_classified_count",
+        "all_source_elements_classified"
+      ],
+      "properties": {
+        "typed_slot_source_count": {"type": "integer", "minimum": 0},
+        "typed_slot_classified_count": {"type": "integer", "minimum": 0},
+        "access_operator_source_count": {"type": "integer", "minimum": 0},
+        "access_operator_classified_count": {"type": "integer", "minimum": 0},
+        "mapping_source_count": {"type": "integer", "minimum": 0},
+        "mapping_classified_count": {"type": "integer", "minimum": 0},
+        "operator_output_source_count": {"type": "integer", "minimum": 1},
+        "operator_output_classified_count": {"type": "integer", "minimum": 0},
+        "all_source_elements_classified": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "factorized_adapter": {
+      "type": "object",
+      "required": ["components", "component_signatures", "overall_signature_sha256", "classification_coverage"],
+      "properties": {
+        "components": {
+          "type": "object",
+          "required": ["modality_cardinality", "semantic_relative_placement", "split_fuse_boundary", "output_arity"],
+          "properties": {
+            "modality_cardinality": {"$ref": "#/$defs/modality_component"},
+            "semantic_relative_placement": {"$ref": "#/$defs/placement_component"},
+            "split_fuse_boundary": {"$ref": "#/$defs/boundary_component"},
+            "output_arity": {"$ref": "#/$defs/output_component"}
+          },
+          "additionalProperties": false
+        },
+        "component_signatures": {"$ref": "#/$defs/component_signatures"},
+        "overall_signature_sha256": {"$ref": "#/$defs/sha256"},
+        "classification_coverage": {"$ref": "#/$defs/classification_coverage"}
+      },
+      "additionalProperties": false
+    },
+    "reversibility_ledger": {
+      "type": "object",
+      "required": ["source_structural_projection", "reconstruction_sha256", "reconstruction_verified"],
+      "properties": {
+        "source_structural_projection": {"type": "object"},
+        "reconstruction_sha256": {"$ref": "#/$defs/sha256"},
+        "reconstruction_verified": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "evidence_boundary": {
+      "type": "object",
+      "required": [
+        "label_free_structural_inputs_only",
+        "v0_1_artifacts_immutable",
+        "question_text_excluded",
+        "environment_text_excluded",
+        "answer_and_trace_excluded",
+        "e1_content_excluded",
+        "operator_descriptions_excluded",
+        "preserved_vocabularies_excluded",
+        "fresh_question_ids_used",
+        "grounding_evaluated",
+        "execution_evaluated",
+        "answer_recovery_evaluated",
+        "human_evidence_created",
+        "gold_claimed"
+      ],
+      "properties": {
+        "label_free_structural_inputs_only": {"const": true},
+        "v0_1_artifacts_immutable": {"const": true},
+        "question_text_excluded": {"const": true},
+        "environment_text_excluded": {"const": true},
+        "answer_and_trace_excluded": {"const": true},
+        "e1_content_excluded": {"const": true},
+        "operator_descriptions_excluded": {"const": true},
+        "preserved_vocabularies_excluded": {"const": true},
+        "fresh_question_ids_used": {"const": false},
+        "grounding_evaluated": {"const": false},
+        "execution_evaluated": {"const": false},
+        "answer_recovery_evaluated": {"const": false},
+        "human_evidence_created": {"const": false},
+        "gold_claimed": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  }
+}

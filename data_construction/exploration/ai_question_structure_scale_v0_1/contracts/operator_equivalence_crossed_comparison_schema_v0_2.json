@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "operator_equivalence_crossed_comparison_schema_v0_2.json",
+  "title": "Eligibility-aware crossed-author comparison v0.2",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "question_id",
+    "selection_role",
+    "original_e2_producer_partition",
+    "author_results",
+    "full_eligible_semantic_set_exact_match",
+    "full_eligible_semantic_set_jaccard",
+    "component_agreement",
+    "overall_adapter_exact_match",
+    "overall_adapter_jaccard",
+    "eligible_set_contamination_count",
+    "candidate1_preferred",
+    "evidence_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "operator_equivalence_crossed_comparison_v0_2"},
+    "question_id": {"$ref": "#/$defs/id"},
+    "selection_role": {"enum": ["e1_challenge", "adequate_control"]},
+    "original_e2_producer_partition": {"type": "string", "pattern": "^e2_author_partition_0[1-4]$"},
+    "author_results": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {"$ref": "#/$defs/author_result"}
+    },
+    "full_eligible_semantic_set_exact_match": {"type": "boolean"},
+    "full_eligible_semantic_set_jaccard": {"$ref": "#/$defs/rate"},
+    "component_agreement": {"$ref": "#/$defs/component_agreement"},
+    "overall_adapter_exact_match": {"type": "boolean"},
+    "overall_adapter_jaccard": {"$ref": "#/$defs/rate"},
+    "eligible_set_contamination_count": {"const": 0},
+    "candidate1_preferred": {"const": false},
+    "evidence_boundary": {"type": "object"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "sha256_set": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/sha256"}},
+    "rate": {"type": "number", "minimum": 0, "maximum": 1},
+    "component_sets": {
+      "type": "object",
+      "required": ["modality_cardinality", "semantic_relative_placement", "split_fuse_boundary", "output_arity"],
+      "properties": {
+        "modality_cardinality": {"$ref": "#/$defs/sha256_set"},
+        "semantic_relative_placement": {"$ref": "#/$defs/sha256_set"},
+        "split_fuse_boundary": {"$ref": "#/$defs/sha256_set"},
+        "output_arity": {"$ref": "#/$defs/sha256_set"}
+      },
+      "additionalProperties": false
+    },
+    "author_result": {
+      "type": "object",
+      "required": [
+        "author_id",
+        "candidate_count",
+        "full_eligible_candidate_count",
+        "provisional_candidate_count",
+        "ineligible_candidate_count",
+        "full_eligible_member_keys",
+        "full_eligible_semantic_set",
+        "provisional_semantic_profile_set",
+        "ineligible_failure_profile_set",
+        "full_eligible_adapter_component_sets",
+        "full_eligible_overall_adapter_set",
+        "eligible_set_contamination_count"
+      ],
+      "properties": {
+        "author_id": {"enum": ["crossed_author_01", "crossed_author_02"]},
+        "candidate_count": {"type": "integer", "minimum": 1},
+        "full_eligible_candidate_count": {"type": "integer", "minimum": 0},
+        "provisional_candidate_count": {"type": "integer", "minimum": 0},
+        "ineligible_candidate_count": {"type": "integer", "minimum": 0},
+        "full_eligible_member_keys": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "full_eligible_semantic_set": {"$ref": "#/$defs/sha256_set"},
+        "provisional_semantic_profile_set": {"$ref": "#/$defs/sha256_set"},
+        "ineligible_failure_profile_set": {"$ref": "#/$defs/sha256_set"},
+        "full_eligible_adapter_component_sets": {"$ref": "#/$defs/component_sets"},
+        "full_eligible_overall_adapter_set": {"$ref": "#/$defs/sha256_set"},
+        "eligible_set_contamination_count": {"const": 0}
+      },
+      "additionalProperties": false
+    },
+    "agreement": {
+      "type": "object",
+      "required": ["exact_match", "jaccard"],
+      "properties": {
+        "exact_match": {"type": "boolean"},
+        "jaccard": {"$ref": "#/$defs/rate"}
+      },
+      "additionalProperties": false
+    },
+    "component_agreement": {
+      "type": "object",
+      "required": ["modality_cardinality", "semantic_relative_placement", "split_fuse_boundary", "output_arity"],
+      "properties": {
+        "modality_cardinality": {"$ref": "#/$defs/agreement"},
+        "semantic_relative_placement": {"$ref": "#/$defs/agreement"},
+        "split_fuse_boundary": {"$ref": "#/$defs/agreement"},
+        "output_arity": {"$ref": "#/$defs/agreement"}
+      },
+      "additionalProperties": false
+    }
+  }
+}
