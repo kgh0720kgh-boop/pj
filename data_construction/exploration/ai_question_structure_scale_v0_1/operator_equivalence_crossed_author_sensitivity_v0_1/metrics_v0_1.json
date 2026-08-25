@@ -1,0 +1,44 @@
+{
+  "counts": {
+    "adapter_set_exact_matches": 0,
+    "author_records": 32,
+    "authors": 2,
+    "challenge_semantic_exact_matches": 7,
+    "control_semantic_exact_matches": 9,
+    "distinct_adapter_signatures": 25,
+    "normalization_status": {
+      "equivalent": 20,
+      "not_equivalent": 5,
+      "provisionally_equivalent": 9
+    },
+    "normalized_candidates": 34,
+    "questions": 16,
+    "semantic_set_exact_matches": 16
+  },
+  "criteria_passed": false,
+  "decision": "REVISE_EQUIVALENCE_NORMALIZATION_CONTRACT",
+  "fresh_reserve_ids_used": false,
+  "frozen_criteria": {
+    "adequate_control_semantic_exact_match_count_min": 8,
+    "branch_on_fail": "REVISE_EQUIVALENCE_NORMALIZATION_CONTRACT",
+    "branch_on_pass": "FREEZE_PROVISIONAL_NON_FINAL_OPERATOR_ADAPTER_FOR_GROUNDING",
+    "distinct_adapter_signature_count_max": 32,
+    "e1_challenge_semantic_exact_match_count_min": 5,
+    "invalid_author_record_count_max": 0,
+    "mean_semantic_set_jaccard_min": 0.95,
+    "normalization_not_equivalent_count_max": 0,
+    "normalization_provisional_fraction_max": 0.1,
+    "semantic_set_exact_match_rate_min": 0.875
+  },
+  "grounding_started": false,
+  "human_evidence_created": false,
+  "rates": {
+    "adapter_set_exact_match": 0.0,
+    "mean_adapter_set_jaccard": 0.0,
+    "mean_semantic_set_jaccard": 1.0,
+    "normalization_provisional_fraction": 0.2647058823529412,
+    "semantic_set_exact_match": 1.0
+  },
+  "run_id": "hybridqa_operator_equivalence_crossed_author_sensitivity_v0_1_run_001",
+  "schema_version": "operator_equivalence_crossed_author_sensitivity_metrics_v0_1"
+}
