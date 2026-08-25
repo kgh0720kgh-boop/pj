@@ -2,30 +2,30 @@
   "schema_version": "project_state_v0_1",
   "state_updated_date": "2026-08-25",
   "project": "hierarchical_data_construction_for_semantic_execution_topology_induction",
-  "active_phase": "phase_2f_targeted_crossed_author_reauthor_protocol_freeze",
+  "active_phase": "phase_2g_targeted_authoring_instrument_revision_protocol_freeze",
   "active_branch": "main",
-  "expected_head": "a13fa72c75049e09a966a9ea11e514c4a961841e",
-  "last_completed_task": "completed_candidate_derived_eligibility_aware_factorized_adapter_normalization_v0_2_over_all_127_existing_candidates_with_frozen_technical_pass_and_crossed_semantic_failure",
-  "next_task": "freeze_a_separate_targeted_crossed_author_reauthor_plan_before_outputs_for_exactly_the_six_existing_challenge_mismatches_with_two_new_isolated_authors_no_fresh_question_ids_and_no_grounding",
-  "current_scientific_decision": "NARROW_OR_REAUTHOR_BEFORE_GROUNDING",
-  "scientific_decision_status": "normalization_v0_2_complete_technical_and_adapter_contracts_passed_crossed_semantic_stability_failed_grounding_blocked",
+  "expected_head": "f9377db09ef8d34cc846801730980e933e4e8331",
+  "last_completed_task": "completed_targeted_crossed_author_reauthor_v0_1_over_the_six_existing_challenge_mismatches_with_technical_pass_full_eligibility_coverage_failure_and_no_grounding",
+  "next_task": "freeze_a_separately_versioned_targeted_authoring_instrument_revision_before_outputs_for_the_same_six_existing_ids_with_label_free_candidate_local_completeness_feedback_no_prior_result_exposure_and_no_grounding",
+  "current_scientific_decision": "REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING",
+  "scientific_decision_status": "targeted_reauthor_v0_1_complete_technical_contract_passed_full_eligibility_coverage_and_semantic_stability_failed_grounding_blocked",
   "synchronization_state": "LOCAL_COMMIT_NOT_PUSHED",
   "handoff_readiness": "not_ready",
   "blocked_gates": [
-    "CROSSED_FULL_ELIGIBLE_SEMANTIC_STABILITY_FAILED: v0.2 observed 10/16 exact matches, 0.65625 mean Jaccard, 27/32 full-eligible author-question coverage, and 1/7 challenge exact matches",
-    "LOCAL_COMMIT_NOT_PUSHED: 17 portable commits are ahead of origin/main after the metadata handoff commit and remote write has not been authorized"
+    "TARGETED_REAUTHOR_FULL_ELIGIBILITY_COVERAGE_FAILED: v0.1 observed 8/12 full-eligible author-question coverage, 2/6 nonempty semantic intersections, 1/6 exact matches, and 0.25 mean Jaccard",
+    "LOCAL_COMMIT_NOT_PUSHED: 24 portable commits are ahead of origin/main after the metadata handoff commit and remote write has not been authorized"
   ],
   "repository": {
     "git_root": "repository root (resolve with git rev-parse --show-toplevel)",
     "current_branch": "main",
-    "head": "a13fa72c75049e09a966a9ea11e514c4a961841e",
-    "head_role": "completed_operator_equivalence_normalization_v0_2_result_baseline_parent_of_metadata_commit",
+    "head": "f9377db09ef8d34cc846801730980e933e4e8331",
+    "head_role": "completed_targeted_reauthor_v0_1_result_baseline_parent_of_metadata_commit",
     "remotes": [
       "origin https://github.com/kgh0720kgh-boop/pj.git"
     ],
     "working_tree_status": "clean",
     "untracked_files": 0,
-    "unpushed_commits": 17,
+    "unpushed_commits": 24,
     "stash_state": "empty"
   },
   "artifact_status": {
@@ -763,6 +763,136 @@
         }
       }
     },
+    "operator_equivalence_targeted_reauthor_v0_1": {
+      "status": "complete_technical_contract_passed_full_eligibility_coverage_and_semantic_stability_failed",
+      "active_gate": false,
+      "run_id": "hybridqa_operator_equivalence_targeted_reauthor_v0_1_run_001",
+      "implementation_commit": "51b5204d568efc55f6d1fdff3d7d1b2bf1f6f008",
+      "plan_freeze_commit": "4fa67b5f908a3b323610451964aeedcaaef06a2f",
+      "packet_materialization_commit": "5e45170f86c8f9b540003d2ffeb896407f26594f",
+      "author_01_commit": "c83bb1c8583fbd9ce1fa394f92f092889244b156",
+      "author_02_commit": "a2610732d7b23fb6ad0e88698c19e7d4ebf37af9",
+      "materialization_commit": "f9377db09ef8d34cc846801730980e933e4e8331",
+      "author_count": 2,
+      "question_count": 6,
+      "author_record_count": 12,
+      "candidate_count": 14,
+      "eligibility_status_counts": {
+        "full_eligible": 9,
+        "provisional_only": 0,
+        "ineligible": 5
+      },
+      "technical_loss_count": 0,
+      "eligible_set_contamination_count": 0,
+      "unclassified_adapter_candidate_count": 0,
+      "preferred_candidate_count": 0,
+      "fresh_question_id_count": 0,
+      "profile_inventory_loss_count": 0,
+      "full_eligible_author_question_coverage": 8,
+      "nonempty_new_author_semantic_intersection_count": 2,
+      "new_author_semantic_exact_match_count": 1,
+      "new_author_semantic_exact_match_rate": 0.16666666666666666,
+      "mean_new_author_semantic_jaccard": 0.25,
+      "reference_compatible_author_question_count": 8,
+      "distinct_observed_semantic_profile_count": 11,
+      "technical_contract_passed": true,
+      "full_eligibility_coverage_passed": false,
+      "semantic_stability_and_reference_compatibility_passed": false,
+      "all_criteria_passed": false,
+      "decision": "REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING",
+      "grounding_protocol_authorized_next": false,
+      "separate_narrowed_grounding_plan_may_be_frozen_next": false,
+      "grounding_started": false,
+      "fresh_question_ids_used": false,
+      "human_evidence_count": 0,
+      "gold_claimed": false,
+      "question_ids": [
+        "0d48bffa70ef4acf",
+        "cc681cfdba9badd5",
+        "1e2e4e4f72a64bbf",
+        "1e674ae4b655c1a1",
+        "1ca8ffcd3e20e498",
+        "ba563b015b09bf21"
+      ],
+      "ineligible_question_ids": [
+        "0d48bffa70ef4acf",
+        "cc681cfdba9badd5",
+        "1e674ae4b655c1a1",
+        "1ca8ffcd3e20e498",
+        "ba563b015b09bf21"
+      ],
+      "model_provenance": {
+        "model_id": "codex_gpt-5",
+        "model_revision_status": "revision_not_exposed",
+        "raw_chat_output_status": "not_exposed_by_interface_structured_author_records_preserved",
+        "seed_status": "not_supported",
+        "exact_generation_replayability": false,
+        "context_isolation": "procedural_fork_context_false_not_globally_machine_authenticated"
+      },
+      "interpretive_limit": "targeted_reauthoring_reproduced_author_instrument_sensitivity_and_did_not_identify_a_correct_author_or_authorize_grounding",
+      "artifacts": {
+        "normalization_schema": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_targeted_reauthor_normalization_schema_v0_1.json",
+          "sha256": "3fc6e2fab9ab62baa42fff72a1120f3dbe24d7e343fd53925d771c7f3c08c924"
+        },
+        "comparison_schema": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_targeted_reauthor_comparison_schema_v0_1.json",
+          "sha256": "2a11ac29b2102dcfb5b0f3e7330eb831c1cc2afca3464673fb58f5656afb11a0"
+        },
+        "protocol": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/prompts/operator_equivalence_targeted_reauthor_v0_1.md",
+          "sha256": "4c60cb631c1fba598b84a94f4e4891e3e7c289fc92ce17595bd62003a6c26ddc"
+        },
+        "freeze_plan": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_targeted_reauthor_plan_v0_1.json",
+          "sha256": "f35da5416458de9796de9de4f189a04a75e7f4ebafced7e8a8c11e2a39b1aef2"
+        },
+        "authoring_packet_01": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/authoring_packets/targeted_author_01.jsonl",
+          "sha256": "11f38e80298a895d8c9a6cfcdc1c992850b57d59e396cb147f47fcf4625984f4"
+        },
+        "authoring_packet_02": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/authoring_packets/targeted_author_02.jsonl",
+          "sha256": "9d963dc0672c9a33fd10b5c090ce28eab7d1ce7e88df1a21c00ec917d4f86dfb"
+        },
+        "author_01": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/author_outputs/targeted_author_01.jsonl",
+          "sha256": "df5d18b5599dd157f06ee81ff0cb42457013108719d4ee31f29d4d3084a88278"
+        },
+        "author_02": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/author_outputs/targeted_author_02.jsonl",
+          "sha256": "8d81c6e33126beba3d4d0d4339eb4ce92aaf1263c0344be740e65457f81f190a"
+        },
+        "combined_author_records": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/combined_author_records.jsonl",
+          "sha256": "edbb635e47ea380ff78fdd1df64938104231bfef45016e2c860dca374aa619f4"
+        },
+        "normalized_candidates": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/normalized_candidates.jsonl",
+          "sha256": "4d1f2196c96d4da9f4b645479db17698f898d8429f40469089f0440beb5ffc5d"
+        },
+        "question_comparisons": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/question_comparisons.jsonl",
+          "sha256": "09d40c8deace88489f6ee8abf30a373701b4bef284c53fa0e3840ce657e9ff17"
+        },
+        "checks": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/checks.jsonl",
+          "sha256": "d045497d7b87c637edd5785ace67ff39fcbb186b253eb5996f3bdcbf2da7bee8"
+        },
+        "metrics": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/metrics_v0_1.json",
+          "sha256": "cb88382d877fa1cb6bc4e4bc7150aacb02fcf685279448d22f336c16b9b2fd2e"
+        },
+        "generated_report": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/report_v0_1.md",
+          "sha256": "21acd9d74e9f34906a6241c8b843d9bd93723e3d03be2dc22bfc19ab542aa37a"
+        },
+        "run_manifest": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/run_manifest.json",
+          "sha256": "bc3141f2ba52a303124bbcc58e3fb3a9c1940a72a189a816e00a43295ae872a6"
+        }
+      }
+    },
     "ai_question_structure_pipeline_diagnostic": {
       "status": "complete_non_evidentiary_shadow_run",
       "run_id": "ai_question_structure_pipeline_v0_1_run_001",
@@ -902,7 +1032,7 @@
     "tools": {
       "status": "implemented",
       "test_entry_point": ".venv/bin/python -B -m unittest discover -s tests -v",
-      "final_integration_test_status": "passed_174_tests_in_project_local_exact_pin_environment"
+      "final_integration_test_status": "passed_180_tests_in_project_local_exact_pin_environment"
     }
   },
   "preflight_status": {
@@ -910,8 +1040,8 @@
     "result": "NOT_READY",
     "exit_code": 2,
     "validation_failures": 0,
-    "core_json_files_parsed": 107,
-    "unit_tests_passed": 174,
+    "core_json_files_parsed": 120,
+    "unit_tests_passed": 180,
     "unit_tests_failed": 0,
     "ir_v0_2_records_validated": 50,
     "ir_v0_2_validator_errors": 0
@@ -959,6 +1089,7 @@
     "data_construction/reports/research_sequencing_decision_v0_5.md",
     "data_construction/reports/research_sequencing_decision_v0_6.md",
     "data_construction/reports/research_sequencing_decision_v0_7.md",
+    "data_construction/reports/research_sequencing_decision_v0_8.md",
     "data_construction/schemas/",
     "data_construction/operator_design/",
     "data_construction/tools/",
@@ -974,6 +1105,7 @@
     "tests/test_operator_equivalence_normalization.py",
     "tests/test_operator_equivalence_crossed_author_sensitivity.py",
     "tests/test_operator_equivalence_normalization_v0_2.py",
+    "tests/test_operator_equivalence_targeted_reauthor.py",
     "historical/README.md",
     "historical/ir_v0_2/recovery_manifest_v0_1.json"
   ],

@@ -2,31 +2,32 @@
 
 Date: 2026-08-25
 
-Current research phase: **targeted crossed-author re-authoring protocol freeze
-before grounding.**
+Current research phase: **targeted authoring-instrument revision protocol
+freeze before grounding.**
 
 Active branch: `main`
 
-Expected handoff baseline: `a13fa72c75049e09a966a9ea11e514c4a961841e`
+Expected handoff baseline: `f9377db09ef8d34cc846801730980e933e4e8331`
 
 The current metadata commit is a linear descendant of this completed
-normalization-v0.2 result baseline.
+targeted re-authoring v0.1 result baseline.
 
-Last completed task: implemented candidate-derived, eligibility-aware,
-factorized-adapter normalization v0.2; froze its exact 127-candidate plan while
-all outputs were absent; and materialized and validated all eight outputs.
+Last completed task: froze and ran targeted crossed-author re-authoring v0.1
+over exactly the six existing challenge mismatches with two new isolated
+authors; its technical contract passed, but full-eligibility coverage failed.
 
-Current scientific decision: `NARROW_OR_REAUTHOR_BEFORE_GROUNDING`.
+Current scientific decision:
+`REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING`.
 
 Synchronization state: `LOCAL_COMMIT_NOT_PUSHED` until the current linear
 sequence is pushed to `origin/main`.
 
 Handoff readiness: Not ready. The scientific gate is
-`CROSSED_FULL_ELIGIBLE_SEMANTIC_STABILITY_FAILED`: normalization v0.2 passed
-its technical and adapter-component contracts but failed its frozen
-crossed-author semantic criteria, so grounding remains unauthorized. The
+`TARGETED_REAUTHOR_FULL_ELIGIBILITY_COVERAGE_FAILED`: targeted re-authoring
+passed its technical/profile-inventory contract but observed only 8/12
+full-eligible author-question coverage, so grounding remains unauthorized. The
 separate `LOCAL_COMMIT_NOT_PUSHED` synchronization gate remains until remote
-write is authorized and the 17-commit sequence is pushed.
+write is authorized and the 24-commit sequence is pushed.
 
 ## Completed normalization v0.1
 
@@ -116,28 +117,58 @@ candidate with an extra non-target dependency. This is author/instrument
 sensitivity, not evidence that either author is correct. Grounding was not
 started or authorized.
 
-## Exact next task: targeted re-authoring plan freeze
+## Completed targeted re-authoring v0.1
 
-Before collecting another author record, create a separately versioned plan
-bound to exactly these six already exposed mismatch IDs, in this order:
+The immutable sequence is:
 
-1. `0d48bffa70ef4acf`
-2. `cc681cfdba9badd5`
-3. `1e2e4e4f72a64bbf`
-4. `1e674ae4b655c1a1`
-5. `1ca8ffcd3e20e498`
-6. `ba563b015b09bf21`
+1. implementation/two schemas/protocol/six tests:
+   `51b5204d568efc55f6d1fdff3d7d1b2bf1f6f008`;
+2. plan frozen while all eleven planned outputs were absent:
+   `4fa67b5f908a3b323610451964aeedcaaef06a2f`;
+3. two six-question isolated packets:
+   `5e45170f86c8f9b540003d2ffeb896407f26594f`;
+4. fresh-context author outputs:
+   `c83bb1c8583fbd9ce1fa394f92f092889244b156` and
+   `a2610732d7b23fb6ad0e88698c19e7d4ebf37af9`;
+5. seven materialized comparison outputs:
+   `f9377db09ef8d34cc846801730980e933e4e8331`.
 
-The plan must bind the v0.2 manifest/comparisons and immutable source views,
-prove planned-output absence at its freeze commit, use no fresh question ID,
-and assign two new isolated fresh-context AI authors to all six questions.
-Inputs must hide prior author records, E1 labels, normalization/metrics,
-answers, traces, vocabularies, grounding, and execution. Precommit coverage,
-full-eligibility, semantic-set, alternative-plan, and branch criteria. Preserve
-all old records; new records are observations, not replacements, votes,
-adjudications, or gold. The run itself may not perform grounding.
+| Measure | Result |
+| --- | ---: |
+| Authors / author records / candidates | 2 / 12 / 14 |
+| Full eligible / provisional / ineligible | 9 / 0 / 5 |
+| Technical loss / contamination / unclassified | 0 / 0 / 0 |
+| Profile inventory loss / preferred candidates | 0 / 0 |
+| Full-eligible author-question coverage | 8/12 |
+| Nonempty semantic intersections | 2/6 |
+| Semantic exact match / mean Jaccard | 1/6 / 0.25 |
+| Reference-compatible author-question pairs | 8/12 |
 
-See `data_construction/reports/research_sequencing_decision_v0_7.md`.
+Targeted author 01 supplied full-eligible candidates on all six questions.
+Targeted author 02 supplied full-eligible candidates on two and ineligible
+partial candidates on five. Every ineligible candidate lacks semantic-node,
+required-dependency, and mapped-output coverage. The run therefore selected
+the frozen coverage-failure branch before grounding. No fresh question ID was
+used, and no old record was replaced or relabeled.
+
+## Exact next task: authoring-instrument revision plan freeze
+
+Before collecting or modifying another author record, freeze a separately
+versioned targeted authoring-instrument revision over the same six IDs. Bind
+the entire v0.1 targeted run, preserve it byte-for-byte, and prove every new
+planned output absent. Keep prior records/results, semantic signatures,
+answers, traces, vocabularies, grounding, and execution hidden from new
+authors.
+
+The revised instrument should add only label-free candidate-local feedback for
+target-node coverage, required dependencies, mapped target outputs, and output
+arity. It must not reveal a reference plan or preferred candidate. Precommit
+feedback rounds, full-eligibility coverage, semantic-set/alternative-plan
+retention, and all branches. Use no fresh or locked-evaluation ID and perform
+no grounding. A future pass may authorize only a separately frozen narrowed
+grounding plan.
+
+See `data_construction/reports/research_sequencing_decision_v0_8.md`.
 
 ## Evidence boundaries
 
@@ -161,11 +192,12 @@ python3 -m json.tool state/project_state.json >/dev/null
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_normalization.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_crossed_author_sensitivity.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_normalization_v0_2.py --validate-only
+.venv/bin/python -B data_construction/tools/build_operator_equivalence_targeted_reauthor.py --validate-only
 .venv/bin/python -B -m unittest discover -s tests -v
 sh -n scripts/cross_device_preflight.sh
 sh scripts/cross_device_preflight.sh
 ```
 
-Expected deterministic results are zero validation failures, 174 unit tests,
-107 core JSON/JSONL files parsed, and preflight exit 2 for the declared
-crossed-semantic-stability and unpushed-commit synchronization gates.
+Expected deterministic results are zero validation failures, 180 unit tests,
+120 core JSON/JSONL files parsed, and preflight exit 2 for the declared
+targeted full-eligibility-coverage and unpushed-commit synchronization gates.

@@ -130,6 +130,9 @@ for required_file in \
     data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_normalization_schema_v0_2.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_crossed_comparison_schema_v0_2.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_normalization_plan_v0_2.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_targeted_reauthor_normalization_schema_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_targeted_reauthor_comparison_schema_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_targeted_reauthor_plan_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/candidate_backbone_families_v0_1.jsonl \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/representative_selection_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/checks.jsonl \
@@ -138,6 +141,7 @@ for required_file in \
     data_construction/exploration/ai_question_structure_scale_v0_1/prompts/backbone_adequacy_assessment_v0_1.md \
     data_construction/exploration/ai_question_structure_scale_v0_1/prompts/open_operator_realization_v0_1.md \
     data_construction/exploration/ai_question_structure_scale_v0_1/prompts/operator_equivalence_crossed_author_sensitivity_v0_1.md \
+    data_construction/exploration/ai_question_structure_scale_v0_1/prompts/operator_equivalence_targeted_reauthor_v0_1.md \
     data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views.jsonl \
     data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views_manifest_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/producer_routing_manifest_v0_1.json \
@@ -178,6 +182,17 @@ for required_file in \
     data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_2/metrics_v0_2.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_2/report_v0_2.md \
     data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_2/run_manifest.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/authoring_packets/targeted_author_01.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/authoring_packets/targeted_author_02.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/author_outputs/targeted_author_01.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/author_outputs/targeted_author_02.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/combined_author_records.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/normalized_candidates.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/question_comparisons.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/checks.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/metrics_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/report_v0_1.md \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/run_manifest.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/prompts/primary_extraction_v0_1.md \
     data_construction/exploration/ai_question_structure_scale_v0_1/pool/question_only_views_n100.jsonl \
     data_construction/exploration/ai_question_structure_scale_v0_1/run_001/parts/partition_01.jsonl \
@@ -231,6 +246,7 @@ for required_file in \
     data_construction/reports/research_sequencing_decision_v0_5.md \
     data_construction/reports/research_sequencing_decision_v0_6.md \
     data_construction/reports/research_sequencing_decision_v0_7.md \
+    data_construction/reports/research_sequencing_decision_v0_8.md \
     data_construction/reports/operator_granularity_metrics_v0_1.json \
     data_construction/tools/_common.py \
     data_construction/tools/build_historical_manifest.py \
@@ -251,6 +267,7 @@ for required_file in \
     data_construction/tools/build_operator_equivalence_normalization.py \
     data_construction/tools/build_operator_equivalence_crossed_author_sensitivity.py \
     data_construction/tools/build_operator_equivalence_normalization_v0_2.py \
+    data_construction/tools/build_operator_equivalence_targeted_reauthor.py \
     data_construction/tools/validate_ir_v0_2_reference.py \
     data_construction/tools/build_review_packet.py \
     data_construction/tools/build_granularity_views.py \
@@ -268,6 +285,7 @@ for required_file in \
     tests/test_operator_equivalence_normalization.py \
     tests/test_operator_equivalence_crossed_author_sensitivity.py \
     tests/test_operator_equivalence_normalization_v0_2.py \
+    tests/test_operator_equivalence_targeted_reauthor.py \
     historical/README.md \
     historical/ir_v0_2/recovery_manifest_v0_1.json \
     historical/ir_v0_2/ir/spec_v0_2.md \
@@ -372,6 +390,9 @@ paths = [
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_normalization_schema_v0_2.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_crossed_comparison_schema_v0_2.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_normalization_plan_v0_2.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_targeted_reauthor_normalization_schema_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_targeted_reauthor_comparison_schema_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_targeted_reauthor_plan_v0_1.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/structural_projections.jsonl"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/normalized_candidates.jsonl"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/question_normalized_sets.jsonl"),
@@ -396,6 +417,16 @@ paths = [
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_2/checks.jsonl"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_2/metrics_v0_2.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_2/run_manifest.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/authoring_packets/targeted_author_01.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/authoring_packets/targeted_author_02.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/author_outputs/targeted_author_01.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/author_outputs/targeted_author_02.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/combined_author_records.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/normalized_candidates.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/question_comparisons.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/checks.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/metrics_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/run_manifest.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/pool/question_only_views_n100.jsonl"),
     Path("data_construction/manifests/ai_question_structure_exploratory_pool_v0_1.json"),
     Path("data_construction/manifests/question_exposure_ledger_v0_1.json"),
@@ -1003,6 +1034,7 @@ elif state.get("current_scientific_decision") in {
     "FREEZE_EQUIVALENCE_AWARE_OPERATOR_NORMALIZATION_BEFORE_GROUNDING",
     "REVISE_EQUIVALENCE_NORMALIZATION_CONTRACT",
     "NARROW_OR_REAUTHOR_BEFORE_GROUNDING",
+    "REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING",
 }:
     if history_complete is not True or historical_shape != "strict_builder":
         errors.append("pilot-ready state requires a complete strict historical audit")
@@ -1478,20 +1510,40 @@ elif state.get("current_scientific_decision") in {
                 errors.append(f"AI scale-exploration artifact is missing: {label}")
             elif reference.get("sha256") != hashlib.sha256(path.read_bytes()).hexdigest():
                 errors.append(f"AI scale-exploration artifact hash mismatch: {label}")
-    elif state.get("current_scientific_decision") == (
-        "NARROW_OR_REAUTHOR_BEFORE_GROUNDING"
-    ):
-        if state.get("active_phase") != (
-            "phase_2f_targeted_crossed_author_reauthor_protocol_freeze"
-        ):
-            errors.append("targeted re-authoring state has an unexpected active_phase")
-        if state.get("scientific_decision_status") != (
-            "normalization_v0_2_complete_technical_and_adapter_contracts_passed_"
-            "crossed_semantic_stability_failed_grounding_blocked"
-        ):
-            errors.append("targeted re-authoring state has an unexpected status")
-        if "CROSSED_FULL_ELIGIBLE_SEMANTIC_STABILITY_FAILED" not in state_gates:
-            errors.append("targeted re-authoring state lacks its active gate")
+    elif state.get("current_scientific_decision") in {
+        "NARROW_OR_REAUTHOR_BEFORE_GROUNDING",
+        "REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING",
+    }:
+        targeted_result_complete = state.get("current_scientific_decision") == (
+            "REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING"
+        )
+        if targeted_result_complete:
+            if state.get("active_phase") != (
+                "phase_2g_targeted_authoring_instrument_revision_protocol_freeze"
+            ):
+                errors.append("targeted instrument-revision state has an unexpected active_phase")
+            if state.get("scientific_decision_status") != (
+                "targeted_reauthor_v0_1_complete_technical_contract_passed_"
+                "full_eligibility_coverage_and_semantic_stability_failed_"
+                "grounding_blocked"
+            ):
+                errors.append("targeted instrument-revision state has an unexpected status")
+            if "TARGETED_REAUTHOR_FULL_ELIGIBILITY_COVERAGE_FAILED" not in state_gates:
+                errors.append("targeted instrument-revision state lacks its active gate")
+            if "CROSSED_FULL_ELIGIBLE_SEMANTIC_STABILITY_FAILED" in state_gates:
+                errors.append("targeted instrument-revision state retains the superseded crossed gate")
+        else:
+            if state.get("active_phase") != (
+                "phase_2f_targeted_crossed_author_reauthor_protocol_freeze"
+            ):
+                errors.append("targeted re-authoring state has an unexpected active_phase")
+            if state.get("scientific_decision_status") != (
+                "normalization_v0_2_complete_technical_and_adapter_contracts_passed_"
+                "crossed_semantic_stability_failed_grounding_blocked"
+            ):
+                errors.append("targeted re-authoring state has an unexpected status")
+            if "CROSSED_FULL_ELIGIBLE_SEMANTIC_STABILITY_FAILED" not in state_gates:
+                errors.append("targeted re-authoring state lacks its active gate")
         for stale_gate in (
             "EQUIVALENCE_NORMALIZATION_V0_2_REVISION_REQUIRED",
             "OPERATOR_EQUIVALENCE_NORMALIZATION_NOT_STARTED",
@@ -1628,11 +1680,75 @@ elif state.get("current_scientific_decision") in {
             if normalization_v0_2.get(key) != expected_value:
                 errors.append(f"normalization v0.2 state mismatch for {key}")
 
-        for section_name, section in (
+        targeted_reauthor = artifact_status.get(
+            "operator_equivalence_targeted_reauthor_v0_1", {}
+        )
+        if targeted_result_complete:
+            expected_targeted_reauthor = {
+                "status": (
+                    "complete_technical_contract_passed_full_eligibility_"
+                    "coverage_and_semantic_stability_failed"
+                ),
+                "active_gate": False,
+                "implementation_commit": "51b5204d568efc55f6d1fdff3d7d1b2bf1f6f008",
+                "plan_freeze_commit": "4fa67b5f908a3b323610451964aeedcaaef06a2f",
+                "packet_materialization_commit": "5e45170f86c8f9b540003d2ffeb896407f26594f",
+                "author_01_commit": "c83bb1c8583fbd9ce1fa394f92f092889244b156",
+                "author_02_commit": "a2610732d7b23fb6ad0e88698c19e7d4ebf37af9",
+                "materialization_commit": "f9377db09ef8d34cc846801730980e933e4e8331",
+                "author_count": 2,
+                "question_count": 6,
+                "author_record_count": 12,
+                "candidate_count": 14,
+                "eligibility_status_counts": {
+                    "full_eligible": 9,
+                    "provisional_only": 0,
+                    "ineligible": 5,
+                },
+                "technical_loss_count": 0,
+                "eligible_set_contamination_count": 0,
+                "unclassified_adapter_candidate_count": 0,
+                "preferred_candidate_count": 0,
+                "fresh_question_id_count": 0,
+                "profile_inventory_loss_count": 0,
+                "full_eligible_author_question_coverage": 8,
+                "nonempty_new_author_semantic_intersection_count": 2,
+                "new_author_semantic_exact_match_count": 1,
+                "new_author_semantic_exact_match_rate": 1 / 6,
+                "mean_new_author_semantic_jaccard": 0.25,
+                "reference_compatible_author_question_count": 8,
+                "distinct_observed_semantic_profile_count": 11,
+                "technical_contract_passed": True,
+                "full_eligibility_coverage_passed": False,
+                "semantic_stability_and_reference_compatibility_passed": False,
+                "all_criteria_passed": False,
+                "decision": "REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING",
+                "grounding_protocol_authorized_next": False,
+                "separate_narrowed_grounding_plan_may_be_frozen_next": False,
+                "grounding_started": False,
+                "fresh_question_ids_used": False,
+                "human_evidence_count": 0,
+                "gold_claimed": False,
+                "ineligible_question_ids": [
+                    "0d48bffa70ef4acf",
+                    "cc681cfdba9badd5",
+                    "1e674ae4b655c1a1",
+                    "1ca8ffcd3e20e498",
+                    "ba563b015b09bf21",
+                ],
+            }
+            for key, expected_value in expected_targeted_reauthor.items():
+                if targeted_reauthor.get(key) != expected_value:
+                    errors.append(f"targeted re-author state mismatch for {key}")
+
+        artifact_sections = [
             ("normalization", normalization),
             ("crossed-author sensitivity", sensitivity),
             ("normalization v0.2", normalization_v0_2),
-        ):
+        ]
+        if targeted_result_complete:
+            artifact_sections.append(("targeted re-author", targeted_reauthor))
+        for section_name, section in artifact_sections:
             artifacts = section.get("artifacts", {})
             if not isinstance(artifacts, dict) or not artifacts:
                 errors.append(f"{section_name} state lacks artifacts")
@@ -3025,6 +3141,20 @@ PY
         fi
     else
         block_check 'OPERATOR_EQUIVALENCE_NORMALIZATION_V0_2_VALIDATION_NOT_RUN: exact pinned dependencies are unavailable in the selected runtime'
+    fi
+
+    if [ "$dependency_rc" -eq 0 ]; then
+        targeted_reauthor_output=$("$PYTHON_BIN" -B \
+            data_construction/tools/build_operator_equivalence_targeted_reauthor.py \
+            --validate-only 2>&1)
+        targeted_reauthor_rc=$?
+        if [ "$targeted_reauthor_rc" -eq 0 ]; then
+            pass_check "OPERATOR_EQUIVALENCE_TARGETED_REAUTHOR_LIVE: $targeted_reauthor_output"
+        else
+            fail_check "OPERATOR_EQUIVALENCE_TARGETED_REAUTHOR_LIVE_FAILED: $targeted_reauthor_output"
+        fi
+    else
+        block_check 'OPERATOR_EQUIVALENCE_TARGETED_REAUTHOR_VALIDATION_NOT_RUN: exact pinned dependencies are unavailable in the selected runtime'
     fi
 
     ir_reference_output=$("$PYTHON_BIN" -B - <<'PY' 2>&1
