@@ -1,0 +1,261 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "operator_equivalence_targeted_instrument_comparison_schema_v0_2.json",
+  "title": "Targeted authoring-instrument final comparison v0.2",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "question_id",
+    "selection_role",
+    "final_author_results",
+    "targeted_v0_1_reference_results",
+    "final_author_full_eligible_semantic_set_exact_match",
+    "final_author_full_eligible_semantic_set_jaccard",
+    "final_author_full_eligible_semantic_intersection",
+    "targeted_v0_1_full_eligible_semantic_union",
+    "final_full_eligible_semantic_union",
+    "reference_compatibility",
+    "all_final_authors_have_full_eligible_candidate",
+    "all_final_authors_have_candidate_local_complete_candidate",
+    "observed_profile_inventory",
+    "profile_inventory_loss_count",
+    "preferred_candidate_observed",
+    "evidence_boundary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "operator_equivalence_targeted_instrument_comparison_v0_2"
+    },
+    "question_id": {
+      "$ref": "#/$defs/id"
+    },
+    "selection_role": {
+      "const": "e1_challenge"
+    },
+    "final_author_results": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "$ref": "#/$defs/author_result"
+      }
+    },
+    "targeted_v0_1_reference_results": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "$ref": "#/$defs/author_result"
+      }
+    },
+    "final_author_full_eligible_semantic_set_exact_match": {
+      "type": "boolean"
+    },
+    "final_author_full_eligible_semantic_set_jaccard": {
+      "$ref": "#/$defs/rate"
+    },
+    "final_author_full_eligible_semantic_intersection": {
+      "$ref": "#/$defs/sha256_set"
+    },
+    "targeted_v0_1_full_eligible_semantic_union": {
+      "$ref": "#/$defs/sha256_set"
+    },
+    "final_full_eligible_semantic_union": {
+      "$ref": "#/$defs/sha256_set"
+    },
+    "reference_compatibility": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "$ref": "#/$defs/reference_compatibility"
+      }
+    },
+    "all_final_authors_have_full_eligible_candidate": {
+      "type": "boolean"
+    },
+    "all_final_authors_have_candidate_local_complete_candidate": {
+      "type": "boolean"
+    },
+    "observed_profile_inventory": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/profile_inventory_item"
+      }
+    },
+    "profile_inventory_loss_count": {
+      "const": 0
+    },
+    "preferred_candidate_observed": {
+      "const": false
+    },
+    "evidence_boundary": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "maxLength": 320
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sha256_set": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/sha256"
+      }
+    },
+    "rate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "component_sets": {
+      "type": "object",
+      "required": [
+        "modality_cardinality",
+        "semantic_relative_placement",
+        "split_fuse_boundary",
+        "output_arity"
+      ],
+      "properties": {
+        "modality_cardinality": {"$ref": "#/$defs/sha256_set"},
+        "semantic_relative_placement": {"$ref": "#/$defs/sha256_set"},
+        "split_fuse_boundary": {"$ref": "#/$defs/sha256_set"},
+        "output_arity": {"$ref": "#/$defs/sha256_set"}
+      },
+      "additionalProperties": false
+    },
+    "author_result": {
+      "type": "object",
+      "required": [
+        "author_id",
+        "candidate_count",
+        "full_eligible_candidate_count",
+        "provisional_candidate_count",
+        "ineligible_candidate_count",
+        "full_eligible_member_keys",
+        "full_eligible_semantic_set",
+        "provisional_semantic_profile_set",
+        "ineligible_failure_profile_set",
+        "full_eligible_adapter_component_sets",
+        "full_eligible_overall_adapter_set",
+        "eligible_set_contamination_count"
+      ],
+      "properties": {
+        "author_id": {
+          "enum": [
+            "instrument_author_01",
+            "instrument_author_02",
+            "targeted_author_01",
+            "targeted_author_02"
+          ]
+        },
+        "candidate_count": {"type": "integer", "minimum": 1},
+        "full_eligible_candidate_count": {"type": "integer", "minimum": 0},
+        "provisional_candidate_count": {"type": "integer", "minimum": 0},
+        "ineligible_candidate_count": {"type": "integer", "minimum": 0},
+        "full_eligible_member_keys": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "full_eligible_semantic_set": {"$ref": "#/$defs/sha256_set"},
+        "provisional_semantic_profile_set": {"$ref": "#/$defs/sha256_set"},
+        "ineligible_failure_profile_set": {"$ref": "#/$defs/sha256_set"},
+        "full_eligible_adapter_component_sets": {"$ref": "#/$defs/component_sets"},
+        "full_eligible_overall_adapter_set": {"$ref": "#/$defs/sha256_set"},
+        "eligible_set_contamination_count": {"const": 0}
+      },
+      "additionalProperties": false
+    },
+    "reference_compatibility": {
+      "type": "object",
+      "required": [
+        "author_id",
+        "intersects_targeted_v0_1_union",
+        "semantic_intersection"
+      ],
+      "properties": {
+        "author_id": {
+          "enum": [
+            "instrument_author_01",
+            "instrument_author_02"
+          ]
+        },
+        "intersects_targeted_v0_1_union": {"type": "boolean"},
+        "semantic_intersection": {"$ref": "#/$defs/sha256_set"}
+      },
+      "additionalProperties": false
+    },
+    "profile_observation": {
+      "type": "object",
+      "required": [
+        "source_stage",
+        "author_id",
+        "source_candidate_key",
+        "eligibility_status"
+      ],
+      "properties": {
+        "source_stage": {
+          "enum": [
+            "targeted_v0_1_reference",
+            "instrument_draft",
+            "instrument_final"
+          ]
+        },
+        "author_id": {
+          "enum": [
+            "instrument_author_01",
+            "instrument_author_02",
+            "targeted_author_01",
+            "targeted_author_02"
+          ]
+        },
+        "source_candidate_key": {"type": "string", "minLength": 1},
+        "eligibility_status": {
+          "enum": [
+            "full_eligible",
+            "provisional_only",
+            "ineligible"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "profile_inventory_item": {
+      "type": "object",
+      "required": [
+        "signature_sha256",
+        "eligibility_statuses",
+        "observations"
+      ],
+      "properties": {
+        "signature_sha256": {"$ref": "#/$defs/sha256"},
+        "eligibility_statuses": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "full_eligible",
+              "provisional_only",
+              "ineligible"
+            ]
+          }
+        },
+        "observations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/profile_observation"}
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

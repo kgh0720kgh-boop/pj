@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "operator_equivalence_targeted_instrument_feedback_schema_v0_2.json",
+  "title": "Targeted authoring-instrument candidate-local feedback v0.2",
+  "description": "Label-free feedback limited to four candidate-local completeness obligations. It contains no reference plan, semantic signature, preference, answer, trace, grounding, or execution result.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "author_id",
+    "question_id",
+    "feedback_round",
+    "source_draft_record_sha256",
+    "scope",
+    "candidates",
+    "record_has_candidate_preserving_all_four_obligations",
+    "reference_or_preference_content_included"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "operator_equivalence_targeted_instrument_feedback_v0_2"
+    },
+    "run_id": {
+      "const": "hybridqa_operator_equivalence_targeted_instrument_v0_2_run_001"
+    },
+    "author_id": {
+      "enum": [
+        "instrument_author_01",
+        "instrument_author_02"
+      ]
+    },
+    "question_id": {
+      "$ref": "#/$defs/id"
+    },
+    "feedback_round": {
+      "const": 1
+    },
+    "source_draft_record_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "scope": {
+      "const": "candidate_local_target_node_required_dependency_target_output_and_output_arity_only"
+    },
+    "candidates": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "$ref": "#/$defs/candidate_feedback"
+      }
+    },
+    "record_has_candidate_preserving_all_four_obligations": {
+      "type": "boolean"
+    },
+    "reference_or_preference_content_included": {
+      "const": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "maxLength": 320
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "node_id_set": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/id"
+      }
+    },
+    "dependency": {
+      "type": "object",
+      "required": [
+        "source_node_id",
+        "target_node_id"
+      ],
+      "properties": {
+        "source_node_id": {
+          "$ref": "#/$defs/id"
+        },
+        "target_node_id": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "additionalProperties": false
+    },
+    "candidate_feedback": {
+      "type": "object",
+      "required": [
+        "candidate_id",
+        "target_backbone_variant_id",
+        "complete_target_node_coverage",
+        "missing_target_node_ids",
+        "required_dependencies_preserved",
+        "missing_required_dependencies",
+        "mapped_target_output_coverage_complete",
+        "missing_target_output_node_ids",
+        "output_arity_preserved",
+        "target_output_arity",
+        "operator_output_arity",
+        "unmapped_operator_output_node_ids",
+        "all_four_obligations_preserved"
+      ],
+      "properties": {
+        "candidate_id": {
+          "type": "string",
+          "pattern": "^candidate[1-9][0-9]*$"
+        },
+        "target_backbone_variant_id": {
+          "oneOf": [
+            {
+              "const": "primary"
+            },
+            {
+              "type": "string",
+              "pattern": "^alt[1-9][0-9]*$"
+            }
+          ]
+        },
+        "complete_target_node_coverage": {
+          "type": "boolean"
+        },
+        "missing_target_node_ids": {
+          "$ref": "#/$defs/node_id_set"
+        },
+        "required_dependencies_preserved": {
+          "type": "boolean"
+        },
+        "missing_required_dependencies": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/dependency"
+          }
+        },
+        "mapped_target_output_coverage_complete": {
+          "type": "boolean"
+        },
+        "missing_target_output_node_ids": {
+          "$ref": "#/$defs/node_id_set"
+        },
+        "output_arity_preserved": {
+          "type": "boolean"
+        },
+        "target_output_arity": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "operator_output_arity": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "unmapped_operator_output_node_ids": {
+          "$ref": "#/$defs/node_id_set"
+        },
+        "all_four_obligations_preserved": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

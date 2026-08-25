@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "operator_equivalence_targeted_instrument_normalization_schema_v0_2.json",
+  "title": "Targeted authoring-instrument normalization v0.2",
+  "description": "A provenance-distinct wrapper around normalization v0.2 for immutable draft and final candidate observations.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "normalization_algorithm_version",
+    "normalization_id",
+    "source_candidate_key",
+    "source_stage",
+    "source_cohort",
+    "source_author_id",
+    "question_id",
+    "family_id",
+    "producer_partition",
+    "candidate_id",
+    "target_backbone_variant_id",
+    "source_author_record_sha256",
+    "legacy_v0_1_equivalence_status",
+    "source_projection_sha256",
+    "candidate_semantic_profile",
+    "equivalence_eligibility",
+    "factorized_environment_adapter",
+    "reversibility_ledger",
+    "evidence_boundary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "operator_equivalence_targeted_instrument_normalization_v0_2"
+    },
+    "normalization_algorithm_version": {
+      "const": "operator_equivalence_normalization_v0_2"
+    },
+    "normalization_id": {
+      "type": "string",
+      "pattern": "^operator_equivalence_targeted_instrument_normalization_v0_2:(draft|final):instrument_author_0[12]:[A-Za-z0-9_.:-]+:candidate[1-9][0-9]*$"
+    },
+    "source_candidate_key": {
+      "type": "string",
+      "pattern": "^instrument:(draft|final):instrument_author_0[12]:[A-Za-z0-9_.:-]+:candidate[1-9][0-9]*$"
+    },
+    "source_stage": {
+      "enum": [
+        "draft",
+        "final"
+      ]
+    },
+    "source_cohort": {
+      "const": "targeted_instrument_reauthor"
+    },
+    "source_author_id": {
+      "enum": [
+        "instrument_author_01",
+        "instrument_author_02"
+      ]
+    },
+    "question_id": {
+      "$ref": "#/$defs/id"
+    },
+    "family_id": {
+      "type": "string",
+      "pattern": "^cbf_v0_1:[0-9a-f]{64}$"
+    },
+    "producer_partition": {
+      "enum": [
+        "e2_author_partition_09",
+        "e2_author_partition_10"
+      ]
+    },
+    "candidate_id": {
+      "type": "string",
+      "pattern": "^candidate[1-9][0-9]*$"
+    },
+    "target_backbone_variant_id": {
+      "oneOf": [
+        {
+          "const": "primary"
+        },
+        {
+          "type": "string",
+          "pattern": "^alt[1-9][0-9]*$"
+        }
+      ]
+    },
+    "source_author_record_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "legacy_v0_1_equivalence_status": {
+      "enum": [
+        "equivalent",
+        "provisionally_equivalent",
+        "not_equivalent"
+      ]
+    },
+    "source_projection_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "candidate_semantic_profile": {
+      "$ref": "operator_equivalence_normalization_schema_v0_2.json#/$defs/candidate_semantic_profile"
+    },
+    "equivalence_eligibility": {
+      "$ref": "operator_equivalence_normalization_schema_v0_2.json#/$defs/equivalence_eligibility"
+    },
+    "factorized_environment_adapter": {
+      "$ref": "operator_equivalence_normalization_schema_v0_2.json#/$defs/factorized_adapter"
+    },
+    "reversibility_ledger": {
+      "$ref": "operator_equivalence_normalization_schema_v0_2.json#/$defs/reversibility_ledger"
+    },
+    "evidence_boundary": {
+      "$ref": "#/$defs/evidence_boundary"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "maxLength": 320
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "evidence_boundary": {
+      "type": "object",
+      "required": [
+        "ai_non_human_non_gold",
+        "already_exposed_question_ids_only",
+        "prior_author_outputs_excluded_from_authoring_context",
+        "normalization_outputs_excluded_from_authoring_context",
+        "candidate_local_feedback_only",
+        "answer_and_trace_excluded",
+        "grounding_evaluated",
+        "execution_evaluated",
+        "answer_recovery_evaluated",
+        "human_evidence_created",
+        "gold_claimed"
+      ],
+      "properties": {
+        "ai_non_human_non_gold": {"const": true},
+        "already_exposed_question_ids_only": {"const": true},
+        "prior_author_outputs_excluded_from_authoring_context": {"const": true},
+        "normalization_outputs_excluded_from_authoring_context": {"const": true},
+        "candidate_local_feedback_only": {"const": true},
+        "answer_and_trace_excluded": {"const": true},
+        "grounding_evaluated": {"const": false},
+        "execution_evaluated": {"const": false},
+        "answer_recovery_evaluated": {"const": false},
+        "human_evidence_created": {"const": false},
+        "gold_claimed": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  }
+}
