@@ -123,6 +123,10 @@ for required_file in \
     data_construction/exploration/ai_question_structure_scale_v0_1/contracts/open_operator_realization_schema_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_environment_realization_plan_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_environment_view_schema_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_normalization_schema_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_normalization_plan_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_crossed_author_sensitivity_schema_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_crossed_author_sensitivity_plan_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/candidate_backbone_families_v0_1.jsonl \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/representative_selection_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/checks.jsonl \
@@ -130,6 +134,7 @@ for required_file in \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/run_manifest.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/prompts/backbone_adequacy_assessment_v0_1.md \
     data_construction/exploration/ai_question_structure_scale_v0_1/prompts/open_operator_realization_v0_1.md \
+    data_construction/exploration/ai_question_structure_scale_v0_1/prompts/operator_equivalence_crossed_author_sensitivity_v0_1.md \
     data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views.jsonl \
     data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views_manifest_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/producer_routing_manifest_v0_1.json \
@@ -143,6 +148,25 @@ for required_file in \
     data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/interpretive_addendum_v0_1.md \
     data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/environment_exposure_ledger_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/run_manifest.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/structural_projections.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/normalized_candidates.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/question_normalized_sets.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/family_normalized_sets.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/checks.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/metrics_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/report_v0_1.md \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/run_manifest.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/authoring_packets/crossed_author_01.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/authoring_packets/crossed_author_02.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/author_outputs/crossed_author_01.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/author_outputs/crossed_author_02.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/combined_author_records.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/normalized_candidates.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/question_comparisons.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/checks.jsonl \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/metrics_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/report_v0_1.md \
+    data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/run_manifest.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/prompts/primary_extraction_v0_1.md \
     data_construction/exploration/ai_question_structure_scale_v0_1/pool/question_only_views_n100.jsonl \
     data_construction/exploration/ai_question_structure_scale_v0_1/run_001/parts/partition_01.jsonl \
@@ -194,6 +218,7 @@ for required_file in \
     data_construction/reports/research_sequencing_decision_v0_3.md \
     data_construction/reports/research_sequencing_decision_v0_4.md \
     data_construction/reports/research_sequencing_decision_v0_5.md \
+    data_construction/reports/research_sequencing_decision_v0_6.md \
     data_construction/reports/operator_granularity_metrics_v0_1.json \
     data_construction/tools/_common.py \
     data_construction/tools/build_historical_manifest.py \
@@ -211,6 +236,8 @@ for required_file in \
     data_construction/tools/build_candidate_backbone_library.py \
     data_construction/tools/_representative_environment_source.py \
     data_construction/tools/build_representative_environment_realization.py \
+    data_construction/tools/build_operator_equivalence_normalization.py \
+    data_construction/tools/build_operator_equivalence_crossed_author_sensitivity.py \
     data_construction/tools/validate_ir_v0_2_reference.py \
     data_construction/tools/build_review_packet.py \
     data_construction/tools/build_granularity_views.py \
@@ -225,6 +252,8 @@ for required_file in \
     tests/test_question_structure_partition_sensitivity.py \
     tests/test_candidate_backbone_library.py \
     tests/test_representative_environment_realization.py \
+    tests/test_operator_equivalence_normalization.py \
+    tests/test_operator_equivalence_crossed_author_sensitivity.py \
     historical/README.md \
     historical/ir_v0_2/recovery_manifest_v0_1.json \
     historical/ir_v0_2/ir/spec_v0_2.md \
@@ -322,6 +351,27 @@ paths = [
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/metrics_v0_1.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/environment_exposure_ledger_v0_1.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/run_manifest.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_normalization_schema_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_normalization_plan_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_crossed_author_sensitivity_schema_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_crossed_author_sensitivity_plan_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/structural_projections.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/normalized_candidates.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/question_normalized_sets.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/family_normalized_sets.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/checks.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/metrics_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/run_manifest.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/authoring_packets/crossed_author_01.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/authoring_packets/crossed_author_02.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/author_outputs/crossed_author_01.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/author_outputs/crossed_author_02.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/combined_author_records.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/normalized_candidates.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/question_comparisons.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/checks.jsonl"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/metrics_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/run_manifest.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/pool/question_only_views_n100.jsonl"),
     Path("data_construction/manifests/ai_question_structure_exploratory_pool_v0_1.json"),
     Path("data_construction/manifests/question_exposure_ledger_v0_1.json"),
@@ -927,6 +977,7 @@ elif state.get("current_scientific_decision") in {
     "UNDECIDED_NEEDS_ANNOTATION_EVIDENCE",
     "UNDECIDED_NEEDS_SCALE_EVIDENCE",
     "FREEZE_EQUIVALENCE_AWARE_OPERATOR_NORMALIZATION_BEFORE_GROUNDING",
+    "REVISE_EQUIVALENCE_NORMALIZATION_CONTRACT",
 }:
     if history_complete is not True or historical_shape != "strict_builder":
         errors.append("pilot-ready state requires a complete strict historical audit")
@@ -1402,6 +1453,108 @@ elif state.get("current_scientific_decision") in {
                 errors.append(f"AI scale-exploration artifact is missing: {label}")
             elif reference.get("sha256") != hashlib.sha256(path.read_bytes()).hexdigest():
                 errors.append(f"AI scale-exploration artifact hash mismatch: {label}")
+    elif state.get("current_scientific_decision") == (
+        "REVISE_EQUIVALENCE_NORMALIZATION_CONTRACT"
+    ):
+        if state.get("active_phase") != (
+            "phase_2e_operator_equivalence_normalization_v0_2_revision"
+        ):
+            errors.append("normalization-v0.2 revision state has an unexpected active_phase")
+        if state.get("scientific_decision_status") != (
+            "normalization_v0_1_and_crossed_author_sensitivity_complete_"
+            "frozen_criteria_failed_v0_2_required_before_grounding"
+        ):
+            errors.append("normalization-v0.2 revision state has an unexpected status")
+        if "EQUIVALENCE_NORMALIZATION_V0_2_REVISION_REQUIRED" not in state_gates:
+            errors.append("normalization-v0.2 revision state lacks its active gate")
+        for stale_gate in (
+            "OPERATOR_EQUIVALENCE_NORMALIZATION_NOT_STARTED",
+            "REPRESENTATIVE_ENVIRONMENT_REALIZATION_NOT_STARTED",
+            "CANDIDATE_BACKBONE_LIBRARY_NOT_FROZEN",
+        ):
+            if stale_gate in state_gates:
+                errors.append(f"normalization-v0.2 revision state retains stale gate {stale_gate}")
+
+        artifact_status = state.get("artifact_status", {})
+        normalization = artifact_status.get("operator_equivalence_normalization_v0_1", {})
+        expected_normalization = {
+            "status": "complete_reversible_label_free_two_layer_normalization",
+            "active_gate": False,
+            "source_question_count": 71,
+            "target_variant_count": 72,
+            "candidate_count": 93,
+            "equivalence_status_counts": {
+                "equivalent": 89,
+                "provisionally_equivalent": 4,
+                "not_equivalent": 0,
+            },
+            "reversible_projection_loss_count": 0,
+            "distinct_semantic_quotient_count": 39,
+            "distinct_environment_adapter_signature_count": 19,
+            "multi_question_family_count": 16,
+            "unstable_multi_question_semantic_set_count": 6,
+            "producer_question_effects_separable": False,
+            "decision": "RUN_PRECOMMITTED_CROSSED_AUTHOR_SENSITIVITY",
+            "grounding_authorized": False,
+            "fresh_reserve_ids_used": False,
+            "human_evidence_count": 0,
+            "gold_claimed": False,
+        }
+        for key, expected_value in expected_normalization.items():
+            if normalization.get(key) != expected_value:
+                errors.append(f"normalization v0.1 state mismatch for {key}")
+
+        sensitivity = artifact_status.get(
+            "operator_equivalence_crossed_author_sensitivity_v0_1", {}
+        )
+        expected_sensitivity = {
+            "status": "complete_frozen_criteria_failed_revision_required",
+            "active_gate": False,
+            "author_count": 2,
+            "question_count": 16,
+            "author_record_count": 32,
+            "candidate_count": 34,
+            "semantic_set_exact_match_count": 16,
+            "semantic_set_exact_match_rate": 1.0,
+            "mean_semantic_set_jaccard": 1.0,
+            "adapter_set_exact_match_count": 0,
+            "adapter_set_exact_match_rate": 0.0,
+            "mean_adapter_set_jaccard": 0.0,
+            "distinct_adapter_signature_count": 25,
+            "normalization_status_counts": {
+                "equivalent": 20,
+                "provisionally_equivalent": 9,
+                "not_equivalent": 5,
+            },
+            "criteria_passed": False,
+            "decision": "REVISE_EQUIVALENCE_NORMALIZATION_CONTRACT",
+            "grounding_started": False,
+            "fresh_reserve_ids_used": False,
+            "human_evidence_count": 0,
+            "gold_claimed": False,
+        }
+        for key, expected_value in expected_sensitivity.items():
+            if sensitivity.get(key) != expected_value:
+                errors.append(f"crossed-author sensitivity state mismatch for {key}")
+
+        for section_name, section in (
+            ("normalization", normalization),
+            ("crossed-author sensitivity", sensitivity),
+        ):
+            artifacts = section.get("artifacts", {})
+            if not isinstance(artifacts, dict) or not artifacts:
+                errors.append(f"{section_name} state lacks artifacts")
+                continue
+            for label, reference in artifacts.items():
+                if not isinstance(reference, dict) or not isinstance(reference.get("path"), str):
+                    errors.append(f"{section_name} artifact reference malformed: {label}")
+                    continue
+                path = Path(reference["path"])
+                if not path.is_file():
+                    errors.append(f"{section_name} artifact missing: {label}")
+                elif reference.get("sha256") != hashlib.sha256(path.read_bytes()).hexdigest():
+                    errors.append(f"{section_name} artifact hash mismatch: {label}")
+
     elif state.get("current_scientific_decision") == (
         "FREEZE_EQUIVALENCE_AWARE_OPERATOR_NORMALIZATION_BEFORE_GROUNDING"
     ):
@@ -2738,6 +2891,34 @@ PY
         fi
     else
         block_check 'REPRESENTATIVE_ENVIRONMENT_REALIZATION_VALIDATION_NOT_RUN: exact pinned dependencies are unavailable in the selected runtime'
+    fi
+
+    if [ "$dependency_rc" -eq 0 ]; then
+        equivalence_normalization_output=$("$PYTHON_BIN" -B \
+            data_construction/tools/build_operator_equivalence_normalization.py \
+            --validate-only 2>&1)
+        equivalence_normalization_rc=$?
+        if [ "$equivalence_normalization_rc" -eq 0 ]; then
+            pass_check "OPERATOR_EQUIVALENCE_NORMALIZATION_LIVE: $equivalence_normalization_output"
+        else
+            fail_check "OPERATOR_EQUIVALENCE_NORMALIZATION_LIVE_FAILED: $equivalence_normalization_output"
+        fi
+    else
+        block_check 'OPERATOR_EQUIVALENCE_NORMALIZATION_VALIDATION_NOT_RUN: exact pinned dependencies are unavailable in the selected runtime'
+    fi
+
+    if [ "$dependency_rc" -eq 0 ]; then
+        crossed_author_output=$("$PYTHON_BIN" -B \
+            data_construction/tools/build_operator_equivalence_crossed_author_sensitivity.py \
+            --validate-only 2>&1)
+        crossed_author_rc=$?
+        if [ "$crossed_author_rc" -eq 0 ]; then
+            pass_check "OPERATOR_EQUIVALENCE_CROSSED_AUTHOR_SENSITIVITY_LIVE: $crossed_author_output"
+        else
+            fail_check "OPERATOR_EQUIVALENCE_CROSSED_AUTHOR_SENSITIVITY_LIVE_FAILED: $crossed_author_output"
+        fi
+    else
+        block_check 'OPERATOR_EQUIVALENCE_CROSSED_AUTHOR_SENSITIVITY_VALIDATION_NOT_RUN: exact pinned dependencies are unavailable in the selected runtime'
     fi
 
     ir_reference_output=$("$PYTHON_BIN" -B - <<'PY' 2>&1

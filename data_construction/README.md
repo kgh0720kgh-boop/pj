@@ -76,6 +76,8 @@ sh scripts/cross_device_preflight.sh
 .venv/bin/python data_construction/tools/check_schema_bundle.py --require-jsonschema
 .venv/bin/python data_construction/tools/validate_ir_v0_2_reference.py --all
 .venv/bin/python -B data_construction/tools/build_representative_environment_realization.py --validate-only
+.venv/bin/python -B data_construction/tools/build_operator_equivalence_normalization.py --validate-only
+.venv/bin/python -B data_construction/tools/build_operator_equivalence_crossed_author_sensitivity.py --validate-only
 .venv/bin/python -m unittest discover -s tests -v
 ```
 
@@ -136,7 +138,9 @@ Candidate-backbone library와 representative-sampling contract는 `exploration/a
 
 대표 환경 run은 implementation→pre-raw plan→environment views→E1 commit→fresh-context E2 순서로 동결됐다. 71/71 question에 full table과 table-link closure를 제공하되 official answer/trace는 투영하지 않았고, E2에는 E1 내용 대신 commit된 hash binding만 제공했다. 결과는 open notation에서 71/71 target의 ungrounded realization이 가능하다는 expressivity evidence다. 이는 실행 가능성이나 정답 회수 성공을 뜻하지 않는다.
 
-다음 exact task는 grounding 전에 equivalence-aware operator normalization을 동결하는 것이다. Normalizer는 target semantic topology, operator adjacency, semantic-to-operator mapping, operator role, typed unresolved slot, variation axis, opaque ID와 producer routing만 사용한다. Semantic coverage/dependency를 보존하면서 허용된 split/fuse를 quotient하는 signature와 modality·extension placement·fused/explicit access를 보존하는 environment-adapter signature를 분리하고, candidate를 단일 `candidate1`이 아니라 set으로 비교하며 producer partition별 민감도를 보고한다. 이 계약이 안정적인 공통 interface를 보일 때만 provisional adapter를 동결하고 대표 grounding/execution으로 진행한다.
+Equivalence-aware normalization v0.1은 implementation `c372ef4b43a88b80d85f69359197bdedd3c40e61`, output 부재 상태의 plan `83428b9698546de054db672e72dbae880ef4c1ac`, materialized result `a9d3272c6cef4f411bf8f124159a634920c0571e` 순서로 동결됐다. 93개 candidate 모두 reversible label-free projection으로 재구성되며 equivalent=89, provisionally-equivalent=4, not-equivalent=0, projection loss=0이다. Semantic quotient 39개와 environment-adapter signature 19개를 분리했고 candidate는 question별 set으로 비교했다. Multi-question family 16개 중 semantic-set instability가 6개이며 고정 question/producer 배정으로 효과를 분리할 수 없어 동결된 분기는 `RUN_PRECOMMITTED_CROSSED_AUTHOR_SENSITIVITY`다. Grounding은 아직 허용되지 않는다.
+
+Crossed-author sensitivity v0.1은 이미 environment-exposed인 16개만 재사용했다. 네 기존 partition에서 각 4개, E1 challenge 7개 전부와 adequate control 9개를 포함하며 두 fresh-context AI author가 모든 16개를 독립적으로 처리했다. Semantic-set exact match는 16/16이지만 target-anchored v0.1 quotient의 한계 때문에 partial candidate도 같은 target hash를 가질 수 있다. Adapter-set exact match는 0/16이고, 34개 후보 중 equivalent/provisional/not-equivalent는 20/9/5다. 동결 기준에 따라 `REVISE_EQUIVALENCE_NORMALIZATION_CONTRACT`가 선택됐으며 grounding은 계속 금지된다. 다음 exact task는 같은 127개 기존 후보만 사용해 candidate-derived eligibility와 factorized adapter components를 분리하는 normalization v0.2를 output 부재 상태의 새 plan과 함께 동결하는 것이다. 이는 producer confound 진단이지 human review, majority vote, gold annotation 또는 unseen evaluation이 아니며 새 reserve/locked-eval ID를 사용하지 않는다.
 
 누적 산출물은 다음 명령으로 재검증할 수 있다.
 
@@ -144,6 +148,8 @@ Candidate-backbone library와 representative-sampling contract는 `exploration/a
 .venv/bin/python data_construction/tools/analyze_ai_question_structure_cumulative_n300.py --validate-only
 .venv/bin/python data_construction/tools/build_candidate_backbone_library.py --validate-only
 .venv/bin/python -B data_construction/tools/build_representative_environment_realization.py --validate-only
+.venv/bin/python -B data_construction/tools/build_operator_equivalence_normalization.py --validate-only
+.venv/bin/python -B data_construction/tools/build_operator_equivalence_crossed_author_sensitivity.py --validate-only
 ```
 
 ## 보존된 v0.1 Phase A human question-only 계약

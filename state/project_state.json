@@ -2,29 +2,30 @@
   "schema_version": "project_state_v0_1",
   "state_updated_date": "2026-08-25",
   "project": "hierarchical_data_construction_for_semantic_execution_topology_induction",
-  "active_phase": "phase_2d_operator_equivalence_normalization_contract_freeze",
+  "active_phase": "phase_2e_operator_equivalence_normalization_v0_2_revision",
   "active_branch": "main",
-  "expected_head": "a6a35a544894989a48300c6935ac9447a337c796",
-  "last_completed_task": "completed_frozen_71_question_representative_environment_realization_with_backbone_adequacy_and_open_operator_topology_as_separate_first_two_signals",
-  "next_task": "implement_and_test_a_reversible_label_free_two_layer_operator_equivalence_normalizer_then_commit_a_separate_plan_while_normalized_outputs_are_absent_bound_to_all_93_candidates_72_variants_and_producer_routing_before_any_grounding_or_fresh_reserve_use",
-  "current_scientific_decision": "FREEZE_EQUIVALENCE_AWARE_OPERATOR_NORMALIZATION_BEFORE_GROUNDING",
-  "scientific_decision_status": "representative_environment_e1_e2_complete_equivalence_normalization_required_before_grounding_or_common_graph_claim",
-  "synchronization_state": "SYNCED_TO_REMOTE",
+  "expected_head": "95b4b1356a2cbe050d4bf89a259a4c7340930558",
+  "last_completed_task": "completed_reversible_operator_equivalence_normalization_v0_1_and_precommitted_two_fresh_author_crossed_sensitivity_on_16_already_exposed_questions",
+  "next_task": "implement_and_test_candidate_derived_eligibility_aware_factorized_adapter_normalization_v0_2_then_freeze_a_separate_plan_while_v0_2_outputs_are_absent_bound_to_all_127_existing_candidates_before_any_grounding_or_fresh_id_use",
+  "current_scientific_decision": "REVISE_EQUIVALENCE_NORMALIZATION_CONTRACT",
+  "scientific_decision_status": "normalization_v0_1_and_crossed_author_sensitivity_complete_frozen_criteria_failed_v0_2_required_before_grounding",
+  "synchronization_state": "LOCAL_COMMIT_NOT_PUSHED",
   "handoff_readiness": "not_ready",
   "blocked_gates": [
-    "OPERATOR_EQUIVALENCE_NORMALIZATION_NOT_STARTED: the 93 open realization candidates require a separately frozen reversible structural quotient before grounding or a common-interface claim"
+    "EQUIVALENCE_NORMALIZATION_V0_2_REVISION_REQUIRED: v0.1 crossed-author criteria failed with 5 not-equivalent and 9 provisional candidates plus 0/16 exact adapter-set matches",
+    "LOCAL_COMMIT_NOT_PUSHED: 13 portable commits are ahead of origin/main after the metadata handoff commit and remote write has not been authorized"
   ],
   "repository": {
     "git_root": "repository root (resolve with git rev-parse --show-toplevel)",
     "current_branch": "main",
-    "head": "a6a35a544894989a48300c6935ac9447a337c796",
-    "head_role": "expected_handoff_baseline_parent_of_metadata_commit",
+    "head": "95b4b1356a2cbe050d4bf89a259a4c7340930558",
+    "head_role": "completed_crossed_author_result_baseline_parent_of_metadata_commit",
     "remotes": [
       "origin https://github.com/kgh0720kgh-boop/pj.git"
     ],
     "working_tree_status": "clean",
     "untracked_files": 0,
-    "unpushed_commits": 0,
+    "unpushed_commits": 13,
     "stash_state": "empty"
   },
   "artifact_status": {
@@ -559,6 +560,106 @@
         }
       }
     },
+    "operator_equivalence_normalization_v0_1": {
+      "status": "complete_reversible_label_free_two_layer_normalization",
+      "active_gate": false,
+      "run_id": "hybridqa_operator_equivalence_normalization_v0_1_run_001",
+      "implementation_commit": "c372ef4b43a88b80d85f69359197bdedd3c40e61",
+      "plan_freeze_commit": "83428b9698546de054db672e72dbae880ef4c1ac",
+      "materialization_commit": "a9d3272c6cef4f411bf8f124159a634920c0571e",
+      "source_question_count": 71,
+      "target_variant_count": 72,
+      "candidate_count": 93,
+      "equivalence_status_counts": {
+        "equivalent": 89,
+        "provisionally_equivalent": 4,
+        "not_equivalent": 0
+      },
+      "reversible_projection_loss_count": 0,
+      "distinct_semantic_quotient_count": 39,
+      "distinct_environment_adapter_signature_count": 19,
+      "multi_question_family_count": 16,
+      "unstable_multi_question_semantic_set_count": 6,
+      "producer_question_effects_separable": false,
+      "decision": "RUN_PRECOMMITTED_CROSSED_AUTHOR_SENSITIVITY",
+      "grounding_authorized": false,
+      "fresh_reserve_ids_used": false,
+      "human_evidence_count": 0,
+      "gold_claimed": false,
+      "artifacts": {
+        "freeze_plan": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_normalization_plan_v0_1.json",
+          "sha256": "51ffb6b251e31a6f6d676c14bcc781edaafec05469892e6ed83e2fee31d85a04"
+        },
+        "metrics": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/metrics_v0_1.json",
+          "sha256": "4d89084befc7638588d629ba9b6b2c6cf285aa90303e2798522064d1fe014606"
+        },
+        "run_manifest": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/run_manifest.json",
+          "sha256": "c3fa88fe4902d692a4aec5da5cc8379784cdf6a9d3cacf2ab6586df591c3b41f"
+        }
+      }
+    },
+    "operator_equivalence_crossed_author_sensitivity_v0_1": {
+      "status": "complete_frozen_criteria_failed_revision_required",
+      "active_gate": false,
+      "run_id": "hybridqa_operator_equivalence_crossed_author_sensitivity_v0_1_run_001",
+      "implementation_commit": "16a864450af38458eeea4d6aced00ecf7b3e593f",
+      "plan_freeze_commit": "c00bb6f573b11136d84c3cf4216984813a9930dd",
+      "packet_materialization_commit": "144de6b3062ad29cc6c2ca43ad9579bca74b94a8",
+      "result_commit": "95b4b1356a2cbe050d4bf89a259a4c7340930558",
+      "author_count": 2,
+      "question_count": 16,
+      "author_record_count": 32,
+      "candidate_count": 34,
+      "selection_counts": {
+        "e1_challenge": 7,
+        "adequate_control": 9,
+        "per_original_partition": 4
+      },
+      "semantic_set_exact_match_count": 16,
+      "semantic_set_exact_match_rate": 1.0,
+      "mean_semantic_set_jaccard": 1.0,
+      "adapter_set_exact_match_count": 0,
+      "adapter_set_exact_match_rate": 0.0,
+      "mean_adapter_set_jaccard": 0.0,
+      "distinct_adapter_signature_count": 25,
+      "normalization_status_counts": {
+        "equivalent": 20,
+        "provisionally_equivalent": 9,
+        "not_equivalent": 5
+      },
+      "criteria_passed": false,
+      "decision": "REVISE_EQUIVALENCE_NORMALIZATION_CONTRACT",
+      "grounding_started": false,
+      "fresh_reserve_ids_used": false,
+      "human_evidence_count": 0,
+      "gold_claimed": false,
+      "interpretive_limit": "v0_1_semantic_hash_is_target_anchored_and_adapter_exact_hash_is_producer_sensitive",
+      "artifacts": {
+        "freeze_plan": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_crossed_author_sensitivity_plan_v0_1.json",
+          "sha256": "301dea42b8d7c90766eeab0ba98a2f220b57f5e1ab209ebebd5a926e719f6fd1"
+        },
+        "author_01": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/author_outputs/crossed_author_01.jsonl",
+          "sha256": "6d9ab81fc2ee3d4e02405e68a21e8046aa9213dacf2b33496097c2b83d30e841"
+        },
+        "author_02": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/author_outputs/crossed_author_02.jsonl",
+          "sha256": "75dcd839db1692c91aa12dbdbd5c8427b9a79f6863984d6d91eeb52e92704bf1"
+        },
+        "metrics": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/metrics_v0_1.json",
+          "sha256": "930e660d8775aa12ae3c6193cf2ee0c8b8ae15de003819c79deb6943a1c39a7b"
+        },
+        "run_manifest": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_crossed_author_sensitivity_v0_1/run_manifest.json",
+          "sha256": "ca81878e29cfb72b45a210c18ef8f966a4bf3774229320f06498ec7f27d474a0"
+        }
+      }
+    },
     "ai_question_structure_pipeline_diagnostic": {
       "status": "complete_non_evidentiary_shadow_run",
       "run_id": "ai_question_structure_pipeline_v0_1_run_001",
@@ -698,7 +799,7 @@
     "tools": {
       "status": "implemented",
       "test_entry_point": ".venv/bin/python -B -m unittest discover -s tests -v",
-      "final_integration_test_status": "passed_157_tests_in_project_local_exact_pin_environment"
+      "final_integration_test_status": "passed_167_tests_in_project_local_exact_pin_environment"
     }
   },
   "preflight_status": {
@@ -706,8 +807,8 @@
     "result": "NOT_READY",
     "exit_code": 2,
     "validation_failures": 0,
-    "core_json_files_parsed": 76,
-    "unit_tests_passed": 157,
+    "core_json_files_parsed": 97,
+    "unit_tests_passed": 167,
     "unit_tests_failed": 0,
     "ir_v0_2_records_validated": 50,
     "ir_v0_2_validator_errors": 0
@@ -753,6 +854,7 @@
     "data_construction/reports/research_sequencing_decision_v0_3.md",
     "data_construction/reports/research_sequencing_decision_v0_4.md",
     "data_construction/reports/research_sequencing_decision_v0_5.md",
+    "data_construction/reports/research_sequencing_decision_v0_6.md",
     "data_construction/schemas/",
     "data_construction/operator_design/",
     "data_construction/tools/",
