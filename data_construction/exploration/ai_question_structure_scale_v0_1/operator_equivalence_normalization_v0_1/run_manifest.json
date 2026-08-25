@@ -1,0 +1,93 @@
+{
+  "contract_artifacts": {
+    "common_runtime": {
+      "repository_relative_path": "data_construction/tools/_common.py",
+      "sha256": "5e879a163863e3d4e497a57be99f4dc40a0e033d351dfed8da991514c789f64d"
+    },
+    "normalization_schema": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_normalization_schema_v0_1.json",
+      "sha256": "b2586b55cd9cd042c2b288103fd33d33d1eb2935318a73a738b4b47affd5bbf1"
+    },
+    "normalizer": {
+      "repository_relative_path": "data_construction/tools/build_operator_equivalence_normalization.py",
+      "sha256": "f524309acb06288f8ecc714b5f8a7b5ce2f4ad20ad1de2ba6f128f9c1fe1bf81"
+    },
+    "tests": {
+      "repository_relative_path": "tests/test_operator_equivalence_normalization.py",
+      "sha256": "13ba36e7100968f83ca736c99ac30132cff68f558a90741de0856b2114442908"
+    }
+  },
+  "counts": {
+    "distinct_environment_adapters": 19,
+    "distinct_semantic_quotients": 39,
+    "equivalence_status": {
+      "equivalent": 89,
+      "provisionally_equivalent": 4
+    },
+    "families": 30,
+    "multi_question_families": 16,
+    "normalized_candidates": 93,
+    "questions": 71,
+    "technical_loss": 0,
+    "unstable_multi_question_semantic_sets": 6
+  },
+  "decision": "RUN_PRECOMMITTED_CROSSED_AUTHOR_SENSITIVITY",
+  "grounding_authorized": false,
+  "implementation_commit": "c372ef4b43a88b80d85f69359197bdedd3c40e61",
+  "outputs": {
+    "checks": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/checks.jsonl",
+      "sha256": "aede6e347075b1c8fb57757bf13629d1f146c1a548bcf95b5358b2e342fa8fba"
+    },
+    "family_normalized_sets": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/family_normalized_sets.jsonl",
+      "sha256": "02abb259bf06b8f7e80b9d352dc854cfd54db7eb4999e2f9d53ff7f0549bc70a"
+    },
+    "metrics": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/metrics_v0_1.json",
+      "sha256": "4d89084befc7638588d629ba9b6b2c6cf285aa90303e2798522064d1fe014606"
+    },
+    "normalized_candidates": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/normalized_candidates.jsonl",
+      "sha256": "acb7f5bdb461abef527f5c61f6d95157cacd2899d2177eef7a131486d78aa221"
+    },
+    "question_normalized_sets": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/question_normalized_sets.jsonl",
+      "sha256": "93b8e780d4ebbefbf60f8c666a0904537e02b84b3f313e367c8b7c791fda4996"
+    },
+    "report": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/report_v0_1.md",
+      "sha256": "a472967b8e88193bd11a8a75269beb4f82533e63b6bc8660421aff9ef16716b8"
+    },
+    "structural_projections": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/structural_projections.jsonl",
+      "sha256": "daf9ad3daab5572d1bc540f897677512740c09924052f21c00fb0642c71ba428"
+    }
+  },
+  "plan": {
+    "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_normalization_plan_v0_1.json",
+    "sha256": "51ffb6b251e31a6f6d676c14bcc781edaafec05469892e6ed83e2fee31d85a04"
+  },
+  "run_id": "hybridqa_operator_equivalence_normalization_v0_1_run_001",
+  "schema_version": "operator_equivalence_normalization_run_manifest_v0_1",
+  "source_artifacts": {
+    "backbone_adequacy_for_fallback_selection_only": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/backbone_adequacy_assessments.jsonl",
+      "sha256": "a87dbce8a6731ad433f868ec78747e4285eae49f3ca751e36f163308b8c6c792"
+    },
+    "open_operator_realizations": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/open_operator_realizations.jsonl",
+      "sha256": "2e465f0dcb1b7575be92c0377f352eb886c7b1253cd338927d816a5e1593ed29"
+    },
+    "producer_routing": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/producer_routing_manifest_v0_1.json",
+      "sha256": "bb1e5551b8055bfb669cb0141baea9377d13e9ed3f17bd2f44b9099eeb743fc0"
+    },
+    "representative_environment_views": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views.jsonl",
+      "sha256": "9cf0d6b81554066f5ff3175122e83dedf74f4d0a2d15ae9d64d65b873a9c72c7"
+    }
+  },
+  "source_commit": "c372ef4b43a88b80d85f69359197bdedd3c40e61",
+  "validation_status": "pass"
+}

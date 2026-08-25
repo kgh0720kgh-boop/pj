@@ -1,0 +1,44 @@
+{
+  "counts": {
+    "distinct_environment_adapters": 19,
+    "distinct_semantic_quotients": 39,
+    "equivalence_status": {
+      "equivalent": 89,
+      "provisionally_equivalent": 4
+    },
+    "families": 30,
+    "multi_question_families": 16,
+    "normalized_candidates": 93,
+    "questions": 71,
+    "technical_loss": 0,
+    "unstable_multi_question_semantic_sets": 6
+  },
+  "decision": "RUN_PRECOMMITTED_CROSSED_AUTHOR_SENSITIVITY",
+  "fresh_reserve_ids_used": false,
+  "frozen_criteria": {
+    "branch_order": [
+      "revise_contract_on_technical_loss_or_not_equivalence",
+      "run_crossed_author_sensitivity_when_question_and_producer_effects_are_not_separable",
+      "revise_contract_when_thresholds_fail",
+      "allow_provisional_non_final_grounding_adapter_only_when_all_criteria_pass"
+    ],
+    "multi_question_family_semantic_set_instability_fraction_max": 0.1,
+    "not_equivalent_count_max": 0,
+    "producer_attribution_required_for_direct_grounding": true,
+    "provisionally_equivalent_fraction_max_for_direct_grounding": 0.05,
+    "technical_loss_count_max": 0
+  },
+  "grounding_authorized": false,
+  "human_evidence_created": false,
+  "producer_partition_sensitivity": {
+    "direct_attribution_authorized": false,
+    "fixed_question_producer_assignment": true,
+    "question_and_producer_effects_separable": false
+  },
+  "rates": {
+    "multi_question_family_semantic_set_instability_fraction": 0.375,
+    "provisionally_equivalent_fraction": 0.043010752688172046
+  },
+  "run_id": "hybridqa_operator_equivalence_normalization_v0_1_run_001",
+  "schema_version": "operator_equivalence_normalization_metrics_v0_1"
+}
