@@ -1,6 +1,6 @@
 # Hierarchical HybridQA data construction
 
-이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 versioned 연구 계약과 탐색 artifact이며 gold corpus가 아니다. 동결된 question-only AI extractor/normalizer의 누적 N=300 실험, 30-family candidate-backbone library, 71-question representative environment realization, candidate-derived normalization v0.2, targeted crossed-author re-authoring v0.1까지 완료됐다. Targeted run의 기술 계약은 통과했지만 full-eligibility coverage와 의미 안정성 기준은 실패했다. 현재 단계는 같은 기존 challenge 6문항에 대한 별도 authoring-instrument revision을 output 생성 전에 동결하는 것이다. 인간 검토는 현재 필수 gate가 아니라 향후 주장에 필요한 경우의 선택적 표본 감사로 연기됐다.
+이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 versioned 연구 계약과 탐색 artifact이며 gold corpus가 아니다. 동결된 question-only AI extractor/normalizer의 누적 N=300 실험, 30-family candidate-backbone library, 71-question representative environment realization, candidate-derived normalization v0.2, targeted crossed-author re-authoring v0.1, targeted authoring-instrument revision v0.2까지 완료됐다. Instrument v0.2는 같은 기존 challenge 6문항에서 모든 동결 기준을 통과했다. 현재 단계는 grounding output을 만들기 전에 별도 narrowed-grounding plan을 동결하는 것이다. 인간 검토는 현재 필수 gate가 아니라 향후 주장에 필요한 경우의 선택적 표본 감사로 연기됐다.
 
 ## 현재 상태
 
@@ -12,14 +12,15 @@
 - 기존 30개 model-assisted record/90 coarse-medium-fine 표현, 90개 deterministic check, HTML packet 3개, v0.1 metric은 byte-preserved Phase B 선행 가능성 증거로 남긴다. 기존 packet은 현재 Phase A나 미래 blinded Phase B의 승인된 UI가 아니며 사용하지 않는다.
 - 이전의 reviewer×granularity 6파일/180판정 task는 철회됐다. 미래 Phase B는 Phase A2 뒤 동결한 6개 stratum에서 12문항×3 granularity×2 reviewer=72판정으로 시작하고, 사전 선언 trigger에 따라 90, 최대 108판정까지만 확장한다. 정확한 ID는 A2 normalization 전에는 배정하지 않는다.
 - 누적 N=300은 300/300 structurally valid record와 byte-exact N=100 prefix를 보존한다. Fine/contracted/topology/task family는 각각 39/30/10/70개이고, contracted singleton mass 0.0467, N100→new200 transfer 0.915, top-10 coverage 0.9133이다. Uncertain은 94/300, provisional `OTHER` 사용은 0/300이다.
-- 사전 선언된 N=1,000 trigger 네 개가 모두 false여서 candidate-library branch를 택했고, 그 후 대표 환경 실현, normalization v0.2, targeted re-authoring v0.1까지 완료했다. 현재 운영 판정은 `REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING`이다.
+- 사전 선언된 N=1,000 trigger 네 개가 모두 false여서 candidate-library branch를 택했고, 그 후 대표 환경 실현, normalization v0.2, targeted re-authoring v0.1, instrument revision v0.2까지 완료했다. 현재 운영 판정은 `FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN`이다.
 - N=100과 N=300의 evidence class는 모두 `ai_exploratory_non_human_non_gold`이다. 하나의 동결된 AI extractor와 결정론적 normalizer 아래의 반복성·곡선 모양만 기술하며, semantic correctness, human agreement, universal saturation, common executable graph, grounding/execution, gold 또는 modeling readiness를 뜻하지 않는다.
 - candidate-backbone library v0.1은 300개 전부를 30개 family에 정확히 한 번 배정하고, 9 recurrent/7 doubleton/14 singleton을 보존한다. 대표 표본은 30개 family 전체를 덮는 71개 deterministic coverage-stress sample이며 ordered-ID SHA-256은 `5403debe2cbe9c7f55ded0a01b49d7c42bf03e53a71350efe269bbd3c0bdcb2e`이다. 이는 희귀 family를 의도적으로 과대표집하므로 확률표본이나 prevalence 추정 표본이 아니다.
 - 대표 환경 run은 71개 view, 71개 E1 backbone 적합성 판단, 71개 E2 record/93개 open candidate, 71개 five-signal outcome, 285개 통과 check를 materialize했다. E1은 adequate 64, partially adequate 5, indeterminate 2였고 E2는 71개 모두 available이었다. Grounding·execution·answer recovery는 모두 미평가다.
 - Raw E2는 producer partition에 매우 민감했다. Partition별 candidate 수는 36/19/21/17, environment-extension node 수는 95/2/47/0이므로 17/30 family의 raw structural heterogeneity를 질문 고유 특성이나 공통 exact graph의 반증으로 해석할 수 없다.
 - Normalization v0.2는 기존 93개와 crossed-author 34개, 총 127개 candidate만 사용했다. Full eligible/provisional-only/ineligible은 121/1/5이고 technical loss, eligible-set contamination, unclassified adapter candidate는 모두 0이다. Crossed full-eligible semantic exact match는 10/16, mean Jaccard는 0.65625, coverage는 27/32이며 challenge/control exact match는 1/7과 9/9다. 동결 기준 실패로 grounding은 계속 금지된다.
 - Targeted re-authoring v0.1은 같은 기존 challenge ID 6개에 두 새 fresh-context AI author를 배정했다. 12개 record/14개 candidate 중 full/provisional/ineligible은 9/0/5이고 technical loss, contamination, unclassified, profile loss는 모두 0이다. 그러나 full-eligible author-question coverage는 8/12, semantic intersection은 2/6, exact match는 1/6, mean Jaccard는 0.25여서 coverage-failure 분기가 선택됐다.
-- 다음 작업은 위 6개 ID만 유지하면서 target-node, dependency, mapped-output, output-arity 완전성만 label-free로 알려 주는 candidate-local pre-submission checker를 포함한 별도 authoring-instrument revision plan을 모든 새 output 부재 상태에서 먼저 동결하는 것이다. 기존 기록은 byte-preserved observation이며 grounding은 계속 금지된다.
+- Targeted authoring-instrument v0.2는 동일 6개 ID와 두 fresh-context author를 사용했다. Draft/final은 각각 12 record/14 candidate이며 feedback 12건은 target-node, required dependency, mapped output, output arity만 보고했다. Final candidate 14/14가 full eligible이고 coverage 12/12, semantic exact 6/6, mean Jaccard 1.0, v0.1 reference compatibility 12/12, profile loss 0으로 모든 동결 기준을 통과했다. Draft가 이미 모두 local-complete였고 final parsed record가 0/12 변경됐으므로 checker feedback의 인과 효과는 주장하지 않는다.
+- 다음 작업은 위 6개 ID와 모든 대안 관측을 유지하면서 별도 narrowed-grounding plan을 모든 grounding output 부재 상태에서 먼저 동결하는 것이다. 이 pass 자체는 grounding, execution, answer recovery 또는 gold/common-graph 주장을 허용하지 않는다.
 - `diagnostics/ai_question_structure_pipeline_v0_1/`의 이전 two-reviewer shadow run은 byte-preserved direction-finding/engineering evidence다. 두 AI reviewer의 60개 구조화 record, 30개 blinded alignment, 20개 독립 topology-only record와 최종 분석은 검증됐지만 모두 `non_human_non_gold`이고 correctness나 human agreement 근거가 아니다.
 - v0.1 human question-only view·packet·validator도 byte-preserved됐으나 현재 active gate가 아니다. Human raw file/record, agreement observation, adjudication은 모두 0이며 인간 절차를 나중에 재개하더라도 별도 blinded alignment/adjudication 계약 전에는 agreement나 A2 readiness를 주장하지 않는다.
 - `locked_eval`은 prompt, rubric, schema, 연산자 어휘 조정에 사용하지 않는다.
@@ -81,6 +82,8 @@ sh scripts/cross_device_preflight.sh
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_normalization.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_crossed_author_sensitivity.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_normalization_v0_2.py --validate-only
+.venv/bin/python -B data_construction/tools/build_operator_equivalence_targeted_reauthor.py --validate-only
+.venv/bin/python -B data_construction/tools/build_operator_equivalence_targeted_instrument_v0_2.py --validate-only
 .venv/bin/python -m unittest discover -s tests -v
 ```
 
@@ -149,6 +152,8 @@ Normalization v0.2는 implementation `16868477069f4413392c4f968c3e94c510fcb7a8`,
 
 Targeted re-authoring v0.1은 implementation `51b5204d568efc55f6d1fdff3d7d1b2bf1f6f008`, output 부재 plan `4fa67b5f908a3b323610451964aeedcaaef06a2f`, isolated packets `5e45170f86c8f9b540003d2ffeb896407f26594f`, 두 author output `c83bb1c8583fbd9ce1fa394f92f092889244b156`/`a2610732d7b23fb6ad0e88698c19e7d4ebf37af9`, result `f9377db09ef8d34cc846801730980e933e4e8331` 순서로 보존됐다. 기술 계약은 통과했지만 8/12 coverage 때문에 `REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING`이 선택됐다. 다음 plan은 prior-result/semantic-signature 노출 없이 candidate-local completeness feedback만 추가해야 하며, v0.1 record를 수정하거나 grounding을 시작할 수 없다.
 
+Targeted authoring-instrument revision v0.2는 implementation `6703293a3b73539940864d681a034abfd939707b`, 17개 output 부재 plan `3caedbe7a84ee2cac15cf24a33c7f0ff26177f21`, equal-visibility packets `50801e80caa86fc771be0bed85c6ba687e835539`, immutable drafts `2df347a76f381c2d1e6deec02f34e4f38bd4ea4a`, candidate-local feedback `1a92e63d9e7abd12f4ae70c0b250512f42f61601`, finals `3de0a547770e3c225ce0cb9f8990cf00558af308`, result `d22a9beca223f49d7af17c8657aafdbf8753de4f` 순서로 보존됐다. Final 14/14 candidate가 full eligible이고 두 author의 semantic set은 6/6 exact다. Draft와 final parsed records가 동일하므로 전체 개정 instrument의 안정성만 지지하며 checker 단독 효과는 식별하지 않는다. 동결 분기는 별도 narrowed-grounding plan의 freeze만 허용한다.
+
 누적 산출물은 다음 명령으로 재검증할 수 있다.
 
 ```sh
@@ -159,6 +164,7 @@ Targeted re-authoring v0.1은 implementation `51b5204d568efc55f6d1fdff3d7d1b2bf1
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_crossed_author_sensitivity.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_normalization_v0_2.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_targeted_reauthor.py --validate-only
+.venv/bin/python -B data_construction/tools/build_operator_equivalence_targeted_instrument_v0_2.py --validate-only
 ```
 
 ## 보존된 v0.1 Phase A human question-only 계약

@@ -2,32 +2,32 @@
 
 Date: 2026-08-25
 
-Current research phase: **targeted authoring-instrument revision protocol
-freeze before grounding.**
+Current research phase: **narrowed-grounding protocol freeze before any
+grounding output.**
 
 Active branch: `main`
 
-Expected handoff baseline: `f9377db09ef8d34cc846801730980e933e4e8331`
+Expected handoff baseline: `d22a9beca223f49d7af17c8657aafdbf8753de4f`
 
-The current metadata commit is a linear descendant of this completed
-targeted re-authoring v0.1 result baseline.
+The current metadata commit is a linear descendant of this completed targeted
+authoring-instrument v0.2 result baseline.
 
-Last completed task: froze and ran targeted crossed-author re-authoring v0.1
-over exactly the six existing challenge mismatches with two new isolated
-authors; its technical contract passed, but full-eligibility coverage failed.
+Last completed task: froze and ran targeted authoring-instrument revision v0.2
+over exactly the same six existing challenge IDs with two new isolated
+authors, one label-free candidate-local feedback round, and no grounding; all
+frozen criteria passed.
 
 Current scientific decision:
-`REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING`.
+`FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN`.
 
 Synchronization state: `LOCAL_COMMIT_NOT_PUSHED` until the current linear
 sequence is pushed to `origin/main`.
 
-Handoff readiness: Not ready. The scientific gate is
-`TARGETED_REAUTHOR_FULL_ELIGIBILITY_COVERAGE_FAILED`: targeted re-authoring
-passed its technical/profile-inventory contract but observed only 8/12
-full-eligible author-question coverage, so grounding remains unauthorized. The
-separate `LOCAL_COMMIT_NOT_PUSHED` synchronization gate remains until remote
-write is authorized and the 24-commit sequence is pushed.
+Handoff readiness: Not ready. Instrument v0.2 passed, but
+`NARROWED_GROUNDING_PLAN_NOT_FROZEN` remains: the pass authorizes only freezing
+a separate plan, not producing grounding output. The separate
+`LOCAL_COMMIT_NOT_PUSHED` synchronization gate remains until remote write is
+authorized and the 32-commit sequence is pushed.
 
 ## Completed normalization v0.1
 
@@ -151,24 +151,63 @@ required-dependency, and mapped-output coverage. The run therefore selected
 the frozen coverage-failure branch before grounding. No fresh question ID was
 used, and no old record was replaced or relabeled.
 
-## Exact next task: authoring-instrument revision plan freeze
+## Completed targeted authoring-instrument revision v0.2
 
-Before collecting or modifying another author record, freeze a separately
-versioned targeted authoring-instrument revision over the same six IDs. Bind
-the entire v0.1 targeted run, preserve it byte-for-byte, and prove every new
-planned output absent. Keep prior records/results, semantic signatures,
-answers, traces, vocabularies, grounding, and execution hidden from new
-authors.
+The immutable sequence is:
 
-The revised instrument should add only label-free candidate-local feedback for
-target-node coverage, required dependencies, mapped target outputs, and output
-arity. It must not reveal a reference plan or preferred candidate. Precommit
-feedback rounds, full-eligibility coverage, semantic-set/alternative-plan
-retention, and all branches. Use no fresh or locked-evaluation ID and perform
-no grounding. A future pass may authorize only a separately frozen narrowed
-grounding plan.
+1. checker/three schemas/protocol/ten tests:
+   `6703293a3b73539940864d681a034abfd939707b`;
+2. plan frozen while all seventeen outputs were absent:
+   `3caedbe7a84ee2cac15cf24a33c7f0ff26177f21`;
+3. two equal-visibility six-question packets:
+   `50801e80caa86fc771be0bed85c6ba687e835539`;
+4. two fresh-context immutable drafts:
+   `2df347a76f381c2d1e6deec02f34e4f38bd4ea4a`;
+5. one draft-hash-bound candidate-local feedback round:
+   `1a92e63d9e7abd12f4ae70c0b250512f42f61601`;
+6. final author records from the same isolated contexts:
+   `3de0a547770e3c225ce0cb9f8990cf00558af308`;
+7. nine comparison/result outputs:
+   `d22a9beca223f49d7af17c8657aafdbf8753de4f`.
 
-See `data_construction/reports/research_sequencing_decision_v0_8.md`.
+| Measure | Result |
+| --- | ---: |
+| Draft / final records | 12 / 12 |
+| Draft / final candidates | 14 / 14 |
+| Feedback records / binding errors / leakage | 12 / 0 / 0 |
+| Final full eligible / provisional / ineligible | 14 / 0 / 0 |
+| Candidate-local / full-eligible author-question coverage | 12/12 / 12/12 |
+| Nonempty intersections / semantic exact | 6/6 / 6/6 |
+| Mean semantic Jaccard | 1.0 |
+| Targeted-v0.1-compatible author-question pairs | 12/12 |
+| Profile loss / preferred candidates / fresh IDs | 0 / 0 / 0 |
+| Parsed records changed after feedback | 0/12 |
+
+Both authors received only their own packet/protocol/schema, then only their
+own immutable draft and feedback. The feedback contained target-node,
+required-dependency, mapped-output, and output-arity facts only. Every draft
+already passed these local obligations, so finals were parsed-value identical.
+The result supports the revised instrument as a whole; it does not identify a
+causal checker-feedback effect. Isolation remains procedural rather than
+globally machine-authenticated.
+
+## Exact next task: narrowed-grounding plan freeze
+
+Before creating any locator or grounding record, freeze a separately versioned
+narrowed-grounding plan. Bind the complete targeted v0.1 and instrument v0.2
+runs and exactly the same six IDs; preserve all earlier artifacts byte-for-byte;
+and prove every planned grounding packet/record/check/metric/comparison/report/
+manifest absent.
+
+Precommit an alternative-preserving rule for grounding either all fourteen
+final full-eligible candidate observations or a deterministic deduplicated
+set. Define locator completeness, ambiguity, abstention, provenance,
+alternative retention, and every branch. Prevent answers, official traces,
+execution outcomes, and later labels from flowing back into semantic/operator
+records. Use no fresh or locked-evaluation ID, and perform no execution or
+answer recovery.
+
+See `data_construction/reports/research_sequencing_decision_v0_9.md`.
 
 ## Evidence boundaries
 
@@ -193,11 +232,12 @@ python3 -m json.tool state/project_state.json >/dev/null
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_crossed_author_sensitivity.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_normalization_v0_2.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_targeted_reauthor.py --validate-only
+.venv/bin/python -B data_construction/tools/build_operator_equivalence_targeted_instrument_v0_2.py --validate-only
 .venv/bin/python -B -m unittest discover -s tests -v
 sh -n scripts/cross_device_preflight.sh
 sh scripts/cross_device_preflight.sh
 ```
 
-Expected deterministic results are zero validation failures, 180 unit tests,
-120 core JSON/JSONL files parsed, and preflight exit 2 for the declared
-targeted full-eligibility-coverage and unpushed-commit synchronization gates.
+Expected deterministic results are zero validation failures, 190 unit tests,
+140 core JSON/JSONL files parsed, and preflight exit 2 for the declared
+narrowed-grounding-plan and unpushed-commit synchronization gates.
