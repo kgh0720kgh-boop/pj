@@ -1,0 +1,64 @@
+{
+  "counts": {
+    "distinct_observed_semantic_profiles": 11,
+    "eligibility_status": {
+      "full_eligible": 9,
+      "ineligible": 5
+    },
+    "eligible_set_contamination": 0,
+    "fresh_question_ids": 0,
+    "full_eligible_author_question_coverage": 8,
+    "invalid_author_records": 0,
+    "new_author_records": 12,
+    "new_author_semantic_exact_matches": 1,
+    "new_authors": 2,
+    "nonempty_new_author_semantic_intersections": 2,
+    "normalized_candidates": 14,
+    "preferred_candidates": 0,
+    "profile_inventory_loss": 0,
+    "questions": 6,
+    "reference_authors": 2,
+    "reference_compatible_author_questions": 8,
+    "technical_loss": 0,
+    "unclassified_adapter_candidates": 0
+  },
+  "criteria_results": {
+    "all_criteria_passed": false,
+    "full_eligibility_coverage_passed": false,
+    "semantic_stability_and_reference_compatibility_passed": false,
+    "technical_contract_passed": true
+  },
+  "decision": "REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING",
+  "fresh_question_ids_used": false,
+  "frozen_criteria": {
+    "branch_on_coverage_failure": "REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING",
+    "branch_on_pass": "FREEZE_TARGETED_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN",
+    "branch_on_semantic_failure": "NARROW_CHALLENGE_CLAIM_OR_REQUIRE_HUMAN_REVIEW",
+    "branch_on_technical_failure": "REVISE_TARGETED_REAUTHOR_TECHNICAL_CONTRACT",
+    "eligible_set_contamination_count_max": 0,
+    "fresh_question_id_count_max": 0,
+    "full_eligible_author_question_coverage_min": 12,
+    "invalid_author_record_count_max": 0,
+    "mean_new_author_semantic_jaccard_min": 0.9,
+    "new_author_semantic_exact_match_count_min": 5,
+    "nonempty_new_author_semantic_intersection_count_min": 6,
+    "preferred_candidate_count_max": 0,
+    "profile_inventory_loss_count_max": 0,
+    "reference_compatible_author_question_count_min": 12,
+    "technical_loss_count_max": 0,
+    "unclassified_adapter_candidate_count_max": 0
+  },
+  "gold_claimed": false,
+  "grounding_protocol_authorized_next": false,
+  "grounding_started": false,
+  "human_evidence_created": false,
+  "rates": {
+    "full_eligible_author_question_coverage": 0.6666666666666666,
+    "mean_new_author_semantic_jaccard": 0.25,
+    "new_author_semantic_exact_match": 0.16666666666666666,
+    "reference_compatible_author_question": 0.6666666666666666
+  },
+  "run_id": "hybridqa_operator_equivalence_targeted_reauthor_v0_1_run_001",
+  "schema_version": "operator_equivalence_targeted_reauthor_metrics_v0_1",
+  "separate_narrowed_grounding_plan_may_be_frozen_next": false
+}
