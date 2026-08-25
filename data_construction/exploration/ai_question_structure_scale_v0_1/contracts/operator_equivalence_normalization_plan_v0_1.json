@@ -1,0 +1,214 @@
+{
+  "contract_artifacts": {
+    "common_runtime": {
+      "repository_relative_path": "data_construction/tools/_common.py",
+      "sha256": "5e879a163863e3d4e497a57be99f4dc40a0e033d351dfed8da991514c789f64d"
+    },
+    "normalization_schema": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_normalization_schema_v0_1.json",
+      "sha256": "b2586b55cd9cd042c2b288103fd33d33d1eb2935318a73a738b4b47affd5bbf1"
+    },
+    "normalizer": {
+      "repository_relative_path": "data_construction/tools/build_operator_equivalence_normalization.py",
+      "sha256": "f524309acb06288f8ecc714b5f8a7b5ce2f4ad20ad1de2ba6f128f9c1fe1bf81"
+    },
+    "tests": {
+      "repository_relative_path": "tests/test_operator_equivalence_normalization.py",
+      "sha256": "13ba36e7100968f83ca736c99ac30132cff68f558a90741de0856b2114442908"
+    }
+  },
+  "expected_inputs": {
+    "candidates": 93,
+    "families": 30,
+    "realization_records": 71,
+    "target_variants": 72
+  },
+  "frozen_branch_criteria": {
+    "branch_order": [
+      "revise_contract_on_technical_loss_or_not_equivalence",
+      "run_crossed_author_sensitivity_when_question_and_producer_effects_are_not_separable",
+      "revise_contract_when_thresholds_fail",
+      "allow_provisional_non_final_grounding_adapter_only_when_all_criteria_pass"
+    ],
+    "multi_question_family_semantic_set_instability_fraction_max": 0.1,
+    "not_equivalent_count_max": 0,
+    "producer_attribution_required_for_direct_grounding": true,
+    "provisionally_equivalent_fraction_max_for_direct_grounding": 0.05,
+    "technical_loss_count_max": 0
+  },
+  "implementation_commit": "c372ef4b43a88b80d85f69359197bdedd3c40e61",
+  "normalization_contract": {
+    "adapter_layer": "typed_slot_access_placement_fusion_and_output_arity_signature",
+    "allowed_initial_equivalences": [
+      "alpha_renaming",
+      "independent_node_ordering",
+      "transitive_reduction",
+      "meaning_and_io_preserving_access_split_or_fuse"
+    ],
+    "alternatives_compared_as_sets": true,
+    "candidate1_preferred": false,
+    "grounding_dependent_cases": "provisionally_equivalent",
+    "reversibility_required": true,
+    "semantic_layer": "role_labeled_target_dag_quotient"
+  },
+  "plan_id": "hybridqa_operator_equivalence_normalization_plan_v0_1",
+  "planned_outputs": {
+    "checks": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/checks.jsonl"
+    },
+    "family_normalized_sets": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/family_normalized_sets.jsonl"
+    },
+    "metrics": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/metrics_v0_1.json"
+    },
+    "normalized_candidates": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/normalized_candidates.jsonl"
+    },
+    "question_normalized_sets": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/question_normalized_sets.jsonl"
+    },
+    "report": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/report_v0_1.md"
+    },
+    "run_manifest": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/run_manifest.json"
+    },
+    "structural_projections": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_1/structural_projections.jsonl"
+    }
+  },
+  "precommitted_crossed_author_fallback": {
+    "authors": 2,
+    "design": "fully_crossed_two_new_ai_authors_on_all_16_records",
+    "fresh_reserve_ids_used": false,
+    "purpose": "producer_confound_diagnostic_not_human_majority_review",
+    "selection": [
+      {
+        "original_e2_producer_partition": "e2_author_partition_01",
+        "question_id": "c787f84fcdd3c4b8",
+        "selection_role": "adequate_control"
+      },
+      {
+        "original_e2_producer_partition": "e2_author_partition_01",
+        "question_id": "736e042b2c205104",
+        "selection_role": "adequate_control"
+      },
+      {
+        "original_e2_producer_partition": "e2_author_partition_01",
+        "question_id": "0f774ac4950905c4",
+        "selection_role": "adequate_control"
+      },
+      {
+        "original_e2_producer_partition": "e2_author_partition_01",
+        "question_id": "21148417ac3a50ca",
+        "selection_role": "adequate_control"
+      },
+      {
+        "original_e2_producer_partition": "e2_author_partition_02",
+        "question_id": "0d48bffa70ef4acf",
+        "selection_role": "e1_challenge"
+      },
+      {
+        "original_e2_producer_partition": "e2_author_partition_02",
+        "question_id": "b7e8bf58404aba35",
+        "selection_role": "adequate_control"
+      },
+      {
+        "original_e2_producer_partition": "e2_author_partition_02",
+        "question_id": "639da22b64b0a499",
+        "selection_role": "adequate_control"
+      },
+      {
+        "original_e2_producer_partition": "e2_author_partition_02",
+        "question_id": "500759e6b5e9256c",
+        "selection_role": "adequate_control"
+      },
+      {
+        "original_e2_producer_partition": "e2_author_partition_03",
+        "question_id": "cc681cfdba9badd5",
+        "selection_role": "e1_challenge"
+      },
+      {
+        "original_e2_producer_partition": "e2_author_partition_03",
+        "question_id": "1e2e4e4f72a64bbf",
+        "selection_role": "e1_challenge"
+      },
+      {
+        "original_e2_producer_partition": "e2_author_partition_03",
+        "question_id": "1e674ae4b655c1a1",
+        "selection_role": "e1_challenge"
+      },
+      {
+        "original_e2_producer_partition": "e2_author_partition_03",
+        "question_id": "7dc78b5327210208",
+        "selection_role": "adequate_control"
+      },
+      {
+        "original_e2_producer_partition": "e2_author_partition_04",
+        "question_id": "1ca8ffcd3e20e498",
+        "selection_role": "e1_challenge"
+      },
+      {
+        "original_e2_producer_partition": "e2_author_partition_04",
+        "question_id": "ba563b015b09bf21",
+        "selection_role": "e1_challenge"
+      },
+      {
+        "original_e2_producer_partition": "e2_author_partition_04",
+        "question_id": "75a7ccb3abefa128",
+        "selection_role": "e1_challenge"
+      },
+      {
+        "original_e2_producer_partition": "e2_author_partition_04",
+        "question_id": "846fc6ee43ca7f7d",
+        "selection_role": "adequate_control"
+      }
+    ],
+    "status": "planned_not_started"
+  },
+  "run_id": "hybridqa_operator_equivalence_normalization_v0_1_run_001",
+  "schema_version": "operator_equivalence_normalization_plan_v0_1",
+  "source_artifacts": {
+    "backbone_adequacy_for_fallback_selection_only": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e1/backbone_adequacy_assessments.jsonl",
+      "sha256": "a87dbce8a6731ad433f868ec78747e4285eae49f3ca751e36f163308b8c6c792"
+    },
+    "open_operator_realizations": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/stage_e2/open_operator_realizations.jsonl",
+      "sha256": "2e465f0dcb1b7575be92c0377f352eb886c7b1253cd338927d816a5e1593ed29"
+    },
+    "producer_routing": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/producer_routing_manifest_v0_1.json",
+      "sha256": "bb1e5551b8055bfb669cb0141baea9377d13e9ed3f17bd2f44b9099eeb743fc0"
+    },
+    "representative_environment_views": {
+      "repository_relative_path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views.jsonl",
+      "sha256": "9cf0d6b81554066f5ff3175122e83dedf74f4d0a2d15ae9d64d65b873a9c72c7"
+    }
+  },
+  "source_commit": "c372ef4b43a88b80d85f69359197bdedd3c40e61",
+  "status": "frozen_after_e2_before_any_normalized_output",
+  "visibility_contract": {
+    "allowed": [
+      "opaque_identifiers",
+      "target_semantic_topology_and_roles",
+      "operator_adjacency",
+      "semantic_to_operator_mappings",
+      "operator_backbone_or_environment_roles",
+      "typed_unresolved_slot_modality_and_cardinality",
+      "variation_axes",
+      "producer_route"
+    ],
+    "excluded": [
+      "question_text",
+      "environment_text",
+      "answers_and_traces",
+      "e1_content",
+      "operator_labels_and_descriptions",
+      "preserved_operator_vocabularies",
+      "grounding",
+      "execution"
+    ]
+  }
+}
