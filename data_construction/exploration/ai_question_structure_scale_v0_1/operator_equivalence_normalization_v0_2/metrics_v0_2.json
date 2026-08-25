@@ -1,0 +1,159 @@
+{
+  "counts": {
+    "crossed_adequate_control_semantic_exact_matches": 9,
+    "crossed_author_candidates": 34,
+    "crossed_e1_challenge_semantic_exact_matches": 1,
+    "crossed_full_eligible_author_question_coverage": 27,
+    "crossed_full_eligible_semantic_exact_matches": 10,
+    "crossed_questions": 16,
+    "distinct_adapter_component_signatures": {
+      "modality_cardinality": 32,
+      "output_arity": 9,
+      "semantic_relative_placement": 38,
+      "split_fuse_boundary": 24
+    },
+    "distinct_candidate_semantic_profiles": 44,
+    "distinct_overall_factorized_adapters": 65,
+    "eligibility_status": {
+      "full_eligible": 121,
+      "ineligible": 5,
+      "provisional_only": 1
+    },
+    "eligibility_status_by_cohort": {
+      "crossed_author": {
+        "full_eligible": 28,
+        "ineligible": 5,
+        "provisional_only": 1
+      },
+      "original": {
+        "full_eligible": 93
+      }
+    },
+    "eligible_set_contamination": 0,
+    "max_component_records_per_candidate": 7,
+    "multi_question_original_families": 16,
+    "normalized_candidates": 127,
+    "original_candidates": 93,
+    "original_families": 30,
+    "original_questions": 71,
+    "technical_loss": 0,
+    "unclassified_adapter_candidates": 0,
+    "unstable_multi_question_full_eligible_semantic_sets": 6
+  },
+  "criteria_results": {
+    "adapter_component_contract_passed": true,
+    "all_criteria_passed": false,
+    "crossed_semantic_stability_passed": false,
+    "technical_contract_passed": true
+  },
+  "crossed_adapter_component_agreement": {
+    "modality_cardinality": {
+      "exact_match_count": 0,
+      "exact_match_rate": 0.0,
+      "mean_jaccard": 0.0
+    },
+    "output_arity": {
+      "exact_match_count": 10,
+      "exact_match_rate": 0.625,
+      "mean_jaccard": 0.65625
+    },
+    "semantic_relative_placement": {
+      "exact_match_count": 7,
+      "exact_match_rate": 0.4375,
+      "mean_jaccard": 0.4375
+    },
+    "split_fuse_boundary": {
+      "exact_match_count": 9,
+      "exact_match_rate": 0.5625,
+      "mean_jaccard": 0.5625
+    }
+  },
+  "decision": "NARROW_OR_REAUTHOR_BEFORE_GROUNDING",
+  "fresh_question_ids_used": false,
+  "frozen_criteria": {
+    "adequate_control_full_eligible_semantic_exact_count_min": 8,
+    "branch_on_adapter_contract_failure": "REVISE_FACTORIZED_ADAPTER_COMPONENT_CONTRACT",
+    "branch_on_pass": "FREEZE_FACTORIZED_ADAPTER_V0_2_FOR_GROUNDING_PROTOCOL",
+    "branch_on_semantic_stability_failure": "NARROW_OR_REAUTHOR_BEFORE_GROUNDING",
+    "branch_on_technical_or_contamination_failure": "REVISE_NORMALIZATION_V0_2_TECHNICAL_CONTRACT",
+    "component_records_per_candidate_max": 64,
+    "crossed_author_full_eligible_author_question_coverage_min": 32,
+    "crossed_full_eligible_semantic_exact_match_rate_min": 0.875,
+    "crossed_mean_full_eligible_semantic_jaccard_min": 0.95,
+    "distinct_signatures_per_component_max": 64,
+    "e1_challenge_full_eligible_semantic_exact_count_min": 5,
+    "eligible_set_contamination_count_max": 0,
+    "technical_loss_count_max": 0,
+    "unclassified_adapter_candidate_count_max": 0
+  },
+  "gold_claimed": false,
+  "grounding_protocol_authorized_next": false,
+  "grounding_started": false,
+  "human_evidence_created": false,
+  "producer_signature_concentration": {
+    "adapter_components": {
+      "modality_cardinality": {
+        "candidate_count": 127,
+        "method": "weighted_signature_partition_purity_descriptive_not_causal",
+        "normalized_purity_lift": 0.8241758241758242,
+        "producer_majority_baseline": 0.28346456692913385,
+        "signature_count": 32,
+        "singleton_signature_candidate_fraction": 0.15748031496062992,
+        "weighted_partition_purity": 0.8740157480314961
+      },
+      "output_arity": {
+        "candidate_count": 127,
+        "method": "weighted_signature_partition_purity_descriptive_not_causal",
+        "normalized_purity_lift": 0.12087912087912088,
+        "producer_majority_baseline": 0.28346456692913385,
+        "signature_count": 9,
+        "singleton_signature_candidate_fraction": 0.023622047244094488,
+        "weighted_partition_purity": 0.3700787401574803
+      },
+      "semantic_relative_placement": {
+        "candidate_count": 127,
+        "method": "weighted_signature_partition_purity_descriptive_not_causal",
+        "normalized_purity_lift": 0.6483516483516483,
+        "producer_majority_baseline": 0.28346456692913385,
+        "signature_count": 38,
+        "singleton_signature_candidate_fraction": 0.13385826771653545,
+        "weighted_partition_purity": 0.7480314960629921
+      },
+      "split_fuse_boundary": {
+        "candidate_count": 127,
+        "method": "weighted_signature_partition_purity_descriptive_not_causal",
+        "normalized_purity_lift": 0.3846153846153846,
+        "producer_majority_baseline": 0.28346456692913385,
+        "signature_count": 24,
+        "singleton_signature_candidate_fraction": 0.07874015748031496,
+        "weighted_partition_purity": 0.5590551181102362
+      }
+    },
+    "candidate_semantic_profile": {
+      "candidate_count": 127,
+      "method": "weighted_signature_partition_purity_descriptive_not_causal",
+      "normalized_purity_lift": 0.34065934065934056,
+      "producer_majority_baseline": 0.28346456692913385,
+      "signature_count": 44,
+      "singleton_signature_candidate_fraction": 0.12598425196850394,
+      "weighted_partition_purity": 0.5275590551181102
+    },
+    "interpretation": "signature concentration reflects producer association under the observed design; it is not causal attribution or semantic correctness",
+    "overall_factorized_adapter": {
+      "candidate_count": 127,
+      "method": "weighted_signature_partition_purity_descriptive_not_causal",
+      "normalized_purity_lift": 0.901098901098901,
+      "producer_majority_baseline": 0.28346456692913385,
+      "signature_count": 65,
+      "singleton_signature_candidate_fraction": 0.36220472440944884,
+      "weighted_partition_purity": 0.9291338582677166
+    }
+  },
+  "rates": {
+    "crossed_full_eligible_semantic_exact_match": 0.625,
+    "crossed_mean_full_eligible_semantic_jaccard": 0.65625,
+    "original_multi_question_semantic_instability": 0.375
+  },
+  "run_id": "hybridqa_operator_equivalence_normalization_v0_2_run_001",
+  "schema_version": "operator_equivalence_normalization_metrics_v0_2"
+}
