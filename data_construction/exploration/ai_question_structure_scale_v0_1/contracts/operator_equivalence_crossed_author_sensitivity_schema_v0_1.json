@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "operator_equivalence_crossed_author_sensitivity_schema_v0_1.json",
+  "title": "Crossed-author operator-equivalence sensitivity comparison v0.1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "question_id",
+    "selection_role",
+    "original_e2_producer_partition",
+    "author_results",
+    "semantic_set_exact_match",
+    "adapter_set_exact_match",
+    "semantic_set_jaccard",
+    "adapter_set_jaccard",
+    "candidate_count_delta",
+    "evidence_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "operator_equivalence_crossed_author_comparison_v0_1"},
+    "question_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"},
+    "selection_role": {"enum": ["e1_challenge", "adequate_control"]},
+    "original_e2_producer_partition": {"type": "string", "pattern": "^e2_author_partition_[0-9]{2}$"},
+    "author_results": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["author_id", "candidate_count", "semantic_set", "adapter_set", "normalization_status_counts"],
+        "properties": {
+          "author_id": {"enum": ["crossed_author_01", "crossed_author_02"]},
+          "candidate_count": {"type": "integer", "minimum": 0},
+          "semantic_set": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/sha256"}},
+          "adapter_set": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/sha256"}},
+          "normalization_status_counts": {
+            "type": "object",
+            "additionalProperties": {"type": "integer", "minimum": 0}
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "semantic_set_exact_match": {"type": "boolean"},
+    "adapter_set_exact_match": {"type": "boolean"},
+    "semantic_set_jaccard": {"type": "number", "minimum": 0, "maximum": 1},
+    "adapter_set_jaccard": {"type": "number", "minimum": 0, "maximum": 1},
+    "candidate_count_delta": {"type": "integer", "minimum": 0},
+    "evidence_boundary": {
+      "type": "object",
+      "required": ["ai_non_human_non_gold", "fresh_reserve_ids_used", "grounding_evaluated", "execution_evaluated", "answer_recovery_evaluated"],
+      "properties": {
+        "ai_non_human_non_gold": {"const": true},
+        "fresh_reserve_ids_used": {"const": false},
+        "grounding_evaluated": {"const": false},
+        "execution_evaluated": {"const": false},
+        "answer_recovery_evaluated": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
