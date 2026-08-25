@@ -2,30 +2,30 @@
   "schema_version": "project_state_v0_1",
   "state_updated_date": "2026-08-25",
   "project": "hierarchical_data_construction_for_semantic_execution_topology_induction",
-  "active_phase": "phase_2e_operator_equivalence_normalization_v0_2_revision",
+  "active_phase": "phase_2f_targeted_crossed_author_reauthor_protocol_freeze",
   "active_branch": "main",
-  "expected_head": "95b4b1356a2cbe050d4bf89a259a4c7340930558",
-  "last_completed_task": "completed_reversible_operator_equivalence_normalization_v0_1_and_precommitted_two_fresh_author_crossed_sensitivity_on_16_already_exposed_questions",
-  "next_task": "implement_and_test_candidate_derived_eligibility_aware_factorized_adapter_normalization_v0_2_then_freeze_a_separate_plan_while_v0_2_outputs_are_absent_bound_to_all_127_existing_candidates_before_any_grounding_or_fresh_id_use",
-  "current_scientific_decision": "REVISE_EQUIVALENCE_NORMALIZATION_CONTRACT",
-  "scientific_decision_status": "normalization_v0_1_and_crossed_author_sensitivity_complete_frozen_criteria_failed_v0_2_required_before_grounding",
+  "expected_head": "a13fa72c75049e09a966a9ea11e514c4a961841e",
+  "last_completed_task": "completed_candidate_derived_eligibility_aware_factorized_adapter_normalization_v0_2_over_all_127_existing_candidates_with_frozen_technical_pass_and_crossed_semantic_failure",
+  "next_task": "freeze_a_separate_targeted_crossed_author_reauthor_plan_before_outputs_for_exactly_the_six_existing_challenge_mismatches_with_two_new_isolated_authors_no_fresh_question_ids_and_no_grounding",
+  "current_scientific_decision": "NARROW_OR_REAUTHOR_BEFORE_GROUNDING",
+  "scientific_decision_status": "normalization_v0_2_complete_technical_and_adapter_contracts_passed_crossed_semantic_stability_failed_grounding_blocked",
   "synchronization_state": "LOCAL_COMMIT_NOT_PUSHED",
   "handoff_readiness": "not_ready",
   "blocked_gates": [
-    "EQUIVALENCE_NORMALIZATION_V0_2_REVISION_REQUIRED: v0.1 crossed-author criteria failed with 5 not-equivalent and 9 provisional candidates plus 0/16 exact adapter-set matches",
-    "LOCAL_COMMIT_NOT_PUSHED: 13 portable commits are ahead of origin/main after the metadata handoff commit and remote write has not been authorized"
+    "CROSSED_FULL_ELIGIBLE_SEMANTIC_STABILITY_FAILED: v0.2 observed 10/16 exact matches, 0.65625 mean Jaccard, 27/32 full-eligible author-question coverage, and 1/7 challenge exact matches",
+    "LOCAL_COMMIT_NOT_PUSHED: 17 portable commits are ahead of origin/main after the metadata handoff commit and remote write has not been authorized"
   ],
   "repository": {
     "git_root": "repository root (resolve with git rev-parse --show-toplevel)",
     "current_branch": "main",
-    "head": "95b4b1356a2cbe050d4bf89a259a4c7340930558",
-    "head_role": "completed_crossed_author_result_baseline_parent_of_metadata_commit",
+    "head": "a13fa72c75049e09a966a9ea11e514c4a961841e",
+    "head_role": "completed_operator_equivalence_normalization_v0_2_result_baseline_parent_of_metadata_commit",
     "remotes": [
       "origin https://github.com/kgh0720kgh-boop/pj.git"
     ],
     "working_tree_status": "clean",
     "untracked_files": 0,
-    "unpushed_commits": 13,
+    "unpushed_commits": 17,
     "stash_state": "empty"
   },
   "artifact_status": {
@@ -660,6 +660,109 @@
         }
       }
     },
+    "operator_equivalence_normalization_v0_2": {
+      "status": "complete_technical_and_adapter_contracts_passed_crossed_semantic_stability_failed",
+      "active_gate": false,
+      "run_id": "hybridqa_operator_equivalence_normalization_v0_2_run_001",
+      "implementation_commit": "16868477069f4413392c4f968c3e94c510fcb7a8",
+      "plan_freeze_commit": "3d636e57b88da4469540a8ed47fa413147857060",
+      "materialization_commit": "a13fa72c75049e09a966a9ea11e514c4a961841e",
+      "original_candidate_count": 93,
+      "crossed_author_candidate_count": 34,
+      "candidate_count": 127,
+      "original_question_count": 71,
+      "original_family_count": 30,
+      "crossed_question_count": 16,
+      "eligibility_status_counts": {
+        "full_eligible": 121,
+        "provisional_only": 1,
+        "ineligible": 5
+      },
+      "technical_loss_count": 0,
+      "eligible_set_contamination_count": 0,
+      "unclassified_adapter_candidate_count": 0,
+      "max_component_records_per_candidate": 7,
+      "distinct_candidate_semantic_profile_count": 44,
+      "distinct_overall_factorized_adapter_count": 65,
+      "distinct_adapter_component_signature_counts": {
+        "modality_cardinality": 32,
+        "semantic_relative_placement": 38,
+        "split_fuse_boundary": 24,
+        "output_arity": 9
+      },
+      "crossed_full_eligible_semantic_exact_match_count": 10,
+      "crossed_full_eligible_semantic_exact_match_rate": 0.625,
+      "crossed_mean_full_eligible_semantic_jaccard": 0.65625,
+      "crossed_full_eligible_author_question_coverage": 27,
+      "crossed_e1_challenge_semantic_exact_match_count": 1,
+      "crossed_adequate_control_semantic_exact_match_count": 9,
+      "unstable_multi_question_original_family_count": 6,
+      "technical_contract_passed": true,
+      "adapter_component_contract_passed": true,
+      "crossed_semantic_stability_passed": false,
+      "all_criteria_passed": false,
+      "decision": "NARROW_OR_REAUTHOR_BEFORE_GROUNDING",
+      "grounding_protocol_authorized_next": false,
+      "grounding_started": false,
+      "fresh_question_ids_used": false,
+      "human_evidence_count": 0,
+      "gold_claimed": false,
+      "mismatch_question_ids": [
+        "0d48bffa70ef4acf",
+        "cc681cfdba9badd5",
+        "1e2e4e4f72a64bbf",
+        "1e674ae4b655c1a1",
+        "1ca8ffcd3e20e498",
+        "ba563b015b09bf21"
+      ],
+      "interpretive_limit": "candidate_derived_eligibility_corrects_v0_1_target_anchored_overestimate_but_observed_author_association_is_not_causal_or_gold",
+      "artifacts": {
+        "normalization_schema": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_normalization_schema_v0_2.json",
+          "sha256": "300801b1a89f39e8efe856fb41533918c87442cfeee945f7790e4de6a988113e"
+        },
+        "crossed_comparison_schema": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_crossed_comparison_schema_v0_2.json",
+          "sha256": "d0e190df52b9c0c50267da92b2c784996b3cb1432a4b689b27aa337c1e3e346b"
+        },
+        "freeze_plan": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_normalization_plan_v0_2.json",
+          "sha256": "42fc265ba3968f922e5c12246210e9ae66173c00e94bf2b55eb476bcbbaff02c"
+        },
+        "normalized_candidates": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_2/normalized_candidates.jsonl",
+          "sha256": "cf6ff022b42e29522cbbd09fb8e224504fea7001be495cec7042cd92896135d2"
+        },
+        "original_question_sets": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_2/original_question_sets.jsonl",
+          "sha256": "65c70fe06bc392ffbe32480f92d61f229dd7ddb829182e87f93a007cabbe1bd5"
+        },
+        "original_family_sets": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_2/original_family_sets.jsonl",
+          "sha256": "f28408cd052c67f112758408cddcc32c2c0003cdc24fd84c97a4a801f9a7d4ce"
+        },
+        "crossed_question_comparisons": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_2/crossed_question_comparisons.jsonl",
+          "sha256": "f9fe1eef14dc1b0543fbcbd1095c754004e0d75c4ed6a8583d6f7112bfb6ba63"
+        },
+        "checks": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_2/checks.jsonl",
+          "sha256": "9e2e081b90781bfc1506e5d75ff0db316dc488092b97ec2251c6c8d785ff91d1"
+        },
+        "metrics": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_2/metrics_v0_2.json",
+          "sha256": "655d5870318e55b9eb21f279948fd4f63ec8fe54e1bfdb68a3ef123f2cced897"
+        },
+        "generated_report": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_2/report_v0_2.md",
+          "sha256": "ad513a8212ec7d5808b21c5dec88f3aef8c866e508c60ff928d332d7613e99f5"
+        },
+        "run_manifest": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_normalization_v0_2/run_manifest.json",
+          "sha256": "b47a4d0c4cb402b1ffce0ab4d95dc27ab14107d06f82ef945357ae68329e1ba9"
+        }
+      }
+    },
     "ai_question_structure_pipeline_diagnostic": {
       "status": "complete_non_evidentiary_shadow_run",
       "run_id": "ai_question_structure_pipeline_v0_1_run_001",
@@ -799,7 +902,7 @@
     "tools": {
       "status": "implemented",
       "test_entry_point": ".venv/bin/python -B -m unittest discover -s tests -v",
-      "final_integration_test_status": "passed_167_tests_in_project_local_exact_pin_environment"
+      "final_integration_test_status": "passed_174_tests_in_project_local_exact_pin_environment"
     }
   },
   "preflight_status": {
@@ -807,8 +910,8 @@
     "result": "NOT_READY",
     "exit_code": 2,
     "validation_failures": 0,
-    "core_json_files_parsed": 97,
-    "unit_tests_passed": 167,
+    "core_json_files_parsed": 107,
+    "unit_tests_passed": 174,
     "unit_tests_failed": 0,
     "ir_v0_2_records_validated": 50,
     "ir_v0_2_validator_errors": 0
@@ -855,6 +958,7 @@
     "data_construction/reports/research_sequencing_decision_v0_4.md",
     "data_construction/reports/research_sequencing_decision_v0_5.md",
     "data_construction/reports/research_sequencing_decision_v0_6.md",
+    "data_construction/reports/research_sequencing_decision_v0_7.md",
     "data_construction/schemas/",
     "data_construction/operator_design/",
     "data_construction/tools/",
@@ -866,6 +970,10 @@
     "tests/test_question_structure_n300_pool.py",
     "tests/test_question_structure_cumulative_n300.py",
     "tests/test_candidate_backbone_library.py",
+    "tests/test_representative_environment_realization.py",
+    "tests/test_operator_equivalence_normalization.py",
+    "tests/test_operator_equivalence_crossed_author_sensitivity.py",
+    "tests/test_operator_equivalence_normalization_v0_2.py",
     "historical/README.md",
     "historical/ir_v0_2/recovery_manifest_v0_1.json"
   ],

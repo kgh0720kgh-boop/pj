@@ -2,30 +2,31 @@
 
 Date: 2026-08-25
 
-Current research phase: **normalization v0.2 contract revision before grounding.**
+Current research phase: **targeted crossed-author re-authoring protocol freeze
+before grounding.**
 
 Active branch: `main`
 
-Expected handoff baseline: `95b4b1356a2cbe050d4bf89a259a4c7340930558`
+Expected handoff baseline: `a13fa72c75049e09a966a9ea11e514c4a961841e`
 
 The current metadata commit is a linear descendant of this completed
-crossed-author result baseline.
+normalization-v0.2 result baseline.
 
-Last completed task: implemented reversible two-layer operator normalization
-v0.1, froze its plan before outputs, normalized all 93 original candidates,
-and completed the precommitted two-fresh-author fully crossed sensitivity run
-on 16 already exposed questions.
+Last completed task: implemented candidate-derived, eligibility-aware,
+factorized-adapter normalization v0.2; froze its exact 127-candidate plan while
+all outputs were absent; and materialized and validated all eight outputs.
 
-Current scientific decision: `REVISE_EQUIVALENCE_NORMALIZATION_CONTRACT`.
+Current scientific decision: `NARROW_OR_REAUTHOR_BEFORE_GROUNDING`.
 
 Synchronization state: `LOCAL_COMMIT_NOT_PUSHED` until the current linear
 sequence is pushed to `origin/main`.
 
 Handoff readiness: Not ready. The scientific gate is
-`EQUIVALENCE_NORMALIZATION_V0_2_REVISION_REQUIRED`: normalization v0.2 has not
-been implemented or frozen, so grounding remains unauthorized. The separate
-`LOCAL_COMMIT_NOT_PUSHED` synchronization gate remains until remote write is
-authorized and the 13-commit sequence is pushed.
+`CROSSED_FULL_ELIGIBLE_SEMANTIC_STABILITY_FAILED`: normalization v0.2 passed
+its technical and adapter-component contracts but failed its frozen
+crossed-author semantic criteria, so grounding remains unauthorized. The
+separate `LOCAL_COMMIT_NOT_PUSHED` synchronization gate remains until remote
+write is authorized and the 17-commit sequence is pushed.
 
 ## Completed normalization v0.1
 
@@ -85,30 +86,58 @@ backbone after checking preservation; a partial candidate may retain the same
 target hash while being correctly not-equivalent. Adapter exact signatures are
 also too producer-sensitive. Grounding was not started.
 
-## Exact next task: normalization v0.2
+## Completed normalization v0.2
 
-Use only the already exposed 93 original and 34 crossed-author candidates.
-Consume no fresh question, answer, trace, grounding, or execution evidence.
+The immutable sequence is:
 
-1. Add a new v0.2 schema/tool/test bundle without modifying v0.1 artifacts.
-2. Commit implementation, then freeze a separate plan while all v0.2 outputs
-   are absent; bind all 127 candidates, both v0.1 manifests, producers, and
-   stopping branches.
-3. Make semantic representation candidate-derived: encode supported/missing
-   semantic nodes, mapped output coverage, and dependency preservation.
-4. Separate equivalence eligibility from quotient identity. Partial and
-   not-equivalent candidates must not count as full eligible set members.
-5. Factor adapter signatures into modality/cardinality, semantic-relative
-   placement, split/fuse boundary, and output-arity components while preserving
-   modality, cardinality/tie, referent identity, and output arity.
-6. Recompare original question/family sets and crossed author pairs, including
-   component agreement, challenge/control strata, and producer predictiveness.
-   Never prefer `candidate1`.
-7. Grounding may begin only if separately frozen v0.2 criteria pass with zero
-   reversible loss and no eligible-set contamination. Otherwise create another
-   version or narrow the claim.
+1. implementation/two schemas/seven tests:
+   `16868477069f4413392c4f968c3e94c510fcb7a8`;
+2. exact plan frozen while every v0.2 output was absent:
+   `3d636e57b88da4469540a8ed47fa413147857060`;
+3. eight materialized outputs:
+   `a13fa72c75049e09a966a9ea11e514c4a961841e`.
 
-See `data_construction/reports/research_sequencing_decision_v0_6.md`.
+| Measure | Result |
+| --- | ---: |
+| Original / crossed / total candidates | 93 / 34 / 127 |
+| Full eligible / provisional only / ineligible | 121 / 1 / 5 |
+| Technical loss / eligible contamination / unclassified | 0 / 0 / 0 |
+| Candidate semantic profiles / overall adapters | 44 / 65 |
+| Crossed semantic exact / mean Jaccard | 10/16 / 0.65625 |
+| Full-eligible author-question coverage | 27/32 |
+| Challenge / control semantic exact | 1/7 / 9/9 |
+| Original unstable multi-question families | 6/16 |
+
+The technical and adapter-component contracts pass. The semantic contract
+fails its frozen 32/32 coverage, 14/16 exact-match, 0.95 mean-Jaccard, and 5/7
+challenge thresholds. All six mismatches are E1 challenge cases. Five are
+ineligible partial candidates from author 01; one is a provisional author-02
+candidate with an extra non-target dependency. This is author/instrument
+sensitivity, not evidence that either author is correct. Grounding was not
+started or authorized.
+
+## Exact next task: targeted re-authoring plan freeze
+
+Before collecting another author record, create a separately versioned plan
+bound to exactly these six already exposed mismatch IDs, in this order:
+
+1. `0d48bffa70ef4acf`
+2. `cc681cfdba9badd5`
+3. `1e2e4e4f72a64bbf`
+4. `1e674ae4b655c1a1`
+5. `1ca8ffcd3e20e498`
+6. `ba563b015b09bf21`
+
+The plan must bind the v0.2 manifest/comparisons and immutable source views,
+prove planned-output absence at its freeze commit, use no fresh question ID,
+and assign two new isolated fresh-context AI authors to all six questions.
+Inputs must hide prior author records, E1 labels, normalization/metrics,
+answers, traces, vocabularies, grounding, and execution. Precommit coverage,
+full-eligibility, semantic-set, alternative-plan, and branch criteria. Preserve
+all old records; new records are observations, not replacements, votes,
+adjudications, or gold. The run itself may not perform grounding.
+
+See `data_construction/reports/research_sequencing_decision_v0_7.md`.
 
 ## Evidence boundaries
 
@@ -131,11 +160,12 @@ python3 -m json.tool state/project_state.json >/dev/null
 .venv/bin/python -B data_construction/tools/build_representative_environment_realization.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_normalization.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_crossed_author_sensitivity.py --validate-only
+.venv/bin/python -B data_construction/tools/build_operator_equivalence_normalization_v0_2.py --validate-only
 .venv/bin/python -B -m unittest discover -s tests -v
 sh -n scripts/cross_device_preflight.sh
 sh scripts/cross_device_preflight.sh
 ```
 
-Expected deterministic results are zero validation failures, 167 unit tests,
-97 core JSON/JSONL files parsed, and preflight exit 2 for the declared
-normalization-v0.2 revision and unpushed-commit synchronization gates.
+Expected deterministic results are zero validation failures, 174 unit tests,
+107 core JSON/JSONL files parsed, and preflight exit 2 for the declared
+crossed-semantic-stability and unpushed-commit synchronization gates.

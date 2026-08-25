@@ -1,6 +1,6 @@
 # Hierarchical HybridQA data construction
 
-이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 versioned 연구 계약과 탐색 artifact이며 gold corpus가 아니다. 동결된 question-only AI extractor/normalizer의 누적 N=300 실험, 30-family candidate-backbone library, 71-question representative environment realization이 완료됐다. 현재 단계는 raw open graph의 저자별 split/fuse 차이를 제거할 수 있는 label-free equivalence normalization 계약을 grounding 전에 동결하는 것이다. 인간 검토는 현재 필수 gate가 아니라 향후 주장에 필요한 경우의 선택적 표본 감사로 연기됐다.
+이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 versioned 연구 계약과 탐색 artifact이며 gold corpus가 아니다. 동결된 question-only AI extractor/normalizer의 누적 N=300 실험, 30-family candidate-backbone library, 71-question representative environment realization, candidate-derived normalization v0.2까지 완료됐다. V0.2의 기술·factorized-adapter 계약은 통과했지만 crossed-author 의미 안정성 기준은 실패했다. 현재 단계는 불일치한 기존 challenge 6문항만 대상으로 별도 re-authoring 계획을 output 생성 전에 동결하는 것이다. 인간 검토는 현재 필수 gate가 아니라 향후 주장에 필요한 경우의 선택적 표본 감사로 연기됐다.
 
 ## 현재 상태
 
@@ -12,12 +12,13 @@
 - 기존 30개 model-assisted record/90 coarse-medium-fine 표현, 90개 deterministic check, HTML packet 3개, v0.1 metric은 byte-preserved Phase B 선행 가능성 증거로 남긴다. 기존 packet은 현재 Phase A나 미래 blinded Phase B의 승인된 UI가 아니며 사용하지 않는다.
 - 이전의 reviewer×granularity 6파일/180판정 task는 철회됐다. 미래 Phase B는 Phase A2 뒤 동결한 6개 stratum에서 12문항×3 granularity×2 reviewer=72판정으로 시작하고, 사전 선언 trigger에 따라 90, 최대 108판정까지만 확장한다. 정확한 ID는 A2 normalization 전에는 배정하지 않는다.
 - 누적 N=300은 300/300 structurally valid record와 byte-exact N=100 prefix를 보존한다. Fine/contracted/topology/task family는 각각 39/30/10/70개이고, contracted singleton mass 0.0467, N100→new200 transfer 0.915, top-10 coverage 0.9133이다. Uncertain은 94/300, provisional `OTHER` 사용은 0/300이다.
-- 사전 선언된 N=1,000 trigger 네 개가 모두 false여서 candidate-library branch를 택했고, 그 후 대표 환경 실현까지 완료했다. 현재 운영 판정은 `FREEZE_EQUIVALENCE_AWARE_OPERATOR_NORMALIZATION_BEFORE_GROUNDING`이다.
+- 사전 선언된 N=1,000 trigger 네 개가 모두 false여서 candidate-library branch를 택했고, 그 후 대표 환경 실현과 normalization v0.2까지 완료했다. 현재 운영 판정은 `NARROW_OR_REAUTHOR_BEFORE_GROUNDING`이다.
 - N=100과 N=300의 evidence class는 모두 `ai_exploratory_non_human_non_gold`이다. 하나의 동결된 AI extractor와 결정론적 normalizer 아래의 반복성·곡선 모양만 기술하며, semantic correctness, human agreement, universal saturation, common executable graph, grounding/execution, gold 또는 modeling readiness를 뜻하지 않는다.
 - candidate-backbone library v0.1은 300개 전부를 30개 family에 정확히 한 번 배정하고, 9 recurrent/7 doubleton/14 singleton을 보존한다. 대표 표본은 30개 family 전체를 덮는 71개 deterministic coverage-stress sample이며 ordered-ID SHA-256은 `5403debe2cbe9c7f55ded0a01b49d7c42bf03e53a71350efe269bbd3c0bdcb2e`이다. 이는 희귀 family를 의도적으로 과대표집하므로 확률표본이나 prevalence 추정 표본이 아니다.
 - 대표 환경 run은 71개 view, 71개 E1 backbone 적합성 판단, 71개 E2 record/93개 open candidate, 71개 five-signal outcome, 285개 통과 check를 materialize했다. E1은 adequate 64, partially adequate 5, indeterminate 2였고 E2는 71개 모두 available이었다. Grounding·execution·answer recovery는 모두 미평가다.
 - Raw E2는 producer partition에 매우 민감했다. Partition별 candidate 수는 36/19/21/17, environment-extension node 수는 95/2/47/0이므로 17/30 family의 raw structural heterogeneity를 질문 고유 특성이나 공통 exact graph의 반증으로 해석할 수 없다.
-- 다음 작업은 93개 candidate의 structural-only projection에 대해 semantic quotient와 environment-adapter signature를 분리하는 equivalence-aware normalizer를 구현·테스트하고, normalized output이 없는 상태에서 별도 plan을 commit하는 것이다. Question/environment text, factual answer, E1 판단, operator label/description, 기존 vocabulary는 normalizer 입력에서 제외한다.
+- Normalization v0.2는 기존 93개와 crossed-author 34개, 총 127개 candidate만 사용했다. Full eligible/provisional-only/ineligible은 121/1/5이고 technical loss, eligible-set contamination, unclassified adapter candidate는 모두 0이다. Crossed full-eligible semantic exact match는 10/16, mean Jaccard는 0.65625, coverage는 27/32이며 challenge/control exact match는 1/7과 9/9다. 동결 기준 실패로 grounding은 계속 금지된다.
+- 다음 작업은 불일치한 기존 challenge ID 6개(`0d48bffa70ef4acf`, `cc681cfdba9badd5`, `1e2e4e4f72a64bbf`, `1e674ae4b655c1a1`, `1ca8ffcd3e20e498`, `ba563b015b09bf21`)에 두 새 fresh-context AI author를 배정하는 별도 plan을 모든 output 부재 상태에서 먼저 동결하는 것이다. 새 question ID를 쓰지 않고, 기존 기록을 교체·투표·gold로 취급하지 않으며, 이 run에서는 grounding을 수행하지 않는다.
 - `diagnostics/ai_question_structure_pipeline_v0_1/`의 이전 two-reviewer shadow run은 byte-preserved direction-finding/engineering evidence다. 두 AI reviewer의 60개 구조화 record, 30개 blinded alignment, 20개 독립 topology-only record와 최종 분석은 검증됐지만 모두 `non_human_non_gold`이고 correctness나 human agreement 근거가 아니다.
 - v0.1 human question-only view·packet·validator도 byte-preserved됐으나 현재 active gate가 아니다. Human raw file/record, agreement observation, adjudication은 모두 0이며 인간 절차를 나중에 재개하더라도 별도 blinded alignment/adjudication 계약 전에는 agreement나 A2 readiness를 주장하지 않는다.
 - `locked_eval`은 prompt, rubric, schema, 연산자 어휘 조정에 사용하지 않는다.
@@ -78,6 +79,7 @@ sh scripts/cross_device_preflight.sh
 .venv/bin/python -B data_construction/tools/build_representative_environment_realization.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_normalization.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_crossed_author_sensitivity.py --validate-only
+.venv/bin/python -B data_construction/tools/build_operator_equivalence_normalization_v0_2.py --validate-only
 .venv/bin/python -m unittest discover -s tests -v
 ```
 
@@ -140,7 +142,9 @@ Candidate-backbone library와 representative-sampling contract는 `exploration/a
 
 Equivalence-aware normalization v0.1은 implementation `c372ef4b43a88b80d85f69359197bdedd3c40e61`, output 부재 상태의 plan `83428b9698546de054db672e72dbae880ef4c1ac`, materialized result `a9d3272c6cef4f411bf8f124159a634920c0571e` 순서로 동결됐다. 93개 candidate 모두 reversible label-free projection으로 재구성되며 equivalent=89, provisionally-equivalent=4, not-equivalent=0, projection loss=0이다. Semantic quotient 39개와 environment-adapter signature 19개를 분리했고 candidate는 question별 set으로 비교했다. Multi-question family 16개 중 semantic-set instability가 6개이며 고정 question/producer 배정으로 효과를 분리할 수 없어 동결된 분기는 `RUN_PRECOMMITTED_CROSSED_AUTHOR_SENSITIVITY`다. Grounding은 아직 허용되지 않는다.
 
-Crossed-author sensitivity v0.1은 이미 environment-exposed인 16개만 재사용했다. 네 기존 partition에서 각 4개, E1 challenge 7개 전부와 adequate control 9개를 포함하며 두 fresh-context AI author가 모든 16개를 독립적으로 처리했다. Semantic-set exact match는 16/16이지만 target-anchored v0.1 quotient의 한계 때문에 partial candidate도 같은 target hash를 가질 수 있다. Adapter-set exact match는 0/16이고, 34개 후보 중 equivalent/provisional/not-equivalent는 20/9/5다. 동결 기준에 따라 `REVISE_EQUIVALENCE_NORMALIZATION_CONTRACT`가 선택됐으며 grounding은 계속 금지된다. 다음 exact task는 같은 127개 기존 후보만 사용해 candidate-derived eligibility와 factorized adapter components를 분리하는 normalization v0.2를 output 부재 상태의 새 plan과 함께 동결하는 것이다. 이는 producer confound 진단이지 human review, majority vote, gold annotation 또는 unseen evaluation이 아니며 새 reserve/locked-eval ID를 사용하지 않는다.
+Crossed-author sensitivity v0.1은 이미 environment-exposed인 16개만 재사용했다. 네 기존 partition에서 각 4개, E1 challenge 7개 전부와 adequate control 9개를 포함하며 두 fresh-context AI author가 모든 16개를 독립적으로 처리했다. Semantic-set exact match는 16/16이지만 target-anchored v0.1 quotient의 한계 때문에 partial candidate도 같은 target hash를 가질 수 있다. Adapter-set exact match는 0/16이고, 34개 후보 중 equivalent/provisional/not-equivalent는 20/9/5다. 동결 기준에 따라 `REVISE_EQUIVALENCE_NORMALIZATION_CONTRACT`가 선택됐으며 grounding은 계속 금지된다. 이 분기가 요구한 작업은 같은 127개 기존 후보만 사용해 candidate-derived eligibility와 factorized adapter components를 분리하는 normalization v0.2를 output 부재 상태의 새 plan과 함께 동결하는 것이었고, 아래와 같이 완료됐다. 이는 producer confound 진단이지 human review, majority vote, gold annotation 또는 unseen evaluation이 아니며 새 reserve/locked-eval ID를 사용하지 않는다.
+
+Normalization v0.2는 implementation `16868477069f4413392c4f968c3e94c510fcb7a8`, output 부재 상태의 127-candidate plan `3d636e57b88da4469540a8ed47fa413147857060`, materialized result `a13fa72c75049e09a966a9ea11e514c4a961841e` 순서로 동결됐다. Candidate-derived semantic profile과 full/provisional/ineligible eligibility를 분리하고 adapter를 modality/cardinality, semantic-relative placement, split/fuse boundary, output arity로 factorize했다. 기술·adapter 계약은 통과했지만 crossed 의미 exact 10/16, mean Jaccard 0.65625, full-eligible coverage 27/32, challenge exact 1/7로 사전 기준에 미달했다. Control은 9/9 exact다. 따라서 `NARROW_OR_REAUTHOR_BEFORE_GROUNDING` 분기가 선택됐고, 다음 단계는 새 ID 없이 실패한 challenge 6개에 대한 별도 targeted re-authoring plan freeze다.
 
 누적 산출물은 다음 명령으로 재검증할 수 있다.
 
@@ -150,6 +154,7 @@ Crossed-author sensitivity v0.1은 이미 environment-exposed인 16개만 재사
 .venv/bin/python -B data_construction/tools/build_representative_environment_realization.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_normalization.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_crossed_author_sensitivity.py --validate-only
+.venv/bin/python -B data_construction/tools/build_operator_equivalence_normalization_v0_2.py --validate-only
 ```
 
 ## 보존된 v0.1 Phase A human question-only 계약
