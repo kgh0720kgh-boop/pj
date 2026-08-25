@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "operator_equivalence_normalization_schema_v0_1.json",
+  "title": "Reversible two-layer operator equivalence normalization v0.1",
+  "description": "Label-free normalization of one open operator realization candidate into a semantic quotient and a separate environment-adapter signature. The source structural projection is retained as a reversibility ledger; grounding, execution, answers, free-text operator labels, descriptions, and preserved vocabularies are excluded.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "normalization_id",
+    "question_id",
+    "family_id",
+    "producer_partition",
+    "candidate_id",
+    "target_backbone_variant_id",
+    "source_projection_sha256",
+    "semantic_quotient",
+    "environment_adapter_signature",
+    "equivalence_assessment",
+    "reversibility_ledger",
+    "evidence_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "operator_equivalence_normalization_v0_1"},
+    "normalization_id": {
+      "type": "string",
+      "pattern": "^operator_equivalence_normalization_v0_1:[A-Za-z0-9_.:-]+$"
+    },
+    "question_id": {"$ref": "#/$defs/id"},
+    "family_id": {"type": "string", "pattern": "^cbf_v0_1:[0-9a-f]{64}$"},
+    "producer_partition": {"type": "string", "pattern": "^e2_author_partition_[0-9]{2}$"},
+    "candidate_id": {"type": "string", "pattern": "^candidate[1-9][0-9]*$"},
+    "target_backbone_variant_id": {
+      "oneOf": [{"const": "primary"}, {"type": "string", "pattern": "^alt[1-9][0-9]*$"}]
+    },
+    "source_projection_sha256": {"$ref": "#/$defs/sha256"},
+    "semantic_quotient": {"$ref": "#/$defs/semantic_quotient"},
+    "environment_adapter_signature": {"$ref": "#/$defs/adapter_signature"},
+    "equivalence_assessment": {"$ref": "#/$defs/equivalence_assessment"},
+    "reversibility_ledger": {"$ref": "#/$defs/reversibility_ledger"},
+    "evidence_boundary": {"$ref": "#/$defs/evidence_boundary"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$", "maxLength": 320},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "semantic_node": {
+      "type": "object",
+      "required": ["node_id", "role", "depends_on"],
+      "properties": {
+        "node_id": {"type": "string", "pattern": "^sq[1-9][0-9]*$"},
+        "role": {"$ref": "#/$defs/id"},
+        "depends_on": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^sq[1-9][0-9]*$"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "semantic_quotient": {
+      "type": "object",
+      "required": [
+        "canonicalization",
+        "nodes",
+        "entry_node_ids",
+        "output_node_ids",
+        "signature_sha256"
+      ],
+      "properties": {
+        "canonicalization": {
+          "const": "alpha_renaming_independent_node_order_and_transitive_reduction_v0_1"
+        },
+        "nodes": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/semantic_node"}},
+        "entry_node_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^sq[1-9][0-9]*$"}
+        },
+        "output_node_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^sq[1-9][0-9]*$"}
+        },
+        "signature_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "typed_slot_count": {
+      "type": "object",
+      "required": ["environment_modality", "cardinality", "count"],
+      "properties": {
+        "environment_modality": {"$ref": "#/$defs/id"},
+        "cardinality": {"enum": ["one", "multiple", "unknown"]},
+        "count": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "access_placement_count": {
+      "type": "object",
+      "required": ["placement", "count"],
+      "properties": {
+        "placement": {
+          "enum": [
+            "fused_with_semantic",
+            "explicit_before_semantic",
+            "explicit_between_semantics",
+            "explicit_after_semantic",
+            "explicit_disconnected"
+          ]
+        },
+        "count": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "adapter_signature": {
+      "type": "object",
+      "required": [
+        "access_mode",
+        "typed_slot_multiset",
+        "access_placement_multiset",
+        "operator_output_arity",
+        "semantic_output_arity",
+        "fused_access_node_count",
+        "explicit_access_node_count",
+        "signature_sha256"
+      ],
+      "properties": {
+        "access_mode": {"enum": ["none", "fused", "explicit", "mixed"]},
+        "typed_slot_multiset": {"type": "array", "items": {"$ref": "#/$defs/typed_slot_count"}},
+        "access_placement_multiset": {"type": "array", "items": {"$ref": "#/$defs/access_placement_count"}},
+        "operator_output_arity": {"type": "integer", "minimum": 1},
+        "semantic_output_arity": {"type": "integer", "minimum": 0},
+        "fused_access_node_count": {"type": "integer", "minimum": 0},
+        "explicit_access_node_count": {"type": "integer", "minimum": 0},
+        "signature_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "equivalence_assessment": {
+      "type": "object",
+      "required": [
+        "status",
+        "coverage_preserved",
+        "dependency_preserved",
+        "no_extra_semantic_dependencies",
+        "output_arity_preserved",
+        "allowed_transformations",
+        "provisional_reasons"
+      ],
+      "properties": {
+        "status": {"enum": ["equivalent", "provisionally_equivalent", "not_equivalent"]},
+        "coverage_preserved": {"type": "boolean"},
+        "dependency_preserved": {"type": "boolean"},
+        "no_extra_semantic_dependencies": {"type": "boolean"},
+        "output_arity_preserved": {"type": "boolean"},
+        "allowed_transformations": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "alpha_renaming",
+              "independent_node_ordering",
+              "transitive_reduction",
+              "meaning_and_io_preserving_access_split_or_fuse"
+            ]
+          }
+        },
+        "provisional_reasons": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      },
+      "additionalProperties": false
+    },
+    "reversibility_ledger": {
+      "type": "object",
+      "required": ["structural_projection", "reconstruction_sha256", "reconstruction_verified"],
+      "properties": {
+        "structural_projection": {"type": "object"},
+        "reconstruction_sha256": {"$ref": "#/$defs/sha256"},
+        "reconstruction_verified": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "evidence_boundary": {
+      "type": "object",
+      "required": [
+        "label_free",
+        "question_text_excluded",
+        "environment_text_excluded",
+        "answer_and_trace_excluded",
+        "e1_content_excluded",
+        "operator_descriptions_excluded",
+        "preserved_vocabularies_excluded",
+        "grounding_evaluated",
+        "execution_evaluated",
+        "answer_recovery_evaluated",
+        "gold_claimed"
+      ],
+      "properties": {
+        "label_free": {"const": true},
+        "question_text_excluded": {"const": true},
+        "environment_text_excluded": {"const": true},
+        "answer_and_trace_excluded": {"const": true},
+        "e1_content_excluded": {"const": true},
+        "operator_descriptions_excluded": {"const": true},
+        "preserved_vocabularies_excluded": {"const": true},
+        "grounding_evaluated": {"const": false},
+        "execution_evaluated": {"const": false},
+        "answer_recovery_evaluated": {"const": false},
+        "gold_claimed": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  }
+}
