@@ -150,6 +150,9 @@ for required_file in \
     data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_runtime_freeze_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/prompts/narrowed_grounding_author_guide_v0_1.md \
     data_construction/reports/research_sequencing_decision_v0_11.md \
+    data_construction/reports/research_sequencing_decision_v0_12.md \
+    state/narrowed_grounding_author_dispatch_v0_1.json \
+    tests/test_narrowed_grounding_collection_v0_1.py \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/candidate_backbone_families_v0_1.jsonl \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/representative_selection_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/checks.jsonl \
@@ -490,6 +493,13 @@ paths = [
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_packet_schema_v0_1.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_raw_schema_v0_1.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_runtime_freeze_v0_1.json"),
+    Path("state/narrowed_grounding_author_dispatch_v0_1.json"),
+    *[Path("data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1") / name for name in (
+        "packets/question_01.json", "packets/question_02.json", "packets/question_03.json",
+        "packets/question_04.json", "packets/question_05.json", "packets/question_06.json",
+        "packet_manifest.json", "grounding_records.jsonl", "checks.jsonl", "question_comparisons.jsonl",
+        "metrics_v0_1.json", "run_manifest.json", "grounding_exposure_ledger_v0_1.json",
+    )],
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/pool/question_only_views_n100.jsonl"),
     Path("data_construction/manifests/ai_question_structure_exploratory_pool_v0_1.json"),
     Path("data_construction/manifests/question_exposure_ledger_v0_1.json"),
@@ -1083,6 +1093,11 @@ else:
     split_gates = set()
     errors.append("split manifest has unsupported shape")
 
+grounding_result_decisions = {
+    "STOP_TECHNICAL_OR_LEAKAGE_FAILURE", "BLOCKED_PINNED_ENVIRONMENT_UNAVAILABLE",
+    "INCOMPLETE_GROUNDING_COLLECTION", "REVIEW_AMBIGUITY_OR_COVERAGE_BEFORE_EXECUTION_PLAN",
+    "FREEZE_GROUNDING_EVIDENCE_FOR_SEPARATE_EXECUTION_PLAN",
+}
 if state.get("current_scientific_decision") == "DATA_SOURCE_BLOCKED":
     required_source_gates = ["AUTHORITATIVE_PROJECT_PROVENANCE_NOT_AVAILABLE"]
     if historical_artifacts_missing:
@@ -1101,6 +1116,7 @@ elif state.get("current_scientific_decision") in {
     "FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN",
     "IMPLEMENT_FROZEN_NARROWED_GROUNDING_PROTOCOL",
     "MATERIALIZE_FROZEN_NARROWED_GROUNDING_PACKETS",
+    *grounding_result_decisions,
 }:
     if history_complete is not True or historical_shape != "strict_builder":
         errors.append("pilot-ready state requires a complete strict historical audit")
@@ -1582,8 +1598,10 @@ elif state.get("current_scientific_decision") in {
         "FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN",
         "IMPLEMENT_FROZEN_NARROWED_GROUNDING_PROTOCOL",
         "MATERIALIZE_FROZEN_NARROWED_GROUNDING_PACKETS",
+        *grounding_result_decisions,
     }:
-        grounding_runtime_complete = state.get("current_scientific_decision") == (
+        grounding_result_complete = state.get("current_scientific_decision") in grounding_result_decisions
+        grounding_runtime_complete = grounding_result_complete or state.get("current_scientific_decision") == (
             "MATERIALIZE_FROZEN_NARROWED_GROUNDING_PACKETS"
         )
         grounding_plan_complete = grounding_runtime_complete or state.get("current_scientific_decision") == (
@@ -1597,6 +1615,7 @@ elif state.get("current_scientific_decision") in {
             "FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN",
             "IMPLEMENT_FROZEN_NARROWED_GROUNDING_PROTOCOL",
             "MATERIALIZE_FROZEN_NARROWED_GROUNDING_PACKETS",
+            *grounding_result_decisions,
         }
         if grounding_plan_complete:
             expected_phase = ("phase_2j_narrowed_grounding_packet_materialization" if grounding_runtime_complete
@@ -1605,6 +1624,10 @@ elif state.get("current_scientific_decision") in {
                                else "narrowed_grounding_plan_frozen_runtime_implementation_and_output_absent_receipt_pending")
             expected_gate = ("NARROWED_GROUNDING_PACKETS_NOT_MATERIALIZED" if grounding_runtime_complete
                              else "NARROWED_GROUNDING_RUNTIME_NOT_FROZEN")
+            if grounding_result_complete:
+                expected_phase = "phase_2k_narrowed_grounding_result_review"
+                expected_status = "narrowed_grounding_results_frozen_no_execution_or_answer_recovery"
+                expected_gate = "NARROWED_GROUNDING_NEXT_VERSIONED_DECISION_REQUIRED"
             if state.get("active_phase") != expected_phase:
                 errors.append("grounding runtime state has an unexpected active_phase")
             if state.get("scientific_decision_status") != expected_status:
@@ -1613,6 +1636,8 @@ elif state.get("current_scientific_decision") in {
                 errors.append("grounding runtime state lacks its active gate")
             if grounding_runtime_complete and "NARROWED_GROUNDING_RUNTIME_NOT_FROZEN" in state_gates:
                 errors.append("grounding packet state retains the superseded runtime gate")
+            if grounding_result_complete and "NARROWED_GROUNDING_PACKETS_NOT_MATERIALIZED" in state_gates:
+                errors.append("grounding result state retains the superseded packet gate")
             if "NARROWED_GROUNDING_PLAN_NOT_FROZEN" in state_gates:
                 errors.append("grounding runtime state retains the superseded plan gate")
             grounding_state = state.get("artifact_status", {}).get("narrowed_grounding_v0_1", {})
@@ -1633,6 +1658,10 @@ elif state.get("current_scientific_decision") in {
                 "human_evidence_count": 0, "gold_claimed": False,
                 "fresh_or_locked_question_ids_used": False,
             }
+            if grounding_result_complete:
+                expected_grounding.update(status="static_results_materialized_non_human_non_gold",
+                                          grounding_started=True)
+                expected_grounding.pop("grounding_output_count")
             for key, value in expected_grounding.items():
                 if grounding_state.get(key) != value:
                     errors.append(f"narrowed grounding state mismatch for {key}")
@@ -1648,6 +1677,11 @@ elif state.get("current_scientific_decision") in {
                     "runtime_validation": "passed_exact_pins_schemas_hashes_git_order_and_current_output_absence",
                     "packet_output_count": 0,
                 }
+                if grounding_result_complete:
+                    runtime_expected.update(
+                        runtime_validation="passed_exact_pins_schemas_hashes_and_historical_freeze_absence",
+                        packet_output_count=6,
+                    )
                 for key, value in runtime_expected.items():
                     if grounding_state.get(key) != value:
                         errors.append(f"narrowed grounding runtime state mismatch for {key}")
@@ -1659,6 +1693,70 @@ elif state.get("current_scientific_decision") in {
                         errors.append(f"narrowed grounding artifact hash mismatch: {label}")
                 if set(grounding_state.get("artifacts", {})) != {"plan", "design", "protocol", "runtime_receipt", "packet_schema", "raw_schema"}:
                     errors.append("narrowed grounding artifact inventory mismatch")
+                if grounding_result_complete:
+                    import subprocess
+                    import narrowed_grounding_runtime_v0_1 as grounding_runtime
+                    output_paths = grounding_runtime.freeze.planned_outputs()
+                    results = grounding_state.get("results", {})
+                    references = results.get("artifacts", {})
+                    expected_present = {label for label, name in output_paths.items() if Path(name).is_file()}
+                    if set(references) != expected_present:
+                        errors.append("grounding result artifact inventory mismatch")
+                    for label in expected_present:
+                        path = Path(output_paths[label])
+                        reference = references.get(label, {})
+                        if (reference.get("path") != str(path) or path.is_symlink() or
+                                reference.get("sha256") != hashlib.sha256(path.read_bytes()).hexdigest()):
+                            errors.append(f"grounding result artifact identity mismatch: {label}")
+                    metric_path = Path(output_paths["metrics"])
+                    if metric_path.is_file():
+                        metrics = json.loads(metric_path.read_text())
+                        if results.get("metrics") != metrics or state.get("current_scientific_decision") != metrics.get("decision"):
+                            errors.append("grounding decision/counts do not match frozen metrics")
+                        if grounding_state.get("grounding_output_count") != metrics.get("delivered_valid_candidate_records"):
+                            errors.append("grounding validated-record count mismatch")
+                        if metrics.get("denominators") != {"questions": 6, "author_question_pairs": 12, "candidates": 14, "source_slots": 52}:
+                            errors.append("grounding denominator drift")
+                        if metrics.get("evidence_boundary") != grounding_runtime.EVIDENCE:
+                            errors.append("grounding evidence boundary mismatch")
+                    if results.get("packet_freeze_commit") != "861b3cfd69fd622cfc67faaa7856f7e60f8ac872":
+                        errors.append("grounding packet freeze identity mismatch")
+                    if results.get("raw_file_count") != sum(label in expected_present for label in grounding_runtime.RAW_LABELS):
+                        errors.append("grounding raw file count mismatch")
+                    dispatch_path = Path("state/narrowed_grounding_author_dispatch_v0_1.json")
+                    dispatch_ref = results.get("dispatch_receipt", {})
+                    if (dispatch_ref.get("path") != str(dispatch_path) or not dispatch_path.is_file() or
+                            dispatch_ref.get("sha256") != hashlib.sha256(dispatch_path.read_bytes()).hexdigest()):
+                        errors.append("grounding dispatch receipt identity mismatch")
+                    else:
+                        dispatch = json.loads(dispatch_path.read_text())
+                        authors = dispatch.get("authors", [])
+                        if (dispatch.get("fork_context") is not False or dispatch.get("model_override_requested") is not False or
+                                dispatch.get("packet_freeze_commit") != results.get("packet_freeze_commit") or
+                                [a.get("question_index") for a in authors] != list(range(1, 7)) or
+                                len({a.get("agent_id") for a in authors}) != 6 or
+                                len({a.get("procedural_context_id") for a in authors}) != 6):
+                            errors.append("grounding dispatch routing mismatch")
+                        for author in authors:
+                            packet = author.get("packet", {})
+                            index = author.get("question_index", 0)
+                            name = output_paths.get(f"packet_{index:02}")
+                            if (packet.get("path") != name or not name or
+                                    packet.get("sha256") != hashlib.sha256(Path(name).read_bytes()).hexdigest() or
+                                    author.get("raw_output") != output_paths.get(f"raw_{index:02}")):
+                                errors.append("grounding dispatched packet identity mismatch")
+                        for shared in dispatch.get("shared_author_inputs", []):
+                            path = Path(shared.get("path", ""))
+                            if not path.is_file() or shared.get("sha256") != hashlib.sha256(path.read_bytes()).hexdigest():
+                                errors.append("grounding shared author input changed")
+                    for key, label in (("raw_capture_commit", "raw_01"), ("result_commit", "run_manifest")):
+                        commit = results.get(key, "")
+                        introduced = subprocess.run(
+                            ["git", "log", "--diff-filter=A", "--format=%H", "HEAD", "--", output_paths[label]],
+                            capture_output=True, text=True, check=True,
+                        ).stdout.splitlines()
+                        if introduced != [commit]:
+                            errors.append(f"grounding capture/result commit mismatch: {key}")
             elif receipt.exists() or receipt.is_symlink():
                 errors.append("runtime receipt exists but state still declares it absent")
         elif instrument_result_complete:
@@ -3402,7 +3500,7 @@ PY
 
     narrowed_grounding_output=$("$PYTHON_BIN" -B \
         data_construction/tools/freeze_narrowed_grounding_plan_v0_1.py \
-        --validate-only --require-output-absence 2>&1)
+        --validate-only 2>&1)
     narrowed_grounding_rc=$?
     if [ "$narrowed_grounding_rc" -eq 0 ]; then
         pass_check "NARROWED_GROUNDING_PLAN_LIVE: $narrowed_grounding_output"
@@ -3413,7 +3511,7 @@ PY
     if [ "$dependency_rc" -eq 0 ]; then
         grounding_runtime_output=$("$PYTHON_BIN" -B \
             data_construction/tools/narrowed_grounding_runtime_v0_1.py \
-            --validate-only --require-output-absence 2>&1)
+            --validate-only 2>&1)
         grounding_runtime_rc=$?
         if [ "$grounding_runtime_rc" -eq 0 ]; then
             pass_check "NARROWED_GROUNDING_RUNTIME_LIVE: $grounding_runtime_output"
@@ -3421,6 +3519,16 @@ PY
             block_check "NARROWED_GROUNDING_RUNTIME_SOURCE_UNAVAILABLE: $grounding_runtime_output"
         else
             fail_check "NARROWED_GROUNDING_RUNTIME_LIVE_FAILED: $grounding_runtime_output"
+        fi
+        grounding_results_output=$("$PYTHON_BIN" -B \
+            data_construction/tools/narrowed_grounding_runtime_v0_1.py --validate-results 2>&1)
+        grounding_results_rc=$?
+        if [ "$grounding_results_rc" -eq 0 ]; then
+            pass_check "NARROWED_GROUNDING_RESULTS_RECONSTRUCTED: $grounding_results_output"
+        elif [ "$grounding_results_rc" -eq 2 ]; then
+            block_check "NARROWED_GROUNDING_RESULTS_SOURCE_UNAVAILABLE: $grounding_results_output"
+        else
+            fail_check "NARROWED_GROUNDING_RESULTS_RECONSTRUCTION_FAILED: $grounding_results_output"
         fi
     else
         block_check 'NARROWED_GROUNDING_RUNTIME_VALIDATION_NOT_RUN: exact pinned dependencies unavailable'

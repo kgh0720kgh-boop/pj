@@ -2,34 +2,35 @@
 
 Date: 2026-09-07
 
-Current research phase: **materialize and commit the six frozen grounding
-packets before isolated raw collection.**
+Current research phase: **stop the failed grounding run and redesign input
+isolation under a new version before any new authoring.**
 
 Active branch: `main`
 
-Expected handoff baseline: `6c7487beddb03625b9fd23ef7514eebe307d397b`
+Expected handoff baseline: `3035317c9930b03b5c1b6be3e09b9c343e7ac439`
 
-The current metadata commit is a linear descendant of this output-absent
-narrowed-grounding runtime freeze baseline.
+The current metadata commit is a linear descendant of this frozen
+narrowed-grounding failure-result baseline.
 
-Last completed task: implemented two grounding schemas, the packet builder,
-static binding validator and analyzer, then froze their runtime receipt.
-All 26 new regression tests passed. Exact pins, source/contract hashes, Git
-ancestry, and absence of all twenty planned outputs passed validation.
+Last completed task: committed six question packets, dispatched six new
+non-forked author contexts, preserved all six sole raw responses, and froze
+the deterministic failure result. All six authors reported supplied prior
+research context. JSON/schema validity passed on 6/6 files, but no candidate
+was promoted through the prior-exposure gate.
 
 Current scientific decision:
-`MATERIALIZE_FROZEN_NARROWED_GROUNDING_PACKETS`.
+`STOP_TECHNICAL_OR_LEAKAGE_FAILURE`.
 
 Synchronization state: `LOCAL_COMMIT_NOT_PUSHED` until the current linear
 sequence is pushed to `origin/main`.
 
-Handoff readiness: Not ready. The plan and runtime gates are complete; the
-active research gate is `NARROWED_GROUNDING_PACKETS_NOT_MATERIALIZED`. Create
-and commit the six complete question packets and coordinator manifest before
-any authoring. The separate
-`LOCAL_COMMIT_NOT_PUSHED` gate remains: 38 commits including this metadata
-handoff are ahead of `origin/main`. The user requested work from research
-TODO 2; remote synchronization was not performed.
+Handoff readiness: Not ready. The active gate is
+`NARROWED_GROUNDING_NEXT_VERSIONED_DECISION_REQUIRED`: non-forked tasks still
+received prior-research project instructions, so the isolation requirement
+failed. Do not repair, relabel, re-author, execute or score this v0.1 run.
+The separate `LOCAL_COMMIT_NOT_PUSHED` gate remains: 43 commits including this
+metadata handoff are ahead of the local `origin/main` tracking ref. No fetch or
+push was performed; remote ref freshness was not rechecked.
 
 ## Completed normalization v0.1
 
@@ -204,7 +205,7 @@ The plan keeps all fourteen final candidate observations and 52 source slots,
 without deduplication or preference. Six new contexts will each receive one
 complete question packet containing all that question's candidates. This is
 one proposal per question, not independent duplicate grounding review.
-No authoring has run. Static source pointers and unevaluated dynamic locator
+At plan freeze no authoring had run. Static source pointers and unevaluated dynamic locator
 rules are distinct from runtime values; actual graph execution and answer
 recovery remain outside this study.
 
@@ -231,38 +232,71 @@ branches. Original raw bytes must remain equal to their first capture commit.
 
 Synthetic tests do not constitute grounding evidence. In-memory reconstruction
 of the six actual packet projections verified 14 candidates and 52 slots
-without writing or distributing a packet. No raw author response exists.
+without writing or distributing a packet. At runtime freeze no raw author
+response existed. The subsequent collection is recorded separately below.
 
-## Exact next task: narrowed-grounding packet materialization
+## Completed collection; failed input isolation
 
-Read `contracts/narrowed_grounding_plan_v0_1.json`,
-`contracts/narrowed_grounding_design_v0_1.json`, and
-`prompts/narrowed_grounding_v0_1.md` under the scale-exploration directory.
-Also read the runtime receipt, packet/raw schemas and
-`prompts/narrowed_grounding_author_guide_v0_1.md`. First validate the receipt
-with `--validate-only --require-output-absence`, then use the runtime tool's
-`--build-packets` mode. Commit all six question packets and the coordinator
-manifest together before authoring. The manifest's routing metadata must not
-be sent to authors.
+The immutable sequence is:
 
-Then use one fresh context per question, with only its complete packet,
-protocol, guide and response schema. Preserve the sole raw response unchanged
-and commit it before `--analyze`. No semantic repair, cross-question history,
-prior records or later-layer evidence is allowed. Packet/receipt Git order and
-raw immutability are checked by the analyzer. `--validate-results` reconstructs
-existing results; it does not certify semantic correctness.
+1. Six complete packets and coordinator manifest:
+   `861b3cfd69fd622cfc67faaa7856f7e60f8ac872`.
+2. Dispatch receipt, six distinct task IDs and four-file author allowlists:
+   `0a44cbcc6825e9ef781999c911533163b24a9860`.
+3. Six sole raw structured responses, unchanged since first capture:
+   `af8d2a2723137a94ee44706f17a7b96fb50fe2a8`.
+4. Seven deterministic analysis outputs:
+   `3035317c9930b03b5c1b6be3e09b9c343e7ac439`.
 
-The exact six-ID order and all 14 observations/52 slots remain frozen.
-The plan does not authorize execution, answer recovery, fresh questions,
-upstream annotation edits, or selection of a final operator vocabulary.
-If the contract needs changing, use a new plan version before outputs.
+| Measure | Result |
+| --- | ---: |
+| Packets / received raw files | 6 / 6 |
+| Raw JSON / schema passes | 6 / 6 |
+| Reported prior-exposed contexts | 6 / 6 |
+| Source candidates / slots / operator nodes | 14 / 52 / 43 |
+| Accepted candidate records | 0 / 14 |
+| Prior-exposure gate errors | 6 |
+| Execution / answer recovery / human evidence | 0 / 0 / 0 |
 
-See `data_construction/reports/research_sequencing_decision_v0_11.md`.
+The first frozen branch is `STOP_TECHNICAL_OR_LEAKAGE_FAILURE`. Every raw file
+truthfully records `known_exposed`; the validator stops before evaluating its
+candidate bindings. All 14 candidates, 52 slots and 43 nodes are therefore
+`technical_invalid`, not semantically incorrect. The canonical records file
+is intentionally empty; raw bytes and parsed raw evidence remain preserved.
+Zero accepted-alternative counts do not mean no alternatives were authored.
+
+No model override was requested. Authors reported GPT-6/Codex identities in
+their own strings, with no exact immutable revision or seed available. These
+strings are self-reported runtime identity, not independently verified backend
+provenance. Capture is structured-output-only, not backend stream/hidden
+reasoning capture. `fork_context=false` did not exclude automatically supplied
+project instructions. No semantic feedback, repaired response or rerun occurred.
+
+## Exact next task: versioned author-input isolation redesign
+
+Read sequencing decision v0.12 and the dispatch receipt before any new author
+task. Design and freeze a separate input-delivery/isolation contract that
+checks the actual initial context before research questions are supplied,
+accounts for automatic AGENTS/project-context injection, and fails closed
+unless only the approved research inputs are visible. Use no fresh/locked ID
+and preserve the entire failed v0.1 run, schemas and runtime byte-for-byte.
+
+Review the packet field naming ambiguity: the frozen builder's
+`protocol_sha256` hashes the author guide, while the separately named protocol
+is bound through the plan/receipt. Both files are unchanged; this is not hash
+corruption. Clarify identities in a new version, not by modifying v0.1.
+Do not tune binding semantics from the exposed outputs. No new raw proposals,
+grounding success claims, execution, answer recovery or vocabulary selection
+are authorized by this failed run.
+
+See `data_construction/reports/research_sequencing_decision_v0_12.md`.
 
 ## Evidence boundaries
 
 - Human raw records/agreement/adjudication remain zero.
-- Grounding, execution, and answer recovery remain zero/not evaluated.
+- Grounding was attempted but all responses failed input isolation; accepted
+  grounding records are zero. Semantic grounding quality, execution and answer
+  recovery remain not evaluated.
 - No semantic gold, final vocabulary, common exact graph, selected corpus,
   modeling readiness, or answer-accuracy claim is authorized.
 - Historical artifacts and IR v0.2 remain read-only.
@@ -283,21 +317,26 @@ python3 -m json.tool state/project_state.json >/dev/null
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_normalization_v0_2.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_targeted_reauthor.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_targeted_instrument_v0_2.py --validate-only
-.venv/bin/python -B data_construction/tools/freeze_narrowed_grounding_plan_v0_1.py --validate-only --require-output-absence
-.venv/bin/python -B data_construction/tools/narrowed_grounding_runtime_v0_1.py --validate-only --require-output-absence
+.venv/bin/python -B data_construction/tools/freeze_narrowed_grounding_plan_v0_1.py --validate-only
+.venv/bin/python -B data_construction/tools/narrowed_grounding_runtime_v0_1.py --validate-only
+.venv/bin/python -B data_construction/tools/narrowed_grounding_runtime_v0_1.py --validate-results
 .venv/bin/python -B -m unittest discover -s tests -v
 sh -n scripts/cross_device_preflight.sh
 sh scripts/cross_device_preflight.sh
 ```
 
-Expected deterministic results are zero validation failures, 223 unit tests,
-145 core JSON/JSONL files parsed, and preflight exit 2 for the declared
-grounding-packet and unpushed-commit synchronization gates.
-The 2026-09-07 exact-pin integration check reproduced 223 passing tests and
-145 parsed JSON/JSONL files, with zero validation failures. All 26 runtime
-tests and output-absent runtime validation passed. The pre-commit preflight
-also noted this turn's metadata edits; committing them clears that worktree
-blocker without changing the scientific or remote synchronization gates.
+Expected integrity results are zero validation failures, 226 unit tests,
+159 core JSON/JSONL files parsed, and preflight exit 2 for the declared
+isolation-redesign and unpushed-commit gates. Analysis reconstruction succeeds
+while correctly reproducing six research gate errors; this is not a passing
+grounding experiment. The 2026-09-07 exact-pin integration check reproduced
+226 passing tests and 159 parsed core JSON/JSONL files, with zero integrity
+validation failures. Pre-commit metadata edits added a temporary dirty-tree
+blocker; the final metadata commit clears it, not the research or push gates.
+Three post-collection integrity tests pass and are separate from the 26
+pre-run runtime tests. Use `--validate-results` for existing results. Historical
+output-absence proofs still pass, but `--require-output-absence` must now fail
+because all twenty outputs exist; do not delete outputs to satisfy that flag.
 The original eleven-schema/three-vocabulary bundle is unchanged. Two new
 grounding packet/raw schemas live separately in the exploration contracts and
 are validated by the pinned runtime and its local-only reference registry.

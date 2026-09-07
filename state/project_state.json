@@ -2,30 +2,30 @@
   "schema_version": "project_state_v0_1",
   "state_updated_date": "2026-09-07",
   "project": "hierarchical_data_construction_for_semantic_execution_topology_induction",
-  "active_phase": "phase_2j_narrowed_grounding_packet_materialization",
+  "active_phase": "phase_2k_narrowed_grounding_result_review",
   "active_branch": "main",
-  "expected_head": "6c7487beddb03625b9fd23ef7514eebe307d397b",
-  "last_completed_task": "implemented_and_froze_narrowed_grounding_runtime_with_two_schemas_static_validator_analyzer_26_regression_tests_and_all_20_outputs_absent",
-  "next_task": "materialize_six_frozen_grounding_packets_and_coordinator_manifest_validate_and_commit_before_six_new_question_contexts_collect_single_immutable_raw_response_per_question_no_execution_or_answer_recovery",
-  "current_scientific_decision": "MATERIALIZE_FROZEN_NARROWED_GROUNDING_PACKETS",
-  "scientific_decision_status": "narrowed_grounding_runtime_frozen_all_outputs_absent_packets_pending",
+  "expected_head": "3035317c9930b03b5c1b6be3e09b9c343e7ac439",
+  "last_completed_task": "materialized_six_grounding_packets_collected_and_preserved_six_raw_responses_and_froze_leakage_failure_all_contexts_reported_prior_research_exposure_zero_accepted_candidate_records",
+  "next_task": "design_and_freeze_separately_versioned_grounding_input_isolation_contract_with_pre_authoring_initial_context_clearance_before_any_new_question_proposal_preserve_failed_v0_1_raw_and_runtime_no_execution",
+  "current_scientific_decision": "STOP_TECHNICAL_OR_LEAKAGE_FAILURE",
+  "scientific_decision_status": "narrowed_grounding_results_frozen_no_execution_or_answer_recovery",
   "synchronization_state": "LOCAL_COMMIT_NOT_PUSHED",
   "handoff_readiness": "not_ready",
   "blocked_gates": [
-    "NARROWED_GROUNDING_PACKETS_NOT_MATERIALIZED: runtime is frozen; materialize and commit six packets plus coordinator manifest before isolated raw collection",
-    "LOCAL_COMMIT_NOT_PUSHED: 38 portable commits are ahead of origin/main after the metadata handoff commit; research TODO 2 does not perform remote synchronization"
+    "NARROWED_GROUNDING_NEXT_VERSIONED_DECISION_REQUIRED: all six authors reported prior research context exposure; stop v0.1 and freeze an input-isolation redesign before any new authoring, execution or answer recovery",
+    "LOCAL_COMMIT_NOT_PUSHED: 43 portable commits ahead of origin/main after the metadata handoff commit; no fetch or push performed in this research task"
   ],
   "repository": {
     "git_root": "repository root (resolve with git rev-parse --show-toplevel)",
     "current_branch": "main",
-    "head": "6c7487beddb03625b9fd23ef7514eebe307d397b",
-    "head_role": "narrowed_grounding_runtime_freeze_baseline_parent_of_metadata_commit",
+    "head": "3035317c9930b03b5c1b6be3e09b9c343e7ac439",
+    "head_role": "narrowed_grounding_failure_result_baseline_parent_of_metadata_commit",
     "remotes": [
       "origin https://github.com/kgh0720kgh-boop/pj.git"
     ],
     "working_tree_status": "clean",
     "untracked_files": 0,
-    "unpushed_commits": 38,
+    "unpushed_commits": 43,
     "stash_state": "empty"
   },
   "artifact_status": {
@@ -1062,7 +1062,7 @@
       }
     },
     "narrowed_grounding_v0_1": {
-      "status": "runtime_frozen_packets_pending_no_grounding_outputs",
+      "status": "static_results_materialized_non_human_non_gold",
       "active_gate": true,
       "implementation_commit": "6bd9c36ddc6207552b778cf5b20b16946975ef05",
       "plan_freeze_commit": "b2ca1fbc413336fa330b11a14649735acc25f0df",
@@ -1076,7 +1076,7 @@
       "plan_validation": "passed_exact_reconstruction_hashes_ancestry_and_output_absence",
       "runtime_freeze_receipt_status": "committed_output_absent",
       "grounding_output_count": 0,
-      "grounding_started": false,
+      "grounding_started": true,
       "execution_started": false,
       "answer_recovery_started": false,
       "human_evidence_count": 0,
@@ -1111,8 +1111,158 @@
       "runtime_implementation_commit": "2983168f48689e8e7129a9bdecde4787a4ecb8cf",
       "runtime_freeze_commit": "6c7487beddb03625b9fd23ef7514eebe307d397b",
       "runtime_unit_tests_passed": 26,
-      "runtime_validation": "passed_exact_pins_schemas_hashes_git_order_and_current_output_absence",
-      "packet_output_count": 0
+      "runtime_validation": "passed_exact_pins_schemas_hashes_and_historical_freeze_absence",
+      "packet_output_count": 6,
+      "results": {
+        "status": "failed_isolation_all_raw_preserved",
+        "packet_freeze_commit": "861b3cfd69fd622cfc67faaa7856f7e60f8ac872",
+        "dispatch_commit": "0a44cbcc6825e9ef781999c911533163b24a9860",
+        "raw_capture_commit": "af8d2a2723137a94ee44706f17a7b96fb50fe2a8",
+        "result_commit": "3035317c9930b03b5c1b6be3e09b9c343e7ac439",
+        "raw_file_count": 6,
+        "raw_json_parse_pass_count": 6,
+        "raw_schema_pass_count": 6,
+        "raw_declared_candidate_count": 14,
+        "known_exposed_context_count": 6,
+        "accepted_candidate_count": 0,
+        "semantic_grounding_quality_evaluated": false,
+        "artifacts": {
+          "packet_01": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_01.json",
+            "sha256": "909693d24e01bb8e20a628039d3a4ff8620d639ab4fcb1a420b458a304b5c844"
+          },
+          "raw_01": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_01.json",
+            "sha256": "94b87ea38f5604ff1e9e6a7c880f8fd1e52852d62b0f6e0959b55e1d9bff5368"
+          },
+          "packet_02": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_02.json",
+            "sha256": "bc5b197ac813e86bf46abbc13b34d8281b7fb1cb8b7c6f4fda23343d8acc947f"
+          },
+          "raw_02": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_02.json",
+            "sha256": "d64ff24fcadd6ce78e5b1d9419de6815d5d6c8db6276d68498670d6f696a7c59"
+          },
+          "packet_03": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_03.json",
+            "sha256": "1bc139e1ab080796ccdc20e643020db71775fad7e636e854ef1947edaa13dc18"
+          },
+          "raw_03": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_03.json",
+            "sha256": "4315102b47350733b17751fea889802115b00b468a8f9e67905fbe5d2a5479b5"
+          },
+          "packet_04": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_04.json",
+            "sha256": "a0199893ea98e51ea2dc523a702c9332e8067d8a96be945cceb3473d8d5f87e7"
+          },
+          "raw_04": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_04.json",
+            "sha256": "225971b3212be671727620270f783d299efa0717933677a4ca310cc3706850a4"
+          },
+          "packet_05": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_05.json",
+            "sha256": "4b9db394d283124523b720f6725752e176929dbe1da96a554ef79e41aeca0081"
+          },
+          "raw_05": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_05.json",
+            "sha256": "8692866c25df4695d43bd31aa190569019cdd5f80fdafa65ee2306c2ad68818e"
+          },
+          "packet_06": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_06.json",
+            "sha256": "7bf884d1ca1eaa5ec2237a75c66b71236368d0dbc6ebd0b6dac51eaaffaea3e7"
+          },
+          "raw_06": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_06.json",
+            "sha256": "482f77e4301c2ecb4a5a18172dbd61938d72151e10b97e7507dfd7feb55d469a"
+          },
+          "packet_manifest": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packet_manifest.json",
+            "sha256": "7b75ff440537788fe685116132d740b29e78b90cab1c7fa5376dbd33d9b19bc3"
+          },
+          "records": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/grounding_records.jsonl",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "checks": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/checks.jsonl",
+            "sha256": "961a9b8ae16653e93dc467413c40c93704e2b3f4af786691c82951c19ac2056f"
+          },
+          "comparisons": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/question_comparisons.jsonl",
+            "sha256": "0836cbd3e44d93c02086def9a9e01e8c523c58b4b946281a2a9ba095eff35f8c"
+          },
+          "metrics": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/metrics_v0_1.json",
+            "sha256": "454e8742b7385fe7a6a10b6af3eeed005cd94bcad611cdb3c3491acde62cf9bb"
+          },
+          "report": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/report_v0_1.md",
+            "sha256": "6ba3661b6d7550bc8fb8346183a5dadfec0d75f7ba1cf3cde871c79636211999"
+          },
+          "run_manifest": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/run_manifest.json",
+            "sha256": "35f8ad7e96be9a96e14f87c5193f2b00c9c706e85c6d515895f517acd45ba9bd"
+          },
+          "exposure": {
+            "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/grounding_exposure_ledger_v0_1.json",
+            "sha256": "9df41e5012705428630dfadecc186b941544484170bc965c831d0d9d41c6b6b9"
+          }
+        },
+        "metrics": {
+          "alternative_qualified_operator_counts": {},
+          "alternative_qualified_slot_counts": {},
+          "alternative_retention_scope": "validated_records_only_invalid_raw_preserved_in_checks",
+          "author_question_any_complete_candidate_coverage": 0,
+          "binding_kind_counts": {},
+          "candidate_status_counts": {
+            "technical_invalid": 14
+          },
+          "decision": "STOP_TECHNICAL_OR_LEAKAGE_FAILURE",
+          "delivered_valid_candidate_records": 0,
+          "denominators": {
+            "author_question_pairs": 12,
+            "candidates": 14,
+            "questions": 6,
+            "source_slots": 52
+          },
+          "evidence_boundary": {
+            "answer_recovery_evaluated": false,
+            "cognitive_independence_authenticated": false,
+            "evidence_class": "ai_exploratory_non_human_non_gold",
+            "execution_evaluated": false,
+            "gold_claimed": false,
+            "human_evidence_count": 0,
+            "static_validity_is_semantic_correctness": false
+          },
+          "identified_alternatives": 0,
+          "lost_alternatives_in_validated_records": 0,
+          "operator_status_counts": {
+            "technical_invalid": 43
+          },
+          "question_all_candidate_coverage": 0,
+          "retained_alternatives": 0,
+          "run_provenance": {
+            "implementation_commit": "2983168f48689e8e7129a9bdecde4787a4ecb8cf",
+            "packet_freeze_commit": "861b3cfd69fd622cfc67faaa7856f7e60f8ac872",
+            "plan_freeze_commit": "b2ca1fbc413336fa330b11a14649735acc25f0df",
+            "plan_sha256": "287776aecf19cbe4d310c1507f1682faaf7597eb251862ebbaaf3360c361036a",
+            "runtime_freeze_commit": "6c7487beddb03625b9fd23ef7514eebe307d397b",
+            "runtime_receipt_sha256": "723ba3447ac618ec049d4b875cf1341c0a053a2a50870211d90c3773fda230b7"
+          },
+          "schema_version": "narrowed_grounding_metrics_v0_1",
+          "source_slot_status_counts": {
+            "technical_invalid": 52
+          },
+          "source_unavailable": 0,
+          "target_variant_any_complete_candidate_coverage": 0,
+          "technical_errors": 6,
+          "unresolved_dispositions": 95
+        },
+        "dispatch_receipt": {
+          "path": "state/narrowed_grounding_author_dispatch_v0_1.json",
+          "sha256": "41b0eca97a30b653764996d18abce97954eb5e98311f4f3af4eb4f5898834333"
+        }
+      }
     },
     "ai_question_structure_pipeline_diagnostic": {
       "status": "complete_non_evidentiary_shadow_run",
@@ -1253,7 +1403,7 @@
     "tools": {
       "status": "implemented",
       "test_entry_point": ".venv/bin/python -B -m unittest discover -s tests -v",
-      "final_integration_test_status": "passed_223_tests_in_project_local_exact_pin_environment"
+      "final_integration_test_status": "passed_226_tests_in_project_local_exact_pin_environment"
     }
   },
   "preflight_status": {
@@ -1261,10 +1411,10 @@
     "result": "NOT_READY",
     "exit_code": 2,
     "validation_failures": 0,
-    "core_json_files_parsed": 145,
-    "expected_core_json_files": 145,
-    "expected_unit_test_count": 223,
-    "unit_tests_passed": 223,
+    "core_json_files_parsed": 159,
+    "expected_core_json_files": 159,
+    "expected_unit_test_count": 226,
+    "unit_tests_passed": 226,
     "unit_tests_failed": 0,
     "ir_v0_2_records_validated": 50,
     "ir_v0_2_validator_errors": 0
@@ -1345,7 +1495,10 @@
     "data_construction/exploration/ai_question_structure_scale_v0_1/prompts/narrowed_grounding_author_guide_v0_1.md",
     "data_construction/tools/narrowed_grounding_runtime_v0_1.py",
     "tests/test_narrowed_grounding_runtime_v0_1.py",
-    "data_construction/reports/research_sequencing_decision_v0_11.md"
+    "data_construction/reports/research_sequencing_decision_v0_11.md",
+    "state/narrowed_grounding_author_dispatch_v0_1.json",
+    "tests/test_narrowed_grounding_collection_v0_1.py",
+    "data_construction/reports/research_sequencing_decision_v0_12.md"
   ],
   "historical_read_only_paths": [
     "data_analysis/week1_sample_100.jsonl",
