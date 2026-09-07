@@ -1,0 +1,132 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "narrowed_grounding_packet_v0_1"
+    },
+    "packet_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "question_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "environment_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "environment": {
+      "$ref": "representative_environment_view_schema_v0_1.json#/$defs/environment"
+    },
+    "backbones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "variant_id": {
+            "$ref": "open_operator_realization_schema_v0_1.json#/$defs/backbone_variant_id"
+          },
+          "graph": {
+            "$ref": "representative_environment_view_schema_v0_1.json#/$defs/semantic_graph"
+          }
+        },
+        "required": [
+          "variant_id",
+          "graph"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "observation_alias": {
+            "type": "string",
+            "pattern": "^observation_[0-9]{2}$"
+          },
+          "candidate_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "target_backbone_variant_id": {
+            "$ref": "open_operator_realization_schema_v0_1.json#/$defs/backbone_variant_id"
+          },
+          "graph": {
+            "$ref": "open_operator_realization_schema_v0_1.json#/$defs/operator_graph"
+          },
+          "binding_slots": {
+            "type": "array",
+            "items": {
+              "$ref": "open_operator_realization_schema_v0_1.json#/$defs/binding_slot"
+            },
+            "minItems": 1
+          },
+          "backbone_operator_mappings": {
+            "type": "array",
+            "items": {
+              "$ref": "open_operator_realization_schema_v0_1.json#/$defs/backbone_operator_mapping"
+            },
+            "minItems": 1
+          },
+          "distinguishing_assumptions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "minItems": 0
+          }
+        },
+        "required": [
+          "observation_alias",
+          "candidate_sha256",
+          "target_backbone_variant_id",
+          "graph",
+          "binding_slots",
+          "backbone_operator_mappings",
+          "distinguishing_assumptions"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "protocol_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "response_schema_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "payload_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "required": [
+    "schema_version",
+    "packet_id",
+    "question_id",
+    "question",
+    "environment_sha256",
+    "environment",
+    "backbones",
+    "candidates",
+    "protocol_sha256",
+    "response_schema_sha256",
+    "payload_sha256"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "narrowed_grounding_packet_schema_v0_1.json"
+}

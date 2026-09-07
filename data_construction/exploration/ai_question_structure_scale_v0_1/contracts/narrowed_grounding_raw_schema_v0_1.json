@@ -1,0 +1,834 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "narrowed_grounding_raw_v0_1"
+    },
+    "packet_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "packet_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "question_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "environment_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "input_delivery": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "complete",
+            "incomplete"
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/candidate"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "packet_id",
+    "packet_sha256",
+    "question_id",
+    "environment_sha256",
+    "input_delivery",
+    "provenance",
+    "candidates"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "narrowed_grounding_raw_schema_v0_1.json",
+  "$defs": {
+    "binding": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "table_column"
+            },
+            "view_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "value_type": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "pointer": {
+              "type": "string",
+              "pattern": "^(?:/(?:[^~]|~[01])*)*$"
+            },
+            "table_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "column_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "column_label": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "view_sha256",
+            "value_type",
+            "pointer",
+            "table_id",
+            "column_index",
+            "column_label"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "table_scope"
+            },
+            "view_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "value_type": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "pointer": {
+              "type": "string",
+              "pattern": "^(?:/(?:[^~]|~[01])*)*$"
+            },
+            "table_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "required": [
+            "kind",
+            "view_sha256",
+            "value_type",
+            "pointer",
+            "table_id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "cell_link"
+            },
+            "view_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "value_type": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "pointer": {
+              "type": "string",
+              "pattern": "^(?:/(?:[^~]|~[01])*)*$"
+            },
+            "follow_rule": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "entity_association": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "required": [
+            "kind",
+            "view_sha256",
+            "value_type",
+            "pointer",
+            "follow_rule",
+            "entity_association"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "linked_document"
+            },
+            "view_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "value_type": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "pointer": {
+              "type": "string",
+              "pattern": "^(?:/(?:[^~]|~[01])*)*$"
+            },
+            "document_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "link_origin": {
+              "type": "string",
+              "pattern": "^(?:/(?:[^~]|~[01])*)*$"
+            },
+            "requested_attribute": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "entity_association": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "required": [
+            "kind",
+            "view_sha256",
+            "value_type",
+            "pointer",
+            "document_id",
+            "link_origin",
+            "requested_attribute",
+            "entity_association"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "dynamic"
+            },
+            "view_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "value_type": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "scope": {
+              "type": "string",
+              "pattern": "^(?:/(?:[^~]|~[01])*)*$"
+            },
+            "link_scope": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^(?:/(?:[^~]|~[01])*)*$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "upstream_node_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              "minItems": 0
+            },
+            "question_spans": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "start": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "end": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "literal": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  }
+                },
+                "required": [
+                  "start",
+                  "end",
+                  "literal"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0
+            },
+            "selector": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "requested_attribute": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "entity_association": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "required": [
+            "kind",
+            "view_sha256",
+            "value_type",
+            "scope",
+            "link_scope",
+            "upstream_node_ids",
+            "question_spans",
+            "selector",
+            "requested_attribute",
+            "entity_association"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "question_literal"
+            },
+            "view_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "value_type": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "start": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "end": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "literal": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "required": [
+            "kind",
+            "view_sha256",
+            "value_type",
+            "start",
+            "end",
+            "literal"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "source_literal"
+            },
+            "view_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "value_type": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "pointer": {
+              "type": "string",
+              "pattern": "^(?:/(?:[^~]|~[01])*)*$"
+            },
+            "purpose": {
+              "const": "operator_parameter"
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "required": [
+            "kind",
+            "view_sha256",
+            "value_type",
+            "pointer",
+            "purpose",
+            "rationale"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "derived"
+            },
+            "view_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "value_type": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "function": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "operands": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "node",
+                      "slot"
+                    ]
+                  },
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "id"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1
+            },
+            "units": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "tie_policy": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "null_policy": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "required": [
+            "kind",
+            "view_sha256",
+            "value_type",
+            "function",
+            "operands",
+            "units",
+            "tie_policy",
+            "null_policy"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "slot": {
+      "type": "object",
+      "properties": {
+        "slot_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "status": {
+          "enum": [
+            "resolved",
+            "ambiguous",
+            "unavailable",
+            "abstained"
+          ]
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "expected_type": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "cardinality": {
+          "enum": [
+            "one",
+            "multiple",
+            "unknown"
+          ]
+        },
+        "bindings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/binding"
+          },
+          "minItems": 0
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "searched_scope": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(?:/(?:[^~]|~[01])*)*$"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "slot_id",
+        "status",
+        "role",
+        "expected_type",
+        "cardinality",
+        "bindings",
+        "reason",
+        "searched_scope"
+      ],
+      "additionalProperties": false
+    },
+    "operator": {
+      "type": "object",
+      "properties": {
+        "node_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "status": {
+          "enum": [
+            "specified",
+            "ambiguous",
+            "unavailable",
+            "abstained"
+          ]
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "expected_output_type": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "no_additional_arguments": {
+          "type": "boolean"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "binding": {
+                "$ref": "#/$defs/binding"
+              }
+            },
+            "required": [
+              "name",
+              "binding"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "node_id",
+        "status",
+        "role",
+        "expected_output_type",
+        "no_additional_arguments",
+        "parameters",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "alternative": {
+      "type": "object",
+      "properties": {
+        "alternative_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "minItems": 0
+        },
+        "slots": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/slot"
+          },
+          "minItems": 1
+        },
+        "operators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/operator"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "alternative_id",
+        "assumptions",
+        "slots",
+        "operators"
+      ],
+      "additionalProperties": false
+    },
+    "candidate": {
+      "type": "object",
+      "properties": {
+        "observation_alias": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "candidate_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "identified_alternative_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "alternative_relationship": {
+          "enum": [
+            "single",
+            "compatible",
+            "incompatible"
+          ]
+        },
+        "alternatives": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/alternative"
+          },
+          "minItems": 1
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "observation_alias",
+        "candidate_sha256",
+        "identified_alternative_ids",
+        "alternative_relationship",
+        "alternatives",
+        "limitations"
+      ],
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "model_id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "model_revision": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "revision_status": {
+          "enum": [
+            "exposed",
+            "revision_not_exposed"
+          ]
+        },
+        "seed": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "seed_status": {
+          "enum": [
+            "supported",
+            "not_supported"
+          ]
+        },
+        "context_id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "prior_exposure": {
+          "enum": [
+            "procedurally_attested_none",
+            "known_exposed",
+            "unknown"
+          ]
+        },
+        "raw_capture_status": {
+          "enum": [
+            "full_response_bytes",
+            "structured_output_only_interface_limitation"
+          ]
+        },
+        "attempts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "packet_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "delivery": {
+                "enum": [
+                  "no_output_transport_failure",
+                  "response_delivered"
+                ]
+              }
+            },
+            "required": [
+              "packet_sha256",
+              "delivery"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "model_id",
+        "model_revision",
+        "revision_status",
+        "seed",
+        "seed_status",
+        "context_id",
+        "prior_exposure",
+        "raw_capture_status",
+        "attempts"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
