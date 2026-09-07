@@ -20,6 +20,20 @@ final synchronization state is recorded in `HANDOFF_CURRENT.md` and
 This authorization supersedes the older addenda's lack of remote-write
 permission for this transfer only; their dated observations remain preserved.
 
+The transfer-document commit is `4ca7aa46460397621db4e3efd632975c843364ef`.
+The normal HTTPS push then failed: Git could not obtain a username with
+terminal prompts disabled. Read-only checks found no configured Git credential
+helper, installed GitHub CLI/credential-manager command, GitHub token environment,
+or SSH agent. No credential value was printed or written.
+A noninteractive SSH check with strict host-key verification also stopped at
+an unknown GitHub host key; no trust entries or SSH settings were changed.
+`git ls-remote origin refs/heads/main` still returned
+`906df10a0a71ddf677c51c4a7b67ac6b1cc7d560`. The active synchronization state
+is `BLOCKED_REMOTE_AUTH`, not a successful remote transfer. The GitHub connector's
+new-commit API does not preserve the existing commit metadata/identities and was
+not used to reconstruct or replace the frozen history. Authenticate Git in the
+execution environment before retrying the authorized normal push.
+
 ## Current-state addendum — 2026-08-24
 
 This addendum supersedes the active-status statements in the 2026-08-23 addendum while preserving both older sections as dated evidence.

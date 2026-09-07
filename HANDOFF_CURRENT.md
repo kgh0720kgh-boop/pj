@@ -7,10 +7,10 @@ prepare a question-free transport probe before any new research authoring.**
 
 Active branch: `main`
 
-Expected handoff baseline: `467fc8586321b8e8f3437d59edeec67ab7a26d2e`
+Expected handoff baseline: `4ca7aa46460397621db4e3efd632975c843364ef`
 
-The current metadata commit is a linear descendant of this frozen
-input-isolation design-freeze baseline.
+The current metadata commit is a linear descendant of this transfer-document
+baseline, which includes the frozen input-isolation design.
 
 Last completed task: separately froze the question-free input-isolation
 design v0.2, with nine context-source categories, separate host evidence and
@@ -23,17 +23,24 @@ Current scientific decision:
 The preserved v0.1 result remains `STOP_TECHNICAL_OR_LEAKAGE_FAILURE`;
 accepted grounding records remain zero.
 
-Synchronization state: `LOCAL_COMMIT_NOT_PUSHED` until the current linear
-sequence is pushed to `origin/main`.
+Synchronization state: `BLOCKED_REMOTE_AUTH`. The requested push was attempted
+but this execution environment has no usable GitHub Git credential.
 
 Handoff readiness: Not ready. The active gate is
 `QUESTION_FREE_ISOLATION_TRANSPORT_NOT_VERIFIED`: the design is frozen, but no
 host channel is qualified. Do not repair, relabel, re-author, execute or score
 the failed v0.1 run; a clean self-report cannot substitute for host evidence.
-The separate `LOCAL_COMMIT_NOT_PUSHED` gate remains pending this transfer's
-push. The researcher authorized synchronization on 2026-09-07; fetch confirmed
-46 local-only and zero remote-only commits before the transfer-document commit.
-See `reports/cross_device_repo_audit.md` for the scoped authorization.
+The separate `BLOCKED_REMOTE_AUTH` gate prevents cross-device delivery.
+The researcher authorized synchronization on 2026-09-07. Fetch succeeded but
+HTTPS push failed with a missing-username/disabled-terminal-prompt error.
+No Git credential helper, GitHub CLI/token environment or SSH agent was found.
+Direct remote-ref verification still returned
+`906df10a0a71ddf677c51c4a7b67ac6b1cc7d560` for `refs/heads/main`.
+After this status commit, 48 portable commits remain local-only. Authenticate
+Git on this execution environment, then retry a normal push and verify the
+remote ref. Do not recreate the history through new API commits: frozen
+contracts depend on the existing commit identities.
+See `reports/cross_device_repo_audit.md` for authorization and attempt details.
 Other-desktop startup instructions and the continuation request are in
 [`DESKTOP_HANDOFF.md`](DESKTOP_HANDOFF.md).
 
@@ -353,7 +360,8 @@ sh scripts/cross_device_preflight.sh
 
 Expected integrity results are zero validation failures, 236 unit tests,
 161 core JSON/JSONL files parsed, and preflight exit 2 for the declared
-unverified-transport and unpushed-commit gates. Analysis reconstruction succeeds
+unverified-transport and remote-auth gates. Git also reports the local-only
+commits until push succeeds. Analysis reconstruction succeeds
 while correctly reproducing six research gate errors; this is not a passing
 grounding experiment. The 2026-09-07 exact-pin integration check reproduced
 236 passing tests and 161 parsed core JSON/JSONL files, with zero integrity

@@ -2,6 +2,13 @@
 
 작성일: 2026-09-07. 대상 저장소: `https://github.com/kgh0720kgh-boop/pj.git`, 브랜치: `main`.
 
+전송 상태: `BLOCKED_REMOTE_AUTH`. 이 문서와 최신 연구 작업은 현재 로컬에만 커밋되어 있다.
+이 실행 환경의 HTTPS push 인증이 없어 GitHub에는 아직 전달되지 않았다.
+원격에서 마지막 확인한 main은 `906df10a0a71ddf677c51c4a7b67ac6b1cc7d560`이다.
+원래 작업 환경에서 GitHub Git 인증을 설정하고 정상 push를 완료한 뒤 다른 데스크탑으로
+넘어간다. 인증 정보는 채팅·문서·Git에 넣지 않는다. 이후 갱신된 handoff/state의
+동기화 상태와 실제 remote HEAD를 다시 확인한다.
+
 이 파일은 연구를 관리하는 사용자/주 작업자용이다. 격리 검사 대상 작성자에게
 이 문서, AGENTS의 연구 요약, 이전 결과를 입력으로 전달하지 않는다.
 현재 상태의 최종 권위는 [HANDOFF_CURRENT.md](HANDOFF_CURRENT.md)와
