@@ -1,0 +1,117 @@
+{
+  "schema_version": "narrowed_grounding_author_dispatch_v0_1",
+  "run_id": "hybridqa_narrowed_grounding_v0_1_run_001",
+  "packet_freeze_commit": "861b3cfd69fd622cfc67faaa7856f7e60f8ac872",
+  "dispatch_mechanism": "multi_agent_v1.spawn_agent",
+  "fork_context": false,
+  "model_override_requested": false,
+  "exact_model_revision_exposed": false,
+  "seed_control_exposed": false,
+  "primary_capture": "one_write_structured_json_artifact_per_question_no_backend_raw_stream_exposed",
+  "context_isolation": "procedural_allowlist_and_no_parent_history_fork_not_cognitive_authentication",
+  "transport_policy": "no_retry_after_any_submission_delivered",
+  "shared_author_inputs": [
+    {
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/prompts/narrowed_grounding_v0_1.md",
+      "sha256": "f48cf2d4c9adb18c2eb82d3011ee49717df16ee6aba061f2098c3e0b59b868ab"
+    },
+    {
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/prompts/narrowed_grounding_author_guide_v0_1.md",
+      "sha256": "ffe774bedeec6d6e6f473ab505267113ae73edd9796ffcd1d92ea7b6dfbf3c94"
+    },
+    {
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_raw_schema_v0_1.json",
+      "sha256": "03f1b5f9df5d7bc668c718ba321b0a75c0cbf466765b5fb72688fe98951fbb9f"
+    }
+  ],
+  "authors": [
+    {
+      "question_index": 1,
+      "agent_id": "01a07994-76e3-7af2-b353-d75b7dd8662c",
+      "tool_nickname": "Mill",
+      "procedural_context_id": "ng_v0_1_question_01_fresh_author",
+      "packet": {
+        "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_01.json",
+        "sha256": "909693d24e01bb8e20a628039d3a4ff8620d639ab4fcb1a420b458a304b5c844",
+        "packet_id": "ng_v0_1_question_01",
+        "question_id": "0d48bffa70ef4acf",
+        "payload_sha256": "41d1ff0a23c555f80e107f91bee9eec839f58cb56a00a7bd1c34954a585e7909"
+      },
+      "raw_output": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_01.json"
+    },
+    {
+      "question_index": 2,
+      "agent_id": "01a07994-7714-76f1-8d90-ca4406288f77",
+      "tool_nickname": "Carson",
+      "procedural_context_id": "ng_v0_1_question_02_fresh_author",
+      "packet": {
+        "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_02.json",
+        "sha256": "bc5b197ac813e86bf46abbc13b34d8281b7fb1cb8b7c6f4fda23343d8acc947f",
+        "packet_id": "ng_v0_1_question_02",
+        "question_id": "cc681cfdba9badd5",
+        "payload_sha256": "2a5fde452fca6a44f89243ddbbef6dd9e3d2dfb4eefa5fbb4039aa628af7b7c6"
+      },
+      "raw_output": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_02.json"
+    },
+    {
+      "question_index": 3,
+      "agent_id": "01a07994-774a-7d61-a661-b4e5a4d167fb",
+      "tool_nickname": "Volta",
+      "procedural_context_id": "ng_v0_1_question_03_fresh_author",
+      "packet": {
+        "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_03.json",
+        "sha256": "1bc139e1ab080796ccdc20e643020db71775fad7e636e854ef1947edaa13dc18",
+        "packet_id": "ng_v0_1_question_03",
+        "question_id": "1e2e4e4f72a64bbf",
+        "payload_sha256": "3dc0264851f2c0408ed60d46b6bf8e4a2c9b9a1ce82de6858aec24155684689c"
+      },
+      "raw_output": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_03.json"
+    },
+    {
+      "question_index": 4,
+      "agent_id": "01a07994-77a6-75c3-b2c4-e1828715666b",
+      "tool_nickname": "James",
+      "procedural_context_id": "ng_v0_1_question_04_fresh_author",
+      "packet": {
+        "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_04.json",
+        "sha256": "a0199893ea98e51ea2dc523a702c9332e8067d8a96be945cceb3473d8d5f87e7",
+        "packet_id": "ng_v0_1_question_04",
+        "question_id": "1e674ae4b655c1a1",
+        "payload_sha256": "8f18822b17547746d62b8967e27b5149315332a4334700021a156615dad06c99"
+      },
+      "raw_output": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_04.json"
+    },
+    {
+      "question_index": 5,
+      "agent_id": "01a07994-77e9-7461-8d3d-a41058b83506",
+      "tool_nickname": "Bacon",
+      "procedural_context_id": "ng_v0_1_question_05_fresh_author",
+      "packet": {
+        "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_05.json",
+        "sha256": "4b9db394d283124523b720f6725752e176929dbe1da96a554ef79e41aeca0081",
+        "packet_id": "ng_v0_1_question_05",
+        "question_id": "1ca8ffcd3e20e498",
+        "payload_sha256": "1ede7b6ba0c4a9c15e1da1dd5478f99bbc091ee5712ecc2abb3762d3efe85743"
+      },
+      "raw_output": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_05.json"
+    },
+    {
+      "question_index": 6,
+      "agent_id": "01a07994-7835-7c42-b36a-dfb5f086b0fd",
+      "tool_nickname": "Faraday",
+      "procedural_context_id": "ng_v0_1_question_06_fresh_author",
+      "packet": {
+        "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_06.json",
+        "sha256": "7bf884d1ca1eaa5ec2237a75c66b71236368d0dbc6ebd0b6dac51eaaffaea3e7",
+        "packet_id": "ng_v0_1_question_06",
+        "question_id": "ba563b015b09bf21",
+        "payload_sha256": "b43cab9578c6c56486e4a7c38985baf39640ab3069a880ab120080257926ec30"
+      },
+      "raw_output": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_06.json"
+    }
+  ],
+  "execution_authorized": false,
+  "answer_recovery_authorized": false,
+  "human_evidence_count": 0,
+  "gold_claimed": false
+}
