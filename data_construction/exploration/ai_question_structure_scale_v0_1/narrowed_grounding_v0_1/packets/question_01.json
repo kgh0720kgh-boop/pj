@@ -1,0 +1,1254 @@
+{
+  "backbones": [
+    {
+      "graph": {
+        "entry_node_ids": [
+          "n1"
+        ],
+        "nodes": [
+          {
+            "depends_on": [],
+            "description": "identify the county originally created in 1873",
+            "implicit_rationale": null,
+            "node_id": "n1",
+            "other_role_description": null,
+            "role": "RESOLVE_REFERENT",
+            "source_cues": [
+              "a county originally created in 1873"
+            ]
+          },
+          {
+            "depends_on": [
+              "n1"
+            ],
+            "description": "identify the township also located in that county",
+            "implicit_rationale": null,
+            "node_id": "n2",
+            "other_role_description": null,
+            "role": "RESOLVE_REFERENT",
+            "source_cues": [
+              "a township also in a county"
+            ]
+          },
+          {
+            "depends_on": [
+              "n2"
+            ],
+            "description": "identify the target county that has that township",
+            "implicit_rationale": null,
+            "node_id": "n3",
+            "other_role_description": null,
+            "role": "RESOLVE_REFERENT",
+            "source_cues": [
+              "the county that has a township"
+            ]
+          },
+          {
+            "depends_on": [
+              "n3"
+            ],
+            "description": "obtain the target county's seat",
+            "implicit_rationale": null,
+            "node_id": "n4",
+            "other_role_description": null,
+            "role": "ACQUIRE_PROPERTY",
+            "source_cues": [
+              "county seat"
+            ]
+          }
+        ],
+        "output_node_ids": [
+          "n4"
+        ]
+      },
+      "variant_id": "primary"
+    },
+    {
+      "graph": {
+        "entry_node_ids": [
+          "n1"
+        ],
+        "nodes": [
+          {
+            "depends_on": [],
+            "description": "identify the county that has the township and was originally created in 1873",
+            "implicit_rationale": null,
+            "node_id": "n1",
+            "other_role_description": null,
+            "role": "RESOLVE_REFERENT",
+            "source_cues": [
+              "the county that has a township also in a county originally created in 1873"
+            ]
+          },
+          {
+            "depends_on": [
+              "n1"
+            ],
+            "description": "obtain that county's seat",
+            "implicit_rationale": null,
+            "node_id": "n2",
+            "other_role_description": null,
+            "role": "ACQUIRE_PROPERTY",
+            "source_cues": [
+              "county seat"
+            ]
+          }
+        ],
+        "output_node_ids": [
+          "n2"
+        ]
+      },
+      "variant_id": "alt1"
+    }
+  ],
+  "candidates": [
+    {
+      "backbone_operator_mappings": [
+        {
+          "backbone_node_ids": [
+            "n1"
+          ],
+          "mapping_id": "mapping1",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op1"
+          ]
+        },
+        {
+          "backbone_node_ids": [
+            "n2"
+          ],
+          "mapping_id": "mapping2",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op2"
+          ]
+        },
+        {
+          "backbone_node_ids": [
+            "n3"
+          ],
+          "mapping_id": "mapping3",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op3"
+          ]
+        },
+        {
+          "backbone_node_ids": [
+            "n4"
+          ],
+          "mapping_id": "mapping4",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op4"
+          ]
+        }
+      ],
+      "binding_slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "linked-document text for a county whose original-creation statement satisfies the year condition in the question",
+          "resolved_locator": null,
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "cell_link",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "township cells and county links needed to find a township occurrence in the county produced by op1",
+          "resolved_locator": null,
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "table_row_or_cell",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "the counterpart township occurrence in the same duplicated-name table row and its associated county",
+          "resolved_locator": null,
+          "slot_id": "slot3"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "linked-document text expressing the county-seat relation for the county produced by op3",
+          "resolved_locator": null,
+          "slot_id": "slot4"
+        }
+      ],
+      "candidate_sha256": "d792a067cef0a28497c73b4d7a10f6c32bd6c8d9d6c629e0064c742df89b45fe",
+      "distinguishing_assumptions": [
+        "The primary variant treats the duplicated township name as the bridge from a year-qualified county to a different target county."
+      ],
+      "graph": {
+        "entry_node_ids": [
+          "op1"
+        ],
+        "nodes": [
+          {
+            "depends_on": [],
+            "input_slot_ids": [
+              "slot1"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op1",
+            "operation_description": "Find a county-linked document whose original-creation statement satisfies the year condition expressed in the question.",
+            "operator_boundary_rationale": "The year-qualified county is the entry referent required by the primary backbone.",
+            "output_description": "the county satisfying the stated creation-year condition",
+            "record_local_label": "find county satisfying creation-year clue"
+          },
+          {
+            "depends_on": [
+              "op1"
+            ],
+            "input_slot_ids": [
+              "slot2"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op2",
+            "operation_description": "Within the table, identify a township occurrence whose county link corresponds to the county produced by op1.",
+            "operator_boundary_rationale": "This boundary preserves the dependency from the year-qualified county to the township referent.",
+            "output_description": "a township occurrence associated with the year-qualified county",
+            "record_local_label": "find township occurrence in that county"
+          },
+          {
+            "depends_on": [
+              "op2"
+            ],
+            "input_slot_ids": [
+              "slot3"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op3",
+            "operation_description": "Use the duplicated-name row containing the township from op2 to identify the county associated with the counterpart township occurrence.",
+            "operator_boundary_rationale": "The paired-row traversal is kept separate because it changes the referent from township to target county.",
+            "output_description": "the target county reached through the duplicated township relation",
+            "record_local_label": "follow duplicated township row to counterpart county"
+          },
+          {
+            "depends_on": [
+              "op3"
+            ],
+            "input_slot_ids": [
+              "slot4"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op4",
+            "operation_description": "Read the county-seat relation from linked-document text for the county produced by op3.",
+            "operator_boundary_rationale": "The requested property is emitted only after the target county has been resolved.",
+            "output_description": "the county-seat entity requested by the question",
+            "record_local_label": "read target county seat"
+          }
+        ],
+        "output_node_ids": [
+          "op4"
+        ]
+      },
+      "observation_alias": "observation_01",
+      "target_backbone_variant_id": "primary"
+    },
+    {
+      "backbone_operator_mappings": [
+        {
+          "backbone_node_ids": [
+            "n1"
+          ],
+          "mapping_id": "mapping5",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op5"
+          ]
+        },
+        {
+          "backbone_node_ids": [
+            "n2"
+          ],
+          "mapping_id": "mapping6",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op6"
+          ]
+        }
+      ],
+      "binding_slots": [
+        {
+          "cardinality": "multiple",
+          "environment_modality": "cell_link",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "table township cells and their associated county links",
+          "resolved_locator": null,
+          "slot_id": "slot5"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "linked-document text confirming that the county associated with a township satisfies the original-creation year condition",
+          "resolved_locator": null,
+          "slot_id": "slot6"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "linked-document text expressing the county-seat relation for the county produced by op5",
+          "resolved_locator": null,
+          "slot_id": "slot7"
+        }
+      ],
+      "candidate_sha256": "bf9f92f153df7ef695fa3be85c16c3ac6a58dd1807a6149ef1515a49492803c4",
+      "distinguishing_assumptions": [
+        "The alternative variant attaches the creation-year condition to the same county whose seat is requested."
+      ],
+      "graph": {
+        "entry_node_ids": [
+          "op5"
+        ],
+        "nodes": [
+          {
+            "depends_on": [],
+            "input_slot_ids": [
+              "slot5",
+              "slot6"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op5",
+            "operation_description": "Identify a county represented through a township cell and verify from its linked text that the same county satisfies the original-creation year condition.",
+            "operator_boundary_rationale": "The alternative backbone combines the township-bearing and year-qualified constraints in one referent-resolution boundary.",
+            "output_description": "the township-bearing county satisfying the creation-year condition",
+            "record_local_label": "find township-bearing county satisfying year clue"
+          },
+          {
+            "depends_on": [
+              "op5"
+            ],
+            "input_slot_ids": [
+              "slot7"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op6",
+            "operation_description": "Read the county-seat relation from linked-document text for the county produced by op5.",
+            "operator_boundary_rationale": "The output property remains downstream of the fully constrained county referent.",
+            "output_description": "the county-seat entity requested under the alternative interpretation",
+            "record_local_label": "read alternative county seat"
+          }
+        ],
+        "output_node_ids": [
+          "op6"
+        ]
+      },
+      "observation_alias": "observation_02",
+      "target_backbone_variant_id": "alt1"
+    },
+    {
+      "backbone_operator_mappings": [
+        {
+          "backbone_node_ids": [
+            "n1"
+          ],
+          "mapping_id": "mapping1",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op1"
+          ]
+        },
+        {
+          "backbone_node_ids": [
+            "n2"
+          ],
+          "mapping_id": "mapping2",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op2"
+          ]
+        },
+        {
+          "backbone_node_ids": [
+            "n3"
+          ],
+          "mapping_id": "mapping3",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op3"
+          ]
+        },
+        {
+          "backbone_node_ids": [
+            "n4"
+          ],
+          "mapping_id": "mapping4",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op4"
+          ]
+        }
+      ],
+      "binding_slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "question_literal",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "the question-stated county creation-year condition",
+          "resolved_locator": null,
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "a county document assertion satisfying the stated creation-year condition",
+          "resolved_locator": null,
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "table_row_or_cell",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "one question-intended duplicated-township table row linking the resolved county to a counterpart county",
+          "resolved_locator": null,
+          "slot_id": "slot3"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "the target county document statement of its county-seat property",
+          "resolved_locator": null,
+          "slot_id": "slot4"
+        }
+      ],
+      "candidate_sha256": "936665cdb5ce4f7bd4546af4ee3c8a4fed3afcb65964753090024537a6c9bb53",
+      "distinguishing_assumptions": [
+        "The primary reading treats the county created in the stated year, the shared township, and the counterpart county as three successive referents.",
+        "The singular answer specification denotes one question-intended duplicated-name row; its concrete row binding is deferred."
+      ],
+      "graph": {
+        "entry_node_ids": [
+          "op1"
+        ],
+        "nodes": [
+          {
+            "depends_on": [],
+            "input_slot_ids": [
+              "slot1",
+              "slot2"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op1",
+            "operation_description": "Scan county-linked document text for a county satisfying the creation-year condition.",
+            "operator_boundary_rationale": "This isolates the first backbone referent before any table relation is followed.",
+            "output_description": "the county satisfying the stated creation condition",
+            "record_local_label": "match creation-dated county"
+          },
+          {
+            "depends_on": [
+              "op1"
+            ],
+            "input_slot_ids": [
+              "slot3"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op2",
+            "operation_description": "Use the resolved county to find the question-intended duplicated-name row and retain its township identity.",
+            "operator_boundary_rationale": "This keeps the township referent distinct from both county referents.",
+            "output_description": "the township shared with the creation-dated county",
+            "record_local_label": "trace shared township row"
+          },
+          {
+            "depends_on": [
+              "op2"
+            ],
+            "input_slot_ids": [
+              "slot3"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op3",
+            "operation_description": "From the same duplicated-name row, project the other county associated with the township.",
+            "operator_boundary_rationale": "This realizes the second county hop while preserving dependence on the township.",
+            "output_description": "the target counterpart county",
+            "record_local_label": "project counterpart county"
+          },
+          {
+            "depends_on": [
+              "op3"
+            ],
+            "input_slot_ids": [
+              "slot4"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op4",
+            "operation_description": "Read the county-seat property from linked text for the target county.",
+            "operator_boundary_rationale": "The requested property is kept as the sole graph output.",
+            "output_description": "one county-seat entity",
+            "record_local_label": "read target county seat"
+          }
+        ],
+        "output_node_ids": [
+          "op4"
+        ]
+      },
+      "observation_alias": "observation_03",
+      "target_backbone_variant_id": "primary"
+    },
+    {
+      "backbone_operator_mappings": [
+        {
+          "backbone_node_ids": [
+            "n1"
+          ],
+          "mapping_id": "mapping5",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op5"
+          ]
+        },
+        {
+          "backbone_node_ids": [
+            "n2"
+          ],
+          "mapping_id": "mapping6",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op6"
+          ]
+        }
+      ],
+      "binding_slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "question_literal",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "the combined question condition that a county was created in the stated year and has a township in the table",
+          "resolved_locator": null,
+          "slot_id": "slot5"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "a county document assertion satisfying the creation-year part of the condition",
+          "resolved_locator": null,
+          "slot_id": "slot6"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "table_row_or_cell",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "table evidence that the same county is associated with at least one township",
+          "resolved_locator": null,
+          "slot_id": "slot7"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "the resolved county document statement of its county-seat property",
+          "resolved_locator": null,
+          "slot_id": "slot8"
+        }
+      ],
+      "candidate_sha256": "f7f6057ba0b62a300f093bba9fa5867a3307bc2f74b49d3b20e97453f7e1ca3a",
+      "distinguishing_assumptions": [
+        "The alternative reading treats the creation-year clause as modifying the same county whose seat is requested.",
+        "Having a township is verified through a table row, but no particular row is grounded."
+      ],
+      "graph": {
+        "entry_node_ids": [
+          "op5"
+        ],
+        "nodes": [
+          {
+            "depends_on": [],
+            "input_slot_ids": [
+              "slot5",
+              "slot6",
+              "slot7"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op5",
+            "operation_description": "Identify a county whose linked text satisfies the creation condition and whose table participation supplies township evidence.",
+            "operator_boundary_rationale": "The alternative backbone combines the two county-identification constraints in one target node.",
+            "output_description": "the county satisfying the combined modifier",
+            "record_local_label": "match county with year and township evidence"
+          },
+          {
+            "depends_on": [
+              "op5"
+            ],
+            "input_slot_ids": [
+              "slot8"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op6",
+            "operation_description": "Read the county-seat property from linked text for that county.",
+            "operator_boundary_rationale": "The requested property remains a separate dependent output step.",
+            "output_description": "one county-seat entity",
+            "record_local_label": "read same county seat"
+          }
+        ],
+        "output_node_ids": [
+          "op6"
+        ]
+      },
+      "observation_alias": "observation_04",
+      "target_backbone_variant_id": "alt1"
+    }
+  ],
+  "environment": {
+    "columns": [
+      {
+        "column_index": 0,
+        "linked_document_ids": [],
+        "text": "1"
+      },
+      {
+        "column_index": 1,
+        "linked_document_ids": [
+          "/wiki/Pierce_County,_North_Dakota"
+        ],
+        "text": "Alexander ( Pierce County )"
+      },
+      {
+        "column_index": 2,
+        "linked_document_ids": [
+          "/wiki/Stutsman_County,_North_Dakota"
+        ],
+        "text": "Alexander ( Stutsman County )"
+      }
+    ],
+    "linked_documents": [
+      {
+        "document_id": "/wiki/Benson_County,_North_Dakota",
+        "text": "Benson County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 6,660 . Its county seat is Minnewaukan . The county was created on March 9 , 1883 by the Dakota Territory legislature , and was named for Bertil W. Benson , a Dakota Territory legislator at the time . The county government was organized on June 4 , 1884 , and its boundary lines were altered by two legislative actions in 1885 . White Horse Hill National Game Preserve and much of the Spirit Lake Indian Reservation are located within the county ."
+      },
+      {
+        "document_id": "/wiki/Burleigh_County,_North_Dakota",
+        "text": "Burleigh County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 81,308 , making it the second-most populous county in North Dakota . Its county seat is Bismarck , the state capital . The county was named for Dakota Territory political figure Walter A. Burleigh ."
+      },
+      {
+        "document_id": "/wiki/Campbell_Township,_Emmons_County,_North_Dakota",
+        "text": "Campbell Township is the only township in Emmons County , North Dakota , United States . Its population as of the 2000 Census was 66 . It lies in the northeastern corner of the county and borders the following other former townships within Emmons County :"
+      },
+      {
+        "document_id": "/wiki/Cass_County,_North_Dakota",
+        "text": "Cass County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 149,778 , and was estimated to be 181,516 in 2018 . Cass County is the most populous county in North Dakota , accounting for nearly 23% of the state 's population in 2018 . Its county seat is Fargo , the most populous city in the state . Cass County is part of the Fargo , ND-MN Metropolitan Statistical Area ."
+      },
+      {
+        "document_id": "/wiki/Cavalier_County,_North_Dakota",
+        "text": "Cavalier County is a county in the U.S. state of North Dakota . It is south of the Canada-US border with Manitoba . As of the 2010 United States Census , the population was 3,993 . Its county seat is Langdon . The city of Cavalier is in nearby Pembina County ."
+      },
+      {
+        "document_id": "/wiki/Dickey_County,_North_Dakota",
+        "text": "Dickey County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 5,289 . Its county seat is Ellendale ."
+      },
+      {
+        "document_id": "/wiki/Divide_County,_North_Dakota",
+        "text": "Divide County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 2,071 . Its county seat is Crosby ."
+      },
+      {
+        "document_id": "/wiki/East_Fork_Township,_Benson_County,_North_Dakota",
+        "text": "East Fork Township is a civil township in Benson County , North Dakota , United States . As of the 2000 census , its population was 36 ."
+      },
+      {
+        "document_id": "/wiki/Eddy_County,_North_Dakota",
+        "text": "Eddy County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 2,385 . Its county seat is New Rockford ."
+      },
+      {
+        "document_id": "/wiki/Emmons_County,_North_Dakota",
+        "text": "Emmons County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 3,550 . Its county seat has been Linton since 1899 ."
+      },
+      {
+        "document_id": "/wiki/Fertile_Township,_Walsh_County,_North_Dakota",
+        "text": "Fertile Township is a township in Walsh County , North Dakota . 51.6% ( 127 ) of the population are male , and the other 48.4% ( 119 ) are female ."
+      },
+      {
+        "document_id": "/wiki/Grand_Forks_County,_North_Dakota",
+        "text": "Grand Forks County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , its population was 66,861 , making it the third-most populous county in North Dakota . Its county seat and largest community is Grand Forks ."
+      },
+      {
+        "document_id": "/wiki/Grant_County,_North_Dakota",
+        "text": "Grant County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 2,394 . Its county seat is Carson ."
+      },
+      {
+        "document_id": "/wiki/Griggs_County,_North_Dakota",
+        "text": "Griggs County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 2,420 . Its county seat is Cooperstown ."
+      },
+      {
+        "document_id": "/wiki/Hettinger_County,_North_Dakota",
+        "text": "Hettinger County ( /ˈhɛtɪŋɡər/ HET-ing-gər ) is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 2,477 . Its county seat is Mott . The city of Hettinger , North Dakota , is in nearby Adams County ."
+      },
+      {
+        "document_id": "/wiki/Kidder_County,_North_Dakota",
+        "text": "Kidder County is a county located in the U.S. state of North Dakota . As of the 2010 census , the population was 2,435 . Its county seat is Steele ."
+      },
+      {
+        "document_id": "/wiki/Martin_Township,_Walsh_County,_North_Dakota",
+        "text": "Martin Township is a township in Walsh County , North Dakota ."
+      },
+      {
+        "document_id": "/wiki/McKenzie_County,_North_Dakota",
+        "text": "McKenzie County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 6,360 . Its county seat is Watford City . Between 2010 and 2018 , according to Census Bureau estimates , it was the fastest growing county in the United States , growing 114.3 percent . The county lies immediately adjacent to the Williston Micropolitan Statistical Area , although the Census Bureau does not include McKenzie County in that grouping ."
+      },
+      {
+        "document_id": "/wiki/McLean_County,_North_Dakota",
+        "text": "McLean County ( /məˈkleɪn/ mə-KLAYN ) is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 8,962 . Its county seat is Washburn ."
+      },
+      {
+        "document_id": "/wiki/Mountrail_County,_North_Dakota",
+        "text": "Mountrail County is a county in the northwestern part of North Dakota , United States . As of the 2010 United States Census , the population was 7,673 . Its county seat is Stanley . The county was originally created in 1873 , then removed in 1892 , annexed by Ward County . It was re-created and organized in 1909 . Oil production from the Bakken formation in the early 21st century has attracted workers and reversed decades of population decline in the county . From 2010 to 2015 , especially , population has markedly increased , creating its own strains ."
+      },
+      {
+        "document_id": "/wiki/Nelson_County,_North_Dakota",
+        "text": "Nelson County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 3,126 . Its county seat is Lakota ."
+      },
+      {
+        "document_id": "/wiki/Pierce_County,_North_Dakota",
+        "text": "Pierce County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 4,357 . Its county seat is Rugby ."
+      },
+      {
+        "document_id": "/wiki/Ramsey_County,_North_Dakota",
+        "text": "Ramsey County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 11,451 . Its county seat is Devils Lake ."
+      },
+      {
+        "document_id": "/wiki/Ransom_County,_North_Dakota",
+        "text": "Ransom County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 5,457 . Its county seat is Lisbon ."
+      },
+      {
+        "document_id": "/wiki/Sheridan_County,_North_Dakota",
+        "text": "Sheridan County is a county located in the U.S. state of North Dakota . As of the 2010 census , the population was 1,321 , making it the third-least populous county in North Dakota . Its county seat is McClusky ."
+      },
+      {
+        "document_id": "/wiki/Stutsman_County,_North_Dakota",
+        "text": "Stutsman County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 21,100 . Its county seat is Jamestown . The Jamestown , North Dakota Micropolitan Statistical Area includes all of Stutsman County ."
+      },
+      {
+        "document_id": "/wiki/Traill_County,_North_Dakota",
+        "text": "Traill County is a county in the U.S. state of North Dakota . As of the 2010 United States Census listed the population at 8,121 . Its county seat is Hillsboro , and its largest city is Mayville ."
+      },
+      {
+        "document_id": "/wiki/Walsh_County,_North_Dakota",
+        "text": "Walsh County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 11,119 . Its county seat is Grafton ."
+      },
+      {
+        "document_id": "/wiki/Wells_County,_North_Dakota",
+        "text": "Wells County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 4,207 . Its county seat is Fessenden ."
+      },
+      {
+        "document_id": "/wiki/Williams_County,_North_Dakota",
+        "text": "Williams County is a county in the U.S. state of North Dakota . As of the 2010 United States Census , the population was 22,398 . Its county seat is Williston . Between 2010 and 2018 , according to Census Bureau estimates , it was the second fastest growing county in the United States , trailing only neighboring McKenzie County , to its south . The Williston Micropolitan Statistical Area includes all of Williams County . The Micropolitan Statistical Area is the fastest-growing Primary Statistical Area , growing 57.8% in population from 2010 to 2018 . In 2014 , Williams County had the lowest percentage of unemployed people of any county in the United States , at 1.2 percent ."
+      }
+    ],
+    "rows": [
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "2"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Cavalier_County,_North_Dakota"
+            ],
+            "text": "Banner ( Cavalier County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Mountrail_County,_North_Dakota"
+            ],
+            "text": "Banner ( Mountrail County )"
+          }
+        ],
+        "row_index": 0
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "3"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Cass_County,_North_Dakota"
+            ],
+            "text": "Berlin ( Cass County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Sheridan_County,_North_Dakota"
+            ],
+            "text": "Berlin ( Sheridan County )"
+          }
+        ],
+        "row_index": 1
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "4"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Mountrail_County,_North_Dakota"
+            ],
+            "text": "Big Bend ( Mountrail County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Ransom_County,_North_Dakota"
+            ],
+            "text": "Big Bend ( Ransom County )"
+          }
+        ],
+        "row_index": 2
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "5"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Campbell_Township,_Emmons_County,_North_Dakota",
+              "/wiki/Emmons_County,_North_Dakota"
+            ],
+            "text": "Campbell ( Emmons County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Hettinger_County,_North_Dakota"
+            ],
+            "text": "Campbell ( Hettinger County )"
+          }
+        ],
+        "row_index": 3
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "6"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Burleigh_County,_North_Dakota"
+            ],
+            "text": "Clear Lake ( Burleigh County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Kidder_County,_North_Dakota"
+            ],
+            "text": "Clear Lake ( Kidder County )"
+          }
+        ],
+        "row_index": 4
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "7"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/East_Fork_Township,_Benson_County,_North_Dakota",
+              "/wiki/Benson_County,_North_Dakota"
+            ],
+            "text": "East Fork ( Benson County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Williams_County,_North_Dakota"
+            ],
+            "text": "East Fork ( Williams County )"
+          }
+        ],
+        "row_index": 5
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "8"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Dickey_County,_North_Dakota"
+            ],
+            "text": "Elm ( Dickey County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Grant_County,_North_Dakota"
+            ],
+            "text": "Elm ( Grant County )"
+          }
+        ],
+        "row_index": 6
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "9"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Mountrail_County,_North_Dakota"
+            ],
+            "text": "Fertile ( Mountrail County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Fertile_Township,_Walsh_County,_North_Dakota",
+              "/wiki/Walsh_County,_North_Dakota"
+            ],
+            "text": "Fertile ( Walsh County )"
+          }
+        ],
+        "row_index": 7
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "10"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Griggs_County,_North_Dakota"
+            ],
+            "text": "Greenfield ( Griggs County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Traill_County,_North_Dakota"
+            ],
+            "text": "Greenfield ( Traill County )"
+          }
+        ],
+        "row_index": 8
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "11"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Dickey_County,_North_Dakota"
+            ],
+            "text": "Hamburg ( Dickey County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Wells_County,_North_Dakota"
+            ],
+            "text": "Hamburg ( Wells County )"
+          }
+        ],
+        "row_index": 9
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "12"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Divide_County,_North_Dakota"
+            ],
+            "text": "Hawkeye ( Divide County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/McKenzie_County,_North_Dakota"
+            ],
+            "text": "Hawkeye ( McKenzie County )"
+          }
+        ],
+        "row_index": 10
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "13"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Cass_County,_North_Dakota"
+            ],
+            "text": "Highland ( Cass County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Hettinger_County,_North_Dakota"
+            ],
+            "text": "Highland ( Hettinger County )"
+          }
+        ],
+        "row_index": 11
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "14"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Eddy_County,_North_Dakota"
+            ],
+            "text": "Hillsdale ( Eddy County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Wells_County,_North_Dakota"
+            ],
+            "text": "Hillsdale ( Wells County )"
+          }
+        ],
+        "row_index": 12
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "15"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Cavalier_County,_North_Dakota"
+            ],
+            "text": "Hope ( Cavalier County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Ramsey_County,_North_Dakota"
+            ],
+            "text": "Hope ( Ramsey County )"
+          }
+        ],
+        "row_index": 13
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "16"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Kidder_County,_North_Dakota"
+            ],
+            "text": "Lake Williams ( Kidder County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/McLean_County,_North_Dakota"
+            ],
+            "text": "Lake Williams ( McLean County )"
+          }
+        ],
+        "row_index": 14
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "17"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Mountrail_County,_North_Dakota"
+            ],
+            "text": "Liberty ( Mountrail County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Ransom_County,_North_Dakota"
+            ],
+            "text": "Liberty ( Ransom County )"
+          }
+        ],
+        "row_index": 15
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "18"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Sheridan_County,_North_Dakota"
+            ],
+            "text": "Martin ( Sheridan County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Martin_Township,_Walsh_County,_North_Dakota",
+              "/wiki/Walsh_County,_North_Dakota"
+            ],
+            "text": "Martin ( Walsh County )"
+          }
+        ],
+        "row_index": 16
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "19"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Grand_Forks_County,_North_Dakota"
+            ],
+            "text": "Michigan ( Grand Forks County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Nelson_County,_North_Dakota"
+            ],
+            "text": "Michigan ( Nelson County )"
+          }
+        ],
+        "row_index": 17
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "20"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Dickey_County,_North_Dakota"
+            ],
+            "text": "Northwest ( Dickey County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Kidder_County,_North_Dakota"
+            ],
+            "text": "Northwest ( Kidder County )"
+          }
+        ],
+        "row_index": 18
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "21"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Hettinger_County,_North_Dakota"
+            ],
+            "text": "Odessa ( Hettinger County )"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [
+              "/wiki/Ramsey_County,_North_Dakota"
+            ],
+            "text": "Odessa ( Ramsey County )"
+          }
+        ],
+        "row_index": 19
+      }
+    ],
+    "scope_contract": {
+      "dataset_provided_question_table_binding": true,
+      "document_scope": "table_link_closure",
+      "external_retrieval": false,
+      "full_table_link_closure_supplied": true,
+      "oracle_document_selection": false,
+      "question_or_answer_guided_pruning": false,
+      "table_retrieval_evaluated": false,
+      "table_scope": "full_selected_question_table",
+      "truncation": "none"
+    },
+    "section_title": "Duplicated names",
+    "source_split": "dev",
+    "table_id": "List_of_townships_in_North_Dakota_26",
+    "title": "List of townships in North Dakota"
+  },
+  "environment_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+  "packet_id": "ng_v0_1_question_01",
+  "payload_sha256": "41d1ff0a23c555f80e107f91bee9eec839f58cb56a00a7bd1c34954a585e7909",
+  "protocol_sha256": "ffe774bedeec6d6e6f473ab505267113ae73edd9796ffcd1d92ea7b6dfbf3c94",
+  "question": "What is the county seat of the county that has a township also in a county originally created in 1873 ?",
+  "question_id": "0d48bffa70ef4acf",
+  "response_schema_sha256": "03f1b5f9df5d7bc668c718ba321b0a75c0cbf466765b5fb72688fe98951fbb9f",
+  "schema_version": "narrowed_grounding_packet_v0_1"
+}

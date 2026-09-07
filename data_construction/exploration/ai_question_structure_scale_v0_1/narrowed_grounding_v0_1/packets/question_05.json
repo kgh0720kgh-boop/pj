@@ -1,0 +1,1097 @@
+{
+  "backbones": [
+    {
+      "graph": {
+        "entry_node_ids": [
+          "n1"
+        ],
+        "nodes": [
+          {
+            "depends_on": [],
+            "description": "Identify the city or town from its transportation-center, route, and railroad description.",
+            "implicit_rationale": null,
+            "node_id": "n1",
+            "other_role_description": null,
+            "role": "RESOLVE_REFERENT",
+            "source_cues": [
+              "city or town is also a regional transportation center"
+            ]
+          },
+          {
+            "depends_on": [
+              "n1"
+            ],
+            "description": "Identify the historic place whose city or town is the resolved location.",
+            "implicit_rationale": null,
+            "node_id": "n2",
+            "other_role_description": null,
+            "role": "RESOLVE_REFERENT",
+            "source_cues": [
+              "historic place whose city or town"
+            ]
+          }
+        ],
+        "output_node_ids": [
+          "n2"
+        ]
+      },
+      "variant_id": "primary"
+    }
+  ],
+  "candidates": [
+    {
+      "backbone_operator_mappings": [
+        {
+          "backbone_node_ids": [
+            "n1"
+          ],
+          "mapping_id": "mapping1",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op1"
+          ]
+        },
+        {
+          "backbone_node_ids": [
+            "n2"
+          ],
+          "mapping_id": "mapping2",
+          "mapping_kind": "one_to_many",
+          "operator_node_ids": [
+            "op2",
+            "op3"
+          ]
+        }
+      ],
+      "binding_slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "city-or-town linked text jointly expressing regional transportation-center status, both specified routes, and both specified railroads",
+          "resolved_locator": null,
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "table_row_or_cell",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "registry rows whose city-or-town cells correspond to the location produced by op1",
+          "resolved_locator": null,
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "table_row_or_cell",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "name-on-the-register cells in the city-or-town-matched rows",
+          "resolved_locator": null,
+          "slot_id": "slot3"
+        }
+      ],
+      "candidate_sha256": "07fa9e5266166208234cb4b4560267d2a563d3c2e0cba3dbbaa2b0251837dfc9",
+      "distinguishing_assumptions": [
+        "The transportation description resolves a city or town in linked text, then the registry table is traversed from that location to a listed historic place."
+      ],
+      "graph": {
+        "entry_node_ids": [
+          "op1"
+        ],
+        "nodes": [
+          {
+            "depends_on": [],
+            "input_slot_ids": [
+              "slot1"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op1",
+            "operation_description": "Find the city-or-town linked document that jointly satisfies the transportation-center, route, and railroad description in the question.",
+            "operator_boundary_rationale": "All descriptive constraints are applied together to establish the entry location referent.",
+            "output_description": "the city or town satisfying the full transportation description",
+            "record_local_label": "resolve city or town from transport description"
+          },
+          {
+            "depends_on": [
+              "op1"
+            ],
+            "input_slot_ids": [
+              "slot2"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op2",
+            "operation_description": "Find historic-register rows whose city-or-town cells correspond to the location produced by op1.",
+            "operator_boundary_rationale": "The table join is exposed separately because the requested historic place is not a property in the location document.",
+            "output_description": "the registry row or rows associated with the resolved city or town",
+            "record_local_label": "match resolved place to registry rows"
+          },
+          {
+            "depends_on": [
+              "op2"
+            ],
+            "input_slot_ids": [
+              "slot3"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op3",
+            "operation_description": "Project the name-on-the-register field from the matched row or rows under the target's singular historic-place reference.",
+            "operator_boundary_rationale": "The only output is produced after the city-or-town constraint has been propagated through the registry table.",
+            "output_description": "the historic place requested by the question",
+            "record_local_label": "project historic place from matched rows"
+          }
+        ],
+        "output_node_ids": [
+          "op3"
+        ]
+      },
+      "observation_alias": "observation_01",
+      "target_backbone_variant_id": "primary"
+    },
+    {
+      "backbone_operator_mappings": [
+        {
+          "backbone_node_ids": [
+            "n1"
+          ],
+          "mapping_id": "mapping1",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op1"
+          ]
+        },
+        {
+          "backbone_node_ids": [
+            "n2"
+          ],
+          "mapping_id": "mapping2",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op2"
+          ]
+        }
+      ],
+      "binding_slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "question_literal",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "the question-stated transportation-center, route, and railroad description",
+          "resolved_locator": null,
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "a linked city-or-town document satisfying the full description",
+          "resolved_locator": null,
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "table_row_or_cell",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "one question-intended register row relating the resolved city or town to a historic place",
+          "resolved_locator": null,
+          "slot_id": "slot3"
+        }
+      ],
+      "candidate_sha256": "1156c0c1b4278e44cba38c45290336d4b9c908fd67f61db020d3aab81c22269a",
+      "distinguishing_assumptions": [
+        "The transportation-center, route, and railroad clauses jointly identify a city or town through linked place text.",
+        "The singular historic-place output denotes one question-intended register row for that city or town; its concrete row binding is deferred."
+      ],
+      "graph": {
+        "entry_node_ids": [
+          "op1"
+        ],
+        "nodes": [
+          {
+            "depends_on": [],
+            "input_slot_ids": [
+              "slot1",
+              "slot2"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op1",
+            "operation_description": "Scan linked city-or-town text for the full transportation-center, route, and railroad description.",
+            "operator_boundary_rationale": "All descriptive clauses are evaluated together to realize the first referent.",
+            "output_description": "the city or town satisfying the description",
+            "record_local_label": "match described city or town"
+          },
+          {
+            "depends_on": [
+              "op1"
+            ],
+            "input_slot_ids": [
+              "slot3"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op2",
+            "operation_description": "Match the resolved municipality to the question-intended register row and project its historic-place name.",
+            "operator_boundary_rationale": "The register relation realizes the dependent target and sole output.",
+            "output_description": "one historic-place entity",
+            "record_local_label": "project historic place by municipality"
+          }
+        ],
+        "output_node_ids": [
+          "op2"
+        ]
+      },
+      "observation_alias": "observation_02",
+      "target_backbone_variant_id": "primary"
+    }
+  ],
+  "environment": {
+    "columns": [
+      {
+        "column_index": 0,
+        "linked_document_ids": [],
+        "text": ""
+      },
+      {
+        "column_index": 1,
+        "linked_document_ids": [],
+        "text": "Name on the Register"
+      },
+      {
+        "column_index": 2,
+        "linked_document_ids": [],
+        "text": "Date listed"
+      },
+      {
+        "column_index": 3,
+        "linked_document_ids": [],
+        "text": "Location"
+      },
+      {
+        "column_index": 4,
+        "linked_document_ids": [],
+        "text": "City or town"
+      }
+    ],
+    "linked_documents": [
+      {
+        "document_id": "/wiki/Ackley,_Iowa",
+        "text": "Ackley is a city in Franklin and Hardin Counties in the U.S. state of Iowa . The population was 1,589 at the 2010 census ."
+      },
+      {
+        "document_id": "/wiki/Alden,_Iowa",
+        "text": "Alden is a city in Hardin County , Iowa , United States . The population was 787 at the 2010 census ."
+      },
+      {
+        "document_id": "/wiki/Alden_Bridge",
+        "text": "The Alden Bridge is a historic bridge in Alden , Iowa , which carries the town 's Main Street over the Iowa River . The concrete bridge is 150 feet ( 46 m ) long and consists of two spans . It was built in 1936 to replace an earlier wooden bridge that had begun to deteriorate . The Weldon Brothers Construction Co. supervised the bridge 's construction , while the Iowa State Highway Commission designed the structure ; it was one of the first bridges designed by the ISHC , which used similar plans for many other bridges in the state . Labor for the construction effort came from the Works Progress Administration , providing jobs for many of Hardin County 's unemployed residents . The bridge was dedicated on July 4 , 1936 , as part of Alden 's Independence Day celebrations . The bridge was listed on the National Register of Historic Places on May 15 , 1998 ."
+      },
+      {
+        "document_id": "/wiki/Alden_Public_Library",
+        "text": "Alden Public Library is located in Alden , Iowa , United States . The community 's first library association was formed in 1882 , and they acquired 225 books . The annual membership fee to use the library was $ 1 . It was discontinued within two years , and Alden 's second library association was formed in 1885 by women in the community . In time they were able to build their own building in 1892 and convince the city government to take over its support . Shortly after the city took over they contacted the Carnegie Foundation , who funded the construction of a new building with a $ 9,000 grant . It was designed by the Des Moines architectural firm of Wetherell & Gage , and shows Beaux Arts styling . The new building was dedicated on August 26 , 1914 . It is believed to be one of the smallest Carnegie libraries ever built . The building was listed on the National Register of Historic Places in 1981 . More space for the library became necessary , and plans were made to double its size . A bond issue was passed in 1997 , and fundraising included $ 250,000 from the Dr. Grace O. Doane Foundation ."
+      },
+      {
+        "document_id": "/wiki/Carnegie-Ellsworth_Public_Library",
+        "text": "The Carnegie-Ellsworth Public Library is a historic building located in Iowa Falls , Iowa , United States . Local businessman Eugene Ellsworth donated the property for the library in 1902 . The following year the Carnegie Foundation agreed to grant the community $ 10,000 to build the building . It was dedicated on August 9 , 1904 . The single-story , brick structure is dominated by an elaborate entrance pavilion . It features a semi-circular window above the cornice , which is supported by two Ionic pillars in antis between rusticated corner piers . The hip roof is capped by a cupola . The building was listed on the National Register of Historic Places in 1983 . The Robert W. Barlow Memorial Library , Iowa Falls ' public library , is now housed in a modern building near the Iowa River ."
+      },
+      {
+        "document_id": "/wiki/Civilian_Conservation_Corps-Prisoner_of_War_Recreation_Hall",
+        "text": "The Civilian Conservation Corps-Prisoner of War Recreation Hall is a historic building located in Eldora , Iowa , United States . Known as Camp Flying Goose , the Civilian Conservation Corps ' ( CCC ) Company 1755 made Eldora their home base in 1933 . They constructed this building that year for their use as a barracks while they worked on projects in the area , which included building Upper Pine Lake in Pine Lake State Park . CCC Company 1752 , the Erosioners , replaced them two years later , and they built many of the facilities in the park . With the start of World War II , the CCC left the camp . The National Youth Association used the camp from 1940 to 1942 . In 1943 the camp became Prisoner of War ( POW ) Compound # 13 , and it housed German and Italian POWs until 1945 . The prisoners were put to work on farms , in canning factories , doing construction , and other jobs . This building is all that remains of the CCC/POW camp . It is the only CCC camp building that still exists in Iowa , and it houses a museum . The building , which is located on the Hardin County Fairgrounds , was listed on the National Register of Historic Places in 2012 ."
+      },
+      {
+        "document_id": "/wiki/Edgewood_School_of_Domestic_Arts",
+        "text": "The Edgewood School of Domestic Arts , now known just as Edgewood , is a historic building in Iowa Falls , Iowa , United States . Originally a school for girls and women , it now houses apartments upstairs and space for meetings and family gatherings downstairs ."
+      },
+      {
+        "document_id": "/wiki/Eldora,_Iowa",
+        "text": "Eldora is a city in Hardin County , Iowa , United States . The population was 2,732 at the 2010 census . It is the county seat of Hardin County ."
+      },
+      {
+        "document_id": "/wiki/Eldora_Downtown_Historic_District",
+        "text": "The Eldora Downtown Historic District is a nationally recognized historic district located in Eldora , Iowa , United States . It was listed on the National Register of Historic Places in 2009 . At the time of its nomination the district consisted of 84 resources , including 65 contributing buildings , one contributing site , three contributing objects and 15 non-contributing buildings . The district takes in the city 's central business district , which also includes its governmental , educational , and religious activities . It is located in the original town plat from 1853 . Development began around the public square and spread out from there . The present building stock is second generation at the earliest . The oldest extant buildings were built in the 1870s , although the greatest number of buildings were constructed in the 1890s . There were also peak years of construction in the 1910s , and the late 1930s and 1940s . The commercial buildings generally range from one to two stories , but the tallest structure is three stories in height . They are primarily composed of brick construction . Late Victorian and various revival styles from the late 19th and 20th centuries are dominate ."
+      },
+      {
+        "document_id": "/wiki/Ellsworth-Jones_Building",
+        "text": "The Ellsworth-Jones Building is a historic building located in Iowa Falls , Iowa , United States . Eugene S. Ellsworth was a land broker , town developer , and philanthropist . This building was the headquarters of his firm Ellsworth and Jones , who sold land throughout Iowa and other states in the Midwest . While Iowa Falls was their headquarters , they also had offices in Chicago , Boston , and Crookston , Minnesota . The three-story , brick Neoclassical building was completed in 1902 . It features Ionic and Doric columns , egg-and-dart motif on the lower level columns , round arches , acanthus leaf keystones , foliated decorative elements , a dentils on the cornice . The building was individually listed on the National Register of Historic Places in 1993 . It was included as a contributing property in the Washington Avenue Commercial Historic District in 2012 ."
+      },
+      {
+        "document_id": "/wiki/Estes_Park_Band_Shell",
+        "text": "Estes Park Band Shell is a historic building located in Iowa Falls , Iowa , United States . Planning and construction of the band shell were a community project that began in 1931 . They engaged Iowa Falls native L.L . Klippel to design the structure , and N.F . Guernsey of Sioux City , Iowa to landscape Estes Park . Completed later in the year , the Mission/Spanish Revival structure features two bell towers with round arch balconies that flank the proscenium arch . There is a cement basement that houses rehearsal space . The walls are stucco , and the structure is capped with a tiled hip roof with bracketed eaves . Over the years the band shell has hosted concerts , dances , and a variety of entertainment activities . Labor unions and political parties have held rallies here . Wendell Willkie spoke here when he ran for president in 1940 . The band shell was listed on the National Register of Historic Places in 1993 ."
+      },
+      {
+        "document_id": "/wiki/First_Congregational_Church_(Eldora,_Iowa)",
+        "text": "First Congregational Church is a congregation of the United Church of Christ located in Eldora , Iowa , United States . The congregation was organized in 1868 and the church building was individually listed on the National Register of Historic Places in 1996 . In 2010 it was included as a contributing property in the Eldora Downtown Historic District in 2010 ."
+      },
+      {
+        "document_id": "/wiki/First_National_Bank_(Iowa_Falls,_Iowa)",
+        "text": "First National Bank is a historic building located in Iowa Falls , Iowa , United States . The bank traces its founding to 1882 when the Commercial Bank of Iowa Falls was established . Its name was changed to First National when they built a two-story brick building at this location two years later . In 1917 the bank decided it needed a new facility , so they turned to the Lytle Company of Sioux City , Iowa , which specialized in designing bank buildings . They designed this two-story brick Neoclassical structure . A rich surface pattern on the building was achieved with the use of terra cotta and special colors of brick . First National continued in business here until December 21 , 1932 when it closed its doors . Iowa Falls State Bank was organized and opened in this building on May 25 , 1933 . In more recent years they expanded into the modern building immediately to the west . The building was individually listed on the National Register of Historic Places in 1993 . It was included as a contributing property in the Washington Avenue Commercial Historic District in 2012 ."
+      },
+      {
+        "document_id": "/wiki/Folkert_Mound_Group",
+        "text": "The Folkert Mound Group of Hardin County , Iowa is a collection of 27 prehistoric mounds on the bluffs above the Iowa River , in a variety of shapes , including linear , compound , conical , and an enigmatic cruciform mound . The earliest map of the mounds was made by John Hotopp in 1974 , and the mound group was mapped in detail in 2006 . The alignment of the cruciform mound is especially interesting to researchers . Horton felt the cruciform mound aligned with the 11th century Crab Nebula supernova . However Lensink felt there was little evidence of this possible alignment . An apparent alignment of the largest conical mound , A , in the south with the end peaks of the cruciform mound , X , and an alignment between Mound X and the end of longest mound , T , has been postulated , but the meaning of these alignments is unknown ."
+      },
+      {
+        "document_id": "/wiki/Former_Eldora_Public_Library",
+        "text": "The Former Eldora Public Library is a historic building located in Eldora , Iowa , United States . On December 30 , 1901 the Carnegie Foundation agreed to grant the community $ 10,000 to build a new library building . The Chicago architectural firm of Patton & Miller designed it in the Renaissance Revival style , and it was dedicated on May 11 , 1903 . The single-story , brick structure is somewhat rare in that its plan is an asymmetrical massing of intersecting gables . The entrance pavilion is located at the intersection of the two masses . The building was listed on the National Register of Historic Places in 1983 . In 2010 it was included as a contributing property in the Eldora Downtown Historic District in 2010 . The library has subsequently moved to a new facility , and this building has been converted for commercial use ."
+      },
+      {
+        "document_id": "/wiki/Glenn_and_Nell_Kurtz_Lustron_Home_and_Garage",
+        "text": "The Glenn and Nell Kurtz Lustron Home and Garage , also known as the Westchester 02 Deluxe model and # 01237 , is a historic building located in Iowa Falls , Iowa , United States . Glenn Kurtz owned and operated the Cigar and News Store downtown , and became the Lustron dealer for Hardin , Hamilton , Franklin , and Grundy counties . He and his wife Nell bought this property in the Washington Heights Addition in 1944 , and they had their own prefabricated Lustron house and detached garage assembled on it five years later . The single-story , two bedroom house features its original light yellow porcelain steel wall panels , brown steel shingled roof , off-white gables and trim , metal entrance doors , and windows . The matching 1½-car garage sits behind the house , and is approached by a driveway off of Michigan Avenue . The house and garage were listed together on the National Register of Historic Places in 2014 . There are four other Lustron houses in addition to this one that are associated with Kurtz 's representation of the company in his four county area ."
+      },
+      {
+        "document_id": "/wiki/Hardin_County_Courthouse_(Iowa)",
+        "text": "The Hardin County Courthouse , located in Eldora , Iowa , United States , was built in 1892 . The courthouse is the third building to house court functions and county administration . It was individually listed on the National Register of Historic Places in 1981 . In 2010 it was included as a contributing property in the Eldora Downtown Historic District ."
+      },
+      {
+        "document_id": "/wiki/Hardin_County_Home_Historic_District",
+        "text": "The Hardin County Home Historic District , also known as Hardin County Poor Farm , Hardin County Farm , and the Hardin County Care Facility , is a nationally recognized historic district located northwest of Eldora , Iowa , United States . It was listed on the National Register of Historic Places in 2010 . At the time of its nomination the district consisted of six resources , including three contributing buildings , one contributing site , and two non-contributing buildings . Beginning in the mid-19th century county homes were established across the state to take care of less fortunate residents . That care then extended to the end of the 20th century . The Hardin County Home operated at this location from 1877 to 1996 . The historic district encompasses the buildings , farm fields , and cemetery associated with the home . The first burial in the cemetery , located on the southwest corner of the property , was in 1877 . The graves are marked with simple stone markers . The last burial was in 2008 . Farm fields surround the buildings and extend to the north . The original home was destroyed in an April 1924 fire ."
+      },
+      {
+        "document_id": "/wiki/Honey_Creek_Friends'_Meetinghouse",
+        "text": "Honey Creek Friends ' Meetinghouse is an historic building located in New Providence , Iowa , United States . It was listed on the National Register of Historic Places in 1980 ."
+      },
+      {
+        "document_id": "/wiki/Illinois_Central_Combination_Depot-Ackley",
+        "text": "Illinois Central Combination Depot-Ackley is a historic building located in Ackley , Iowa , United States . The Dubuque & Sioux City Railroad , an affiliate of the Illinois Central Railroad ( IC ) , laid the first rail track to Iowa Falls in 1865 . Two years later the Iowa Falls & Sioux City Railroad , another IC affiliate , continued construction of the line to the west , and it reached Sioux City by 1870 . They built a plain , two-story frame depot to serve Ackley . From the 1890s to the 1920s the IC replaced its first generation stations with new brick structures . IC architect J.H . Schott designed the new depot at Ackley , and it was built by Coomer & Small Construction Company of Sioux City . The long and low single-story brick building exhibits influences from the Prairie School and the Tudor Revival style . A combination depot is one that incorporates passenger and freight services in the same building . It was also an island depot , meaning that it sat in the middle of the tracks . It was one of the last replacement depots the IC built before the Great Depression . The building was listed on the National Register of Historic Places in 1990 ."
+      },
+      {
+        "document_id": "/wiki/Iowa_Falls,_Iowa",
+        "text": "Iowa Falls is a city in Hardin County , Iowa , United States . Iowa Falls is the home of Ellsworth Community College . It is also a regional transportation center , located along U.S . Routes 20 and 65 and the Canadian National and Union Pacific Railroads . The population was 5,238 at the 2010 census . A landmark in the city is its movie theater . Built as the Metropolitan Opera House in 1899 , it presented plays , operas , and vaudeville in the town during the first half of the twentieth century , and today is listed on the National Register of Historic Places ."
+      },
+      {
+        "document_id": "/wiki/Iowa_Falls_Bridge",
+        "text": "The Iowa Falls Bridge , also known as the Oak Street Bridge , was a historic structure located in Iowa Falls , Iowa , United States . The span carried U.S. Route 65 over the Iowa River for 255 feet ( 78 m ) . The through arch bridge was built by the Weldon Brothers Construction Co. of Iowa Falls in 1928 for $ 51,374.98 . At the time it was completed the bridge was the longest arch span in the state of Iowa . It was listed on the National Register of Historic Places in 1998 . The historic bridge was demolished and replaced in 2010 ."
+      },
+      {
+        "document_id": "/wiki/Iowa_Falls_Union_Depot",
+        "text": "Iowa Falls Union Depot is a historic building located in Iowa Falls , Iowa , United States . The Dubuque & Sioux City Railroad , an affiliate of the Illinois Central Railroad ( IC ) , laid the first rail track to Iowa Falls in 1866 . The following year the Iowa Falls & Sioux City Railroad , another IC affiliate , continued construction of the line to the west , and it reached Sioux City by 1870 . They built a plain , two-story frame depot to serve Iowa Falls . The Burlington , Cedar Rapids and Northern Railway ( BCR & N ) by way of its affiliate the Cedar Rapids , Iowa Falls & North Western , entered Iowa Falls in 1880 . They built their own depot . It was basically another east-west route , but local business leaders desired a north-south route to serve the community . Iowa Falls businessman E.S . Ellsworth founded the Des Moines , Iowa Falls & Northern Railroad ( DMIF & N ) in 1899 with the intention of connecting Iowa Falls to Des Moines . They utilized the IC facilities in Iowa Falls for their local services . The IC decided to upgrade its facilities in 1902 . The new depot was typical of the second generation IC depots in Iowa ."
+      },
+      {
+        "document_id": "/wiki/Iowa_River",
+        "text": "The Iowa River is a tributary of the Mississippi River in the state of Iowa in the United States . It is about 323 miles ( 520 km ) long and is open to small river craft to Iowa City , about 65 miles ( 105 km ) from its mouth . Its major tributary is the Cedar River ."
+      },
+      {
+        "document_id": "/wiki/McClanahan_Block",
+        "text": "The McClanahan Block is a historic building located in Iowa Falls , Iowa , United States . The city experienced a devastating fire in 1874 , and most of the buildings on this block were built after the fire giving them a commonality of design . This two-story commercial building , completed in 1913 , stands out given its polychrome brick and the simplicity of its design . Its decorative elements are found in the patterns created on its surface utilizing the bricks . At the time this building was constructed , Washington Avenue was paved and cement sidewalks replaced their wooden predecessors . The building was individually listed on the National Register of Historic Places in 1993 . It was included as a contributing property in the Washington Avenue Commercial Historic District in 2012 ."
+      },
+      {
+        "document_id": "/wiki/New_Providence,_Iowa",
+        "text": "New Providence is a small city in Hardin County , Iowa , United States . The population was 228 at the 2010 census ."
+      },
+      {
+        "document_id": "/wiki/Steamboat_Rock,_Iowa",
+        "text": "Steamboat Rock is a city in Hardin County , Iowa , United States . The population was 310 at the 2010 census ."
+      },
+      {
+        "document_id": "/wiki/U.S._Route_65",
+        "text": "U.S. Route 65 ( US 65 ) is a north-south United States highway in the southern and midwestern United States . The southern terminus of the route is at U.S. Route 425 in Clayton , Louisiana . The northern terminus is at Interstate 35 just south of Interstate 90 in Albert Lea , Minnesota . Parts of its modern route in Iowa and historic route in Minnesota follow the old Jefferson Highway ."
+      }
+    ],
+    "rows": [
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "1"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Alden_Bridge"
+            ],
+            "text": "Alden Bridge"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "May 15 , 1998 ( # 98000517 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [
+              "/wiki/Iowa_River"
+            ],
+            "text": "Main St. over the Iowa River 42°31′16″N 93°22′32″W / 42.521111°N 93.375556°W / 42.521111 ; -93.375556 ( Alden Bridge )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Alden,_Iowa"
+            ],
+            "text": "Alden"
+          }
+        ],
+        "row_index": 0
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "2"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Alden_Public_Library"
+            ],
+            "text": "Alden Public Library"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "March 17 , 1981 ( # 81000241 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "1012 Water St. 42°31′07″N 93°22′01″W / 42.518611°N 93.366944°W / 42.518611 ; -93.366944 ( Alden Public Library )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Alden,_Iowa"
+            ],
+            "text": "Alden"
+          }
+        ],
+        "row_index": 1
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "3"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Carnegie-Ellsworth_Public_Library"
+            ],
+            "text": "Carnegie-Ellsworth Public Library"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "May 23 , 1983 ( # 83000363 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "520 Rocksylvania Ave. 42°31′18″N 93°15′50″W / 42.521722°N 93.263833°W / 42.521722 ; -93.263833 ( Carnegie-Ellsworth Public Library )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Iowa_Falls,_Iowa"
+            ],
+            "text": "Iowa Falls"
+          }
+        ],
+        "row_index": 2
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "4"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Civilian_Conservation_Corps-Prisoner_of_War_Recreation_Hall"
+            ],
+            "text": "Civilian Conservation Corps-Prisoner of War Recreation Hall"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "January 27 , 2012 ( # 11001056 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "301 11th Ave. 42°21′45″N 93°05′11″W / 42.362511°N 93.086336°W / 42.362511 ; -93.086336 ( Civilian Conservation Corps-Prisoner of War Recreation Hall )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Eldora,_Iowa"
+            ],
+            "text": "Eldora"
+          }
+        ],
+        "row_index": 3
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "5"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Edgewood_School_of_Domestic_Arts"
+            ],
+            "text": "Edgewood School of Domestic Arts"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "April 19 , 1979 ( # 79000897 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "719 River St. 42°31′26″N 93°16′06″W / 42.523861°N 93.268333°W / 42.523861 ; -93.268333 ( Edgewood School of Domestic Arts )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Iowa_Falls,_Iowa"
+            ],
+            "text": "Iowa Falls"
+          }
+        ],
+        "row_index": 4
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "6"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Eldora_Downtown_Historic_District"
+            ],
+            "text": "Eldora Downtown Historic District"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "May 12 , 2009 ( # 09000297 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "Approximately ten blocks in downtown Eldora around the courthouse square 42°21′37″N 93°05′56″W / 42.360197°N 93.098917°W / 42.360197 ; -93.098917 ( Eldora Downtown Historic District )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Eldora,_Iowa"
+            ],
+            "text": "Eldora"
+          }
+        ],
+        "row_index": 5
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "7"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Former_Eldora_Public_Library"
+            ],
+            "text": "Eldora Public Library"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "May 23 , 1983 ( # 83000364 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "1219 14th Ave. 42°21′35″N 93°05′55″W / 42.359611°N 93.09875°W / 42.359611 ; -93.09875 ( Eldora Public Library )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Eldora,_Iowa"
+            ],
+            "text": "Eldora"
+          }
+        ],
+        "row_index": 6
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "8"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Ellsworth-Jones_Building"
+            ],
+            "text": "Ellsworth-Jones Building"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "October 1 , 1993 ( # 93000959 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "511 Washington Ave. 42°31′10″N 93°15′49″W / 42.519389°N 93.263528°W / 42.519389 ; -93.263528 ( Ellsworth-Jones Building )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Iowa_Falls,_Iowa"
+            ],
+            "text": "Iowa Falls"
+          }
+        ],
+        "row_index": 7
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "9"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Estes_Park_Band_Shell"
+            ],
+            "text": "Estes Park Band Shell"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "October 1 , 1993 ( # 93000960 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "Estes Park 42°31′15″N 93°15′53″W / 42.520722°N 93.264806°W / 42.520722 ; -93.264806 ( Estes Park Band Shell )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Iowa_Falls,_Iowa"
+            ],
+            "text": "Iowa Falls"
+          }
+        ],
+        "row_index": 8
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "10"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/First_Congregational_Church_(Eldora,_Iowa)"
+            ],
+            "text": "First Congregational Church"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "December 4 , 1996 ( # 96001372 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "1209 12th St. 42°21′41″N 93°05′52″W / 42.361389°N 93.097778°W / 42.361389 ; -93.097778 ( First Congregational Church )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Eldora,_Iowa"
+            ],
+            "text": "Eldora"
+          }
+        ],
+        "row_index": 9
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "11"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/First_National_Bank_(Iowa_Falls,_Iowa)"
+            ],
+            "text": "First National Bank"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "October 1 , 1993 ( # 93000958 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "601 Washington Ave. 42°31′10″N 93°15′52″W / 42.519444°N 93.264361°W / 42.519444 ; -93.264361 ( First National Bank )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Iowa_Falls,_Iowa"
+            ],
+            "text": "Iowa Falls"
+          }
+        ],
+        "row_index": 10
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "12"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Folkert_Mound_Group"
+            ],
+            "text": "Folkert Mound Group"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "March 17 , 2009 ( # 09000126 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "Address Restricted"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Steamboat_Rock,_Iowa"
+            ],
+            "text": "Steamboat Rock"
+          }
+        ],
+        "row_index": 11
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "13"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Hardin_County_Courthouse_(Iowa)"
+            ],
+            "text": "Hardin County Courthouse"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "July 2 , 1981 ( # 81000242 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "Edgington Ave. 42°21′32″N 93°05′45″W / 42.358889°N 93.095833°W / 42.358889 ; -93.095833 ( Hardin County Courthouse )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Eldora,_Iowa"
+            ],
+            "text": "Eldora"
+          }
+        ],
+        "row_index": 12
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "14"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Hardin_County_Home_Historic_District"
+            ],
+            "text": "Hardin County Home Historic District"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "May 24 , 2010 ( # 10000275 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "28483 County Road D41 42°23′25″N 93°08′18″W / 42.390158°N 93.138206°W / 42.390158 ; -93.138206 ( Hardin County Home Historic District )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Eldora,_Iowa"
+            ],
+            "text": "Eldora"
+          }
+        ],
+        "row_index": 13
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "15"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Honey_Creek_Friends'_Meetinghouse"
+            ],
+            "text": "Honey Creek Friends ' Meetinghouse"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "February 8 , 1980 ( # 80001452 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "Southwest of New Providence 42°15′02″N 93°11′14″W / 42.250556°N 93.187222°W / 42.250556 ; -93.187222 ( Honey Creek Friends ' Meetinghouse )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/New_Providence,_Iowa"
+            ],
+            "text": "New Providence"
+          }
+        ],
+        "row_index": 14
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "16"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Illinois_Central_Combination_Depot-Ackley"
+            ],
+            "text": "Illinois Central Combination Depot-Ackley"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "September 6 , 1990 ( # 90001303 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "North of Railroad St. , between State and Mitchell Sts . 42°33′19″N 93°03′08″W / 42.555139°N 93.052306°W / 42.555139 ; -93.052306 ( Illinois Central Combination Depot-Ackley )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Ackley,_Iowa"
+            ],
+            "text": "Ackley"
+          }
+        ],
+        "row_index": 15
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "17"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Iowa_Falls_Bridge"
+            ],
+            "text": "Iowa Falls Bridge"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "May 15 , 1998 ( # 98000516 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [
+              "/wiki/U.S._Route_65",
+              "/wiki/Iowa_River"
+            ],
+            "text": "U.S. Route 65 over the Iowa River 42°31′06″N 93°15′46″W / 42.518333°N 93.262778°W / 42.518333 ; -93.262778 ( Iowa Falls Bridge )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Iowa_Falls,_Iowa"
+            ],
+            "text": "Iowa Falls"
+          }
+        ],
+        "row_index": 16
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "18"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Iowa_Falls_Union_Depot"
+            ],
+            "text": "Iowa Falls Union Depot"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "September 6 , 1990 ( # 90001305 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "E. Rocksylvania Ave. and Depot St. 42°31′16″N 93°15′23″W / 42.521222°N 93.2565°W / 42.521222 ; -93.2565 ( Iowa Falls Union Depot )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Iowa_Falls,_Iowa"
+            ],
+            "text": "Iowa Falls"
+          }
+        ],
+        "row_index": 17
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "19"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Glenn_and_Nell_Kurtz_Lustron_Home_and_Garage"
+            ],
+            "text": "Glenn and Nell Kurtz Lustron Home and Garage"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "December 2 , 2014 ( # 14000971 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "2017 Washington Ave. 42°31′11″N 93°16′58″W / 42.5196°N 93.2828°W / 42.5196 ; -93.2828 ( Glenn and Nell Kurtz Lustron Home and Garage )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Iowa_Falls,_Iowa"
+            ],
+            "text": "Iowa Falls"
+          }
+        ],
+        "row_index": 18
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "20"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/McClanahan_Block"
+            ],
+            "text": "McClanahan Block"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "October 1 , 1993 ( # 93000956 )"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "613 Washington Ave. 42°31′10″N 93°15′53″W / 42.519389°N 93.264806°W / 42.519389 ; -93.264806 ( McClanahan Block )"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [
+              "/wiki/Iowa_Falls,_Iowa"
+            ],
+            "text": "Iowa Falls"
+          }
+        ],
+        "row_index": 19
+      }
+    ],
+    "scope_contract": {
+      "dataset_provided_question_table_binding": true,
+      "document_scope": "table_link_closure",
+      "external_retrieval": false,
+      "full_table_link_closure_supplied": true,
+      "oracle_document_selection": false,
+      "question_or_answer_guided_pruning": false,
+      "table_retrieval_evaluated": false,
+      "table_scope": "full_selected_question_table",
+      "truncation": "none"
+    },
+    "section_title": "Current listings",
+    "source_split": "dev",
+    "table_id": "National_Register_of_Historic_Places_listings_in_Hardin_County,_Iowa_0",
+    "title": "National Register of Historic Places listings in Hardin County, Iowa"
+  },
+  "environment_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+  "packet_id": "ng_v0_1_question_05",
+  "payload_sha256": "1ede7b6ba0c4a9c15e1da1dd5478f99bbc091ee5712ecc2abb3762d3efe85743",
+  "protocol_sha256": "ffe774bedeec6d6e6f473ab505267113ae73edd9796ffcd1d92ea7b6dfbf3c94",
+  "question": "What is the historic place whose city or town is also a regional transportation center , located along U.S . Routes 20 and 65 and the Canadian National and Union Pacific Railroads ?",
+  "question_id": "1ca8ffcd3e20e498",
+  "response_schema_sha256": "03f1b5f9df5d7bc668c718ba321b0a75c0cbf466765b5fb72688fe98951fbb9f",
+  "schema_version": "narrowed_grounding_packet_v0_1"
+}

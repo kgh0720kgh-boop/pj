@@ -1,0 +1,950 @@
+{
+  "backbones": [
+    {
+      "graph": {
+        "entry_node_ids": [
+          "n1"
+        ],
+        "nodes": [
+          {
+            "depends_on": [],
+            "description": "Identify badminton players with medal rankings",
+            "implicit_rationale": null,
+            "node_id": "n1",
+            "other_role_description": null,
+            "role": "RESOLVE_REFERENT",
+            "source_cues": [
+              "medal-ranking badmiton player"
+            ]
+          },
+          {
+            "depends_on": [
+              "n1"
+            ],
+            "description": "Select the highest medal-ranking player",
+            "implicit_rationale": null,
+            "node_id": "n2",
+            "other_role_description": null,
+            "role": "ORDER_OR_EXTREMUM",
+            "source_cues": [
+              "The highest medal-ranking"
+            ]
+          },
+          {
+            "depends_on": [
+              "n2"
+            ],
+            "description": "Obtain the country the player now coaches for",
+            "implicit_rationale": null,
+            "node_id": "n3",
+            "other_role_description": null,
+            "role": "ACQUIRE_PROPERTY",
+            "source_cues": [
+              "now coaches for what country"
+            ]
+          }
+        ],
+        "output_node_ids": [
+          "n3"
+        ]
+      },
+      "variant_id": "primary"
+    }
+  ],
+  "candidates": [
+    {
+      "backbone_operator_mappings": [
+        {
+          "backbone_node_ids": [
+            "n1"
+          ],
+          "mapping_id": "mapping1",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op1"
+          ]
+        },
+        {
+          "backbone_node_ids": [
+            "n2"
+          ],
+          "mapping_id": "mapping2",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op2"
+          ]
+        },
+        {
+          "backbone_node_ids": [
+            "n3"
+          ],
+          "mapping_id": "mapping3",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op3"
+          ]
+        }
+      ],
+      "binding_slots": [
+        {
+          "cardinality": "multiple",
+          "environment_modality": "table_row_or_cell",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "table rows containing player, sport, and medal-count fields needed to form the badminton medal-ranking candidates",
+          "resolved_locator": null,
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "question_literal",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "the medal-ranking comparison intended by the phrase highest medal-ranking",
+          "resolved_locator": null,
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "player-linked document text expressing the country for which the selected player currently coaches",
+          "resolved_locator": null,
+          "slot_id": "slot3"
+        }
+      ],
+      "candidate_sha256": "982496e1b030bf90eac0a0a8fe5b0ef996ede38ed9ce82993820e5e9861993aa",
+      "distinguishing_assumptions": [
+        "Medal ranking is determined from the table's medal columns rather than from prose in player documents."
+      ],
+      "graph": {
+        "entry_node_ids": [
+          "op1"
+        ],
+        "nodes": [
+          {
+            "depends_on": [],
+            "input_slot_ids": [
+              "slot1"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op1",
+            "operation_description": "Filter the supplied medal table to badminton rows and retain each player's medal fields as the ranking evidence.",
+            "operator_boundary_rationale": "Sport filtering and candidate formation jointly realize the first referent set.",
+            "output_description": "badminton players paired with their table-supplied medal rankings",
+            "record_local_label": "collect badminton medal rows"
+          },
+          {
+            "depends_on": [
+              "op1"
+            ],
+            "input_slot_ids": [
+              "slot2"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op2",
+            "operation_description": "Apply the medal-ranking comparison expressed by the question to the candidates produced by op1.",
+            "operator_boundary_rationale": "The extremum step is separated from candidate collection so the n1-to-n2 dependency remains explicit.",
+            "output_description": "the player selected as highest under the intended medal-ranking comparison",
+            "record_local_label": "select highest medal-ranked player"
+          },
+          {
+            "depends_on": [
+              "op2"
+            ],
+            "input_slot_ids": [
+              "slot3"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op3",
+            "operation_description": "Follow the selected player's table link and read the current coaching-country relation from the supplied linked text.",
+            "operator_boundary_rationale": "The requested property is read only after the highest-ranked player referent has been selected.",
+            "output_description": "the country requested by the question",
+            "record_local_label": "read selected player's current coaching country"
+          }
+        ],
+        "output_node_ids": [
+          "op3"
+        ]
+      },
+      "observation_alias": "observation_01",
+      "target_backbone_variant_id": "primary"
+    },
+    {
+      "backbone_operator_mappings": [
+        {
+          "backbone_node_ids": [
+            "n1"
+          ],
+          "mapping_id": "mapping1",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op1"
+          ]
+        },
+        {
+          "backbone_node_ids": [
+            "n2"
+          ],
+          "mapping_id": "mapping2",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op2"
+          ]
+        },
+        {
+          "backbone_node_ids": [
+            "n3"
+          ],
+          "mapping_id": "mapping3",
+          "mapping_kind": "one_to_one",
+          "operator_node_ids": [
+            "op3"
+          ]
+        }
+      ],
+      "binding_slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "question_literal",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "the question-stated badminton sport restriction",
+          "resolved_locator": null,
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "table_header",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "the table fields that identify player, sport, and medal-rank values",
+          "resolved_locator": null,
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "table_row_or_cell",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "badminton player rows with their medal-rank values and displayed order",
+          "resolved_locator": null,
+          "slot_id": "slot3"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "cell_link",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "the selected player's unresolved link from the name cell",
+          "resolved_locator": null,
+          "slot_id": "slot4"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "grounding_status": "not_grounded_in_this_stage",
+          "required_semantics": "a linked player-document statement identifying the country currently coached",
+          "resolved_locator": null,
+          "slot_id": "slot5"
+        }
+      ],
+      "candidate_sha256": "6858d4dd43004f8a38bd3ab94c798befddefd94ee4b5fc94cd2347f51d23acb0",
+      "distinguishing_assumptions": [
+        "Medal ranking is determined from the table's medal fields and displayed ordering.",
+        "If medal tuples tie, the displayed ranking order supplies the singular top row required by the question-only answer specification."
+      ],
+      "graph": {
+        "entry_node_ids": [
+          "op1"
+        ],
+        "nodes": [
+          {
+            "depends_on": [],
+            "input_slot_ids": [
+              "slot1",
+              "slot2",
+              "slot3"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op1",
+            "operation_description": "Filter the medal table to badminton and retain each player's medal-ranking fields.",
+            "operator_boundary_rationale": "Sport filtering and rank-value collection jointly realize the first referent set.",
+            "output_description": "badminton players paired with medal-rank information",
+            "record_local_label": "collect badminton medal rows"
+          },
+          {
+            "depends_on": [
+              "op1"
+            ],
+            "input_slot_ids": [
+              "slot3"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op2",
+            "operation_description": "Order the retained players by the table's medal-ranking presentation and select one highest row.",
+            "operator_boundary_rationale": "Ranking remains separate so the extremum dependency is explicit.",
+            "output_description": "one highest medal-ranking badminton player",
+            "record_local_label": "choose highest displayed medal rank"
+          },
+          {
+            "depends_on": [
+              "op2"
+            ],
+            "input_slot_ids": [
+              "slot4",
+              "slot5"
+            ],
+            "label_is_cross_record_taxonomy_key": false,
+            "node_id": "op3",
+            "operation_description": "Follow the selected player's unresolved cell link and read the country currently coached from linked text.",
+            "operator_boundary_rationale": "The linked-text property read is the sole output step.",
+            "output_description": "one coached-country entity",
+            "record_local_label": "read current coaching country"
+          }
+        ],
+        "output_node_ids": [
+          "op3"
+        ]
+      },
+      "observation_alias": "observation_02",
+      "target_backbone_variant_id": "primary"
+    }
+  ],
+  "environment": {
+    "columns": [
+      {
+        "column_index": 0,
+        "linked_document_ids": [],
+        "text": "Name"
+      },
+      {
+        "column_index": 1,
+        "linked_document_ids": [],
+        "text": "Sport"
+      },
+      {
+        "column_index": 2,
+        "linked_document_ids": [],
+        "text": "Gold"
+      },
+      {
+        "column_index": 3,
+        "linked_document_ids": [],
+        "text": "Silver"
+      },
+      {
+        "column_index": 4,
+        "linked_document_ids": [],
+        "text": "Total"
+      }
+    ],
+    "linked_documents": [
+      {
+        "document_id": "/wiki/Badminton_at_the_1998_Commonwealth_Games",
+        "text": "The badminton competition at the 1998 Commonwealth Games took place at the Kuala Lumpur Badminton Stadium in Kuala Lumpur , Malaysia from 11 September until 21 September 1998 . There were no bronze medal play off matches because both losing semi-finalists were awarded a bronze medal ."
+      },
+      {
+        "document_id": "/wiki/Bibiana_Ng_Pei_Chin",
+        "text": "Pei Chin Bibiana ( Chinese : 黄佩琴 , born 16 June 1977 ) , in Langkawi , Malaysia . Pei has been a practicing shooter since 1994 and began competing in the same year . She competed at the 2010 Commonwealth Games in Delhi , Winning gold medal in 10m air pistol individual event ."
+      },
+      {
+        "document_id": "/wiki/Cheah_Soon_Kit",
+        "text": "Cheah Soon Kit KMN BSD ( born 9 January 1968 in Ipoh , Perak ) is a former Malaysian badminton player , specialised in men 's doubles ."
+      },
+      {
+        "document_id": "/wiki/Choong_Tan_Fook",
+        "text": "Choong Tan Fook AMN ( born 6 February 1976 ) is a former badminton player from Malaysia . Choong is currently coaching the Hong Kong badminton team ."
+      },
+      {
+        "document_id": "/wiki/Chor_Hooi_Yee",
+        "text": "Chor Hooi Yee ( born 4 May 1979 ) is a Malaysian former badminton player . Chor was the women 's doubles silver medalist at the 1998 Commonwealth Games in Kuala Lumpur partnered with Lim Pek Siah , also helped the team reached the final and clinched the silver medal . Teamed-up with Chew Choon Eng in the mixed doubles , they claimed the gold medal at the 1999 Southeast Asian Games in Brunei . She previously left the Badminton Association of Malaysia due to nagging injuries and her studies in 2001 , and in 2004 she made a comeback to the national squad . Chor educated business in HELP University . She now works as an executive committee member of Cheras club ."
+      },
+      {
+        "document_id": "/wiki/Gymnastics_at_the_1998_Commonwealth_Games",
+        "text": "The 1998 Commonwealth Games ( Malay : Sukan Komanwel 1998 ) , officially known as the XVI Commonwealth Games ( Malay : Sukan Komanwel ke-16 ) , was a multi-sport event held in Kuala Lumpur , Malaysia . This edition is marked by several unprecedented facts in the history of the event . The 1998 games were the first held in an Asian country and the last Commonwealth Games of the 20th century . This was also the first time the games took place in a nation with a head of state other than the Head of the Commonwealth , and the first time the games were held in a country whose majority of the population did not have English as the first language . For the first time ever , the games included team sports . The other bid from the 1998 games came from Adelaide in Australia . Malaysia was the eighth nation to host the Commonwealth Games after Canada , England , Australia , New Zealand , Wales , Jamaica and Scotland . Around 3638 athletes from 69 Commonwealth member nations participated at the games which featured 214 events in 15 sports with 34 of them collected medals ."
+      },
+      {
+        "document_id": "/wiki/Lee_Wan_Wah",
+        "text": "Lee Wan Wah AMN ( born 24 November 1975 ) is a former badminton player from Malaysia . He is currently the Japan 's junior team coach ."
+      },
+      {
+        "document_id": "/wiki/Lim_Pek_Siah",
+        "text": "Lim Pek Siah ( born 8 October 1979 ) is a Malaysian former badminton player , who now works as a national badminton coach . Lim had won the women 's doubles silver medal at the 1998 Commonwealth Games in Kuala Lumpur partnered with Chor Hooi Yee , also helped the team reached the final and clinched the silver medal . She made it to the women 's doubles gold medal in 2002 Manchester with Ang Li Peng . She started her career as the women 's doubles national coach in 2015 ."
+      },
+      {
+        "document_id": "/wiki/Shooting_at_the_1998_Commonwealth_Games",
+        "text": "The 1998 Commonwealth Games ( Malay : Sukan Komanwel 1998 ) , officially known as the XVI Commonwealth Games ( Malay : Sukan Komanwel ke-16 ) , was a multi-sport event held in Kuala Lumpur , Malaysia . This edition is marked by several unprecedented facts in the history of the event . The 1998 games were the first held in an Asian country and the last Commonwealth Games of the 20th century . This was also the first time the games took place in a nation with a head of state other than the Head of the Commonwealth , and the first time the games were held in a country whose majority of the population did not have English as the first language . For the first time ever , the games included team sports . The other bid from the 1998 games came from Adelaide in Australia . Malaysia was the eighth nation to host the Commonwealth Games after Canada , England , Australia , New Zealand , Wales , Jamaica and Scotland . Around 3638 athletes from 69 Commonwealth member nations participated at the games which featured 214 events in 15 sports with 34 of them collected medals ."
+      },
+      {
+        "document_id": "/wiki/Ten-pin_bowling_at_the_1998_Commonwealth_Games",
+        "text": "The 1998 Commonwealth Games ( Malay : Sukan Komanwel 1998 ) , officially known as the XVI Commonwealth Games ( Malay : Sukan Komanwel ke-16 ) , was a multi-sport event held in Kuala Lumpur , Malaysia . This edition is marked by several unprecedented facts in the history of the event . The 1998 games were the first held in an Asian country and the last Commonwealth Games of the 20th century . This was also the first time the games took place in a nation with a head of state other than the Head of the Commonwealth , and the first time the games were held in a country whose majority of the population did not have English as the first language . For the first time ever , the games included team sports . The other bid from the 1998 games came from Adelaide in Australia . Malaysia was the eighth nation to host the Commonwealth Games after Canada , England , Australia , New Zealand , Wales , Jamaica and Scotland . Around 3638 athletes from 69 Commonwealth member nations participated at the games which featured 214 events in 15 sports with 34 of them collected medals ."
+      },
+      {
+        "document_id": "/wiki/Weightlifting_at_the_1998_Commonwealth_Games",
+        "text": "The 1998 Commonwealth Games ( Malay : Sukan Komanwel 1998 ) , officially known as the XVI Commonwealth Games ( Malay : Sukan Komanwel ke-16 ) , was a multi-sport event held in Kuala Lumpur , Malaysia . This edition is marked by several unprecedented facts in the history of the event . The 1998 games were the first held in an Asian country and the last Commonwealth Games of the 20th century . This was also the first time the games took place in a nation with a head of state other than the Head of the Commonwealth , and the first time the games were held in a country whose majority of the population did not have English as the first language . For the first time ever , the games included team sports . The other bid from the 1998 games came from Adelaide in Australia . Malaysia was the eighth nation to host the Commonwealth Games after Canada , England , Australia , New Zealand , Wales , Jamaica and Scotland . Around 3638 athletes from 69 Commonwealth member nations participated at the games which featured 214 events in 15 sports with 34 of them collected medals ."
+      },
+      {
+        "document_id": "/wiki/Wong_Choong_Hann",
+        "text": "Wong Choong Hann AMN ( simplified Chinese : 黄综翰 ; traditional Chinese : 黃綜翰 ; pinyin : Huáng Zònghàn ; born 17 February 1977 ) is a former World No.1 professional badminton player from Malaysia . He is the first Malaysian to win a medal in the men 's singles event at the BWF World Championships ."
+      },
+      {
+        "document_id": "/wiki/Yap_Kim_Hock",
+        "text": "Yap Kim Hock AMN ( simplified Chinese : 叶锦福 ; traditional Chinese : 葉錦福 ; pinyin : Yé Jǐnfú ; born on 2 August 1970 in Muar , Johor ) is a retired male badminton player from Malaysia , specialised in men 's doubles ."
+      },
+      {
+        "document_id": "/wiki/Yong_Hock_Kin",
+        "text": "Yong Hock Kin ( born 14 June 1976 in Negeri Sembilan ) is a former badminton player from Malaysia . He is best known for his powerful smashes , stamina and determination ."
+      }
+    ],
+    "rows": [
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [
+              "/wiki/Choong_Tan_Fook"
+            ],
+            "text": "Choong Tan Fook"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Badminton_at_the_1998_Commonwealth_Games"
+            ],
+            "text": "Badminton"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "2"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": ""
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [],
+            "text": "2"
+          }
+        ],
+        "row_index": 0
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "Kenny Ang"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Ten-pin_bowling_at_the_1998_Commonwealth_Games"
+            ],
+            "text": "Ten-pin bowling"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "2"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": ""
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [],
+            "text": "2"
+          }
+        ],
+        "row_index": 1
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [
+              "/wiki/Lee_Wan_Wah"
+            ],
+            "text": "Lee Wan Wah"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Badminton_at_the_1998_Commonwealth_Games"
+            ],
+            "text": "Badminton"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "2"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": ""
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [],
+            "text": "2"
+          }
+        ],
+        "row_index": 2
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [
+              "/wiki/Wong_Choong_Hann"
+            ],
+            "text": "Wong Choong Hann"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Badminton_at_the_1998_Commonwealth_Games"
+            ],
+            "text": "Badminton"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "2"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": ""
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [],
+            "text": "2"
+          }
+        ],
+        "row_index": 3
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "Thye Chee Kiat"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Gymnastics_at_the_1998_Commonwealth_Games"
+            ],
+            "text": "Gymnastics"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "1"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "1"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [],
+            "text": "3"
+          }
+        ],
+        "row_index": 4
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [
+              "/wiki/Cheah_Soon_Kit"
+            ],
+            "text": "Cheah Soon Kit"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Badminton_at_the_1998_Commonwealth_Games"
+            ],
+            "text": "Badminton"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "1"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "1"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [],
+            "text": "2"
+          }
+        ],
+        "row_index": 5
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "Muhammad Hidayat Hamidon"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Weightlifting_at_the_1998_Commonwealth_Games"
+            ],
+            "text": "Weightlifting"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "1"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "1"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [],
+            "text": "2"
+          }
+        ],
+        "row_index": 6
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [
+              "/wiki/Yap_Kim_Hock"
+            ],
+            "text": "Yap Kim Hock"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Badminton_at_the_1998_Commonwealth_Games"
+            ],
+            "text": "Badminton"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "1"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "1"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [],
+            "text": "2"
+          }
+        ],
+        "row_index": 7
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [
+              "/wiki/Yong_Hock_Kin"
+            ],
+            "text": "Yong Hock Kin"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Badminton_at_the_1998_Commonwealth_Games"
+            ],
+            "text": "Badminton"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "1"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "1"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [],
+            "text": "2"
+          }
+        ],
+        "row_index": 8
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "Carolyn Au Yong"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Gymnastics_at_the_1998_Commonwealth_Games"
+            ],
+            "text": "Gymnastics"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": "1"
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": ""
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [],
+            "text": "2"
+          }
+        ],
+        "row_index": 9
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [
+              "/wiki/Chor_Hooi_Yee"
+            ],
+            "text": "Chor Hooi Yee"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Badminton_at_the_1998_Commonwealth_Games"
+            ],
+            "text": "Badminton"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": ""
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "2"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [],
+            "text": "2"
+          }
+        ],
+        "row_index": 10
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [
+              "/wiki/Lim_Pek_Siah"
+            ],
+            "text": "Lim Pek Siah"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Badminton_at_the_1998_Commonwealth_Games"
+            ],
+            "text": "Badminton"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": ""
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "2"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [],
+            "text": "2"
+          }
+        ],
+        "row_index": 11
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "Mohammed Emran Zakaria"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Shooting_at_the_1998_Commonwealth_Games"
+            ],
+            "text": "Shooting"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": ""
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "2"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [],
+            "text": "2"
+          }
+        ],
+        "row_index": 12
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [
+              "/wiki/Bibiana_Ng_Pei_Chin"
+            ],
+            "text": "Bibiana Ng Pei Chin"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Shooting_at_the_1998_Commonwealth_Games"
+            ],
+            "text": "Shooting"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": ""
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "1"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [],
+            "text": "2"
+          }
+        ],
+        "row_index": 13
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "Lai Kin Ngoh"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Ten-pin_bowling_at_the_1998_Commonwealth_Games"
+            ],
+            "text": "Ten-pin bowling"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": ""
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": "1"
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [],
+            "text": "2"
+          }
+        ],
+        "row_index": 14
+      },
+      {
+        "cells": [
+          {
+            "column_index": 0,
+            "linked_document_ids": [],
+            "text": "Matin Guntali"
+          },
+          {
+            "column_index": 1,
+            "linked_document_ids": [
+              "/wiki/Weightlifting_at_the_1998_Commonwealth_Games"
+            ],
+            "text": "Weightlifting"
+          },
+          {
+            "column_index": 2,
+            "linked_document_ids": [],
+            "text": ""
+          },
+          {
+            "column_index": 3,
+            "linked_document_ids": [],
+            "text": ""
+          },
+          {
+            "column_index": 4,
+            "linked_document_ids": [],
+            "text": "3"
+          }
+        ],
+        "row_index": 15
+      }
+    ],
+    "scope_contract": {
+      "dataset_provided_question_table_binding": true,
+      "document_scope": "table_link_closure",
+      "external_retrieval": false,
+      "full_table_link_closure_supplied": true,
+      "oracle_document_selection": false,
+      "question_or_answer_guided_pruning": false,
+      "table_retrieval_evaluated": false,
+      "table_scope": "full_selected_question_table",
+      "truncation": "none"
+    },
+    "section_title": "Medal summary -- Multiple medalists",
+    "source_split": "dev",
+    "table_id": "Malaysia_at_the_1998_Commonwealth_Games_1",
+    "title": "Malaysia at the 1998 Commonwealth Games"
+  },
+  "environment_sha256": "e97bcbb449dcd97d3168c739a946e4fe771217ee15a9f5b7c70b9dffc990a6f6",
+  "packet_id": "ng_v0_1_question_02",
+  "payload_sha256": "2a5fde452fca6a44f89243ddbbef6dd9e3d2dfb4eefa5fbb4039aa628af7b7c6",
+  "protocol_sha256": "ffe774bedeec6d6e6f473ab505267113ae73edd9796ffcd1d92ea7b6dfbf3c94",
+  "question": "The highest medal-ranking badmiton player now coaches for what country ?",
+  "question_id": "cc681cfdba9badd5",
+  "response_schema_sha256": "03f1b5f9df5d7bc668c718ba321b0a75c0cbf466765b5fb72688fe98951fbb9f",
+  "schema_version": "narrowed_grounding_packet_v0_1"
+}
