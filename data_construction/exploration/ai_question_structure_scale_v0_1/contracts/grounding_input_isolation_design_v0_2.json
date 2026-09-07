@@ -1,0 +1,164 @@
+{
+  "schema_version": "grounding_input_isolation_design_v0_2",
+  "status": "design_only_no_transport_qualified",
+  "purpose": "Repair research input-delivery isolation, not semantic grounding rules.",
+  "preserved_failure": {
+    "decision": "STOP_TECHNICAL_OR_LEAKAGE_FAILURE",
+    "raw_contexts_known_exposed": 6,
+    "accepted_candidate_records": 0,
+    "disposition": "immutable_no_repair_relabel_retry_or_semantic_tuning"
+  },
+  "scope": {
+    "research_question_ids": [],
+    "fresh_question_ids_used": 0,
+    "locked_question_ids_used": 0,
+    "new_research_authoring_authorized": false,
+    "grounding_authorized": false,
+    "execution_authorized": false,
+    "answer_recovery_authorized": false,
+    "platform_configuration_changes_authorized": false
+  },
+  "trust_boundary": {
+    "host_evidence": "A separately implemented and frozen adapter must capture host-controlled input assembly and delivery, not merely repeat the coordinator's intended allowlist.",
+    "author_disclosure": "Supplemental negative evidence only: known excluded exposure stops, unknown blocks, a clean self-report cannot establish host completeness.",
+    "opaque_platform": "Do not request hidden instructions, hidden reasoning, secrets, or privileged prompt text. Record opaque policy/runtime components by available identity and an independently reviewable no-project-retrieval boundary. If project/history injection cannot be excluded at that boundary, BLOCK.",
+    "claim_limit": "Byte hashes authenticate saved identity, not truthful completeness, cognitive independence, model pretraining non-exposure or absence of latent inference.",
+    "current_channel": "The v0.1 non-forked repository-author channel is unqualified; six known-exposed reports cannot be cleared by a new thread, changed cwd, AGENTS override or self-attestation."
+  },
+  "inventory_categories": [
+    "explicit_messages_and_attachments",
+    "global_and_project_instructions",
+    "conversation_history_and_resume_state",
+    "memory_and_retrieval",
+    "skills_metadata_and_content",
+    "tool_definitions_and_tool_results",
+    "workspace_files_and_environment_metadata",
+    "connectors_and_external_sources",
+    "platform_managed_context"
+  ],
+  "inventory_contract": {
+    "per_category_required": [
+      "category",
+      "visibility_status",
+      "delivery_status",
+      "evidence_reference",
+      "content_identity_or_unavailability_reason",
+      "excluded_research_content_status"
+    ],
+    "visibility_statuses": [
+      "host_captured",
+      "independently_documented_boundary",
+      "unknown"
+    ],
+    "delivery_statuses": [
+      "included",
+      "disabled_verified",
+      "unknown"
+    ],
+    "unknown_rule": "Missing category, unsupported suppression setting, missing audit evidence or uncertain project-content boundary blocks; do not replace unknown with empty.",
+    "included_rule": "Every included host-controlled payload requires a byte hash, role, sequence, source class, and precommitted allowlist match. Content must contain no study results, question text, graph, binding, answer or historical label in this diagnostic.",
+    "privacy_rule": "Keep secrets and machine-local paths out of portable receipts; use logical resource identities. Do not publish privileged platform text."
+  },
+  "receipt_contract": {
+    "required_host_fields": [
+      "contract_sha256",
+      "probe_plan_sha256",
+      "adapter_implementation_commit",
+      "adapter_configuration_sha256",
+      "context_id",
+      "launch_nonce",
+      "initial_input_manifest_sha256",
+      "delivery_event_log_sha256",
+      "inventory",
+      "model_identity",
+      "capture_limitations"
+    ],
+    "required_author_fields": [
+      "context_id",
+      "launch_nonce",
+      "prior_exposure",
+      "unexpected_input_categories",
+      "capture_limitations"
+    ],
+    "prior_exposure_values": [
+      "no_known_exposure",
+      "known_exposed",
+      "unknown"
+    ],
+    "binding_rule": "Host capture and author disclosure must bind the same unique context/nonce, exact configuration, ordered delivered bytes and frozen plan. Host evidence must have a verifiable origin outside the author's response; a hand-filled coordinator attestation is not sufficient.",
+    "replay_rule": "Never reuse a clearance across contexts, resumed threads, config/tool changes or added inputs. Every future research context requires its own pre-packet gate and post-delivery audit.",
+    "provenance_rule": "Record actual transport/model identifiers; exact revision, seed and backend raw-stream capture must explicitly say unavailable when not exposed. Self-report is not backend authentication."
+  },
+  "stages": [
+    "commit_design_and_freeze_receipt_while_probe_and_new_grounding_namespaces_absent",
+    "implement_and_commit_transport_adapter_schemas_verifier_and_synthetic_tests_without_model_calls",
+    "freeze_exact_question_free_probe_plan_runtime_and_expected_outputs_before_launch",
+    "capture_host_initial_inputs_and_author_disclosure_before_any_research_payload",
+    "verify_bindings_inventory_exclusions_and_precommitted_control_expectations",
+    "freeze_every_raw_capture_and_diagnostic_result_without_repair",
+    "only_if_qualified_consider_separate_researcher_authorized_grounding_plan"
+  ],
+  "probe_contract": {
+    "cases": [
+      {
+        "case_id": "synthetic_closed_context",
+        "expected": "QUALIFIED_FOR_SEPARATE_PLAN_ONLY",
+        "description": "Only frozen neutral diagnostic inputs; qualification additionally requires complete independently evidenced host boundary, never just canary absence."
+      },
+      {
+        "case_id": "synthetic_known_injection",
+        "expected": "STOP_INPUT_ISOLATION_FAILURE",
+        "description": "Deliberately inject an approved synthetic exclusion marker through a project-instruction-like source; never use real AGENTS or study facts."
+      },
+      {
+        "case_id": "synthetic_opaque_boundary",
+        "expected": "BLOCKED_UNVERIFIABLE_CONTEXT",
+        "description": "Withhold a controlled inventory component; the verifier must refuse clearance even if the author claims clean."
+      }
+    ],
+    "max_launches_per_case": 1,
+    "retry_policy": "Preserve failed or incomplete first captures; no outcome-conditioned replacement. Changing adapter or protocol requires a new version and output-absent freeze.",
+    "research_payloads_allowed": false,
+    "actual_platform_probe_count": 0,
+    "positive_control_limit": "Detection of a known marker tests one path only; non-detection of an unknown marker cannot prove total isolation.",
+    "future_probe_gate": "If no available authorized transport can supply sufficient host evidence, record BLOCKED_UNVERIFIABLE_CONTEXT before model dispatch and request the missing transport/authority; never fabricate a receipt."
+  },
+  "branch_order": [
+    {
+      "decision": "STOP_INPUT_ISOLATION_FAILURE",
+      "when": "in this context: known excluded content, premature research delivery, contradictory or tampered evidence, replay, or forbidden retrieval"
+    },
+    {
+      "decision": "BLOCKED_UNVERIFIABLE_CONTEXT",
+      "when": "no known failure but any inventory boundary, source evidence, provenance binding or author exposure status is unknown/unverifiable"
+    },
+    {
+      "decision": "INCOMPLETE_ISOLATION_PROBE",
+      "when": "no known failure/unknown boundary, but any planned capture or control result is missing"
+    },
+    {
+      "decision": "QUALIFIED_FOR_SEPARATE_PLAN_ONLY",
+      "when": "this context has complete bound evidence and no preceding stop/block/incomplete condition; this is transport-scoped diagnostic qualification, never research authorization"
+    }
+  ],
+  "aggregate_probe_rule": "Apply branch_order per context. The known-injection and opaque controls must STOP and BLOCK respectively; those expected outcomes are not failures of the suite. Any unexpected control outcome stops the suite; missing captures make it incomplete; an unverifiable closed-context case blocks it. Only all three expected outcomes plus independently verified host evidence qualify the adapter for consideration of a separate plan. Expected control results never qualify the contaminated or opaque contexts themselves.",
+  "identity_migration": {
+    "old_packet_protocol_sha256": "Preserved v0.1 field hashes the author guide; protocol itself remains transitively bound. This is a naming defect, not byte corruption.",
+    "new_version_required_fields": [
+      "protocol_sha256",
+      "author_guide_sha256",
+      "response_schema_sha256",
+      "packet_payload_sha256",
+      "input_manifest_sha256"
+    ],
+    "hash_rule": "Each field hashes the exact bytes of its explicitly named component. Define payload canonicalization separately before implementation; do not alias protocol and guide identities.",
+    "old_bytes_changed": false
+  },
+  "evidence_boundary": {
+    "human_evidence": 0,
+    "semantic_gold": false,
+    "grounding_quality_evaluated": false,
+    "transport_qualified": false,
+    "new_model_calls": 0
+  }
+}
