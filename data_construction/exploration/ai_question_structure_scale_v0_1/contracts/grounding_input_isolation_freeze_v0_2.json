@@ -1,0 +1,393 @@
+{
+  "contract_artifacts": [
+    {
+      "bytes": 9037,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/grounding_input_isolation_design_v0_2.json",
+      "sha256": "ba3e3d18a1b2b1e3bbe48733848453afbf40729a1f1cd3fab19b998d28cbce1c"
+    },
+    {
+      "bytes": 5692,
+      "path": "data_construction/reports/research_sequencing_decision_v0_13.md",
+      "sha256": "09dba1b71ac3c31a9177b8a72ac35a8508d4490c519c1a334daefc53d6976613"
+    },
+    {
+      "bytes": 15292,
+      "path": "data_construction/tools/_common.py",
+      "sha256": "5e879a163863e3d4e497a57be99f4dc40a0e033d351dfed8da991514c789f64d"
+    },
+    {
+      "bytes": 9214,
+      "path": "data_construction/tools/freeze_grounding_input_isolation_v0_2.py",
+      "sha256": "456e8f7d90ca0931829483696ef78622ec2f472a1a8c943032ff4a6e55b1e131"
+    },
+    {
+      "bytes": 14407,
+      "path": "data_construction/tools/freeze_narrowed_grounding_plan_v0_1.py",
+      "sha256": "7d8abc7f7f40ea24cff4ce02ea232898dfa9f7516050e59fda03613a6d7c9f05"
+    },
+    {
+      "bytes": 7794,
+      "path": "tests/test_grounding_input_isolation_v0_2.py",
+      "sha256": "49c66e18ff8c788e1f46008b7dc99926190c2139c824682128a1156ab73a0f92"
+    }
+  ],
+  "design": {
+    "aggregate_probe_rule": "Apply branch_order per context. The known-injection and opaque controls must STOP and BLOCK respectively; those expected outcomes are not failures of the suite. Any unexpected control outcome stops the suite; missing captures make it incomplete; an unverifiable closed-context case blocks it. Only all three expected outcomes plus independently verified host evidence qualify the adapter for consideration of a separate plan. Expected control results never qualify the contaminated or opaque contexts themselves.",
+    "branch_order": [
+      {
+        "decision": "STOP_INPUT_ISOLATION_FAILURE",
+        "when": "in this context: known excluded content, premature research delivery, contradictory or tampered evidence, replay, or forbidden retrieval"
+      },
+      {
+        "decision": "BLOCKED_UNVERIFIABLE_CONTEXT",
+        "when": "no known failure but any inventory boundary, source evidence, provenance binding or author exposure status is unknown/unverifiable"
+      },
+      {
+        "decision": "INCOMPLETE_ISOLATION_PROBE",
+        "when": "no known failure/unknown boundary, but any planned capture or control result is missing"
+      },
+      {
+        "decision": "QUALIFIED_FOR_SEPARATE_PLAN_ONLY",
+        "when": "this context has complete bound evidence and no preceding stop/block/incomplete condition; this is transport-scoped diagnostic qualification, never research authorization"
+      }
+    ],
+    "evidence_boundary": {
+      "grounding_quality_evaluated": false,
+      "human_evidence": 0,
+      "new_model_calls": 0,
+      "semantic_gold": false,
+      "transport_qualified": false
+    },
+    "identity_migration": {
+      "hash_rule": "Each field hashes the exact bytes of its explicitly named component. Define payload canonicalization separately before implementation; do not alias protocol and guide identities.",
+      "new_version_required_fields": [
+        "protocol_sha256",
+        "author_guide_sha256",
+        "response_schema_sha256",
+        "packet_payload_sha256",
+        "input_manifest_sha256"
+      ],
+      "old_bytes_changed": false,
+      "old_packet_protocol_sha256": "Preserved v0.1 field hashes the author guide; protocol itself remains transitively bound. This is a naming defect, not byte corruption."
+    },
+    "inventory_categories": [
+      "explicit_messages_and_attachments",
+      "global_and_project_instructions",
+      "conversation_history_and_resume_state",
+      "memory_and_retrieval",
+      "skills_metadata_and_content",
+      "tool_definitions_and_tool_results",
+      "workspace_files_and_environment_metadata",
+      "connectors_and_external_sources",
+      "platform_managed_context"
+    ],
+    "inventory_contract": {
+      "delivery_statuses": [
+        "included",
+        "disabled_verified",
+        "unknown"
+      ],
+      "included_rule": "Every included host-controlled payload requires a byte hash, role, sequence, source class, and precommitted allowlist match. Content must contain no study results, question text, graph, binding, answer or historical label in this diagnostic.",
+      "per_category_required": [
+        "category",
+        "visibility_status",
+        "delivery_status",
+        "evidence_reference",
+        "content_identity_or_unavailability_reason",
+        "excluded_research_content_status"
+      ],
+      "privacy_rule": "Keep secrets and machine-local paths out of portable receipts; use logical resource identities. Do not publish privileged platform text.",
+      "unknown_rule": "Missing category, unsupported suppression setting, missing audit evidence or uncertain project-content boundary blocks; do not replace unknown with empty.",
+      "visibility_statuses": [
+        "host_captured",
+        "independently_documented_boundary",
+        "unknown"
+      ]
+    },
+    "preserved_failure": {
+      "accepted_candidate_records": 0,
+      "decision": "STOP_TECHNICAL_OR_LEAKAGE_FAILURE",
+      "disposition": "immutable_no_repair_relabel_retry_or_semantic_tuning",
+      "raw_contexts_known_exposed": 6
+    },
+    "probe_contract": {
+      "actual_platform_probe_count": 0,
+      "cases": [
+        {
+          "case_id": "synthetic_closed_context",
+          "description": "Only frozen neutral diagnostic inputs; qualification additionally requires complete independently evidenced host boundary, never just canary absence.",
+          "expected": "QUALIFIED_FOR_SEPARATE_PLAN_ONLY"
+        },
+        {
+          "case_id": "synthetic_known_injection",
+          "description": "Deliberately inject an approved synthetic exclusion marker through a project-instruction-like source; never use real AGENTS or study facts.",
+          "expected": "STOP_INPUT_ISOLATION_FAILURE"
+        },
+        {
+          "case_id": "synthetic_opaque_boundary",
+          "description": "Withhold a controlled inventory component; the verifier must refuse clearance even if the author claims clean.",
+          "expected": "BLOCKED_UNVERIFIABLE_CONTEXT"
+        }
+      ],
+      "future_probe_gate": "If no available authorized transport can supply sufficient host evidence, record BLOCKED_UNVERIFIABLE_CONTEXT before model dispatch and request the missing transport/authority; never fabricate a receipt.",
+      "max_launches_per_case": 1,
+      "positive_control_limit": "Detection of a known marker tests one path only; non-detection of an unknown marker cannot prove total isolation.",
+      "research_payloads_allowed": false,
+      "retry_policy": "Preserve failed or incomplete first captures; no outcome-conditioned replacement. Changing adapter or protocol requires a new version and output-absent freeze."
+    },
+    "purpose": "Repair research input-delivery isolation, not semantic grounding rules.",
+    "receipt_contract": {
+      "binding_rule": "Host capture and author disclosure must bind the same unique context/nonce, exact configuration, ordered delivered bytes and frozen plan. Host evidence must have a verifiable origin outside the author's response; a hand-filled coordinator attestation is not sufficient.",
+      "prior_exposure_values": [
+        "no_known_exposure",
+        "known_exposed",
+        "unknown"
+      ],
+      "provenance_rule": "Record actual transport/model identifiers; exact revision, seed and backend raw-stream capture must explicitly say unavailable when not exposed. Self-report is not backend authentication.",
+      "replay_rule": "Never reuse a clearance across contexts, resumed threads, config/tool changes or added inputs. Every future research context requires its own pre-packet gate and post-delivery audit.",
+      "required_author_fields": [
+        "context_id",
+        "launch_nonce",
+        "prior_exposure",
+        "unexpected_input_categories",
+        "capture_limitations"
+      ],
+      "required_host_fields": [
+        "contract_sha256",
+        "probe_plan_sha256",
+        "adapter_implementation_commit",
+        "adapter_configuration_sha256",
+        "context_id",
+        "launch_nonce",
+        "initial_input_manifest_sha256",
+        "delivery_event_log_sha256",
+        "inventory",
+        "model_identity",
+        "capture_limitations"
+      ]
+    },
+    "schema_version": "grounding_input_isolation_design_v0_2",
+    "scope": {
+      "answer_recovery_authorized": false,
+      "execution_authorized": false,
+      "fresh_question_ids_used": 0,
+      "grounding_authorized": false,
+      "locked_question_ids_used": 0,
+      "new_research_authoring_authorized": false,
+      "platform_configuration_changes_authorized": false,
+      "research_question_ids": []
+    },
+    "stages": [
+      "commit_design_and_freeze_receipt_while_probe_and_new_grounding_namespaces_absent",
+      "implement_and_commit_transport_adapter_schemas_verifier_and_synthetic_tests_without_model_calls",
+      "freeze_exact_question_free_probe_plan_runtime_and_expected_outputs_before_launch",
+      "capture_host_initial_inputs_and_author_disclosure_before_any_research_payload",
+      "verify_bindings_inventory_exclusions_and_precommitted_control_expectations",
+      "freeze_every_raw_capture_and_diagnostic_result_without_repair",
+      "only_if_qualified_consider_separate_researcher_authorized_grounding_plan"
+    ],
+    "status": "design_only_no_transport_qualified",
+    "trust_boundary": {
+      "author_disclosure": "Supplemental negative evidence only: known excluded exposure stops, unknown blocks, a clean self-report cannot establish host completeness.",
+      "claim_limit": "Byte hashes authenticate saved identity, not truthful completeness, cognitive independence, model pretraining non-exposure or absence of latent inference.",
+      "current_channel": "The v0.1 non-forked repository-author channel is unqualified; six known-exposed reports cannot be cleared by a new thread, changed cwd, AGENTS override or self-attestation.",
+      "host_evidence": "A separately implemented and frozen adapter must capture host-controlled input assembly and delivery, not merely repeat the coordinator's intended allowlist.",
+      "opaque_platform": "Do not request hidden instructions, hidden reasoning, secrets, or privileged prompt text. Record opaque policy/runtime components by available identity and an independently reviewable no-project-retrieval boundary. If project/history injection cannot be excluded at that boundary, BLOCK."
+    }
+  },
+  "grounding_authorized": false,
+  "implementation_commit": "80b74fbc4e727d09265945946e64fc746673e621",
+  "new_author_outputs": 0,
+  "next_gate": "IMPLEMENT_AND_FREEZE_QUESTION_FREE_TRANSPORT_PROBE_BEFORE_LAUNCH",
+  "output_namespaces_absent_at_freeze": [
+    "data_construction/exploration/ai_question_structure_scale_v0_1/grounding_input_isolation_probe_v0_2",
+    "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_2"
+  ],
+  "preserved_artifacts": [
+    {
+      "bytes": 9684,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_design_v0_1.json",
+      "sha256": "0ea8412dafde733bc6f2ddc2aa0d9df0ff653f30d73233c9392fd02501f55b36"
+    },
+    {
+      "bytes": 3494,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_packet_schema_v0_1.json",
+      "sha256": "06a8ef9c1e81e5f9e246aab358515935f84a1b16fe25924b7f14ae578c4cb748"
+    },
+    {
+      "bytes": 43914,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_plan_v0_1.json",
+      "sha256": "287776aecf19cbe4d310c1507f1682faaf7597eb251862ebbaaf3360c361036a"
+    },
+    {
+      "bytes": 20267,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_raw_schema_v0_1.json",
+      "sha256": "03f1b5f9df5d7bc668c718ba321b0a75c0cbf466765b5fb72688fe98951fbb9f"
+    },
+    {
+      "bytes": 5705,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_runtime_freeze_v0_1.json",
+      "sha256": "723ba3447ac618ec049d4b875cf1341c0a053a2a50870211d90c3773fda230b7"
+    },
+    {
+      "bytes": 275110,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/checks.jsonl",
+      "sha256": "961a9b8ae16653e93dc467413c40c93704e2b3f4af786691c82951c19ac2056f"
+    },
+    {
+      "bytes": 794,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/grounding_exposure_ledger_v0_1.json",
+      "sha256": "9df41e5012705428630dfadecc186b941544484170bc965c831d0d9d41c6b6b9"
+    },
+    {
+      "bytes": 0,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/grounding_records.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1846,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/metrics_v0_1.json",
+      "sha256": "454e8742b7385fe7a6a10b6af3eeed005cd94bcad611cdb3c3491acde62cf9bb"
+    },
+    {
+      "bytes": 26737,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packet_manifest.json",
+      "sha256": "7b75ff440537788fe685116132d740b29e78b90cab1c7fa5376dbd33d9b19bc3"
+    },
+    {
+      "bytes": 46015,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_01.json",
+      "sha256": "909693d24e01bb8e20a628039d3a4ff8620d639ab4fcb1a420b458a304b5c844"
+    },
+    {
+      "bytes": 33820,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_02.json",
+      "sha256": "bc5b197ac813e86bf46abbc13b34d8281b7fb1cb8b7c6f4fda23343d8acc947f"
+    },
+    {
+      "bytes": 74741,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_03.json",
+      "sha256": "1bc139e1ab080796ccdc20e643020db71775fad7e636e854ef1947edaa13dc18"
+    },
+    {
+      "bytes": 71966,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_04.json",
+      "sha256": "a0199893ea98e51ea2dc523a702c9332e8067d8a96be945cceb3473d8d5f87e7"
+    },
+    {
+      "bytes": 51959,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_05.json",
+      "sha256": "4b9db394d283124523b720f6725752e176929dbe1da96a554ef79e41aeca0081"
+    },
+    {
+      "bytes": 76045,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_06.json",
+      "sha256": "7bf884d1ca1eaa5ec2237a75c66b71236368d0dbc6ebd0b6dac51eaaffaea3e7"
+    },
+    {
+      "bytes": 2286,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/question_comparisons.jsonl",
+      "sha256": "0836cbd3e44d93c02086def9a9e01e8c523c58b4b946281a2a9ba095eff35f8c"
+    },
+    {
+      "bytes": 85176,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_01.json",
+      "sha256": "94b87ea38f5604ff1e9e6a7c880f8fd1e52852d62b0f6e0959b55e1d9bff5368"
+    },
+    {
+      "bytes": 89510,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_02.json",
+      "sha256": "d64ff24fcadd6ce78e5b1d9419de6815d5d6c8db6276d68498670d6f696a7c59"
+    },
+    {
+      "bytes": 88307,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_03.json",
+      "sha256": "4315102b47350733b17751fea889802115b00b468a8f9e67905fbe5d2a5479b5"
+    },
+    {
+      "bytes": 36867,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_04.json",
+      "sha256": "225971b3212be671727620270f783d299efa0717933677a4ca310cc3706850a4"
+    },
+    {
+      "bytes": 31355,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_05.json",
+      "sha256": "8692866c25df4695d43bd31aa190569019cdd5f80fdafa65ee2306c2ad68818e"
+    },
+    {
+      "bytes": 52599,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_06.json",
+      "sha256": "482f77e4301c2ecb4a5a18172dbd61938d72151e10b97e7507dfd7feb55d469a"
+    },
+    {
+      "bytes": 2035,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/report_v0_1.md",
+      "sha256": "6ba3661b6d7550bc8fb8346183a5dadfec0d75f7ba1cf3cde871c79636211999"
+    },
+    {
+      "bytes": 3912,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/run_manifest.json",
+      "sha256": "35f8ad7e96be9a96e14f87c5193f2b00c9c706e85c6d515895f517acd45ba9bd"
+    },
+    {
+      "bytes": 4991,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/prompts/narrowed_grounding_author_guide_v0_1.md",
+      "sha256": "ffe774bedeec6d6e6f473ab505267113ae73edd9796ffcd1d92ea7b6dfbf3c94"
+    },
+    {
+      "bytes": 8886,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/prompts/narrowed_grounding_v0_1.md",
+      "sha256": "f48cf2d4c9adb18c2eb82d3011ee49717df16ee6aba061f2098c3e0b59b868ab"
+    },
+    {
+      "bytes": 17730,
+      "path": "data_construction/manifests/historical_exposed_ids.json",
+      "sha256": "b6285a87556bdecd03f0e1c73635a898d657038b184d6de38321640f6760bb0f"
+    },
+    {
+      "bytes": 10850,
+      "path": "data_construction/manifests/question_exposure_ledger_v0_3.json",
+      "sha256": "643809989c084a83c09ab13c4bfc89a21f2d5d57c1a1a7a6a14361313840faed"
+    },
+    {
+      "bytes": 3427,
+      "path": "data_construction/manifests/split_manifest_v0_1.json",
+      "sha256": "9de7124ab4b3b7a213a0970c0a2c51c0d6353f5eb01d9ce8b60f9250440bcfc8"
+    },
+    {
+      "bytes": 5546,
+      "path": "data_construction/reports/research_sequencing_decision_v0_12.md",
+      "sha256": "cfefb9b5be2e76c6c55f9887e6325e33f584a601335568d0143315e84e4a3385"
+    },
+    {
+      "bytes": 44345,
+      "path": "data_construction/tools/narrowed_grounding_runtime_v0_1.py",
+      "sha256": "1830d36a46988950d72aaf9f3e3bd76422ecf4e8ad97740b07b0de1e1f530f0b"
+    },
+    {
+      "bytes": 5998,
+      "path": "state/narrowed_grounding_author_dispatch_v0_1.json",
+      "sha256": "41b0eca97a30b653764996d18abce97954eb5e98311f4f3af4eb4f5898834333"
+    },
+    {
+      "bytes": 3336,
+      "path": "tests/test_narrowed_grounding_collection_v0_1.py",
+      "sha256": "d5d259a2be85b988e9cb2e74705820aa898c6c40e1d7caa6e9730f107c3e21c4"
+    },
+    {
+      "bytes": 7218,
+      "path": "tests/test_narrowed_grounding_plan_v0_1.py",
+      "sha256": "14b910513923b81b34d324d527d52e41e1494c9d9efbc5b53147f6bd0baffe57"
+    },
+    {
+      "bytes": 26098,
+      "path": "tests/test_narrowed_grounding_runtime_v0_1.py",
+      "sha256": "c1f900743d010f44ea5440526bb210aa41baed4cc12f0c006f2c836a281cca30"
+    }
+  ],
+  "research_question_ids": [],
+  "schema_version": "grounding_input_isolation_freeze_v0_2",
+  "source_commit": "bd841eaf05f2e539f1b58b88ad3a7ce57b2ce692",
+  "status": "design_frozen_adapter_and_probe_not_implemented",
+  "transport_qualified": false
+}
