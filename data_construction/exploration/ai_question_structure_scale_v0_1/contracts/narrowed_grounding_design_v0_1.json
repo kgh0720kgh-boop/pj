@@ -1,0 +1,132 @@
+{
+  "schema_version": "narrowed_grounding_design_v0_1",
+  "purpose": "Test whether the existing six-question candidate observations admit explicit source-backed bindings without evaluating their outputs.",
+  "evidence_class": "ai_exploratory_non_human_non_gold",
+  "selection": {
+    "rule": "all_14_final_full_eligible_instrument_v0_2_candidate_observations",
+    "order": "frozen_question_order_then_producer_partition_09_10_then_candidate_id_lexicographic",
+    "deduplicate": false,
+    "preferred_candidate": null,
+    "new_question_ids": 0,
+    "historical_or_locked_question_ids": 0,
+    "prior_targeted_v0_1_run_role": "complete_hash_bound_reference_inventory_not_grounding_input_or_gold"
+  },
+  "visibility": {
+    "question": "only_the_current_packet_question",
+    "candidates": "all_selected_candidates_for_the_current_question_with_opaque_observation_aliases",
+    "environment": "same_question_complete_previously_committed_table_and_table_link_closure_view",
+    "environment_selection": "exact_question_id_join_no_answer_based_retrieval_ranking_truncation_or_new_web_access",
+    "backbones": "only_target_variants_referenced_by_current_candidates_from_the_same_sanitized_view",
+    "forbidden": [
+      "official_answers", "official_traces", "gold_spans", "historical_graphs",
+      "E1_assessments", "prior_targeted_v0_1_records", "normalization_signatures",
+      "eligibility_labels", "prior_metrics", "producer_identities", "other_grounder_outputs",
+      "execution_results", "answer_recovery", "unselected_question_views"
+    ],
+    "environment_fact_visibility_is_answer_label_visibility": false,
+    "latent_answer_inference_machine_authenticated": false,
+    "upstream_semantic_and_operator_artifacts_read_only": true
+  },
+  "authoring": {
+    "contexts": 6,
+    "routing": "one_new_context_per_question_in_frozen_order",
+    "each_context_covers_all_current_question_candidate_observations": true,
+    "independent_duplicate_review": false,
+    "cross_author_grounding_agreement_claim": false,
+    "maximum_submissions_per_question": 1,
+    "semantic_retry_or_feedback_rounds": 0,
+    "transport_resume": "only_exact_same_packet_without_any_output_delivered; record_every_attempt",
+    "invalid_or_partial_raw_output": "preserve_bytes_and_report_failure_or_incomplete_status_without_repair",
+    "serialization": "raw_bytes_immutable; parsed_canonical_records_separate_with_both_hashes",
+    "model_id": "capture_actual_runtime_identity_at_run_time",
+    "exact_revision": "record_value_if_exposed_else_revision_not_exposed",
+    "seed": "record_value_if_supported_else_not_supported",
+    "raw_output": "preserve_delivered_response_or_explicitly_record_interface_limitation",
+    "isolation": "procedural_packet_allowlist_and_fresh_context_not_global_cognitive_authentication"
+  },
+  "binding_contract": {
+    "candidate_unit": "one_record_per_source_observation_even_when_another_candidate_has_identical_bindings",
+    "slot_unit": "exactly_one_disposition_per_source_binding_slot_in_every_grounding_alternative",
+    "operator_unit": "exactly_one_argument_disposition_per_original_operator_node_in_every_grounding_alternative",
+    "source_candidate_graph": "immutable_hash_bound_no_node_edge_mapping_or_slot_changes",
+    "slot_statuses": ["resolved", "ambiguous", "unavailable", "abstained"],
+    "operator_statuses": ["specified", "ambiguous", "unavailable", "abstained"],
+    "candidate_statuses": ["resolved", "ambiguous", "unavailable", "abstained", "partial"],
+    "resolved": "all_slots_resolved_and_all_operator_arguments_specified_in_every_retained_alternative_with_no_unresolved_choice_or_failed_deterministic_check",
+    "ambiguous": "two_or_more_incompatible_source_supported_bindings_or_interpretations_with_no_licensed_rule_to_choose",
+    "unavailable": "required_source_or_relation_missing_from_complete_allowed_view_with_explicit_scope_of_search",
+    "abstained": "author_cannot_justify_binding_or_input_delivery_is_incomplete_with_explicit_reason",
+    "partial": "mixed_resolved_and_unresolved_slot_or_operator_dispositions; never_union_complementary_partial_candidates",
+    "alternative_policy": "retain_each_identified_coherent_binding_combination_with_unique_local_id_and_assumptions; never_silently_take_cartesian_product_or_choose_by_answer",
+    "alternative_equivalence": "author_may_declare_compatible_alternatives_but_deterministic_check_does_not_certify_semantic_equivalence",
+    "cardinality": "source_cardinality_constrains_eventual_runtime_values_not_the_number_of_permitted_source_locations",
+    "provenance": "every_concrete_binding_has_view_hash_and_exact_JSON_pointer_or_a_typed_rule_over_pinned_sources_and_upstream_nodes"
+  },
+  "locator_contract": {
+    "table_column": "view_JSON_pointer_to_header_index_with_exact_column_label_and_table_identity",
+    "table_scope": "view_JSON_pointer_to_table_or_column_scope; do_not_materialize_filtered_rows",
+    "cell_link": "header_or_cell_link_collection_pointer_and_follow_rule_preserving_row_entity_association",
+    "linked_document": "document_key_from_allowed_link_closure_or_dynamic_link_rule_with_requested_attribute; never_oracle_document_ID",
+    "dynamic_binding": "upstream_operator_output_reference_plus_allowed_source_scope_and_explicit_selector; runtime_value_remains_uncomputed",
+    "question_literal": "zero_based_half_open_Unicode_codepoint_span_in_exact_question_text_with_literal_and_declared_type",
+    "source_literal": "exact_allowed_view_pointer_with_declared_type_for_operator_parameter_only; no_extracted_answer_values",
+    "derived_argument": "symbolic_operation_and_ordered_operand_references_with_units_types_and_tie_null_policy; never_computed_value",
+    "generic_document_placeholder": "insufficient_for_resolved_status_without_link_scope_attribute_and_entity_association",
+    "document_span_extraction": "not_performed; record_attribute_request_and_document_scope_only",
+    "JSON_pointer": "RFC6901_escaping_and_zero_based_array_indices; verify_resolution_and_type_without_operator_evaluation",
+    "resolved_locator_meaning": "static_binding_or_fully_specified_dynamic_locator_rule_not_proof_of_runtime_retrieval_or_correctness"
+  },
+  "validation": {
+    "required_before_generation": [
+      "output_absent_plan_commit_verified", "exact_pinned_environment_available",
+      "source_and_contract_hashes_match", "schema_and_runtime_implementation_receipt_committed",
+      "synthetic_positive_and_adversarial_tests_pass", "packet_allowlist_and_complete_delivery_validated"
+    ],
+    "deterministic_checks": [
+      "exact_14_observation_52_slot_source_inventory", "candidate_graph_hash_unchanged",
+      "per_alternative_slot_and_operator_partition_exact", "all_dispositions_and_reasons_consistent",
+      "view_identity_hash_and_pointer_resolution", "column_label_index_and_document_link_membership",
+      "dynamic_references_use_existing_strict_upstream_dependencies", "question_literal_span_exact",
+      "cardinality_type_and_parameter_contract_consistency", "alternative_inventory_and_assumptions_retained",
+      "source_and_raw_provenance_complete_or_explicitly_unavailable", "no_answers_traces_execution_or_upstream_mutation"
+    ],
+    "static_validity_is_semantic_correctness": false,
+    "free_text_contamination_scan": "structural_allowlist_plus_procedural_review_not_global_proof",
+    "current_freezer_validates_grounding_results": false
+  },
+  "analysis": {
+    "fixed_denominators": {"questions": 6, "author_question_pairs": 12, "candidate_observations": 14, "source_slots": 52},
+    "report": [
+      "raw_delivery_parse_and_schema_status_separately", "candidate_status_counts_over_14",
+      "slot_dispositions_over_52_with_alternative_qualified_details", "operator_argument_dispositions",
+      "question_and_author_question_coverage", "target_variant_coverage",
+      "static_vs_dynamic_binding_counts", "ambiguity_unavailable_and_abstention_reasons",
+      "identified_retained_and_lost_alternatives", "source_locator_compatibility_by_existing_semantic_profile_after_authoring",
+      "technical_and_leakage_failures", "model_and_context_provenance_limitations"
+    ],
+    "no_new_significance_or_population_prevalence_claim": true,
+    "no_majority_vote_or_exact_locator_match_correctness_target": true,
+    "branch_precedence": [
+      "STOP_TECHNICAL_OR_LEAKAGE_FAILURE",
+      "BLOCKED_PINNED_ENVIRONMENT_UNAVAILABLE",
+      "INCOMPLETE_GROUNDING_COLLECTION",
+      "REVIEW_AMBIGUITY_OR_COVERAGE_BEFORE_EXECUTION_PLAN",
+      "FREEZE_GROUNDING_EVIDENCE_FOR_SEPARATE_EXECUTION_PLAN"
+    ],
+    "pass_requires": "zero_technical_or_leakage_errors; all_14_records_delivered_and_resolved; zero_unresolved_slot_or_operator_dispositions; zero_lost_candidate_or_binding_alternatives",
+    "missing_raw_file": "incomplete_not_semantic_failure",
+    "malformed_delivered_raw_file": "technical_failure_not_silent_exclusion",
+    "missing_pinned_environment": "source_blocker_not_semantic_failure",
+    "all_branches": "preserve_raw_and_negative_observations; no_execution_answer_recovery_new_ids_or_automatic_expansion"
+  },
+  "stage_order": [
+    "commit_design_protocol_and_freezer_tests",
+    "commit_exact_plan_while_entire_grounding_namespace_empty",
+    "implement_schemas_packet_builder_grounding_validator_and_analyzer_from_unchanged_plan",
+    "commit_runtime_freeze_receipt_binding_implementation_and_tests_while_outputs_absent",
+    "materialize_and_commit_six_complete_packets_and_packet_manifest",
+    "collect_one_immutable_raw_submission_per_question_in_six_new_contexts",
+    "validate_derive_compare_and_commit_results_with_frozen_branches",
+    "record_next_versioned_decision_and_handoff"
+  ]
+}
