@@ -30,9 +30,12 @@ Handoff readiness: Not ready. The active gate is
 `QUESTION_FREE_ISOLATION_TRANSPORT_NOT_VERIFIED`: the design is frozen, but no
 host channel is qualified. Do not repair, relabel, re-author, execute or score
 the failed v0.1 run; a clean self-report cannot substitute for host evidence.
-The separate `LOCAL_COMMIT_NOT_PUSHED` gate remains: 46 commits including this
-metadata handoff are ahead of the local `origin/main` tracking ref. No fetch or
-push was performed; remote ref freshness was not rechecked.
+The separate `LOCAL_COMMIT_NOT_PUSHED` gate remains pending this transfer's
+push. The researcher authorized synchronization on 2026-09-07; fetch confirmed
+46 local-only and zero remote-only commits before the transfer-document commit.
+See `reports/cross_device_repo_audit.md` for the scoped authorization.
+Other-desktop startup instructions and the continuation request are in
+[`DESKTOP_HANDOFF.md`](DESKTOP_HANDOFF.md).
 
 ## Completed normalization v0.1
 

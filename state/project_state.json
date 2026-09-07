@@ -13,7 +13,7 @@
   "handoff_readiness": "not_ready",
   "blocked_gates": [
     "QUESTION_FREE_ISOLATION_TRANSPORT_NOT_VERIFIED: v0.2 design is frozen but no adapter or actual platform probe is qualified; implement and freeze the question-free probe before launch, or report unverifiable host evidence; no new research authoring",
-    "LOCAL_COMMIT_NOT_PUSHED: 46 portable commits ahead of origin/main after the metadata handoff commit; no fetch or push performed in this research task"
+    "LOCAL_COMMIT_NOT_PUSHED: authorized transfer pending push; 47 portable commits ahead of fetched origin/main after the transfer-document commit"
   ],
   "repository": {
     "git_root": "repository root (resolve with git rev-parse --show-toplevel)",
@@ -25,7 +25,7 @@
     ],
     "working_tree_status": "clean",
     "untracked_files": 0,
-    "unpushed_commits": 46,
+    "unpushed_commits": 47,
     "stash_state": "empty"
   },
   "artifact_status": {
@@ -1453,6 +1453,7 @@
     "CODEX_DATA_CONSTRUCTION_RESET_PROMPT_V2_MULTI_DEVICE.md",
     "AGENTS.md",
     "HANDOFF_CURRENT.md",
+    "DESKTOP_HANDOFF.md",
     "ENVIRONMENT.md",
     "state/project_state.json",
     "state/historical_recovery_provenance_v0_1.json",

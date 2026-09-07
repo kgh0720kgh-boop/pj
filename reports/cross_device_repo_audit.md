@@ -1,5 +1,25 @@
 # Cross-Device Repository Audit
 
+## Synchronization authorization — 2026-09-07
+
+The researcher explicitly requested synchronizing this repository and saving
+a Markdown handoff for continuation on another desktop. This authorizes fetch
+and normal fast-forward push of the current portable `main` history and its
+handoff metadata to the existing `origin` at
+`https://github.com/kgh0720kgh-boop/pj.git` for this transfer.
+It does not authorize force-push, history rewriting, discarding workstation
+changes, publishing credentials/caches, or new research/model runs.
+
+At transfer startup, HEAD was `67a70f9c206bfcf23c7c35512d08235d22143338`,
+the working tree was clean, and a successful fetch reported 46 local-only
+commits and zero remote-only commits. The isolation-design freeze is an ancestor
+of HEAD. Transfer instructions are in `DESKTOP_HANDOFF.md`; the authoritative
+final synchronization state is recorded in `HANDOFF_CURRENT.md` and
+`state/project_state.json` after the push is verified.
+
+This authorization supersedes the older addenda's lack of remote-write
+permission for this transfer only; their dated observations remain preserved.
+
 ## Current-state addendum — 2026-08-24
 
 This addendum supersedes the active-status statements in the 2026-08-23 addendum while preserving both older sections as dated evidence.
