@@ -1,31 +1,31 @@
 {
   "schema_version": "project_state_v0_1",
-  "state_updated_date": "2026-08-25",
+  "state_updated_date": "2026-09-07",
   "project": "hierarchical_data_construction_for_semantic_execution_topology_induction",
-  "active_phase": "phase_2h_narrowed_grounding_protocol_freeze",
+  "active_phase": "phase_2i_narrowed_grounding_runtime_implementation",
   "active_branch": "main",
-  "expected_head": "d22a9beca223f49d7af17c8657aafdbf8753de4f",
-  "last_completed_task": "completed_targeted_authoring_instrument_revision_v0_2_over_the_same_six_existing_ids_with_all_frozen_technical_coverage_semantic_reference_and_retention_criteria_passed_and_no_grounding",
-  "next_task": "freeze_a_separately_versioned_narrowed_grounding_plan_before_any_grounding_output_binding_both_targeted_runs_the_same_six_ids_and_an_alternative_preserving_candidate_selection_rule_with_no_execution_or_answer_recovery",
-  "current_scientific_decision": "FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN",
-  "scientific_decision_status": "targeted_instrument_v0_2_complete_all_frozen_technical_isolation_coverage_semantic_reference_and_retention_criteria_passed_grounding_blocked_pending_separate_plan",
+  "expected_head": "b2ca1fbc413336fa330b11a14649735acc25f0df",
+  "last_completed_task": "froze_narrowed_grounding_plan_v0_1_over_same_six_questions_all_14_candidates_and_52_slots_with_entire_output_namespace_absent_in_freeze_commit",
+  "next_task": "implement_grounding_schemas_packet_builder_static_binding_validator_and_analyzer_from_frozen_plan_then_commit_runtime_receipt_while_all_20_outputs_absent_before_grounding_authoring",
+  "current_scientific_decision": "IMPLEMENT_FROZEN_NARROWED_GROUNDING_PROTOCOL",
+  "scientific_decision_status": "narrowed_grounding_plan_frozen_runtime_implementation_and_output_absent_receipt_pending",
   "synchronization_state": "LOCAL_COMMIT_NOT_PUSHED",
   "handoff_readiness": "not_ready",
   "blocked_gates": [
-    "NARROWED_GROUNDING_PLAN_NOT_FROZEN: instrument v0.2 passed, but its branch authorizes only freezing a separate plan before any grounding output",
-    "LOCAL_COMMIT_NOT_PUSHED: 32 portable commits are ahead of origin/main after the metadata handoff commit and remote write has not been authorized"
+    "NARROWED_GROUNDING_RUNTIME_NOT_FROZEN: implement and test the frozen design, then commit its runtime receipt before creating any grounding packet or record",
+    "LOCAL_COMMIT_NOT_PUSHED: 35 portable commits are ahead of origin/main after the metadata handoff commit; this task starts at research TODO 2 and does not perform remote synchronization"
   ],
   "repository": {
     "git_root": "repository root (resolve with git rev-parse --show-toplevel)",
     "current_branch": "main",
-    "head": "d22a9beca223f49d7af17c8657aafdbf8753de4f",
-    "head_role": "completed_targeted_instrument_v0_2_result_baseline_parent_of_metadata_commit",
+    "head": "b2ca1fbc413336fa330b11a14649735acc25f0df",
+    "head_role": "narrowed_grounding_plan_freeze_baseline_parent_of_metadata_commit",
     "remotes": [
       "origin https://github.com/kgh0720kgh-boop/pj.git"
     ],
     "working_tree_status": "clean",
     "untracked_files": 0,
-    "unpushed_commits": 32,
+    "unpushed_commits": 35,
     "stash_state": "empty"
   },
   "artifact_status": {
@@ -1061,6 +1061,42 @@
         }
       }
     },
+    "narrowed_grounding_v0_1": {
+      "status": "plan_frozen_runtime_pending_no_grounding_outputs",
+      "active_gate": true,
+      "implementation_commit": "6bd9c36ddc6207552b778cf5b20b16946975ef05",
+      "plan_freeze_commit": "b2ca1fbc413336fa330b11a14649735acc25f0df",
+      "source_commit": "aa380e69b534e475f09d496955ebcbac69531309",
+      "question_count": 6,
+      "author_question_pairs": 12,
+      "candidate_count": 14,
+      "source_binding_slot_count": 52,
+      "planned_output_file_count": 20,
+      "candidate_selection": "all_final_full_eligible_observations_no_deduplication",
+      "plan_validation": "passed_exact_reconstruction_hashes_ancestry_and_output_absence",
+      "runtime_freeze_receipt_status": "not_created",
+      "grounding_output_count": 0,
+      "grounding_started": false,
+      "execution_started": false,
+      "answer_recovery_started": false,
+      "human_evidence_count": 0,
+      "gold_claimed": false,
+      "fresh_or_locked_question_ids_used": false,
+      "artifacts": {
+        "plan": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_plan_v0_1.json",
+          "sha256": "287776aecf19cbe4d310c1507f1682faaf7597eb251862ebbaaf3360c361036a"
+        },
+        "design": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_design_v0_1.json",
+          "sha256": "0ea8412dafde733bc6f2ddc2aa0d9df0ff653f30d73233c9392fd02501f55b36"
+        },
+        "protocol": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/prompts/narrowed_grounding_v0_1.md",
+          "sha256": "f48cf2d4c9adb18c2eb82d3011ee49717df16ee6aba061f2098c3e0b59b868ab"
+        }
+      }
+    },
     "ai_question_structure_pipeline_diagnostic": {
       "status": "complete_non_evidentiary_shadow_run",
       "run_id": "ai_question_structure_pipeline_v0_1_run_001",
@@ -1200,16 +1236,18 @@
     "tools": {
       "status": "implemented",
       "test_entry_point": ".venv/bin/python -B -m unittest discover -s tests -v",
-      "final_integration_test_status": "passed_190_tests_in_project_local_exact_pin_environment"
+      "final_integration_test_status": "passed_197_tests_in_project_local_exact_pin_environment"
     }
   },
   "preflight_status": {
-    "last_verified_date": "2026-08-25",
+    "last_verified_date": "2026-09-07",
     "result": "NOT_READY",
     "exit_code": 2,
     "validation_failures": 0,
-    "core_json_files_parsed": 140,
-    "unit_tests_passed": 190,
+    "core_json_files_parsed": 142,
+    "expected_core_json_files": 142,
+    "expected_unit_test_count": 197,
+    "unit_tests_passed": 197,
     "unit_tests_failed": 0,
     "ir_v0_2_records_validated": 50,
     "ir_v0_2_validator_errors": 0
@@ -1259,6 +1297,11 @@
     "data_construction/reports/research_sequencing_decision_v0_7.md",
     "data_construction/reports/research_sequencing_decision_v0_8.md",
     "data_construction/reports/research_sequencing_decision_v0_9.md",
+    "data_construction/reports/research_sequencing_decision_v0_10.md",
+    "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_plan_v0_1.json",
+    "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_design_v0_1.json",
+    "data_construction/exploration/ai_question_structure_scale_v0_1/prompts/narrowed_grounding_v0_1.md",
+    "data_construction/tools/freeze_narrowed_grounding_plan_v0_1.py",
     "data_construction/schemas/",
     "data_construction/operator_design/",
     "data_construction/tools/",
@@ -1276,6 +1319,7 @@
     "tests/test_operator_equivalence_normalization_v0_2.py",
     "tests/test_operator_equivalence_targeted_reauthor.py",
     "tests/test_operator_equivalence_targeted_instrument_v0_2.py",
+    "tests/test_narrowed_grounding_plan_v0_1.py",
     "historical/README.md",
     "historical/ir_v0_2/recovery_manifest_v0_1.json"
   ],

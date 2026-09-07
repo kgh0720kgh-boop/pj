@@ -137,6 +137,12 @@ for required_file in \
     data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_targeted_instrument_normalization_schema_v0_2.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_targeted_instrument_comparison_schema_v0_2.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_targeted_instrument_plan_v0_2.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_design_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_plan_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/prompts/narrowed_grounding_v0_1.md \
+    data_construction/tools/freeze_narrowed_grounding_plan_v0_1.py \
+    tests/test_narrowed_grounding_plan_v0_1.py \
+    data_construction/reports/research_sequencing_decision_v0_10.md \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/candidate_backbone_families_v0_1.jsonl \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/representative_selection_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/checks.jsonl \
@@ -472,6 +478,8 @@ paths = [
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/checks.jsonl"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/metrics_v0_2.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/run_manifest.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_design_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_plan_v0_1.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/pool/question_only_views_n100.jsonl"),
     Path("data_construction/manifests/ai_question_structure_exploratory_pool_v0_1.json"),
     Path("data_construction/manifests/question_exposure_ledger_v0_1.json"),
@@ -1081,6 +1089,7 @@ elif state.get("current_scientific_decision") in {
     "NARROW_OR_REAUTHOR_BEFORE_GROUNDING",
     "REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING",
     "FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN",
+    "IMPLEMENT_FROZEN_NARROWED_GROUNDING_PROTOCOL",
 }:
     if history_complete is not True or historical_shape != "strict_builder":
         errors.append("pilot-ready state requires a complete strict historical audit")
@@ -1560,15 +1569,57 @@ elif state.get("current_scientific_decision") in {
         "NARROW_OR_REAUTHOR_BEFORE_GROUNDING",
         "REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING",
         "FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN",
+        "IMPLEMENT_FROZEN_NARROWED_GROUNDING_PROTOCOL",
     }:
-        instrument_result_complete = state.get("current_scientific_decision") == (
+        grounding_plan_complete = state.get("current_scientific_decision") == (
+            "IMPLEMENT_FROZEN_NARROWED_GROUNDING_PROTOCOL"
+        )
+        instrument_result_complete = grounding_plan_complete or state.get("current_scientific_decision") == (
             "FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN"
         )
         targeted_result_complete = state.get("current_scientific_decision") in {
             "REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING",
             "FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN",
+            "IMPLEMENT_FROZEN_NARROWED_GROUNDING_PROTOCOL",
         }
-        if instrument_result_complete:
+        if grounding_plan_complete:
+            if state.get("active_phase") != "phase_2i_narrowed_grounding_runtime_implementation":
+                errors.append("grounding runtime state has an unexpected active_phase")
+            if state.get("scientific_decision_status") != (
+                "narrowed_grounding_plan_frozen_runtime_implementation_and_output_absent_receipt_pending"
+            ):
+                errors.append("grounding runtime state has an unexpected status")
+            if "NARROWED_GROUNDING_RUNTIME_NOT_FROZEN" not in state_gates:
+                errors.append("grounding runtime state lacks its active gate")
+            if "NARROWED_GROUNDING_PLAN_NOT_FROZEN" in state_gates:
+                errors.append("grounding runtime state retains the superseded plan gate")
+            grounding_state = state.get("artifact_status", {}).get("narrowed_grounding_v0_1", {})
+            expected_grounding = {
+                "status": "plan_frozen_runtime_pending_no_grounding_outputs",
+                "active_gate": True,
+                "implementation_commit": "6bd9c36ddc6207552b778cf5b20b16946975ef05",
+                "plan_freeze_commit": "b2ca1fbc413336fa330b11a14649735acc25f0df",
+                "source_commit": "aa380e69b534e475f09d496955ebcbac69531309",
+                "question_count": 6, "author_question_pairs": 12, "candidate_count": 14,
+                "source_binding_slot_count": 52, "planned_output_file_count": 20,
+                "candidate_selection": "all_final_full_eligible_observations_no_deduplication",
+                "plan_validation": "passed_exact_reconstruction_hashes_ancestry_and_output_absence",
+                "runtime_freeze_receipt_status": "not_created",
+                "grounding_output_count": 0, "grounding_started": False,
+                "execution_started": False, "answer_recovery_started": False,
+                "human_evidence_count": 0, "gold_claimed": False,
+                "fresh_or_locked_question_ids_used": False,
+            }
+            for key, value in expected_grounding.items():
+                if grounding_state.get(key) != value:
+                    errors.append(f"narrowed grounding state mismatch for {key}")
+            receipt = Path(
+                "data_construction/exploration/ai_question_structure_scale_v0_1/"
+                "contracts/narrowed_grounding_runtime_freeze_v0_1.json"
+            )
+            if receipt.exists() or receipt.is_symlink():
+                errors.append("runtime receipt exists but state still declares it absent")
+        elif instrument_result_complete:
             if state.get("active_phase") != "phase_2h_narrowed_grounding_protocol_freeze":
                 errors.append("narrowed-grounding-plan state has an unexpected active_phase")
             if state.get("scientific_decision_status") != (
@@ -1882,6 +1933,8 @@ elif state.get("current_scientific_decision") in {
             artifact_sections.append(("targeted re-author", targeted_reauthor))
         if instrument_result_complete:
             artifact_sections.append(("targeted instrument", targeted_instrument))
+        if grounding_plan_complete:
+            artifact_sections.append(("narrowed grounding", grounding_state))
         for section_name, section in artifact_sections:
             artifacts = section.get("artifacts", {})
             if not isinstance(artifacts, dict) or not artifacts:
@@ -3305,6 +3358,16 @@ PY
         block_check 'OPERATOR_EQUIVALENCE_TARGETED_INSTRUMENT_V0_2_VALIDATION_NOT_RUN: exact pinned dependencies are unavailable in the selected runtime'
     fi
 
+    narrowed_grounding_output=$("$PYTHON_BIN" -B \
+        data_construction/tools/freeze_narrowed_grounding_plan_v0_1.py \
+        --validate-only --require-output-absence 2>&1)
+    narrowed_grounding_rc=$?
+    if [ "$narrowed_grounding_rc" -eq 0 ]; then
+        pass_check "NARROWED_GROUNDING_PLAN_LIVE: $narrowed_grounding_output"
+    else
+        fail_check "NARROWED_GROUNDING_PLAN_LIVE_FAILED: $narrowed_grounding_output"
+    fi
+
     ir_reference_output=$("$PYTHON_BIN" -B - <<'PY' 2>&1
 import json
 import sys
@@ -3357,7 +3420,7 @@ PY
     if [ "$unit_test_rc" -eq 0 ]; then
         pass_check 'UNIT_TESTS: passed'
         unit_test_count=$(printf '%s\n' "$unit_test_output" | sed -n 's/^Ran \([0-9][0-9]*\) tests.*$/\1/p' | tail -n 1)
-        declared_unit_test_count=$("$PYTHON_BIN" -B -c 'import json; print(json.load(open("state/project_state.json", encoding="utf-8"))["preflight_status"]["unit_tests_passed"])' 2>/dev/null || printf '%s' unknown)
+        declared_unit_test_count=$("$PYTHON_BIN" -B -c 'import json; s = json.load(open("state/project_state.json", encoding="utf-8"))["preflight_status"]; print(s.get("expected_unit_test_count", s["unit_tests_passed"]))' 2>/dev/null || printf '%s' unknown)
         if [ -n "$unit_test_count" ] && [ "$unit_test_count" = "$declared_unit_test_count" ]; then
             pass_check "UNIT_TEST_COUNT_MATCH: $unit_test_count"
         else

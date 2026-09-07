@@ -1,6 +1,6 @@
 # Hierarchical HybridQA data construction
 
-이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 versioned 연구 계약과 탐색 artifact이며 gold corpus가 아니다. 동결된 question-only AI extractor/normalizer의 누적 N=300 실험, 30-family candidate-backbone library, 71-question representative environment realization, candidate-derived normalization v0.2, targeted crossed-author re-authoring v0.1, targeted authoring-instrument revision v0.2까지 완료됐다. Instrument v0.2는 같은 기존 challenge 6문항에서 모든 동결 기준을 통과했다. 현재 단계는 grounding output을 만들기 전에 별도 narrowed-grounding plan을 동결하는 것이다. 인간 검토는 현재 필수 gate가 아니라 향후 주장에 필요한 경우의 선택적 표본 감사로 연기됐다.
+이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 versioned 연구 계약과 탐색 artifact이며 gold corpus가 아니다. 동결된 question-only AI extractor/normalizer의 누적 N=300 실험, 30-family candidate-backbone library, 71-question representative environment realization, candidate-derived normalization v0.2, targeted crossed-author re-authoring v0.1, targeted authoring-instrument revision v0.2까지 완료됐다. Instrument v0.2는 같은 기존 challenge 6문항에서 모든 동결 기준을 통과했다. Narrowed-grounding plan v0.1도 결과 부재 상태에서 동결됐으며, 현재 단계는 그 계획의 schema·packet builder·static binding validator·analyzer를 구현하고 runtime receipt를 동결하는 것이다. 인간 검토는 현재 필수 gate가 아니라 향후 주장에 필요한 경우의 선택적 표본 감사로 연기됐다.
 
 ## 현재 상태
 
@@ -12,7 +12,7 @@
 - 기존 30개 model-assisted record/90 coarse-medium-fine 표현, 90개 deterministic check, HTML packet 3개, v0.1 metric은 byte-preserved Phase B 선행 가능성 증거로 남긴다. 기존 packet은 현재 Phase A나 미래 blinded Phase B의 승인된 UI가 아니며 사용하지 않는다.
 - 이전의 reviewer×granularity 6파일/180판정 task는 철회됐다. 미래 Phase B는 Phase A2 뒤 동결한 6개 stratum에서 12문항×3 granularity×2 reviewer=72판정으로 시작하고, 사전 선언 trigger에 따라 90, 최대 108판정까지만 확장한다. 정확한 ID는 A2 normalization 전에는 배정하지 않는다.
 - 누적 N=300은 300/300 structurally valid record와 byte-exact N=100 prefix를 보존한다. Fine/contracted/topology/task family는 각각 39/30/10/70개이고, contracted singleton mass 0.0467, N100→new200 transfer 0.915, top-10 coverage 0.9133이다. Uncertain은 94/300, provisional `OTHER` 사용은 0/300이다.
-- 사전 선언된 N=1,000 trigger 네 개가 모두 false여서 candidate-library branch를 택했고, 그 후 대표 환경 실현, normalization v0.2, targeted re-authoring v0.1, instrument revision v0.2까지 완료했다. 현재 운영 판정은 `FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN`이다.
+- 사전 선언된 N=1,000 trigger 네 개가 모두 false여서 candidate-library branch를 택했고, 그 후 대표 환경 실현, normalization v0.2, targeted re-authoring v0.1, instrument revision v0.2와 grounding 계획 동결까지 완료했다. 현재 운영 판정은 `IMPLEMENT_FROZEN_NARROWED_GROUNDING_PROTOCOL`이다.
 - N=100과 N=300의 evidence class는 모두 `ai_exploratory_non_human_non_gold`이다. 하나의 동결된 AI extractor와 결정론적 normalizer 아래의 반복성·곡선 모양만 기술하며, semantic correctness, human agreement, universal saturation, common executable graph, grounding/execution, gold 또는 modeling readiness를 뜻하지 않는다.
 - candidate-backbone library v0.1은 300개 전부를 30개 family에 정확히 한 번 배정하고, 9 recurrent/7 doubleton/14 singleton을 보존한다. 대표 표본은 30개 family 전체를 덮는 71개 deterministic coverage-stress sample이며 ordered-ID SHA-256은 `5403debe2cbe9c7f55ded0a01b49d7c42bf03e53a71350efe269bbd3c0bdcb2e`이다. 이는 희귀 family를 의도적으로 과대표집하므로 확률표본이나 prevalence 추정 표본이 아니다.
 - 대표 환경 run은 71개 view, 71개 E1 backbone 적합성 판단, 71개 E2 record/93개 open candidate, 71개 five-signal outcome, 285개 통과 check를 materialize했다. E1은 adequate 64, partially adequate 5, indeterminate 2였고 E2는 71개 모두 available이었다. Grounding·execution·answer recovery는 모두 미평가다.
@@ -20,7 +20,7 @@
 - Normalization v0.2는 기존 93개와 crossed-author 34개, 총 127개 candidate만 사용했다. Full eligible/provisional-only/ineligible은 121/1/5이고 technical loss, eligible-set contamination, unclassified adapter candidate는 모두 0이다. Crossed full-eligible semantic exact match는 10/16, mean Jaccard는 0.65625, coverage는 27/32이며 challenge/control exact match는 1/7과 9/9다. 동결 기준 실패로 grounding은 계속 금지된다.
 - Targeted re-authoring v0.1은 같은 기존 challenge ID 6개에 두 새 fresh-context AI author를 배정했다. 12개 record/14개 candidate 중 full/provisional/ineligible은 9/0/5이고 technical loss, contamination, unclassified, profile loss는 모두 0이다. 그러나 full-eligible author-question coverage는 8/12, semantic intersection은 2/6, exact match는 1/6, mean Jaccard는 0.25여서 coverage-failure 분기가 선택됐다.
 - Targeted authoring-instrument v0.2는 동일 6개 ID와 두 fresh-context author를 사용했다. Draft/final은 각각 12 record/14 candidate이며 feedback 12건은 target-node, required dependency, mapped output, output arity만 보고했다. Final candidate 14/14가 full eligible이고 coverage 12/12, semantic exact 6/6, mean Jaccard 1.0, v0.1 reference compatibility 12/12, profile loss 0으로 모든 동결 기준을 통과했다. Draft가 이미 모두 local-complete였고 final parsed record가 0/12 변경됐으므로 checker feedback의 인과 효과는 주장하지 않는다.
-- 다음 작업은 위 6개 ID와 모든 대안 관측을 유지하면서 별도 narrowed-grounding plan을 모든 grounding output 부재 상태에서 먼저 동결하는 것이다. 이 pass 자체는 grounding, execution, answer recovery 또는 gold/common-graph 주장을 허용하지 않는다.
+- Narrowed-grounding plan v0.1은 같은 6문항의 14후보·52슬롯을 모두 보존하며, 예정된 결과 파일 20개가 없는 commit에서 동결됐다. 다음 작업은 계획대로 runtime을 구현·검증하고 결과 생성 전 receipt를 커밋하는 것이다. 현재 grounding·execution·answer recovery 결과는 0이다. 자세한 근거는 `reports/research_sequencing_decision_v0_10.md`에 있다.
 - `diagnostics/ai_question_structure_pipeline_v0_1/`의 이전 two-reviewer shadow run은 byte-preserved direction-finding/engineering evidence다. 두 AI reviewer의 60개 구조화 record, 30개 blinded alignment, 20개 독립 topology-only record와 최종 분석은 검증됐지만 모두 `non_human_non_gold`이고 correctness나 human agreement 근거가 아니다.
 - v0.1 human question-only view·packet·validator도 byte-preserved됐으나 현재 active gate가 아니다. Human raw file/record, agreement observation, adjudication은 모두 0이며 인간 절차를 나중에 재개하더라도 별도 blinded alignment/adjudication 계약 전에는 agreement나 A2 readiness를 주장하지 않는다.
 - `locked_eval`은 prompt, rubric, schema, 연산자 어휘 조정에 사용하지 않는다.
@@ -29,6 +29,19 @@
 현재 structured proposal은 `model_id=codex_gpt-5`를 기록하지만, 인터페이스가 exact model revision과 raw model output을 노출하지 않았고 seed도 지원하지 않았다. 따라서 각각 `revision_not_exposed`, `not_exposed_by_interface`, `not_supported`로 기록되어 있다. 이는 명시적 재현성 제한이며 값을 추정하거나 exact replay 가능성을 주장하지 않는다.
 
 역사적 condition-C 파일에는 answer와 evaluator output이 포함되어 있다. 이를 question-only semantic/obligation/abstract/operator 단계의 입력이나 예시로 사용하지 않는다.
+
+## Narrowed-grounding 계획 검증
+
+저장소 루트에서 실행한다. 이 명령은 계획·원본 해시·Git 동결 순서와
+출력 부재를 확인하며 grounding 결과를 생성하거나 검증하지 않는다.
+
+```sh
+.venv/bin/python -B data_construction/tools/freeze_narrowed_grounding_plan_v0_1.py --validate-only --require-output-absence
+```
+
+계획과 설계는 `exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_{plan,design}_v0_1.json`,
+프로토콜은 같은 영역의 `prompts/narrowed_grounding_v0_1.md`다.
+후속 runtime 구현은 이 동결 계약을 따라야 하며, 변경이 필요하면 새 버전을 만든다.
 
 ## 계층
 

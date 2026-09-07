@@ -1,33 +1,35 @@
 # Current handoff
 
-Date: 2026-08-25
+Date: 2026-09-07
 
-Current research phase: **narrowed-grounding protocol freeze before any
-grounding output.**
+Current research phase: **implement the frozen narrowed-grounding protocol
+and freeze its runtime before any grounding output.**
 
 Active branch: `main`
 
-Expected handoff baseline: `d22a9beca223f49d7af17c8657aafdbf8753de4f`
+Expected handoff baseline: `b2ca1fbc413336fa330b11a14649735acc25f0df`
 
-The current metadata commit is a linear descendant of this completed targeted
-authoring-instrument v0.2 result baseline.
+The current metadata commit is a linear descendant of this output-absent
+narrowed-grounding plan freeze baseline.
 
-Last completed task: froze and ran targeted authoring-instrument revision v0.2
-over exactly the same six existing challenge IDs with two new isolated
-authors, one label-free candidate-local feedback round, and no grounding; all
-frozen criteria passed.
+Last completed task: froze narrowed-grounding plan v0.1 over the same six
+existing questions, all fourteen final candidate observations and 52 slots.
+The exact source/contract hashes, candidate inventory, Git ancestry, and
+absence of all twenty planned outputs passed validation.
 
 Current scientific decision:
-`FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN`.
+`IMPLEMENT_FROZEN_NARROWED_GROUNDING_PROTOCOL`.
 
 Synchronization state: `LOCAL_COMMIT_NOT_PUSHED` until the current linear
 sequence is pushed to `origin/main`.
 
-Handoff readiness: Not ready. Instrument v0.2 passed, but
-`NARROWED_GROUNDING_PLAN_NOT_FROZEN` remains: the pass authorizes only freezing
-a separate plan, not producing grounding output. The separate
-`LOCAL_COMMIT_NOT_PUSHED` synchronization gate remains until remote write is
-authorized and the 32-commit sequence is pushed.
+Handoff readiness: Not ready. The plan gate is complete; the active research
+gate is `NARROWED_GROUNDING_RUNTIME_NOT_FROZEN`. Implement and test the plan's
+schemas, packet builder, static binding validator and analyzer, then commit
+the runtime receipt while all outputs remain absent. The separate
+`LOCAL_COMMIT_NOT_PUSHED` gate remains: 35 commits including this metadata
+handoff are ahead of `origin/main`. The user requested work from research
+TODO 2; remote synchronization was not performed.
 
 ## Completed normalization v0.1
 
@@ -191,23 +193,45 @@ The result supports the revised instrument as a whole; it does not identify a
 causal checker-feedback effect. Isolation remains procedural rather than
 globally machine-authenticated.
 
-## Exact next task: narrowed-grounding plan freeze
+## Completed narrowed-grounding plan v0.1
 
-Before creating any locator or grounding record, freeze a separately versioned
-narrowed-grounding plan. Bind the complete targeted v0.1 and instrument v0.2
-runs and exactly the same six IDs; preserve all earlier artifacts byte-for-byte;
-and prove every planned grounding packet/record/check/metric/comparison/report/
-manifest absent.
+Implementation/design/protocol/seven tests were committed at
+`6bd9c36ddc6207552b778cf5b20b16946975ef05`. The metadata-only plan was committed
+at `b2ca1fbc413336fa330b11a14649735acc25f0df` while its entire output namespace
+was empty. The source baseline is `aa380e69b534e475f09d496955ebcbac69531309`.
 
-Precommit an alternative-preserving rule for grounding either all fourteen
-final full-eligible candidate observations or a deterministic deduplicated
-set. Define locator completeness, ambiguity, abstention, provenance,
-alternative retention, and every branch. Prevent answers, official traces,
-execution outcomes, and later labels from flowing back into semantic/operator
-records. Use no fresh or locked-evaluation ID, and perform no execution or
-answer recovery.
+The plan keeps all fourteen final candidate observations and 52 source slots,
+without deduplication or preference. Six new contexts will each receive one
+complete question packet containing all that question's candidates. This is
+one proposal per question, not independent duplicate grounding review.
+No authoring has run. Static source pointers and unevaluated dynamic locator
+rules are distinct from runtime values; actual graph execution and answer
+recovery remain outside this study.
 
-See `data_construction/reports/research_sequencing_decision_v0_9.md`.
+The design fixes provenance, visibility, exact observation/slot retention,
+ambiguity/abstention, raw preservation without semantic repair, and five
+ordered branches. Pass requires fourteen resolved candidates and zero
+unresolved dispositions, technical/leakage errors, or lost alternatives.
+Every branch stops before execution or answer recovery.
+
+## Exact next task: narrowed-grounding runtime implementation
+
+Read `contracts/narrowed_grounding_plan_v0_1.json`,
+`contracts/narrowed_grounding_design_v0_1.json`, and
+`prompts/narrowed_grounding_v0_1.md` under the scale-exploration directory.
+Implement packet/output schemas, a packet builder, a static binding validator,
+and an analyzer faithful to this frozen design. Use synthetic positive and
+adversarial fixtures before generating any grounding record. Commit the
+implementation and then the hash-bound runtime receipt at
+`contracts/narrowed_grounding_runtime_freeze_v0_1.json`, proving all twenty
+planned outputs absent. The receipt is currently absent.
+
+Only after that check may the frozen packets and raw proposals be produced.
+The plan does not authorize execution, answer recovery, fresh questions,
+upstream annotation edits, or selection of a final operator vocabulary.
+If the contract needs changing, use a new plan version before outputs.
+
+See `data_construction/reports/research_sequencing_decision_v0_10.md`.
 
 ## Evidence boundaries
 
@@ -233,11 +257,18 @@ python3 -m json.tool state/project_state.json >/dev/null
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_normalization_v0_2.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_targeted_reauthor.py --validate-only
 .venv/bin/python -B data_construction/tools/build_operator_equivalence_targeted_instrument_v0_2.py --validate-only
+.venv/bin/python -B data_construction/tools/freeze_narrowed_grounding_plan_v0_1.py --validate-only --require-output-absence
 .venv/bin/python -B -m unittest discover -s tests -v
 sh -n scripts/cross_device_preflight.sh
 sh scripts/cross_device_preflight.sh
 ```
 
-Expected deterministic results are zero validation failures, 190 unit tests,
-140 core JSON/JSONL files parsed, and preflight exit 2 for the declared
-narrowed-grounding-plan and unpushed-commit synchronization gates.
+Expected deterministic results are zero validation failures, 197 unit tests,
+142 core JSON/JSONL files parsed, and preflight exit 2 for the declared
+narrowed-grounding-runtime and unpushed-commit synchronization gates.
+The 2026-09-07 integration check reproduced 197 passing tests and 142 parsed
+JSON/JSONL files with zero validation failures in the project-local exact-pin
+environment. New plan validation also passed with current output absence.
+The original eleven-schema/three-vocabulary bundle is unchanged; the new
+design and plan are exact-reconstructed research contracts, not added output
+schemas. The grounding output schemas remain the next implementation task.
