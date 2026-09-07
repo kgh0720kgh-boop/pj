@@ -143,6 +143,13 @@ for required_file in \
     data_construction/tools/freeze_narrowed_grounding_plan_v0_1.py \
     tests/test_narrowed_grounding_plan_v0_1.py \
     data_construction/reports/research_sequencing_decision_v0_10.md \
+    data_construction/tools/narrowed_grounding_runtime_v0_1.py \
+    tests/test_narrowed_grounding_runtime_v0_1.py \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_packet_schema_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_raw_schema_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_runtime_freeze_v0_1.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/prompts/narrowed_grounding_author_guide_v0_1.md \
+    data_construction/reports/research_sequencing_decision_v0_11.md \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/candidate_backbone_families_v0_1.jsonl \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/representative_selection_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/checks.jsonl \
@@ -480,6 +487,9 @@ paths = [
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/run_manifest.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_design_v0_1.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_plan_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_packet_schema_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_raw_schema_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_runtime_freeze_v0_1.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/pool/question_only_views_n100.jsonl"),
     Path("data_construction/manifests/ai_question_structure_exploratory_pool_v0_1.json"),
     Path("data_construction/manifests/question_exposure_ledger_v0_1.json"),
@@ -1090,6 +1100,7 @@ elif state.get("current_scientific_decision") in {
     "REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING",
     "FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN",
     "IMPLEMENT_FROZEN_NARROWED_GROUNDING_PROTOCOL",
+    "MATERIALIZE_FROZEN_NARROWED_GROUNDING_PACKETS",
 }:
     if history_complete is not True or historical_shape != "strict_builder":
         errors.append("pilot-ready state requires a complete strict historical audit")
@@ -1570,8 +1581,12 @@ elif state.get("current_scientific_decision") in {
         "REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING",
         "FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN",
         "IMPLEMENT_FROZEN_NARROWED_GROUNDING_PROTOCOL",
+        "MATERIALIZE_FROZEN_NARROWED_GROUNDING_PACKETS",
     }:
-        grounding_plan_complete = state.get("current_scientific_decision") == (
+        grounding_runtime_complete = state.get("current_scientific_decision") == (
+            "MATERIALIZE_FROZEN_NARROWED_GROUNDING_PACKETS"
+        )
+        grounding_plan_complete = grounding_runtime_complete or state.get("current_scientific_decision") == (
             "IMPLEMENT_FROZEN_NARROWED_GROUNDING_PROTOCOL"
         )
         instrument_result_complete = grounding_plan_complete or state.get("current_scientific_decision") == (
@@ -1581,21 +1596,29 @@ elif state.get("current_scientific_decision") in {
             "REVISE_TARGETED_AUTHORING_INSTRUMENT_BEFORE_GROUNDING",
             "FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN",
             "IMPLEMENT_FROZEN_NARROWED_GROUNDING_PROTOCOL",
+            "MATERIALIZE_FROZEN_NARROWED_GROUNDING_PACKETS",
         }
         if grounding_plan_complete:
-            if state.get("active_phase") != "phase_2i_narrowed_grounding_runtime_implementation":
+            expected_phase = ("phase_2j_narrowed_grounding_packet_materialization" if grounding_runtime_complete
+                              else "phase_2i_narrowed_grounding_runtime_implementation")
+            expected_status = ("narrowed_grounding_runtime_frozen_all_outputs_absent_packets_pending" if grounding_runtime_complete
+                               else "narrowed_grounding_plan_frozen_runtime_implementation_and_output_absent_receipt_pending")
+            expected_gate = ("NARROWED_GROUNDING_PACKETS_NOT_MATERIALIZED" if grounding_runtime_complete
+                             else "NARROWED_GROUNDING_RUNTIME_NOT_FROZEN")
+            if state.get("active_phase") != expected_phase:
                 errors.append("grounding runtime state has an unexpected active_phase")
-            if state.get("scientific_decision_status") != (
-                "narrowed_grounding_plan_frozen_runtime_implementation_and_output_absent_receipt_pending"
-            ):
+            if state.get("scientific_decision_status") != expected_status:
                 errors.append("grounding runtime state has an unexpected status")
-            if "NARROWED_GROUNDING_RUNTIME_NOT_FROZEN" not in state_gates:
+            if expected_gate not in state_gates:
                 errors.append("grounding runtime state lacks its active gate")
+            if grounding_runtime_complete and "NARROWED_GROUNDING_RUNTIME_NOT_FROZEN" in state_gates:
+                errors.append("grounding packet state retains the superseded runtime gate")
             if "NARROWED_GROUNDING_PLAN_NOT_FROZEN" in state_gates:
                 errors.append("grounding runtime state retains the superseded plan gate")
             grounding_state = state.get("artifact_status", {}).get("narrowed_grounding_v0_1", {})
             expected_grounding = {
-                "status": "plan_frozen_runtime_pending_no_grounding_outputs",
+                "status": ("runtime_frozen_packets_pending_no_grounding_outputs" if grounding_runtime_complete
+                           else "plan_frozen_runtime_pending_no_grounding_outputs"),
                 "active_gate": True,
                 "implementation_commit": "6bd9c36ddc6207552b778cf5b20b16946975ef05",
                 "plan_freeze_commit": "b2ca1fbc413336fa330b11a14649735acc25f0df",
@@ -1604,7 +1627,7 @@ elif state.get("current_scientific_decision") in {
                 "source_binding_slot_count": 52, "planned_output_file_count": 20,
                 "candidate_selection": "all_final_full_eligible_observations_no_deduplication",
                 "plan_validation": "passed_exact_reconstruction_hashes_ancestry_and_output_absence",
-                "runtime_freeze_receipt_status": "not_created",
+                "runtime_freeze_receipt_status": "committed_output_absent" if grounding_runtime_complete else "not_created",
                 "grounding_output_count": 0, "grounding_started": False,
                 "execution_started": False, "answer_recovery_started": False,
                 "human_evidence_count": 0, "gold_claimed": False,
@@ -1617,7 +1640,26 @@ elif state.get("current_scientific_decision") in {
                 "data_construction/exploration/ai_question_structure_scale_v0_1/"
                 "contracts/narrowed_grounding_runtime_freeze_v0_1.json"
             )
-            if receipt.exists() or receipt.is_symlink():
+            if grounding_runtime_complete:
+                runtime_expected = {
+                    "runtime_implementation_commit": "2983168f48689e8e7129a9bdecde4787a4ecb8cf",
+                    "runtime_freeze_commit": "6c7487beddb03625b9fd23ef7514eebe307d397b",
+                    "runtime_unit_tests_passed": 26,
+                    "runtime_validation": "passed_exact_pins_schemas_hashes_git_order_and_current_output_absence",
+                    "packet_output_count": 0,
+                }
+                for key, value in runtime_expected.items():
+                    if grounding_state.get(key) != value:
+                        errors.append(f"narrowed grounding runtime state mismatch for {key}")
+                if not receipt.is_file() or receipt.is_symlink():
+                    errors.append("grounding runtime receipt missing or unsafe")
+                for label, reference in grounding_state.get("artifacts", {}).items():
+                    artifact = Path(reference.get("path", ""))
+                    if not artifact.is_file() or reference.get("sha256") != hashlib.sha256(artifact.read_bytes()).hexdigest():
+                        errors.append(f"narrowed grounding artifact hash mismatch: {label}")
+                if set(grounding_state.get("artifacts", {})) != {"plan", "design", "protocol", "runtime_receipt", "packet_schema", "raw_schema"}:
+                    errors.append("narrowed grounding artifact inventory mismatch")
+            elif receipt.exists() or receipt.is_symlink():
                 errors.append("runtime receipt exists but state still declares it absent")
         elif instrument_result_complete:
             if state.get("active_phase") != "phase_2h_narrowed_grounding_protocol_freeze":
@@ -3366,6 +3408,22 @@ PY
         pass_check "NARROWED_GROUNDING_PLAN_LIVE: $narrowed_grounding_output"
     else
         fail_check "NARROWED_GROUNDING_PLAN_LIVE_FAILED: $narrowed_grounding_output"
+    fi
+
+    if [ "$dependency_rc" -eq 0 ]; then
+        grounding_runtime_output=$("$PYTHON_BIN" -B \
+            data_construction/tools/narrowed_grounding_runtime_v0_1.py \
+            --validate-only --require-output-absence 2>&1)
+        grounding_runtime_rc=$?
+        if [ "$grounding_runtime_rc" -eq 0 ]; then
+            pass_check "NARROWED_GROUNDING_RUNTIME_LIVE: $grounding_runtime_output"
+        elif [ "$grounding_runtime_rc" -eq 2 ]; then
+            block_check "NARROWED_GROUNDING_RUNTIME_SOURCE_UNAVAILABLE: $grounding_runtime_output"
+        else
+            fail_check "NARROWED_GROUNDING_RUNTIME_LIVE_FAILED: $grounding_runtime_output"
+        fi
+    else
+        block_check 'NARROWED_GROUNDING_RUNTIME_VALIDATION_NOT_RUN: exact pinned dependencies unavailable'
     fi
 
     ir_reference_output=$("$PYTHON_BIN" -B - <<'PY' 2>&1
