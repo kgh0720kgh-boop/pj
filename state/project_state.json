@@ -2,30 +2,30 @@
   "schema_version": "project_state_v0_1",
   "state_updated_date": "2026-09-07",
   "project": "hierarchical_data_construction_for_semantic_execution_topology_induction",
-  "active_phase": "phase_2k_narrowed_grounding_result_review",
+  "active_phase": "phase_2l_question_free_input_isolation_probe_preparation",
   "active_branch": "main",
-  "expected_head": "3035317c9930b03b5c1b6be3e09b9c343e7ac439",
-  "last_completed_task": "materialized_six_grounding_packets_collected_and_preserved_six_raw_responses_and_froze_leakage_failure_all_contexts_reported_prior_research_exposure_zero_accepted_candidate_records",
-  "next_task": "design_and_freeze_separately_versioned_grounding_input_isolation_contract_with_pre_authoring_initial_context_clearance_before_any_new_question_proposal_preserve_failed_v0_1_raw_and_runtime_no_execution",
-  "current_scientific_decision": "STOP_TECHNICAL_OR_LEAKAGE_FAILURE",
-  "scientific_decision_status": "narrowed_grounding_results_frozen_no_execution_or_answer_recovery",
+  "expected_head": "467fc8586321b8e8f3437d59edeec67ab7a26d2e",
+  "last_completed_task": "froze_question_free_input_isolation_design_v0_2_with_nine_context_sources_host_evidence_and_author_disclosure_separation_three_synthetic_controls_and_ten_tests_preserved_failed_v0_1_no_new_authors",
+  "next_task": "inspect_authorized_transport_host_evidence_capabilities_then_implement_offline_adapter_receipt_schemas_verifier_and_synthetic_tests_and_freeze_exact_question_free_probe_plan_before_launch_or_report_BLOCKED_UNVERIFIABLE_CONTEXT_if_evidence_unavailable_no_research_authoring",
+  "current_scientific_decision": "IMPLEMENT_AND_FREEZE_QUESTION_FREE_TRANSPORT_PROBE",
+  "scientific_decision_status": "input_isolation_design_frozen_transport_unqualified_no_new_authoring",
   "synchronization_state": "LOCAL_COMMIT_NOT_PUSHED",
   "handoff_readiness": "not_ready",
   "blocked_gates": [
-    "NARROWED_GROUNDING_NEXT_VERSIONED_DECISION_REQUIRED: all six authors reported prior research context exposure; stop v0.1 and freeze an input-isolation redesign before any new authoring, execution or answer recovery",
-    "LOCAL_COMMIT_NOT_PUSHED: 43 portable commits ahead of origin/main after the metadata handoff commit; no fetch or push performed in this research task"
+    "QUESTION_FREE_ISOLATION_TRANSPORT_NOT_VERIFIED: v0.2 design is frozen but no adapter or actual platform probe is qualified; implement and freeze the question-free probe before launch, or report unverifiable host evidence; no new research authoring",
+    "LOCAL_COMMIT_NOT_PUSHED: 46 portable commits ahead of origin/main after the metadata handoff commit; no fetch or push performed in this research task"
   ],
   "repository": {
     "git_root": "repository root (resolve with git rev-parse --show-toplevel)",
     "current_branch": "main",
-    "head": "3035317c9930b03b5c1b6be3e09b9c343e7ac439",
-    "head_role": "narrowed_grounding_failure_result_baseline_parent_of_metadata_commit",
+    "head": "467fc8586321b8e8f3437d59edeec67ab7a26d2e",
+    "head_role": "input_isolation_design_freeze_baseline_parent_of_metadata_commit",
     "remotes": [
       "origin https://github.com/kgh0720kgh-boop/pj.git"
     ],
     "working_tree_status": "clean",
     "untracked_files": 0,
-    "unpushed_commits": 43,
+    "unpushed_commits": 46,
     "stash_state": "empty"
   },
   "artifact_status": {
@@ -1063,7 +1063,7 @@
     },
     "narrowed_grounding_v0_1": {
       "status": "static_results_materialized_non_human_non_gold",
-      "active_gate": true,
+      "active_gate": false,
       "implementation_commit": "6bd9c36ddc6207552b778cf5b20b16946975ef05",
       "plan_freeze_commit": "b2ca1fbc413336fa330b11a14649735acc25f0df",
       "source_commit": "aa380e69b534e475f09d496955ebcbac69531309",
@@ -1403,7 +1403,37 @@
     "tools": {
       "status": "implemented",
       "test_entry_point": ".venv/bin/python -B -m unittest discover -s tests -v",
-      "final_integration_test_status": "passed_226_tests_in_project_local_exact_pin_environment"
+      "final_integration_test_status": "passed_236_tests_in_project_local_exact_pin_environment"
+    },
+    "grounding_input_isolation_v0_2": {
+      "status": "design_frozen_adapter_and_probe_not_implemented",
+      "active_gate": true,
+      "implementation_commit": "80b74fbc4e727d09265945946e64fc746673e621",
+      "freeze_commit": "467fc8586321b8e8f3437d59edeec67ab7a26d2e",
+      "source_commit": "bd841eaf05f2e539f1b58b88ad3a7ce57b2ce692",
+      "transport_qualified": false,
+      "actual_platform_probe_count": 0,
+      "new_author_outputs": 0,
+      "grounding_authorized": false,
+      "execution_authorized": false,
+      "answer_recovery_authorized": false,
+      "research_question_ids": [],
+      "synthetic_control_case_count": 3,
+      "unit_tests_passed": 10,
+      "artifacts": {
+        "design": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/grounding_input_isolation_design_v0_2.json",
+          "sha256": "ba3e3d18a1b2b1e3bbe48733848453afbf40729a1f1cd3fab19b998d28cbce1c"
+        },
+        "freeze": {
+          "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/grounding_input_isolation_freeze_v0_2.json",
+          "sha256": "335381c3d1f2d91b7de9e638acb0f523ab77155edd7e550bb3219ea8ea349a34"
+        },
+        "decision": {
+          "path": "data_construction/reports/research_sequencing_decision_v0_13.md",
+          "sha256": "09dba1b71ac3c31a9177b8a72ac35a8508d4490c519c1a334daefc53d6976613"
+        }
+      }
     }
   },
   "preflight_status": {
@@ -1411,10 +1441,10 @@
     "result": "NOT_READY",
     "exit_code": 2,
     "validation_failures": 0,
-    "core_json_files_parsed": 159,
-    "expected_core_json_files": 159,
-    "expected_unit_test_count": 226,
-    "unit_tests_passed": 226,
+    "core_json_files_parsed": 161,
+    "expected_core_json_files": 161,
+    "expected_unit_test_count": 236,
+    "unit_tests_passed": 236,
     "unit_tests_failed": 0,
     "ir_v0_2_records_validated": 50,
     "ir_v0_2_validator_errors": 0
@@ -1498,7 +1528,12 @@
     "data_construction/reports/research_sequencing_decision_v0_11.md",
     "state/narrowed_grounding_author_dispatch_v0_1.json",
     "tests/test_narrowed_grounding_collection_v0_1.py",
-    "data_construction/reports/research_sequencing_decision_v0_12.md"
+    "data_construction/reports/research_sequencing_decision_v0_12.md",
+    "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/grounding_input_isolation_design_v0_2.json",
+    "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/grounding_input_isolation_freeze_v0_2.json",
+    "data_construction/reports/research_sequencing_decision_v0_13.md",
+    "data_construction/tools/freeze_grounding_input_isolation_v0_2.py",
+    "tests/test_grounding_input_isolation_v0_2.py"
   ],
   "historical_read_only_paths": [
     "data_analysis/week1_sample_100.jsonl",

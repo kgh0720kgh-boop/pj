@@ -153,6 +153,11 @@ for required_file in \
     data_construction/reports/research_sequencing_decision_v0_12.md \
     state/narrowed_grounding_author_dispatch_v0_1.json \
     tests/test_narrowed_grounding_collection_v0_1.py \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/grounding_input_isolation_design_v0_2.json \
+    data_construction/exploration/ai_question_structure_scale_v0_1/contracts/grounding_input_isolation_freeze_v0_2.json \
+    data_construction/tools/freeze_grounding_input_isolation_v0_2.py \
+    tests/test_grounding_input_isolation_v0_2.py \
+    data_construction/reports/research_sequencing_decision_v0_13.md \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/candidate_backbone_families_v0_1.jsonl \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/representative_selection_v0_1.json \
     data_construction/exploration/ai_question_structure_scale_v0_1/candidate_backbone_library_v0_1/checks.jsonl \
@@ -494,6 +499,8 @@ paths = [
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_raw_schema_v0_1.json"),
     Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_runtime_freeze_v0_1.json"),
     Path("state/narrowed_grounding_author_dispatch_v0_1.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/grounding_input_isolation_design_v0_2.json"),
+    Path("data_construction/exploration/ai_question_structure_scale_v0_1/contracts/grounding_input_isolation_freeze_v0_2.json"),
     *[Path("data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1") / name for name in (
         "packets/question_01.json", "packets/question_02.json", "packets/question_03.json",
         "packets/question_04.json", "packets/question_05.json", "packets/question_06.json",
@@ -1098,6 +1105,42 @@ grounding_result_decisions = {
     "INCOMPLETE_GROUNDING_COLLECTION", "REVIEW_AMBIGUITY_OR_COVERAGE_BEFORE_EXECUTION_PLAN",
     "FREEZE_GROUNDING_EVIDENCE_FOR_SEPARATE_EXECUTION_PLAN",
 }
+isolation_decision = "IMPLEMENT_AND_FREEZE_QUESTION_FREE_TRANSPORT_PROBE"
+isolation_design_complete = state.get("current_scientific_decision") == isolation_decision
+if isolation_design_complete:
+    import freeze_grounding_input_isolation_v0_2 as isolation
+    isolation_state = state.get("artifact_status", {}).get("grounding_input_isolation_v0_2", {})
+    try:
+        isolation_check = isolation.validate_plan(require_output_absence=True)
+        isolation_freeze = json.loads(Path(isolation.PLAN).read_text())
+        expected_isolation = {
+            "status": "design_frozen_adapter_and_probe_not_implemented", "active_gate": True,
+            "implementation_commit": isolation_freeze["implementation_commit"],
+            "freeze_commit": isolation_check["freeze_commit"],
+            "source_commit": isolation.SOURCE_COMMIT, "transport_qualified": False,
+            "actual_platform_probe_count": 0, "new_author_outputs": 0,
+            "grounding_authorized": False, "execution_authorized": False,
+            "answer_recovery_authorized": False, "research_question_ids": [],
+            "synthetic_control_case_count": 3, "unit_tests_passed": 10,
+        }
+        for key, value in expected_isolation.items():
+            if json.dumps(isolation_state.get(key), sort_keys=True) != json.dumps(value, sort_keys=True):
+                errors.append(f"input-isolation state mismatch for {key}")
+        expected_refs = {"design": isolation.DESIGN, "freeze": isolation.PLAN,
+                         "decision": "data_construction/reports/research_sequencing_decision_v0_13.md"}
+        references = isolation_state.get("artifacts", {})
+        if set(references) != set(expected_refs):
+            errors.append("input-isolation artifact inventory mismatch")
+        for label, name in expected_refs.items():
+            path = isolation.safe_path(Path.cwd(), name)
+            reference = references.get(label, {})
+            if (reference.get("path") != name or not path.is_file() or
+                    reference.get("sha256") != hashlib.sha256(path.read_bytes()).hexdigest()):
+                errors.append(f"input-isolation artifact identity mismatch: {label}")
+        if "NARROWED_GROUNDING_NEXT_VERSIONED_DECISION_REQUIRED" in state_gates:
+            errors.append("isolation design state retains superseded design-freeze gate")
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        errors.append(f"input-isolation freeze validation failed: {exc}")
 if state.get("current_scientific_decision") == "DATA_SOURCE_BLOCKED":
     required_source_gates = ["AUTHORITATIVE_PROJECT_PROVENANCE_NOT_AVAILABLE"]
     if historical_artifacts_missing:
@@ -1116,6 +1159,7 @@ elif state.get("current_scientific_decision") in {
     "FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN",
     "IMPLEMENT_FROZEN_NARROWED_GROUNDING_PROTOCOL",
     "MATERIALIZE_FROZEN_NARROWED_GROUNDING_PACKETS",
+    isolation_decision,
     *grounding_result_decisions,
 }:
     if history_complete is not True or historical_shape != "strict_builder":
@@ -1598,9 +1642,10 @@ elif state.get("current_scientific_decision") in {
         "FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN",
         "IMPLEMENT_FROZEN_NARROWED_GROUNDING_PROTOCOL",
         "MATERIALIZE_FROZEN_NARROWED_GROUNDING_PACKETS",
+        isolation_decision,
         *grounding_result_decisions,
     }:
-        grounding_result_complete = state.get("current_scientific_decision") in grounding_result_decisions
+        grounding_result_complete = isolation_design_complete or state.get("current_scientific_decision") in grounding_result_decisions
         grounding_runtime_complete = grounding_result_complete or state.get("current_scientific_decision") == (
             "MATERIALIZE_FROZEN_NARROWED_GROUNDING_PACKETS"
         )
@@ -1615,6 +1660,7 @@ elif state.get("current_scientific_decision") in {
             "FREEZE_INSTRUMENT_REAUTHOR_EVIDENCE_FOR_SEPARATE_NARROWED_GROUNDING_PLAN",
             "IMPLEMENT_FROZEN_NARROWED_GROUNDING_PROTOCOL",
             "MATERIALIZE_FROZEN_NARROWED_GROUNDING_PACKETS",
+            isolation_decision,
             *grounding_result_decisions,
         }
         if grounding_plan_complete:
@@ -1628,6 +1674,10 @@ elif state.get("current_scientific_decision") in {
                 expected_phase = "phase_2k_narrowed_grounding_result_review"
                 expected_status = "narrowed_grounding_results_frozen_no_execution_or_answer_recovery"
                 expected_gate = "NARROWED_GROUNDING_NEXT_VERSIONED_DECISION_REQUIRED"
+            if isolation_design_complete:
+                expected_phase = "phase_2l_question_free_input_isolation_probe_preparation"
+                expected_status = "input_isolation_design_frozen_transport_unqualified_no_new_authoring"
+                expected_gate = "QUESTION_FREE_ISOLATION_TRANSPORT_NOT_VERIFIED"
             if state.get("active_phase") != expected_phase:
                 errors.append("grounding runtime state has an unexpected active_phase")
             if state.get("scientific_decision_status") != expected_status:
@@ -1662,6 +1712,8 @@ elif state.get("current_scientific_decision") in {
                 expected_grounding.update(status="static_results_materialized_non_human_non_gold",
                                           grounding_started=True)
                 expected_grounding.pop("grounding_output_count")
+            if isolation_design_complete:
+                expected_grounding["active_gate"] = False
             for key, value in expected_grounding.items():
                 if grounding_state.get(key) != value:
                     errors.append(f"narrowed grounding state mismatch for {key}")
@@ -1711,7 +1763,9 @@ elif state.get("current_scientific_decision") in {
                     metric_path = Path(output_paths["metrics"])
                     if metric_path.is_file():
                         metrics = json.loads(metric_path.read_text())
-                        if results.get("metrics") != metrics or state.get("current_scientific_decision") != metrics.get("decision"):
+                        preserved_decision = ("STOP_TECHNICAL_OR_LEAKAGE_FAILURE" if isolation_design_complete
+                                              else state.get("current_scientific_decision"))
+                        if results.get("metrics") != metrics or preserved_decision != metrics.get("decision"):
                             errors.append("grounding decision/counts do not match frozen metrics")
                         if grounding_state.get("grounding_output_count") != metrics.get("delivered_valid_candidate_records"):
                             errors.append("grounding validated-record count mismatch")
@@ -3506,6 +3560,16 @@ PY
         pass_check "NARROWED_GROUNDING_PLAN_LIVE: $narrowed_grounding_output"
     else
         fail_check "NARROWED_GROUNDING_PLAN_LIVE_FAILED: $narrowed_grounding_output"
+    fi
+
+    isolation_output=$("$PYTHON_BIN" -B \
+        data_construction/tools/freeze_grounding_input_isolation_v0_2.py \
+        --validate-only --require-output-absence 2>&1)
+    isolation_rc=$?
+    if [ "$isolation_rc" -eq 0 ]; then
+        pass_check "INPUT_ISOLATION_DESIGN_FROZEN_NOT_TRANSPORT_QUALIFICATION: $isolation_output"
+    else
+        fail_check "INPUT_ISOLATION_DESIGN_FREEZE_FAILED: $isolation_output"
     fi
 
     if [ "$dependency_rc" -eq 0 ]; then

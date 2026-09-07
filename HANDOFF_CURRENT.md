@@ -2,33 +2,35 @@
 
 Date: 2026-09-07
 
-Current research phase: **stop the failed grounding run and redesign input
-isolation under a new version before any new authoring.**
+Current research phase: **input-isolation design v0.2 frozen; inspect and
+prepare a question-free transport probe before any new research authoring.**
 
 Active branch: `main`
 
-Expected handoff baseline: `3035317c9930b03b5c1b6be3e09b9c343e7ac439`
+Expected handoff baseline: `467fc8586321b8e8f3437d59edeec67ab7a26d2e`
 
 The current metadata commit is a linear descendant of this frozen
-narrowed-grounding failure-result baseline.
+input-isolation design-freeze baseline.
 
-Last completed task: committed six question packets, dispatched six new
-non-forked author contexts, preserved all six sole raw responses, and froze
-the deterministic failure result. All six authors reported supplied prior
-research context. JSON/schema validity passed on 6/6 files, but no candidate
-was promoted through the prior-exposure gate.
+Last completed task: separately froze the question-free input-isolation
+design v0.2, with nine context-source categories, separate host evidence and
+author disclosure, three precommitted synthetic controls and ten regression
+tests. No adapter, actual platform probe or new research author was run.
+The failed v0.1 raw/results/runtime and exposure allocations remain unchanged.
 
 Current scientific decision:
-`STOP_TECHNICAL_OR_LEAKAGE_FAILURE`.
+`IMPLEMENT_AND_FREEZE_QUESTION_FREE_TRANSPORT_PROBE`.
+The preserved v0.1 result remains `STOP_TECHNICAL_OR_LEAKAGE_FAILURE`;
+accepted grounding records remain zero.
 
 Synchronization state: `LOCAL_COMMIT_NOT_PUSHED` until the current linear
 sequence is pushed to `origin/main`.
 
 Handoff readiness: Not ready. The active gate is
-`NARROWED_GROUNDING_NEXT_VERSIONED_DECISION_REQUIRED`: non-forked tasks still
-received prior-research project instructions, so the isolation requirement
-failed. Do not repair, relabel, re-author, execute or score this v0.1 run.
-The separate `LOCAL_COMMIT_NOT_PUSHED` gate remains: 43 commits including this
+`QUESTION_FREE_ISOLATION_TRANSPORT_NOT_VERIFIED`: the design is frozen, but no
+host channel is qualified. Do not repair, relabel, re-author, execute or score
+the failed v0.1 run; a clean self-report cannot substitute for host evidence.
+The separate `LOCAL_COMMIT_NOT_PUSHED` gate remains: 46 commits including this
 metadata handoff are ahead of the local `origin/main` tracking ref. No fetch or
 push was performed; remote ref freshness was not rechecked.
 
@@ -272,24 +274,44 @@ provenance. Capture is structured-output-only, not backend stream/hidden
 reasoning capture. `fork_context=false` did not exclude automatically supplied
 project instructions. No semantic feedback, repaired response or rerun occurred.
 
-## Exact next task: versioned author-input isolation redesign
+## Completed input-isolation design v0.2
 
-Read sequencing decision v0.12 and the dispatch receipt before any new author
-task. Design and freeze a separate input-delivery/isolation contract that
-checks the actual initial context before research questions are supplied,
-accounts for automatic AGENTS/project-context injection, and fails closed
-unless only the approved research inputs are visible. Use no fresh/locked ID
-and preserve the entire failed v0.1 run, schemas and runtime byte-for-byte.
+1. Design/freezer/ten tests/decision v0.13 implementation:
+   `80b74fbc4e727d09265945946e64fc746673e621`.
+2. Receipt frozen with both new probe and grounding namespaces absent:
+   `467fc8586321b8e8f3437d59edeec67ab7a26d2e`.
 
-Review the packet field naming ambiguity: the frozen builder's
-`protocol_sha256` hashes the author guide, while the separately named protocol
-is bound through the plan/receipt. Both files are unchanged; this is not hash
-corruption. Clarify identities in a new version, not by modifying v0.1.
-Do not tune binding semantics from the exposed outputs. No new raw proposals,
-grounding success claims, execution, answer recovery or vocabulary selection
-are authorized by this failed run.
+The receipt binds 36 preserved artifacts, including all twenty failed-run
+outputs, plus six contract/implementation artifacts. Exact reconstruction,
+ancestry and output-absence checks pass. These are design-integrity results,
+not a passing isolation probe. Actual platform probes and new authors are zero.
 
-See `data_construction/reports/research_sequencing_decision_v0_12.md`.
+Host-captured input delivery and author exposure disclosure are separate.
+Missing or unverifiable context sources block; known exclusion failures stop.
+Do not request privileged prompt text or treat hashes as proof of completeness.
+Three synthetic controls are precommitted, at most one launch per case, but
+their adapter, schemas, runtime and exact launch plan still need freezing.
+Expected STOP/BLOCK controls do not qualify their contaminated/opaque contexts.
+The future packet version must distinguish protocol, guide and schema hashes;
+v0.1's guide alias in `protocol_sha256` remains untouched.
+
+## Exact next task: question-free transport evidence and adapter
+
+Read sequencing decision v0.13 and
+`contracts/grounding_input_isolation_{design,freeze}_v0_2.json` under the
+scale-exploration directory. These are coordinator metadata, not author inputs.
+Inspect the available authorized transport's host-side evidence capabilities
+without changing platform settings or launching research authors. If sufficient,
+implement the offline adapter, closed receipt schemas, verifier and synthetic
+unit tests; commit them and freeze the exact question-free probe plan before
+any dispatch. If the host boundary is unverifiable, report
+`BLOCKED_UNVERIFIABLE_CONTEXT` and the missing evidence/authority instead.
+
+No fresh/locked question, new grounding proposal, API integration, credential,
+paid call or platform reconfiguration is authorized by the design. A successful
+future synthetic probe would permit consideration of a separate grounding plan,
+not immediate research authoring. Preserve all failed v0.1 bytes and semantic
+rules. See `data_construction/reports/research_sequencing_decision_v0_13.md`.
 
 ## Evidence boundaries
 
@@ -320,23 +342,26 @@ python3 -m json.tool state/project_state.json >/dev/null
 .venv/bin/python -B data_construction/tools/freeze_narrowed_grounding_plan_v0_1.py --validate-only
 .venv/bin/python -B data_construction/tools/narrowed_grounding_runtime_v0_1.py --validate-only
 .venv/bin/python -B data_construction/tools/narrowed_grounding_runtime_v0_1.py --validate-results
+.venv/bin/python -B data_construction/tools/freeze_grounding_input_isolation_v0_2.py --validate-only --require-output-absence
 .venv/bin/python -B -m unittest discover -s tests -v
 sh -n scripts/cross_device_preflight.sh
 sh scripts/cross_device_preflight.sh
 ```
 
-Expected integrity results are zero validation failures, 226 unit tests,
-159 core JSON/JSONL files parsed, and preflight exit 2 for the declared
-isolation-redesign and unpushed-commit gates. Analysis reconstruction succeeds
+Expected integrity results are zero validation failures, 236 unit tests,
+161 core JSON/JSONL files parsed, and preflight exit 2 for the declared
+unverified-transport and unpushed-commit gates. Analysis reconstruction succeeds
 while correctly reproducing six research gate errors; this is not a passing
 grounding experiment. The 2026-09-07 exact-pin integration check reproduced
-226 passing tests and 159 parsed core JSON/JSONL files, with zero integrity
+236 passing tests and 161 parsed core JSON/JSONL files, with zero integrity
 validation failures. Pre-commit metadata edits added a temporary dirty-tree
 blocker; the final metadata commit clears it, not the research or push gates.
 Three post-collection integrity tests pass and are separate from the 26
-pre-run runtime tests. Use `--validate-results` for existing results. Historical
-output-absence proofs still pass, but `--require-output-absence` must now fail
-because all twenty outputs exist; do not delete outputs to satisfy that flag.
-The original eleven-schema/three-vocabulary bundle is unchanged. Two new
+pre-run runtime tests and ten new isolation-design tests. Use `--validate-results`
+for existing v0.1 results. Their historical output-absence proofs still pass,
+but `--require-output-absence` on the v0.1 grounding tools must now fail because
+all twenty outputs exist; do not delete them. The new isolation-v0.2 tool checks
+different, still-empty namespaces, so its current-absence check passes.
+The original eleven-schema/three-vocabulary bundle is unchanged. Two v0.1
 grounding packet/raw schemas live separately in the exploration contracts and
 are validated by the pinned runtime and its local-only reference registry.

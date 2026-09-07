@@ -1,6 +1,6 @@
 # Hierarchical HybridQA data construction
 
-이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 versioned 연구 계약과 탐색 artifact이며 gold corpus가 아니다. 동결된 question-only AI extractor/normalizer의 누적 N=300 실험, 30-family candidate-backbone library, 71-question representative environment realization, candidate-derived normalization v0.2, targeted crossed-author re-authoring v0.1, targeted authoring-instrument revision v0.2까지 완료됐다. Instrument v0.2는 같은 기존 challenge 6문항에서 모든 동결 기준을 통과했다. Narrowed-grounding plan·runtime 동결 뒤 패킷 6개와 raw 응답 6개를 수집했지만, 모든 작성 context가 이전 연구 정보의 자동 주입을 보고했다. 현재 단계는 실패한 v0.1을 보존하고 입력 격리 계약을 새 버전으로 설계하는 것이다. 인간 검토는 현재 필수 gate가 아니라 향후 주장에 필요한 경우의 선택적 표본 감사로 연기됐다.
+이 디렉터리는 질문 의미, 환경 의존 연산자 topology, grounding, 실행 그래프를 서로 다른 감독 층으로 보존한다. 현재 산출물은 versioned 연구 계약과 탐색 artifact이며 gold corpus가 아니다. 동결된 question-only AI extractor/normalizer의 누적 N=300 실험, 30-family candidate-backbone library, 71-question representative environment realization, candidate-derived normalization v0.2, targeted crossed-author re-authoring v0.1, targeted authoring-instrument revision v0.2까지 완료됐다. Instrument v0.2는 같은 기존 challenge 6문항에서 모든 동결 기준을 통과했다. Narrowed-grounding plan·runtime 동결 뒤 패킷 6개와 raw 응답 6개를 수집했지만, 모든 작성 context가 이전 연구 정보의 자동 주입을 보고했다. 입력 격리 설계 v0.2와 출력 부재 receipt를 동결했으며, 현재 단계는 연구 문항 없는 전달 채널 검사의 증거 수집 가능성 확인과 구현 준비다. 인간 검토는 현재 필수 gate가 아니라 향후 주장에 필요한 경우의 선택적 표본 감사로 연기됐다.
 
 ## 현재 상태
 
@@ -20,7 +20,7 @@
 - Normalization v0.2는 기존 93개와 crossed-author 34개, 총 127개 candidate만 사용했다. Full eligible/provisional-only/ineligible은 121/1/5이고 technical loss, eligible-set contamination, unclassified adapter candidate는 모두 0이다. Crossed full-eligible semantic exact match는 10/16, mean Jaccard는 0.65625, coverage는 27/32이며 challenge/control exact match는 1/7과 9/9다. 동결 기준 실패로 grounding은 계속 금지된다.
 - Targeted re-authoring v0.1은 같은 기존 challenge ID 6개에 두 새 fresh-context AI author를 배정했다. 12개 record/14개 candidate 중 full/provisional/ineligible은 9/0/5이고 technical loss, contamination, unclassified, profile loss는 모두 0이다. 그러나 full-eligible author-question coverage는 8/12, semantic intersection은 2/6, exact match는 1/6, mean Jaccard는 0.25여서 coverage-failure 분기가 선택됐다.
 - Targeted authoring-instrument v0.2는 동일 6개 ID와 두 fresh-context author를 사용했다. Draft/final은 각각 12 record/14 candidate이며 feedback 12건은 target-node, required dependency, mapped output, output arity만 보고했다. Final candidate 14/14가 full eligible이고 coverage 12/12, semantic exact 6/6, mean Jaccard 1.0, v0.1 reference compatibility 12/12, profile loss 0으로 모든 동결 기준을 통과했다. Draft가 이미 모두 local-complete였고 final parsed record가 0/12 변경됐으므로 checker feedback의 인과 효과는 주장하지 않는다.
-- Narrowed-grounding plan v0.1은 같은 6문항의 14후보·52슬롯을 모두 보존하며, 예정된 결과 파일 20개가 없는 commit에서 동결됐다. Runtime 구현과 새 테스트 26개가 통과했고 모든 출력이 없는 상태에서 receipt도 별도 커밋됐다. 패킷 6개와 raw 응답 6개도 수집·보존했지만, JSON/schema 통과 6/6과 별개로 모든 응답이 `known_exposed`여서 승인 grounding record는 0/14다. 다음 작업은 실제 초기 context를 확인하는 입력 격리 계약의 별도 버전 동결이며, 실패한 응답을 수정하거나 같은 방식으로 즉시 재시도하지 않는다. 실행·정답 복원·human evidence는 0이다. 자세한 근거는 `reports/research_sequencing_decision_v0_12.md`에 있다.
+- Narrowed-grounding plan v0.1은 같은 6문항의 14후보·52슬롯을 모두 보존하며, 예정된 결과 파일 20개가 없는 commit에서 동결됐다. Runtime 구현과 새 테스트 26개가 통과했고 모든 출력이 없는 상태에서 receipt도 별도 커밋됐다. 패킷 6개와 raw 응답 6개도 수집·보존했지만, JSON/schema 통과 6/6과 별개로 모든 응답이 `known_exposed`여서 승인 grounding record는 0/14다. 입력 격리 계약 v0.2는 별도 동결됐으며, 다음 작업은 host 입력 증거를 확인하고 question-free probe 구현·계획을 동결하는 것이다. 실패한 응답을 수정하거나 같은 방식으로 즉시 재시도하지 않는다. 실행·정답 복원·human evidence는 0이다. 자세한 근거는 `reports/research_sequencing_decision_v0_12.md`에 있다.
 - `diagnostics/ai_question_structure_pipeline_v0_1/`의 이전 two-reviewer shadow run은 byte-preserved direction-finding/engineering evidence다. 두 AI reviewer의 60개 구조화 record, 30개 blinded alignment, 20개 독립 topology-only record와 최종 분석은 검증됐지만 모두 `non_human_non_gold`이고 correctness나 human agreement 근거가 아니다.
 - v0.1 human question-only view·packet·validator도 byte-preserved됐으나 현재 active gate가 아니다. Human raw file/record, agreement observation, adjudication은 모두 0이며 인간 절차를 나중에 재개하더라도 별도 blinded alignment/adjudication 계약 전에는 agreement나 A2 readiness를 주장하지 않는다.
 - `locked_eval`은 prompt, rubric, schema, 연산자 어휘 조정에 사용하지 않는다.
@@ -44,7 +44,17 @@
 프로토콜은 같은 영역의 `prompts/narrowed_grounding_v0_1.md`다.
 Runtime 도구는 `tools/narrowed_grounding_runtime_v0_1.py`, packet/raw schema와 receipt는 같은 contracts 영역의 `narrowed_grounding_*_v0_1.json`이다. 변경이 필요하면 새 버전을 만든다.
 
-계획된 출력 20개는 모두 존재하므로 `--build-packets`, `--analyze`를 재실행하거나 현재 출력 부재를 요구하지 않는다. Raw 6개는 최초 커밋 바이트를 보존한다. `fork_context=false`만으로 자동 제공된 AGENTS/연구 요약을 차단하지 못했다. 다음 작업은 연구 질문 전달 전 초기 입력을 점검하는 별도 격리 계약 설계다. v0.1의 `protocol_sha256`가 author guide를 가리키는 명명 모호성도 새 버전에서 명확히 하며, 기존 파일은 수정하지 않는다.
+계획된 출력 20개는 모두 존재하므로 `--build-packets`, `--analyze`를 재실행하거나 현재 출력 부재를 요구하지 않는다. Raw 6개는 최초 커밋 바이트를 보존한다. `fork_context=false`만으로 자동 제공된 AGENTS/연구 요약을 차단하지 못했다. 격리 설계 v0.2는 동결됐지만 실제 채널의 격리가 검증된 것은 아니다. v0.1의 `protocol_sha256`가 author guide를 가리키는 명명 모호성도 새 버전에서 명확히 하며, 기존 파일은 수정하지 않는다.
+
+## 입력 격리 설계 v0.2
+
+설계·검사 구현 `80b74fbc4e727d09265945946e64fc746673e621` 이후, 새 probe/grounding 출력이 없는 `467fc8586321b8e8f3437d59edeec67ab7a26d2e`에서 receipt를 동결했다. 입력 경로 9종, host 증거와 작성자 신고의 분리, 정상·의도적 주입·불투명 입력의 합성 control 3종, 실패·불명확·미완료 분기를 정했다. 회귀검사 10개는 계약 무결성 검사이며 실제 모델의 격리 성공 관측은 아니다.
+
+```sh
+.venv/bin/python -B data_construction/tools/freeze_grounding_input_isolation_v0_2.py --validate-only --require-output-absence
+```
+
+다음 작업은 허용된 채널이 실제 전달 입력의 host 측 증거를 제공하는지 확인하고, 가능할 때 offline adapter·receipt schema·검증기·합성 테스트와 별도 probe plan을 먼저 동결하는 것이다. 확인할 수 없다면 `BLOCKED_UNVERIFIABLE_CONTEXT`로 보류한다. 작성자의 깨끗하다는 자기 신고만으로 통과시키지 않는다. 새 연구 문항·grounding·실행·유료 호출·플랫폼 설정 변경은 이번 설계에 포함되지 않는다. [판단 근거](reports/research_sequencing_decision_v0_13.md)를 참고한다.
 
 ## 계층
 
