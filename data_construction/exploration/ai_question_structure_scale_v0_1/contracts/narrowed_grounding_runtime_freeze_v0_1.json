@@ -1,0 +1,97 @@
+{
+  "answer_recovery_authorized": false,
+  "execution_authorized": false,
+  "implementation_commit": "2983168f48689e8e7129a9bdecde4787a4ecb8cf",
+  "output_absence_proof": "entire_namespace_empty_at_receipt_introduction_commit",
+  "plan_freeze_commit": "b2ca1fbc413336fa330b11a14649735acc25f0df",
+  "plan_sha256": "287776aecf19cbe4d310c1507f1682faaf7597eb251862ebbaaf3360c361036a",
+  "planned_outputs": {
+    "checks": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/checks.jsonl",
+    "comparisons": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/question_comparisons.jsonl",
+    "exposure": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/grounding_exposure_ledger_v0_1.json",
+    "metrics": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/metrics_v0_1.json",
+    "packet_01": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_01.json",
+    "packet_02": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_02.json",
+    "packet_03": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_03.json",
+    "packet_04": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_04.json",
+    "packet_05": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_05.json",
+    "packet_06": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_06.json",
+    "packet_manifest": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packet_manifest.json",
+    "raw_01": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_01.json",
+    "raw_02": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_02.json",
+    "raw_03": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_03.json",
+    "raw_04": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_04.json",
+    "raw_05": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_05.json",
+    "raw_06": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_06.json",
+    "records": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/grounding_records.jsonl",
+    "report": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/report_v0_1.md",
+    "run_manifest": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/run_manifest.json"
+  },
+  "runtime_artifacts": [
+    {
+      "bytes": 8,
+      "path": ".python-version",
+      "sha256": "59cd171bfba8dfdcbe3343f94efd5294eb6c2298fe7afad8da1d54834089d7dc"
+    },
+    {
+      "bytes": 3494,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_packet_schema_v0_1.json",
+      "sha256": "06a8ef9c1e81e5f9e246aab358515935f84a1b16fe25924b7f14ae578c4cb748"
+    },
+    {
+      "bytes": 20267,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_raw_schema_v0_1.json",
+      "sha256": "03f1b5f9df5d7bc668c718ba321b0a75c0cbf466765b5fb72688fe98951fbb9f"
+    },
+    {
+      "bytes": 29581,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/open_operator_realization_schema_v0_1.json",
+      "sha256": "a1146ade2d0c035fec46f679ffd061ef3d28cc80ab5b646733eeb41332a62094"
+    },
+    {
+      "bytes": 18989,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_environment_view_schema_v0_1.json",
+      "sha256": "dd868f6f3ee678ac1fb19e6c3b266832168162e819f32cf540e7b58464ec06ed"
+    },
+    {
+      "bytes": 4991,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/prompts/narrowed_grounding_author_guide_v0_1.md",
+      "sha256": "ffe774bedeec6d6e6f473ab505267113ae73edd9796ffcd1d92ea7b6dfbf3c94"
+    },
+    {
+      "bytes": 15292,
+      "path": "data_construction/tools/_common.py",
+      "sha256": "5e879a163863e3d4e497a57be99f4dc40a0e033d351dfed8da991514c789f64d"
+    },
+    {
+      "bytes": 14407,
+      "path": "data_construction/tools/freeze_narrowed_grounding_plan_v0_1.py",
+      "sha256": "7d8abc7f7f40ea24cff4ce02ea232898dfa9f7516050e59fda03613a6d7c9f05"
+    },
+    {
+      "bytes": 44345,
+      "path": "data_construction/tools/narrowed_grounding_runtime_v0_1.py",
+      "sha256": "1830d36a46988950d72aaf9f3e3bd76422ecf4e8ad97740b07b0de1e1f530f0b"
+    },
+    {
+      "bytes": 247,
+      "path": "requirements.txt",
+      "sha256": "6c30964755bbc01c232a0d636bc3abd8a61639116c35a44648e46ea02042c599"
+    },
+    {
+      "bytes": 26098,
+      "path": "tests/test_narrowed_grounding_runtime_v0_1.py",
+      "sha256": "c1f900743d010f44ea5440526bb210aa41baed4cc12f0c006f2c836a281cca30"
+    }
+  ],
+  "schema_version": "narrowed_grounding_runtime_freeze_v0_1",
+  "status": "frozen_before_all_outputs",
+  "test_evidence": {
+    "command": ".venv/bin/python -B -m unittest discover -s tests -p test_narrowed_grounding_runtime_v0_1.py -v",
+    "errors": 0,
+    "failures": 0,
+    "output_sha256": "b773bce4bf691905e3c7d4205346735778b7e3ed32e84389358dd7022e504da8",
+    "skipped": 0,
+    "tests_run": 26
+  }
+}
