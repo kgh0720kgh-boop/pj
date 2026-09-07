@@ -1,0 +1,1487 @@
+{
+  "schema_version": "narrowed_grounding_raw_v0_1",
+  "packet_id": "ng_v0_1_question_03",
+  "packet_sha256": "3dc0264851f2c0408ed60d46b6bf8e4a2c9b9a1ce82de6858aec24155684689c",
+  "question_id": "1e2e4e4f72a64bbf",
+  "environment_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+  "input_delivery": {
+    "status": "complete",
+    "reason": null
+  },
+  "provenance": {
+    "model_id": "GPT-6 (Codex)",
+    "model_revision": null,
+    "revision_status": "revision_not_exposed",
+    "seed": null,
+    "seed_status": "not_supported",
+    "context_id": "ng_v0_1_question_03_fresh_author",
+    "prior_exposure": "known_exposed",
+    "raw_capture_status": "structured_output_only_interface_limitation",
+    "attempts": [
+      {
+        "packet_sha256": "3dc0264851f2c0408ed60d46b6bf8e4a2c9b9a1ce82de6858aec24155684689c",
+        "delivery": "response_delivered"
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "observation_alias": "observation_01",
+      "candidate_sha256": "0530d56f87596c822a33c529184c38240022f4a6754f0ace96a488ef505b7427",
+      "identified_alternative_ids": [
+        "home_field_link_position_0",
+        "home_field_link_position_1"
+      ],
+      "alternative_relationship": "incompatible",
+      "alternatives": [
+        {
+          "alternative_id": "home_field_link_position_0",
+          "assumptions": [
+            "The franchise name-change clue is resolved in linked text, while its home-field relation is read from the matching table row.",
+            "Conditional singular-field interpretation: link-list position 0 in the Home-field cell of the as-yet unresolved franchise row denotes the intended field. Position is a symbolic distinction between retained competing choices, not a preference; no selected row or resulting field has been computed.",
+            "The singular field is preserved through op2 and op3. Different venue links are competing targets, not a union of team sets; a union would alter the supplied singular target.",
+            "The decade constrains the franchise name-change event. A half-open decade interpretation from the first year named by that decade through the start of the next decade is intended; no date comparison is performed.",
+            "Use only table-linked franchise documents for the entry condition and only the selected field's table-linked documents for occupancy. Explicit source alias continuity supports row matching and team deduplication; absent evidence remains unknown.",
+            "All resolved dynamic dispositions specify conditional arguments only. They do not certify unique retrieval, evidence completeness, semantic validity or resolution of the incompatible field choice."
+          ],
+          "slots": [
+            {
+              "slot_id": "slot1",
+              "status": "resolved",
+              "role": "franchise-linked document text expressing the specified name change during the stated decade",
+              "expected_type": "linked_document_text",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "franchise_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 84,
+                      "end": 136,
+                      "literal": "changed its name to the Cincinnati Reds in the 1890s"
+                    }
+                  ],
+                  "selector": "UNEVALUATED: for all rows, follow only linked_document_ids in cells with column_index 0 (Franchise), joining document_id within this pinned collection. Test whether each associated franchise's text states a change of its own name to the exact question name during the question decade; retain the evidence document with its originating row only if uniquely supported. Do not identify any matching document or franchise in this submission. A different club merely mentioned in a passage does not satisfy this rule.",
+                  "requested_attribute": "franchise name-change statement and its decade",
+                  "entity_association": "Document subject is the franchise associated with its originating Franchise cell, with explicit alias continuity required."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot2",
+              "status": "ambiguous",
+              "role": "the franchise table row corresponding to the referent produced by op1 and its home-field cell",
+              "expected_type": "table_row_or_cell",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "table_column",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "column_identity",
+                  "pointer": "/columns/0",
+                  "table_id": "American_Association_(19th_century)_0",
+                  "column_index": 0,
+                  "column_label": "Franchise"
+                },
+                {
+                  "kind": "table_column",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "column_identity",
+                  "pointer": "/columns/2",
+                  "table_id": "American_Association_(19th_century)_0",
+                  "column_index": 2,
+                  "column_label": "Home-field"
+                },
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "table_row_or_cell",
+                  "scope": "/rows",
+                  "link_scope": null,
+                  "upstream_node_ids": [
+                    "op1"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 51,
+                      "end": 61,
+                      "literal": "home-field"
+                    }
+                  ],
+                  "selector": "UNEVALUATED: associate op1's eventual franchise identity with its row using the Franchise column (index 0). Within that row's Home-field cell (index 2), use link-list position 0 as this alternative's singular field referent, preserving the cell's venue-incarnation qualifier. This ordinal is an explicit competing interpretation, not evidence of question intent or chronology. Do not choose a concrete row, document ID or field now. A missing position, nonunique row or unresolved qualifier remains unresolved.",
+                  "requested_attribute": null,
+                  "entity_association": "The selected row must denote the franchise output by op1; the chosen field is one relation in that same row's column-2 cell."
+                }
+              ],
+              "reason": "The question supplies no rule choosing one Home-field relation when the franchise row offers competing venue links. This alternative fixes only a symbolic link position; its intendedness is unresolved. No upstream graph is repaired.",
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot3",
+              "status": "resolved",
+              "role": "home-field cell links associated with the franchise row",
+              "expected_type": "cell_link",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "cell_link",
+                  "scope": "/rows",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [
+                    "op2"
+                  ],
+                  "question_spans": [],
+                  "selector": "UNEVALUATED: retain the originating Home-field cell links (column_index 2) corresponding to the singular field referent and venue qualifier output by op2. Preserve that upstream row/cell association. Follow all links explicitly denoting that same selected venue only within /linked_documents; do not follow sibling links denoting different venues. No link or entity is selected here.",
+                  "requested_attribute": "field identity and major-league baseball occupancy",
+                  "entity_association": "Links must refer to op2's selected field in the franchise's originating home-field cell."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot4",
+              "status": "resolved",
+              "role": "linked-document text identifying the distinct major-league baseball teams that played on the selected home field",
+              "expected_type": "linked_document_text",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [
+                    "op2"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 9,
+                      "end": 36,
+                      "literal": "major league baseball teams"
+                    }
+                  ],
+                  "selector": "UNEVALUATED: follow the Home-field column-2 cell links associated with the field output by op2, join only their document_id entries in this collection, and request statements of distinct major-league baseball clubs actually playing on that same venue/incarnation. Treat incidental mentions and opponents without stated play at this venue as insufficient. Preserve supporting document and link-origin associations without extracting statements, team identities or a count now. If one document groups different venues or incarnations, require explicit association to op2's qualifier; otherwise leave evidence unresolved.",
+                  "requested_attribute": "distinct major league baseball teams stated to have played on the selected home field",
+                  "entity_association": "Every requested team-occupancy statement must concern the same single field output by op2, not another field or merely the franchise from op1."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            }
+          ],
+          "operators": [
+            {
+              "node_id": "op1",
+              "status": "specified",
+              "role": "Find the franchise-linked document whose name-change statement satisfies the wording and decade in the question.",
+              "expected_output_type": "franchise_referent_with_originating_row_association",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "franchise_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "column_identity",
+                    "pointer": "/columns/0",
+                    "table_id": "American_Association_(19th_century)_0",
+                    "column_index": 0,
+                    "column_label": "Franchise"
+                  }
+                },
+                {
+                  "name": "name_change_condition",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "question_condition",
+                    "start": 84,
+                    "end": 136,
+                    "literal": "changed its name to the Cincinnati Reds in the 1890s"
+                  }
+                },
+                {
+                  "name": "new_name",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "entity_name",
+                    "start": 108,
+                    "end": 123,
+                    "literal": "Cincinnati Reds"
+                  }
+                },
+                {
+                  "name": "name_change_decade",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "decade_literal",
+                    "start": 131,
+                    "end": 136,
+                    "literal": "1890s"
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op2",
+              "status": "ambiguous",
+              "role": "Match the franchise from op1 to its table row and obtain the home-field relation represented in that row.",
+              "expected_output_type": "single_home_field_referent_with_originating_cell_and_venue_qualifier",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "franchise_identity_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "column_identity",
+                    "pointer": "/columns/0",
+                    "table_id": "American_Association_(19th_century)_0",
+                    "column_index": 0,
+                    "column_label": "Franchise"
+                  }
+                },
+                {
+                  "name": "home_field_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "column_identity",
+                    "pointer": "/columns/2",
+                    "table_id": "American_Association_(19th_century)_0",
+                    "column_index": 2,
+                    "column_label": "Home-field"
+                  }
+                },
+                {
+                  "name": "singular_home_field_rule",
+                  "binding": {
+                    "kind": "dynamic",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "table_row_or_cell",
+                    "scope": "/rows",
+                    "link_scope": null,
+                    "upstream_node_ids": [
+                      "op1"
+                    ],
+                    "question_spans": [
+                      {
+                        "start": 51,
+                        "end": 61,
+                        "literal": "home-field"
+                      }
+                    ],
+                    "selector": "UNEVALUATED: associate op1's eventual franchise identity with its row using the Franchise column (index 0). Within that row's Home-field cell (index 2), use link-list position 0 as this alternative's singular field referent, preserving the cell's venue-incarnation qualifier. This ordinal is an explicit competing interpretation, not evidence of question intent or chronology. Do not choose a concrete row, document ID or field now. A missing position, nonunique row or unresolved qualifier remains unresolved.",
+                    "requested_attribute": null,
+                    "entity_association": "The selected row must denote the franchise output by op1; the chosen field is one relation in that same row's column-2 cell."
+                  }
+                }
+              ],
+              "reason": "The question supplies no rule choosing one Home-field relation when the franchise row offers competing venue links. This alternative fixes only a symbolic link position; its intendedness is unresolved. No upstream graph is repaired."
+            },
+            {
+              "node_id": "op3",
+              "status": "specified",
+              "role": "Follow the home-field link or links and collect the distinct major-league baseball teams stated in linked text to have played on the field produced by op2.",
+              "expected_output_type": "set_of_distinct_major_league_team_referents",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "team_class",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "entity_class",
+                    "start": 9,
+                    "end": 36,
+                    "literal": "major league baseball teams"
+                  }
+                },
+                {
+                  "name": "field_document_request",
+                  "binding": {
+                    "kind": "dynamic",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "linked_document_text",
+                    "scope": "/linked_documents",
+                    "link_scope": "/rows",
+                    "upstream_node_ids": [
+                      "op2"
+                    ],
+                    "question_spans": [
+                      {
+                        "start": 9,
+                        "end": 36,
+                        "literal": "major league baseball teams"
+                      }
+                    ],
+                    "selector": "UNEVALUATED: follow the Home-field column-2 cell links associated with the field output by op2, join only their document_id entries in this collection, and request statements of distinct major-league baseball clubs actually playing on that same venue/incarnation. Treat incidental mentions and opponents without stated play at this venue as insufficient. Preserve supporting document and link-origin associations without extracting statements, team identities or a count now. If one document groups different venues or incarnations, require explicit association to op2's qualifier; otherwise leave evidence unresolved.",
+                    "requested_attribute": "distinct major league baseball teams stated to have played on the selected home field",
+                    "entity_association": "Every requested team-occupancy statement must concern the same single field output by op2, not another field or merely the franchise from op1."
+                  }
+                },
+                {
+                  "name": "occupancy_and_identity_rule",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "set_of_team_referents",
+                    "function": "UNEVALUATED: enumerate source-supported distinct club identities that played baseball at the single upstream venue; admit major-league status only when supplied text explicitly supports it. Do not restrict occupancy dates to the franchise-name-change decade: that phrase qualifies the name-change clue. Do not merge sibling venues. If text lacks enough identity, venue or league-status evidence, preserve unknown membership.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op2"
+                      }
+                    ],
+                    "units": "not_applicable",
+                    "tie_policy": "Merge aliases only when source evidence explicitly establishes the same club identity; retain distinct clubs with identical names separately. Unresolved identity remains unresolved.",
+                    "null_policy": "Missing, conflicting or incomplete evidence is unknown, never an empty set or zero. Propagate unresolved upstream input; do not fabricate values."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op4",
+              "status": "specified",
+              "role": "Count the distinct team referents produced by op3.",
+              "expected_output_type": "nonnegative_integer",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "count_distinct",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "nonnegative_integer",
+                    "function": "count_distinct_team_referents",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op3"
+                      }
+                    ],
+                    "units": "teams",
+                    "tie_policy": "Merge aliases only when source evidence explicitly establishes the same club identity; retain distinct clubs with identical names separately. Unresolved identity remains unresolved.",
+                    "null_policy": "Missing, conflicting or incomplete evidence is unknown, never an empty set or zero. Propagate unresolved upstream input; do not fabricate values."
+                  }
+                },
+                {
+                  "name": "aggregation_cue",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "aggregation_request",
+                    "start": 0,
+                    "end": 8,
+                    "literal": "How many"
+                  }
+                }
+              ],
+              "reason": null
+            }
+          ]
+        },
+        {
+          "alternative_id": "home_field_link_position_1",
+          "assumptions": [
+            "The franchise name-change clue is resolved in linked text, while its home-field relation is read from the matching table row.",
+            "Conditional singular-field interpretation: link-list position 1 in the Home-field cell of the as-yet unresolved franchise row denotes the intended field. Position is a symbolic distinction between retained competing choices, not a preference; no selected row or resulting field has been computed.",
+            "The singular field is preserved through op2 and op3. Different venue links are competing targets, not a union of team sets; a union would alter the supplied singular target.",
+            "The decade constrains the franchise name-change event. A half-open decade interpretation from the first year named by that decade through the start of the next decade is intended; no date comparison is performed.",
+            "Use only table-linked franchise documents for the entry condition and only the selected field's table-linked documents for occupancy. Explicit source alias continuity supports row matching and team deduplication; absent evidence remains unknown.",
+            "All resolved dynamic dispositions specify conditional arguments only. They do not certify unique retrieval, evidence completeness, semantic validity or resolution of the incompatible field choice."
+          ],
+          "slots": [
+            {
+              "slot_id": "slot1",
+              "status": "resolved",
+              "role": "franchise-linked document text expressing the specified name change during the stated decade",
+              "expected_type": "linked_document_text",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "franchise_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 84,
+                      "end": 136,
+                      "literal": "changed its name to the Cincinnati Reds in the 1890s"
+                    }
+                  ],
+                  "selector": "UNEVALUATED: for all rows, follow only linked_document_ids in cells with column_index 0 (Franchise), joining document_id within this pinned collection. Test whether each associated franchise's text states a change of its own name to the exact question name during the question decade; retain the evidence document with its originating row only if uniquely supported. Do not identify any matching document or franchise in this submission. A different club merely mentioned in a passage does not satisfy this rule.",
+                  "requested_attribute": "franchise name-change statement and its decade",
+                  "entity_association": "Document subject is the franchise associated with its originating Franchise cell, with explicit alias continuity required."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot2",
+              "status": "ambiguous",
+              "role": "the franchise table row corresponding to the referent produced by op1 and its home-field cell",
+              "expected_type": "table_row_or_cell",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "table_column",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "column_identity",
+                  "pointer": "/columns/0",
+                  "table_id": "American_Association_(19th_century)_0",
+                  "column_index": 0,
+                  "column_label": "Franchise"
+                },
+                {
+                  "kind": "table_column",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "column_identity",
+                  "pointer": "/columns/2",
+                  "table_id": "American_Association_(19th_century)_0",
+                  "column_index": 2,
+                  "column_label": "Home-field"
+                },
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "table_row_or_cell",
+                  "scope": "/rows",
+                  "link_scope": null,
+                  "upstream_node_ids": [
+                    "op1"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 51,
+                      "end": 61,
+                      "literal": "home-field"
+                    }
+                  ],
+                  "selector": "UNEVALUATED: associate op1's eventual franchise identity with its row using the Franchise column (index 0). Within that row's Home-field cell (index 2), use link-list position 1 as this alternative's singular field referent, preserving the cell's venue-incarnation qualifier. This ordinal is an explicit competing interpretation, not evidence of question intent or chronology. Do not choose a concrete row, document ID or field now. A missing position, nonunique row or unresolved qualifier remains unresolved.",
+                  "requested_attribute": null,
+                  "entity_association": "The selected row must denote the franchise output by op1; the chosen field is one relation in that same row's column-2 cell."
+                }
+              ],
+              "reason": "The question supplies no rule choosing one Home-field relation when the franchise row offers competing venue links. This alternative fixes only a symbolic link position; its intendedness is unresolved. No upstream graph is repaired.",
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot3",
+              "status": "resolved",
+              "role": "home-field cell links associated with the franchise row",
+              "expected_type": "cell_link",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "cell_link",
+                  "scope": "/rows",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [
+                    "op2"
+                  ],
+                  "question_spans": [],
+                  "selector": "UNEVALUATED: retain the originating Home-field cell links (column_index 2) corresponding to the singular field referent and venue qualifier output by op2. Preserve that upstream row/cell association. Follow all links explicitly denoting that same selected venue only within /linked_documents; do not follow sibling links denoting different venues. No link or entity is selected here.",
+                  "requested_attribute": "field identity and major-league baseball occupancy",
+                  "entity_association": "Links must refer to op2's selected field in the franchise's originating home-field cell."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot4",
+              "status": "resolved",
+              "role": "linked-document text identifying the distinct major-league baseball teams that played on the selected home field",
+              "expected_type": "linked_document_text",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [
+                    "op2"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 9,
+                      "end": 36,
+                      "literal": "major league baseball teams"
+                    }
+                  ],
+                  "selector": "UNEVALUATED: follow the Home-field column-2 cell links associated with the field output by op2, join only their document_id entries in this collection, and request statements of distinct major-league baseball clubs actually playing on that same venue/incarnation. Treat incidental mentions and opponents without stated play at this venue as insufficient. Preserve supporting document and link-origin associations without extracting statements, team identities or a count now. If one document groups different venues or incarnations, require explicit association to op2's qualifier; otherwise leave evidence unresolved.",
+                  "requested_attribute": "distinct major league baseball teams stated to have played on the selected home field",
+                  "entity_association": "Every requested team-occupancy statement must concern the same single field output by op2, not another field or merely the franchise from op1."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            }
+          ],
+          "operators": [
+            {
+              "node_id": "op1",
+              "status": "specified",
+              "role": "Find the franchise-linked document whose name-change statement satisfies the wording and decade in the question.",
+              "expected_output_type": "franchise_referent_with_originating_row_association",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "franchise_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "column_identity",
+                    "pointer": "/columns/0",
+                    "table_id": "American_Association_(19th_century)_0",
+                    "column_index": 0,
+                    "column_label": "Franchise"
+                  }
+                },
+                {
+                  "name": "name_change_condition",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "question_condition",
+                    "start": 84,
+                    "end": 136,
+                    "literal": "changed its name to the Cincinnati Reds in the 1890s"
+                  }
+                },
+                {
+                  "name": "new_name",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "entity_name",
+                    "start": 108,
+                    "end": 123,
+                    "literal": "Cincinnati Reds"
+                  }
+                },
+                {
+                  "name": "name_change_decade",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "decade_literal",
+                    "start": 131,
+                    "end": 136,
+                    "literal": "1890s"
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op2",
+              "status": "ambiguous",
+              "role": "Match the franchise from op1 to its table row and obtain the home-field relation represented in that row.",
+              "expected_output_type": "single_home_field_referent_with_originating_cell_and_venue_qualifier",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "franchise_identity_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "column_identity",
+                    "pointer": "/columns/0",
+                    "table_id": "American_Association_(19th_century)_0",
+                    "column_index": 0,
+                    "column_label": "Franchise"
+                  }
+                },
+                {
+                  "name": "home_field_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "column_identity",
+                    "pointer": "/columns/2",
+                    "table_id": "American_Association_(19th_century)_0",
+                    "column_index": 2,
+                    "column_label": "Home-field"
+                  }
+                },
+                {
+                  "name": "singular_home_field_rule",
+                  "binding": {
+                    "kind": "dynamic",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "table_row_or_cell",
+                    "scope": "/rows",
+                    "link_scope": null,
+                    "upstream_node_ids": [
+                      "op1"
+                    ],
+                    "question_spans": [
+                      {
+                        "start": 51,
+                        "end": 61,
+                        "literal": "home-field"
+                      }
+                    ],
+                    "selector": "UNEVALUATED: associate op1's eventual franchise identity with its row using the Franchise column (index 0). Within that row's Home-field cell (index 2), use link-list position 1 as this alternative's singular field referent, preserving the cell's venue-incarnation qualifier. This ordinal is an explicit competing interpretation, not evidence of question intent or chronology. Do not choose a concrete row, document ID or field now. A missing position, nonunique row or unresolved qualifier remains unresolved.",
+                    "requested_attribute": null,
+                    "entity_association": "The selected row must denote the franchise output by op1; the chosen field is one relation in that same row's column-2 cell."
+                  }
+                }
+              ],
+              "reason": "The question supplies no rule choosing one Home-field relation when the franchise row offers competing venue links. This alternative fixes only a symbolic link position; its intendedness is unresolved. No upstream graph is repaired."
+            },
+            {
+              "node_id": "op3",
+              "status": "specified",
+              "role": "Follow the home-field link or links and collect the distinct major-league baseball teams stated in linked text to have played on the field produced by op2.",
+              "expected_output_type": "set_of_distinct_major_league_team_referents",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "team_class",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "entity_class",
+                    "start": 9,
+                    "end": 36,
+                    "literal": "major league baseball teams"
+                  }
+                },
+                {
+                  "name": "field_document_request",
+                  "binding": {
+                    "kind": "dynamic",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "linked_document_text",
+                    "scope": "/linked_documents",
+                    "link_scope": "/rows",
+                    "upstream_node_ids": [
+                      "op2"
+                    ],
+                    "question_spans": [
+                      {
+                        "start": 9,
+                        "end": 36,
+                        "literal": "major league baseball teams"
+                      }
+                    ],
+                    "selector": "UNEVALUATED: follow the Home-field column-2 cell links associated with the field output by op2, join only their document_id entries in this collection, and request statements of distinct major-league baseball clubs actually playing on that same venue/incarnation. Treat incidental mentions and opponents without stated play at this venue as insufficient. Preserve supporting document and link-origin associations without extracting statements, team identities or a count now. If one document groups different venues or incarnations, require explicit association to op2's qualifier; otherwise leave evidence unresolved.",
+                    "requested_attribute": "distinct major league baseball teams stated to have played on the selected home field",
+                    "entity_association": "Every requested team-occupancy statement must concern the same single field output by op2, not another field or merely the franchise from op1."
+                  }
+                },
+                {
+                  "name": "occupancy_and_identity_rule",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "set_of_team_referents",
+                    "function": "UNEVALUATED: enumerate source-supported distinct club identities that played baseball at the single upstream venue; admit major-league status only when supplied text explicitly supports it. Do not restrict occupancy dates to the franchise-name-change decade: that phrase qualifies the name-change clue. Do not merge sibling venues. If text lacks enough identity, venue or league-status evidence, preserve unknown membership.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op2"
+                      }
+                    ],
+                    "units": "not_applicable",
+                    "tie_policy": "Merge aliases only when source evidence explicitly establishes the same club identity; retain distinct clubs with identical names separately. Unresolved identity remains unresolved.",
+                    "null_policy": "Missing, conflicting or incomplete evidence is unknown, never an empty set or zero. Propagate unresolved upstream input; do not fabricate values."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op4",
+              "status": "specified",
+              "role": "Count the distinct team referents produced by op3.",
+              "expected_output_type": "nonnegative_integer",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "count_distinct",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "nonnegative_integer",
+                    "function": "count_distinct_team_referents",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op3"
+                      }
+                    ],
+                    "units": "teams",
+                    "tie_policy": "Merge aliases only when source evidence explicitly establishes the same club identity; retain distinct clubs with identical names separately. Unresolved identity remains unresolved.",
+                    "null_policy": "Missing, conflicting or incomplete evidence is unknown, never an empty set or zero. Propagate unresolved upstream input; do not fabricate values."
+                  }
+                },
+                {
+                  "name": "aggregation_cue",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "aggregation_request",
+                    "start": 0,
+                    "end": 8,
+                    "literal": "How many"
+                  }
+                }
+              ],
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Isolation limitation: the earlier user message supplied project AGENTS instructions containing excluded historical research summaries, prior metrics, phase decisions and challenge question IDs, including this question ID. Therefore prior_exposure is known_exposed; a fresh isolated-context attestation is not available. No excluded research file contents were opened for authoring. An initial metadata command also probed a mistyped nonexistent packet path and obtained no contents.",
+        "The singular home-field selection is semantically unresolved. Both identified ordinal alternatives are retained without resolving the entry franchise, selecting a concrete row or venue, evaluating either alternative, or changing the graph.",
+        "No claim is made that source link ordering establishes question intent, chronology or completeness of possible semantic interpretations. If an eventual row requires additional distinctions, that remains unresolved under this one-pass submission.",
+        "Downstream rules are conditional on each retained field alternative. Their explicit arguments do not remove upstream ambiguity, certify exhaustive team evidence or provide execution results.",
+        "Model identity is the runtime-described GPT-6 Codex family; the exact backend model revision and sampling seed are not exposed. This artifact captures structured output only, not hidden reasoning or backend response bytes.",
+        "Protocol provenance limitation: the fully read allowed narrowed_grounding_v0_1.md has raw-byte SHA-256 f48cf2d4c9adb18c2eb82d3011ee49717df16ee6aba061f2098c3e0b59b868ab, whereas the packet protocol_sha256 is ffe774bedeec6d6e6f473ab505267113ae73edd9796ffcd1d92ea7b6dfbf3c94. The meaning/cause of this discrepancy was not investigated using excluded inputs. Full input delivery does not attest that this protocol file matches the packet's frozen protocol identity. The supplied raw schema's byte hash does match response_schema_sha256."
+      ]
+    },
+    {
+      "observation_alias": "observation_02",
+      "candidate_sha256": "e223f68dac6c22afa90a791ec39aebe68021cc6e0f4e06f8f372c298b5373da9",
+      "identified_alternative_ids": [
+        "home_field_link_position_0",
+        "home_field_link_position_1"
+      ],
+      "alternative_relationship": "incompatible",
+      "alternatives": [
+        {
+          "alternative_id": "home_field_link_position_0",
+          "assumptions": [
+            "The franchise is identified by matching the name-change statement in linked franchise text.",
+            "The singular home-field target denotes one question-intended field link from the franchise row; its concrete binding is deferred.",
+            "Conditional singular-field interpretation: link-list position 0 in the Home-field cell of the as-yet unresolved franchise row denotes the intended field. Position is a symbolic distinction between retained competing choices, not a preference; no selected row or resulting field has been computed.",
+            "The singular field is preserved through op2 and op3. Different venue links are competing targets, not a union of team sets; a union would alter the supplied singular target.",
+            "The decade constrains the franchise name-change event. A half-open decade interpretation from the first year named by that decade through the start of the next decade is intended; no date comparison is performed.",
+            "Use only table-linked franchise documents for the entry condition and only the selected field's table-linked documents for occupancy. Explicit source alias continuity supports row matching and team deduplication; absent evidence remains unknown.",
+            "All resolved dynamic dispositions specify conditional arguments only. They do not certify unique retrieval, evidence completeness, semantic validity or resolution of the incompatible field choice."
+          ],
+          "slots": [
+            {
+              "slot_id": "slot1",
+              "status": "resolved",
+              "role": "the question-stated franchise name-change condition and decade",
+              "expected_type": "question_literal",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "question_literal",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "question_condition",
+                  "start": 84,
+                  "end": 136,
+                  "literal": "changed its name to the Cincinnati Reds in the 1890s"
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot2",
+              "status": "resolved",
+              "role": "a franchise cell link whose document states the matching name change",
+              "expected_type": "cell_link",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "cell_link",
+                  "scope": "/rows",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 84,
+                      "end": 136,
+                      "literal": "changed its name to the Cincinnati Reds in the 1890s"
+                    }
+                  ],
+                  "selector": "UNEVALUATED: inspect links in each row's Franchise cell (column_index 0), follow them only within /linked_documents, and retain the originating cell link whose document explicitly satisfies the question name-change condition for that row's franchise. Require a unique supported franchise and link; do not emit a matching row or link now.",
+                  "requested_attribute": "franchise name-change statement and decade",
+                  "entity_association": "Each link remains associated with the franchise and originating row from its own column-0 cell."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot3",
+              "status": "ambiguous",
+              "role": "one question-intended home-field link from the resolved franchise row",
+              "expected_type": "cell_link",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "table_column",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "column_identity",
+                  "pointer": "/columns/2",
+                  "table_id": "American_Association_(19th_century)_0",
+                  "column_index": 2,
+                  "column_label": "Home-field"
+                },
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "cell_link",
+                  "scope": "/rows",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [
+                    "op1"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 51,
+                      "end": 61,
+                      "literal": "home-field"
+                    }
+                  ],
+                  "selector": "UNEVALUATED: associate op1's eventual franchise identity with its row using the Franchise column (index 0). Within that row's Home-field cell (index 2), use link-list position 0 as this alternative's singular field referent, preserving the cell's venue-incarnation qualifier. This ordinal is an explicit competing interpretation, not evidence of question intent or chronology. Do not choose a concrete row, document ID or field now. A missing position, nonunique row or unresolved qualifier remains unresolved.",
+                  "requested_attribute": "home-field identity and table venue qualifier",
+                  "entity_association": "The one selected link belongs to the Home-field cell of the row associated with op1's franchise."
+                }
+              ],
+              "reason": "The question supplies no rule choosing one Home-field relation when the franchise row offers competing venue links. This alternative fixes only a symbolic link position; its intendedness is unresolved. No upstream graph is repaired.",
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot4",
+              "status": "resolved",
+              "role": "linked field-document statements identifying major league teams that played there",
+              "expected_type": "linked_document_text",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [
+                    "op2"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 9,
+                      "end": 36,
+                      "literal": "major league baseball teams"
+                    }
+                  ],
+                  "selector": "UNEVALUATED: follow the Home-field column-2 cell links associated with the field output by op2, join only their document_id entries in this collection, and request statements of distinct major-league baseball clubs actually playing on that same venue/incarnation. Treat incidental mentions and opponents without stated play at this venue as insufficient. Preserve supporting document and link-origin associations without extracting statements, team identities or a count now. If one document groups different venues or incarnations, require explicit association to op2's qualifier; otherwise leave evidence unresolved.",
+                  "requested_attribute": "distinct major league baseball teams stated to have played on the selected home field",
+                  "entity_association": "Every requested team-occupancy statement must concern the same single field output by op2, not another field or merely the franchise from op1."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            }
+          ],
+          "operators": [
+            {
+              "node_id": "op1",
+              "status": "specified",
+              "role": "Test franchise-linked text against the stated name-change condition and retain the matching franchise row.",
+              "expected_output_type": "franchise_referent_with_originating_row_association",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "franchise_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "column_identity",
+                    "pointer": "/columns/0",
+                    "table_id": "American_Association_(19th_century)_0",
+                    "column_index": 0,
+                    "column_label": "Franchise"
+                  }
+                },
+                {
+                  "name": "name_change_condition",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "question_condition",
+                    "start": 84,
+                    "end": 136,
+                    "literal": "changed its name to the Cincinnati Reds in the 1890s"
+                  }
+                },
+                {
+                  "name": "new_name",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "entity_name",
+                    "start": 108,
+                    "end": 123,
+                    "literal": "Cincinnati Reds"
+                  }
+                },
+                {
+                  "name": "name_change_decade",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "decade_literal",
+                    "start": 131,
+                    "end": 136,
+                    "literal": "1890s"
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op2",
+              "status": "ambiguous",
+              "role": "Read the question-intended singular home-field link from the resolved franchise row.",
+              "expected_output_type": "single_home_field_referent_with_originating_cell_and_venue_qualifier",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "franchise_identity_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "column_identity",
+                    "pointer": "/columns/0",
+                    "table_id": "American_Association_(19th_century)_0",
+                    "column_index": 0,
+                    "column_label": "Franchise"
+                  }
+                },
+                {
+                  "name": "home_field_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "column_identity",
+                    "pointer": "/columns/2",
+                    "table_id": "American_Association_(19th_century)_0",
+                    "column_index": 2,
+                    "column_label": "Home-field"
+                  }
+                },
+                {
+                  "name": "singular_home_field_rule",
+                  "binding": {
+                    "kind": "dynamic",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "cell_link",
+                    "scope": "/rows",
+                    "link_scope": "/rows",
+                    "upstream_node_ids": [
+                      "op1"
+                    ],
+                    "question_spans": [
+                      {
+                        "start": 51,
+                        "end": 61,
+                        "literal": "home-field"
+                      }
+                    ],
+                    "selector": "UNEVALUATED: associate op1's eventual franchise identity with its row using the Franchise column (index 0). Within that row's Home-field cell (index 2), use link-list position 0 as this alternative's singular field referent, preserving the cell's venue-incarnation qualifier. This ordinal is an explicit competing interpretation, not evidence of question intent or chronology. Do not choose a concrete row, document ID or field now. A missing position, nonunique row or unresolved qualifier remains unresolved.",
+                    "requested_attribute": "home-field identity and table venue qualifier",
+                    "entity_association": "The one selected link belongs to the Home-field cell of the row associated with op1's franchise."
+                  }
+                }
+              ],
+              "reason": "The question supplies no rule choosing one Home-field relation when the franchise row offers competing venue links. This alternative fixes only a symbolic link position; its intendedness is unresolved. No upstream graph is repaired."
+            },
+            {
+              "node_id": "op3",
+              "status": "specified",
+              "role": "From linked text for the selected field, identify the distinct major league baseball teams stated to have played there.",
+              "expected_output_type": "set_of_distinct_major_league_team_referents",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "team_class",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "entity_class",
+                    "start": 9,
+                    "end": 36,
+                    "literal": "major league baseball teams"
+                  }
+                },
+                {
+                  "name": "field_document_request",
+                  "binding": {
+                    "kind": "dynamic",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "linked_document_text",
+                    "scope": "/linked_documents",
+                    "link_scope": "/rows",
+                    "upstream_node_ids": [
+                      "op2"
+                    ],
+                    "question_spans": [
+                      {
+                        "start": 9,
+                        "end": 36,
+                        "literal": "major league baseball teams"
+                      }
+                    ],
+                    "selector": "UNEVALUATED: follow the Home-field column-2 cell links associated with the field output by op2, join only their document_id entries in this collection, and request statements of distinct major-league baseball clubs actually playing on that same venue/incarnation. Treat incidental mentions and opponents without stated play at this venue as insufficient. Preserve supporting document and link-origin associations without extracting statements, team identities or a count now. If one document groups different venues or incarnations, require explicit association to op2's qualifier; otherwise leave evidence unresolved.",
+                    "requested_attribute": "distinct major league baseball teams stated to have played on the selected home field",
+                    "entity_association": "Every requested team-occupancy statement must concern the same single field output by op2, not another field or merely the franchise from op1."
+                  }
+                },
+                {
+                  "name": "occupancy_and_identity_rule",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "set_of_team_referents",
+                    "function": "UNEVALUATED: enumerate source-supported distinct club identities that played baseball at the single upstream venue; admit major-league status only when supplied text explicitly supports it. Do not restrict occupancy dates to the franchise-name-change decade: that phrase qualifies the name-change clue. Do not merge sibling venues. If text lacks enough identity, venue or league-status evidence, preserve unknown membership.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op2"
+                      }
+                    ],
+                    "units": "not_applicable",
+                    "tie_policy": "Merge aliases only when source evidence explicitly establishes the same club identity; retain distinct clubs with identical names separately. Unresolved identity remains unresolved.",
+                    "null_policy": "Missing, conflicting or incomplete evidence is unknown, never an empty set or zero. Propagate unresolved upstream input; do not fabricate values."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op4",
+              "status": "specified",
+              "role": "Count the distinct teams produced by the field-occupancy step.",
+              "expected_output_type": "nonnegative_integer",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "count_distinct",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "nonnegative_integer",
+                    "function": "count_distinct_team_referents",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op3"
+                      }
+                    ],
+                    "units": "teams",
+                    "tie_policy": "Merge aliases only when source evidence explicitly establishes the same club identity; retain distinct clubs with identical names separately. Unresolved identity remains unresolved.",
+                    "null_policy": "Missing, conflicting or incomplete evidence is unknown, never an empty set or zero. Propagate unresolved upstream input; do not fabricate values."
+                  }
+                },
+                {
+                  "name": "aggregation_cue",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "aggregation_request",
+                    "start": 0,
+                    "end": 8,
+                    "literal": "How many"
+                  }
+                }
+              ],
+              "reason": null
+            }
+          ]
+        },
+        {
+          "alternative_id": "home_field_link_position_1",
+          "assumptions": [
+            "The franchise is identified by matching the name-change statement in linked franchise text.",
+            "The singular home-field target denotes one question-intended field link from the franchise row; its concrete binding is deferred.",
+            "Conditional singular-field interpretation: link-list position 1 in the Home-field cell of the as-yet unresolved franchise row denotes the intended field. Position is a symbolic distinction between retained competing choices, not a preference; no selected row or resulting field has been computed.",
+            "The singular field is preserved through op2 and op3. Different venue links are competing targets, not a union of team sets; a union would alter the supplied singular target.",
+            "The decade constrains the franchise name-change event. A half-open decade interpretation from the first year named by that decade through the start of the next decade is intended; no date comparison is performed.",
+            "Use only table-linked franchise documents for the entry condition and only the selected field's table-linked documents for occupancy. Explicit source alias continuity supports row matching and team deduplication; absent evidence remains unknown.",
+            "All resolved dynamic dispositions specify conditional arguments only. They do not certify unique retrieval, evidence completeness, semantic validity or resolution of the incompatible field choice."
+          ],
+          "slots": [
+            {
+              "slot_id": "slot1",
+              "status": "resolved",
+              "role": "the question-stated franchise name-change condition and decade",
+              "expected_type": "question_literal",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "question_literal",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "question_condition",
+                  "start": 84,
+                  "end": 136,
+                  "literal": "changed its name to the Cincinnati Reds in the 1890s"
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot2",
+              "status": "resolved",
+              "role": "a franchise cell link whose document states the matching name change",
+              "expected_type": "cell_link",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "cell_link",
+                  "scope": "/rows",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 84,
+                      "end": 136,
+                      "literal": "changed its name to the Cincinnati Reds in the 1890s"
+                    }
+                  ],
+                  "selector": "UNEVALUATED: inspect links in each row's Franchise cell (column_index 0), follow them only within /linked_documents, and retain the originating cell link whose document explicitly satisfies the question name-change condition for that row's franchise. Require a unique supported franchise and link; do not emit a matching row or link now.",
+                  "requested_attribute": "franchise name-change statement and decade",
+                  "entity_association": "Each link remains associated with the franchise and originating row from its own column-0 cell."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot3",
+              "status": "ambiguous",
+              "role": "one question-intended home-field link from the resolved franchise row",
+              "expected_type": "cell_link",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "table_column",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "column_identity",
+                  "pointer": "/columns/2",
+                  "table_id": "American_Association_(19th_century)_0",
+                  "column_index": 2,
+                  "column_label": "Home-field"
+                },
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "cell_link",
+                  "scope": "/rows",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [
+                    "op1"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 51,
+                      "end": 61,
+                      "literal": "home-field"
+                    }
+                  ],
+                  "selector": "UNEVALUATED: associate op1's eventual franchise identity with its row using the Franchise column (index 0). Within that row's Home-field cell (index 2), use link-list position 1 as this alternative's singular field referent, preserving the cell's venue-incarnation qualifier. This ordinal is an explicit competing interpretation, not evidence of question intent or chronology. Do not choose a concrete row, document ID or field now. A missing position, nonunique row or unresolved qualifier remains unresolved.",
+                  "requested_attribute": "home-field identity and table venue qualifier",
+                  "entity_association": "The one selected link belongs to the Home-field cell of the row associated with op1's franchise."
+                }
+              ],
+              "reason": "The question supplies no rule choosing one Home-field relation when the franchise row offers competing venue links. This alternative fixes only a symbolic link position; its intendedness is unresolved. No upstream graph is repaired.",
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot4",
+              "status": "resolved",
+              "role": "linked field-document statements identifying major league teams that played there",
+              "expected_type": "linked_document_text",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [
+                    "op2"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 9,
+                      "end": 36,
+                      "literal": "major league baseball teams"
+                    }
+                  ],
+                  "selector": "UNEVALUATED: follow the Home-field column-2 cell links associated with the field output by op2, join only their document_id entries in this collection, and request statements of distinct major-league baseball clubs actually playing on that same venue/incarnation. Treat incidental mentions and opponents without stated play at this venue as insufficient. Preserve supporting document and link-origin associations without extracting statements, team identities or a count now. If one document groups different venues or incarnations, require explicit association to op2's qualifier; otherwise leave evidence unresolved.",
+                  "requested_attribute": "distinct major league baseball teams stated to have played on the selected home field",
+                  "entity_association": "Every requested team-occupancy statement must concern the same single field output by op2, not another field or merely the franchise from op1."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            }
+          ],
+          "operators": [
+            {
+              "node_id": "op1",
+              "status": "specified",
+              "role": "Test franchise-linked text against the stated name-change condition and retain the matching franchise row.",
+              "expected_output_type": "franchise_referent_with_originating_row_association",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "franchise_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "column_identity",
+                    "pointer": "/columns/0",
+                    "table_id": "American_Association_(19th_century)_0",
+                    "column_index": 0,
+                    "column_label": "Franchise"
+                  }
+                },
+                {
+                  "name": "name_change_condition",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "question_condition",
+                    "start": 84,
+                    "end": 136,
+                    "literal": "changed its name to the Cincinnati Reds in the 1890s"
+                  }
+                },
+                {
+                  "name": "new_name",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "entity_name",
+                    "start": 108,
+                    "end": 123,
+                    "literal": "Cincinnati Reds"
+                  }
+                },
+                {
+                  "name": "name_change_decade",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "decade_literal",
+                    "start": 131,
+                    "end": 136,
+                    "literal": "1890s"
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op2",
+              "status": "ambiguous",
+              "role": "Read the question-intended singular home-field link from the resolved franchise row.",
+              "expected_output_type": "single_home_field_referent_with_originating_cell_and_venue_qualifier",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "franchise_identity_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "column_identity",
+                    "pointer": "/columns/0",
+                    "table_id": "American_Association_(19th_century)_0",
+                    "column_index": 0,
+                    "column_label": "Franchise"
+                  }
+                },
+                {
+                  "name": "home_field_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "column_identity",
+                    "pointer": "/columns/2",
+                    "table_id": "American_Association_(19th_century)_0",
+                    "column_index": 2,
+                    "column_label": "Home-field"
+                  }
+                },
+                {
+                  "name": "singular_home_field_rule",
+                  "binding": {
+                    "kind": "dynamic",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "cell_link",
+                    "scope": "/rows",
+                    "link_scope": "/rows",
+                    "upstream_node_ids": [
+                      "op1"
+                    ],
+                    "question_spans": [
+                      {
+                        "start": 51,
+                        "end": 61,
+                        "literal": "home-field"
+                      }
+                    ],
+                    "selector": "UNEVALUATED: associate op1's eventual franchise identity with its row using the Franchise column (index 0). Within that row's Home-field cell (index 2), use link-list position 1 as this alternative's singular field referent, preserving the cell's venue-incarnation qualifier. This ordinal is an explicit competing interpretation, not evidence of question intent or chronology. Do not choose a concrete row, document ID or field now. A missing position, nonunique row or unresolved qualifier remains unresolved.",
+                    "requested_attribute": "home-field identity and table venue qualifier",
+                    "entity_association": "The one selected link belongs to the Home-field cell of the row associated with op1's franchise."
+                  }
+                }
+              ],
+              "reason": "The question supplies no rule choosing one Home-field relation when the franchise row offers competing venue links. This alternative fixes only a symbolic link position; its intendedness is unresolved. No upstream graph is repaired."
+            },
+            {
+              "node_id": "op3",
+              "status": "specified",
+              "role": "From linked text for the selected field, identify the distinct major league baseball teams stated to have played there.",
+              "expected_output_type": "set_of_distinct_major_league_team_referents",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "team_class",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "entity_class",
+                    "start": 9,
+                    "end": 36,
+                    "literal": "major league baseball teams"
+                  }
+                },
+                {
+                  "name": "field_document_request",
+                  "binding": {
+                    "kind": "dynamic",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "linked_document_text",
+                    "scope": "/linked_documents",
+                    "link_scope": "/rows",
+                    "upstream_node_ids": [
+                      "op2"
+                    ],
+                    "question_spans": [
+                      {
+                        "start": 9,
+                        "end": 36,
+                        "literal": "major league baseball teams"
+                      }
+                    ],
+                    "selector": "UNEVALUATED: follow the Home-field column-2 cell links associated with the field output by op2, join only their document_id entries in this collection, and request statements of distinct major-league baseball clubs actually playing on that same venue/incarnation. Treat incidental mentions and opponents without stated play at this venue as insufficient. Preserve supporting document and link-origin associations without extracting statements, team identities or a count now. If one document groups different venues or incarnations, require explicit association to op2's qualifier; otherwise leave evidence unresolved.",
+                    "requested_attribute": "distinct major league baseball teams stated to have played on the selected home field",
+                    "entity_association": "Every requested team-occupancy statement must concern the same single field output by op2, not another field or merely the franchise from op1."
+                  }
+                },
+                {
+                  "name": "occupancy_and_identity_rule",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "set_of_team_referents",
+                    "function": "UNEVALUATED: enumerate source-supported distinct club identities that played baseball at the single upstream venue; admit major-league status only when supplied text explicitly supports it. Do not restrict occupancy dates to the franchise-name-change decade: that phrase qualifies the name-change clue. Do not merge sibling venues. If text lacks enough identity, venue or league-status evidence, preserve unknown membership.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op2"
+                      }
+                    ],
+                    "units": "not_applicable",
+                    "tie_policy": "Merge aliases only when source evidence explicitly establishes the same club identity; retain distinct clubs with identical names separately. Unresolved identity remains unresolved.",
+                    "null_policy": "Missing, conflicting or incomplete evidence is unknown, never an empty set or zero. Propagate unresolved upstream input; do not fabricate values."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op4",
+              "status": "specified",
+              "role": "Count the distinct teams produced by the field-occupancy step.",
+              "expected_output_type": "nonnegative_integer",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "count_distinct",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "nonnegative_integer",
+                    "function": "count_distinct_team_referents",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op3"
+                      }
+                    ],
+                    "units": "teams",
+                    "tie_policy": "Merge aliases only when source evidence explicitly establishes the same club identity; retain distinct clubs with identical names separately. Unresolved identity remains unresolved.",
+                    "null_policy": "Missing, conflicting or incomplete evidence is unknown, never an empty set or zero. Propagate unresolved upstream input; do not fabricate values."
+                  }
+                },
+                {
+                  "name": "aggregation_cue",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "67ad761a30352203f97368849c4dc130a21179850699f3a5df83e3805ba5674f",
+                    "value_type": "aggregation_request",
+                    "start": 0,
+                    "end": 8,
+                    "literal": "How many"
+                  }
+                }
+              ],
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Isolation limitation: the earlier user message supplied project AGENTS instructions containing excluded historical research summaries, prior metrics, phase decisions and challenge question IDs, including this question ID. Therefore prior_exposure is known_exposed; a fresh isolated-context attestation is not available. No excluded research file contents were opened for authoring. An initial metadata command also probed a mistyped nonexistent packet path and obtained no contents.",
+        "The singular home-field selection is semantically unresolved. Both identified ordinal alternatives are retained without resolving the entry franchise, selecting a concrete row or venue, evaluating either alternative, or changing the graph.",
+        "No claim is made that source link ordering establishes question intent, chronology or completeness of possible semantic interpretations. If an eventual row requires additional distinctions, that remains unresolved under this one-pass submission.",
+        "Downstream rules are conditional on each retained field alternative. Their explicit arguments do not remove upstream ambiguity, certify exhaustive team evidence or provide execution results.",
+        "Model identity is the runtime-described GPT-6 Codex family; the exact backend model revision and sampling seed are not exposed. This artifact captures structured output only, not hidden reasoning or backend response bytes.",
+        "Protocol provenance limitation: the fully read allowed narrowed_grounding_v0_1.md has raw-byte SHA-256 f48cf2d4c9adb18c2eb82d3011ee49717df16ee6aba061f2098c3e0b59b868ab, whereas the packet protocol_sha256 is ffe774bedeec6d6e6f473ab505267113ae73edd9796ffcd1d92ea7b6dfbf3c94. The meaning/cause of this discrepancy was not investigated using excluded inputs. Full input delivery does not attest that this protocol file matches the packet's frozen protocol identity. The supplied raw schema's byte hash does match response_schema_sha256."
+      ]
+    }
+  ]
+}

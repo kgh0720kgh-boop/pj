@@ -1,0 +1,954 @@
+{
+  "schema_version": "narrowed_grounding_raw_v0_1",
+  "packet_id": "ng_v0_1_question_06",
+  "packet_sha256": "b43cab9578c6c56486e4a7c38985baf39640ab3069a880ab120080257926ec30",
+  "question_id": "ba563b015b09bf21",
+  "environment_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+  "input_delivery": {
+    "status": "complete",
+    "reason": null
+  },
+  "provenance": {
+    "model_id": "GPT-6",
+    "model_revision": null,
+    "revision_status": "revision_not_exposed",
+    "seed": null,
+    "seed_status": "not_supported",
+    "context_id": "ng_v0_1_question_06_fresh_author",
+    "prior_exposure": "known_exposed",
+    "raw_capture_status": "structured_output_only_interface_limitation",
+    "attempts": [
+      {
+        "packet_sha256": "b43cab9578c6c56486e4a7c38985baf39640ab3069a880ab120080257926ec30",
+        "delivery": "response_delivered"
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "observation_alias": "observation_01",
+      "candidate_sha256": "cd718443c288b9c6827d06f6f9681a5978440c3f488e43f807e439dce247f068",
+      "identified_alternative_ids": [
+        "enumerated_campuses",
+        "explicit_campus_total"
+      ],
+      "alternative_relationship": "compatible",
+      "alternatives": [
+        {
+          "alternative_id": "enumerated_campuses",
+          "assumptions": [
+            "The Ring-of-Fire clue is resolved in country-linked text, after which the table's country-to-university relation and university-linked campus evidence are traversed.",
+            "All rules are unevaluated and confined to the pinned table/link closure. A resolved binding specifies arguments, not successful retrieval or semantic correctness.",
+            "op3 must denote one university; its missing selection criterion remains unresolved. No union across universities and no choice by ranking or availability of campus text is introduced.",
+            "This alternative uses an explicit exhaustive campus enumeration for the university itself. Partial mentions do not define an exhaustive campus set.",
+            "The enumeration and explicit-total alternatives are compatible only for the same university, time and campus scope. If both are supported but disagree or have incompatible scopes, retain the conflict as unresolved; neither alternative takes precedence."
+          ],
+          "slots": [
+            {
+              "slot_id": "slot1",
+              "status": "resolved",
+              "role": "nation-linked document text explicitly describing the nation as part of the Pacific Ring of Fire",
+              "expected_type": "nation_document",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                  "value_type": "nation_document",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 89,
+                      "end": 121,
+                      "literal": "part of the Pacific Ring of Fire"
+                    }
+                  ],
+                  "selector": "Unevaluated: follow each /rows member's cells[4].linked_document_ids into this collection; consider only assertions about the nation represented by that Country cell that explicitly satisfy the question condition. Require one distinct nation; retain unresolved multiplicity and missing evidence without guessing. Do not evaluate the predicate now.",
+                  "requested_attribute": "explicit assertion that the subject nation is part of the Pacific Ring of Fire",
+                  "entity_association": "The subject nation of the document must be the entity linked by the originating Country cell (column 4, exact label Country)."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot2",
+              "status": "resolved",
+              "role": "ranking-table rows whose country cells correspond to the nation produced by op1",
+              "expected_type": "table_rows",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                  "value_type": "table_rows",
+                  "scope": "/rows",
+                  "link_scope": null,
+                  "upstream_node_ids": [
+                    "op1"
+                  ],
+                  "question_spans": [],
+                  "selector": "Unevaluated: retain every row whose cells[4] Country entity corresponds to the nation output by op1, using the pinned Country-cell document link identity; use cell text only if the identity is unambiguous within the pinned source. Preserve all matches without ranking. Missing or conflicting identity remains unresolved.",
+                  "requested_attribute": null,
+                  "entity_association": "Country cell at column 4 of each row is associated with the upstream nation; University cell at column 3 stays associated with that same row."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot3",
+              "status": "resolved",
+              "role": "university cells in the nation-matched ranking rows",
+              "expected_type": "university_cells",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                  "value_type": "university_cells",
+                  "scope": "/rows",
+                  "link_scope": null,
+                  "upstream_node_ids": [
+                    "op2"
+                  ],
+                  "question_spans": [],
+                  "selector": "Unevaluated: project cells[3] (column 3, exact label University), with their link origins, from every row supplied by op2. Preserve distinct identities and all multiplicity; this rule does not select one of several universities.",
+                  "requested_attribute": null,
+                  "entity_association": "Each projected university cell belongs to its original op2 row."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot4",
+              "status": "resolved",
+              "role": "university-linked document text that enumerates campuses or states a campus count for the university produced by op3",
+              "expected_type": "university_document",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                  "value_type": "university_document",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [
+                    "op3"
+                  ],
+                  "question_spans": [],
+                  "selector": "Unevaluated: only if op3 supplies an unambiguous university identity, locate its originating University cell (column 3) in /rows and follow that cell's linked_document_ids into this collection. Request the indicated campus evidence for that university itself. Missing evidence, nonunique origin identity or unresolved op3 output remains unresolved; do not substitute another university or a parent system.",
+                  "requested_attribute": "explicit complete enumeration of campuses associated with the selected university",
+                  "entity_association": "The document subject must be the university supplied by op3; preserve its University-cell link origin."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            }
+          ],
+          "operators": [
+            {
+              "node_id": "op1",
+              "status": "specified",
+              "role": "Find the nation-linked document that explicitly satisfies the Pacific Ring of Fire description in the question.",
+              "expected_output_type": "one_nation",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "country_link_origin_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "table_column",
+                    "pointer": "/columns/4",
+                    "table_id": "Performance_Ranking_of_Scientific_Papers_for_World_Universities_5",
+                    "column_index": 4,
+                    "column_label": "Country"
+                  }
+                },
+                {
+                  "name": "geographic_condition",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "question_condition",
+                    "start": 89,
+                    "end": 121,
+                    "literal": "part of the Pacific Ring of Fire"
+                  }
+                },
+                {
+                  "name": "nation_resolution_policy",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "one_nation",
+                    "function": "Select the unique subject nation of an explicit condition-satisfying assertion in slot1; this function is unevaluated.",
+                    "operands": [
+                      {
+                        "kind": "slot",
+                        "id": "slot1"
+                      }
+                    ],
+                    "units": "nation_identity",
+                    "tie_policy": "Repeated assertions about one nation are compatible; distinct matching nations remain unresolved.",
+                    "null_policy": "Missing assertion or unresolved association yields unresolved, not a guessed nation."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op2",
+              "status": "specified",
+              "role": "Find ranking-table rows whose country cells correspond to the nation produced by op1.",
+              "expected_output_type": "table_rows",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "country_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "table_column",
+                    "pointer": "/columns/4",
+                    "table_id": "Performance_Ranking_of_Scientific_Papers_for_World_Universities_5",
+                    "column_index": 4,
+                    "column_label": "Country"
+                  }
+                },
+                {
+                  "name": "matching_policy",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "table_rows",
+                    "function": "Match slot2 Country entity identity to op1; preserve all matched rows without selecting by rank.",
+                    "operands": [
+                      {
+                        "kind": "slot",
+                        "id": "slot2"
+                      },
+                      {
+                        "kind": "node",
+                        "id": "op1"
+                      }
+                    ],
+                    "units": "rows",
+                    "tie_policy": "Keep every matching row.",
+                    "null_policy": "Missing or ambiguous country association remains unresolved."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op3",
+              "status": "ambiguous",
+              "role": "Project the university field from the nation-matched row or rows under the target's singular university reference.",
+              "expected_output_type": "one_university",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "university_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "table_column",
+                    "pointer": "/columns/3",
+                    "table_id": "Performance_Ranking_of_Scientific_Papers_for_World_Universities_5",
+                    "column_index": 3,
+                    "column_label": "University"
+                  }
+                },
+                {
+                  "name": "projection_policy",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "one_university",
+                    "function": "Project University identity from slot3 in the row scope from op2; require a unique identity without introducing a discriminator.",
+                    "operands": [
+                      {
+                        "kind": "slot",
+                        "id": "slot3"
+                      },
+                      {
+                        "kind": "node",
+                        "id": "op2"
+                      }
+                    ],
+                    "units": "university_identity",
+                    "tie_policy": "Collapse repeated occurrences of the same identity only; multiple distinct identities remain unresolved.",
+                    "null_policy": "No university or unresolved upstream identity yields unresolved."
+                  }
+                }
+              ],
+              "reason": "The operation requires a singular university but its supplied graph and assumptions give no discriminator if the nation-matched rows contain distinct universities. Singular wording alone does not supply that discriminator. No matching rows or entities have been computed; the unresolved selection rule is retained without adding a campus-evidence filter or rank preference."
+            },
+            {
+              "node_id": "op4",
+              "status": "specified",
+              "role": "From the selected university's linked text, count the campuses that are enumerated or use an explicitly stated campus count.",
+              "expected_output_type": "one_nonnegative_integer",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "campus_condition",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "question_condition",
+                    "start": 9,
+                    "end": 17,
+                    "literal": "campuses"
+                  }
+                },
+                {
+                  "name": "campus_aggregation",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "one_nonnegative_integer",
+                    "function": "Unevaluated: enumerate explicitly associated campuses in slot4 for op3 and count distinct campus entities only when the enumeration is exhaustive.",
+                    "operands": [
+                      {
+                        "kind": "slot",
+                        "id": "slot4"
+                      },
+                      {
+                        "kind": "node",
+                        "id": "op3"
+                      }
+                    ],
+                    "units": "campuses",
+                    "tie_policy": "Do not combine universities, conflicting temporal scopes, parent-system totals or duplicate aliases. Conflicting totals or uncertain campus identity remain unresolved.",
+                    "null_policy": "No complete enumeration or explicit total, as required by this alternative, yields unresolved rather than zero."
+                  }
+                }
+              ],
+              "reason": null
+            }
+          ]
+        },
+        {
+          "alternative_id": "explicit_campus_total",
+          "assumptions": [
+            "The Ring-of-Fire clue is resolved in country-linked text, after which the table's country-to-university relation and university-linked campus evidence are traversed.",
+            "All rules are unevaluated and confined to the pinned table/link closure. A resolved binding specifies arguments, not successful retrieval or semantic correctness.",
+            "op3 must denote one university; its missing selection criterion remains unresolved. No union across universities and no choice by ranking or availability of campus text is introduced.",
+            "This alternative uses an explicitly stated total of campuses for the university itself, with no arithmetic or inference from partial lists.",
+            "The enumeration and explicit-total alternatives are compatible only for the same university, time and campus scope. If both are supported but disagree or have incompatible scopes, retain the conflict as unresolved; neither alternative takes precedence."
+          ],
+          "slots": [
+            {
+              "slot_id": "slot1",
+              "status": "resolved",
+              "role": "nation-linked document text explicitly describing the nation as part of the Pacific Ring of Fire",
+              "expected_type": "nation_document",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                  "value_type": "nation_document",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 89,
+                      "end": 121,
+                      "literal": "part of the Pacific Ring of Fire"
+                    }
+                  ],
+                  "selector": "Unevaluated: follow each /rows member's cells[4].linked_document_ids into this collection; consider only assertions about the nation represented by that Country cell that explicitly satisfy the question condition. Require one distinct nation; retain unresolved multiplicity and missing evidence without guessing. Do not evaluate the predicate now.",
+                  "requested_attribute": "explicit assertion that the subject nation is part of the Pacific Ring of Fire",
+                  "entity_association": "The subject nation of the document must be the entity linked by the originating Country cell (column 4, exact label Country)."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot2",
+              "status": "resolved",
+              "role": "ranking-table rows whose country cells correspond to the nation produced by op1",
+              "expected_type": "table_rows",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                  "value_type": "table_rows",
+                  "scope": "/rows",
+                  "link_scope": null,
+                  "upstream_node_ids": [
+                    "op1"
+                  ],
+                  "question_spans": [],
+                  "selector": "Unevaluated: retain every row whose cells[4] Country entity corresponds to the nation output by op1, using the pinned Country-cell document link identity; use cell text only if the identity is unambiguous within the pinned source. Preserve all matches without ranking. Missing or conflicting identity remains unresolved.",
+                  "requested_attribute": null,
+                  "entity_association": "Country cell at column 4 of each row is associated with the upstream nation; University cell at column 3 stays associated with that same row."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot3",
+              "status": "resolved",
+              "role": "university cells in the nation-matched ranking rows",
+              "expected_type": "university_cells",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                  "value_type": "university_cells",
+                  "scope": "/rows",
+                  "link_scope": null,
+                  "upstream_node_ids": [
+                    "op2"
+                  ],
+                  "question_spans": [],
+                  "selector": "Unevaluated: project cells[3] (column 3, exact label University), with their link origins, from every row supplied by op2. Preserve distinct identities and all multiplicity; this rule does not select one of several universities.",
+                  "requested_attribute": null,
+                  "entity_association": "Each projected university cell belongs to its original op2 row."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot4",
+              "status": "resolved",
+              "role": "university-linked document text that enumerates campuses or states a campus count for the university produced by op3",
+              "expected_type": "university_document",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                  "value_type": "university_document",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [
+                    "op3"
+                  ],
+                  "question_spans": [],
+                  "selector": "Unevaluated: only if op3 supplies an unambiguous university identity, locate its originating University cell (column 3) in /rows and follow that cell's linked_document_ids into this collection. Request the indicated campus evidence for that university itself. Missing evidence, nonunique origin identity or unresolved op3 output remains unresolved; do not substitute another university or a parent system.",
+                  "requested_attribute": "explicit total campus count for the selected university",
+                  "entity_association": "The document subject must be the university supplied by op3; preserve its University-cell link origin."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            }
+          ],
+          "operators": [
+            {
+              "node_id": "op1",
+              "status": "specified",
+              "role": "Find the nation-linked document that explicitly satisfies the Pacific Ring of Fire description in the question.",
+              "expected_output_type": "one_nation",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "country_link_origin_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "table_column",
+                    "pointer": "/columns/4",
+                    "table_id": "Performance_Ranking_of_Scientific_Papers_for_World_Universities_5",
+                    "column_index": 4,
+                    "column_label": "Country"
+                  }
+                },
+                {
+                  "name": "geographic_condition",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "question_condition",
+                    "start": 89,
+                    "end": 121,
+                    "literal": "part of the Pacific Ring of Fire"
+                  }
+                },
+                {
+                  "name": "nation_resolution_policy",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "one_nation",
+                    "function": "Select the unique subject nation of an explicit condition-satisfying assertion in slot1; this function is unevaluated.",
+                    "operands": [
+                      {
+                        "kind": "slot",
+                        "id": "slot1"
+                      }
+                    ],
+                    "units": "nation_identity",
+                    "tie_policy": "Repeated assertions about one nation are compatible; distinct matching nations remain unresolved.",
+                    "null_policy": "Missing assertion or unresolved association yields unresolved, not a guessed nation."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op2",
+              "status": "specified",
+              "role": "Find ranking-table rows whose country cells correspond to the nation produced by op1.",
+              "expected_output_type": "table_rows",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "country_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "table_column",
+                    "pointer": "/columns/4",
+                    "table_id": "Performance_Ranking_of_Scientific_Papers_for_World_Universities_5",
+                    "column_index": 4,
+                    "column_label": "Country"
+                  }
+                },
+                {
+                  "name": "matching_policy",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "table_rows",
+                    "function": "Match slot2 Country entity identity to op1; preserve all matched rows without selecting by rank.",
+                    "operands": [
+                      {
+                        "kind": "slot",
+                        "id": "slot2"
+                      },
+                      {
+                        "kind": "node",
+                        "id": "op1"
+                      }
+                    ],
+                    "units": "rows",
+                    "tie_policy": "Keep every matching row.",
+                    "null_policy": "Missing or ambiguous country association remains unresolved."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op3",
+              "status": "ambiguous",
+              "role": "Project the university field from the nation-matched row or rows under the target's singular university reference.",
+              "expected_output_type": "one_university",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "university_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "table_column",
+                    "pointer": "/columns/3",
+                    "table_id": "Performance_Ranking_of_Scientific_Papers_for_World_Universities_5",
+                    "column_index": 3,
+                    "column_label": "University"
+                  }
+                },
+                {
+                  "name": "projection_policy",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "one_university",
+                    "function": "Project University identity from slot3 in the row scope from op2; require a unique identity without introducing a discriminator.",
+                    "operands": [
+                      {
+                        "kind": "slot",
+                        "id": "slot3"
+                      },
+                      {
+                        "kind": "node",
+                        "id": "op2"
+                      }
+                    ],
+                    "units": "university_identity",
+                    "tie_policy": "Collapse repeated occurrences of the same identity only; multiple distinct identities remain unresolved.",
+                    "null_policy": "No university or unresolved upstream identity yields unresolved."
+                  }
+                }
+              ],
+              "reason": "The operation requires a singular university but its supplied graph and assumptions give no discriminator if the nation-matched rows contain distinct universities. Singular wording alone does not supply that discriminator. No matching rows or entities have been computed; the unresolved selection rule is retained without adding a campus-evidence filter or rank preference."
+            },
+            {
+              "node_id": "op4",
+              "status": "specified",
+              "role": "From the selected university's linked text, count the campuses that are enumerated or use an explicitly stated campus count.",
+              "expected_output_type": "one_nonnegative_integer",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "campus_condition",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "question_condition",
+                    "start": 9,
+                    "end": 17,
+                    "literal": "campuses"
+                  }
+                },
+                {
+                  "name": "campus_aggregation",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "one_nonnegative_integer",
+                    "function": "Unevaluated: use an explicitly stated total campus count in slot4 for op3, without computing from other quantities.",
+                    "operands": [
+                      {
+                        "kind": "slot",
+                        "id": "slot4"
+                      },
+                      {
+                        "kind": "node",
+                        "id": "op3"
+                      }
+                    ],
+                    "units": "campuses",
+                    "tie_policy": "Do not combine universities, conflicting temporal scopes, parent-system totals or duplicate aliases. Conflicting totals or uncertain campus identity remain unresolved.",
+                    "null_policy": "No complete enumeration or explicit total, as required by this alternative, yields unresolved rather than zero."
+                  }
+                }
+              ],
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Isolation limitation: the initial user-supplied project instructions contained excluded prior research summaries, including normalization/crossed-author results, challenge-question identities and project status. No excluded repository files or coordinator conversation were requested or read. prior_exposure is known_exposed; this context cannot attest fresh isolation.",
+        "The operation requires a singular university but its supplied graph and assumptions give no discriminator if the nation-matched rows contain distinct universities. Singular wording alone does not supply that discriminator. No matching rows or entities have been computed; the unresolved selection rule is retained without adding a campus-evidence filter or rank preference.",
+        "The two aggregation alternatives preserve both methods declared by op4. Their support and agreement are unevaluated; no campus evidence value, selected university or nation is returned."
+      ]
+    },
+    {
+      "observation_alias": "observation_02",
+      "candidate_sha256": "447450caece376560feaa293f60116b63ebd99c06207a2835c57b276487df47a",
+      "identified_alternative_ids": [
+        "campus_list_evidence_selector"
+      ],
+      "alternative_relationship": "single",
+      "alternatives": [
+        {
+          "alternative_id": "campus_list_evidence_selector",
+          "assumptions": [
+            "The nation is identified by an explicit Pacific Ring of Fire statement in linked nation text.",
+            "Among university rows for that nation, the intended row is structurally constrained to one whose supplied university text exposes an explicit campus association list needed by the final count.",
+            "The campus-list presence criterion is preserved exactly as a candidate assumption, with semantic uncertainty recorded for slot4 and op2.",
+            "slot5 is shared by op2 and op3. Its rule ranges over upstream op1-conditioned university sources; op3 separately restricts that scope to op2's university. This preserves the graph without self-dependence.",
+            "Distinct-campus counting requires an exhaustive university-specific listing and an unambiguous campus identity relation; no quantities or campus entities are extracted in this submission."
+          ],
+          "slots": [
+            {
+              "slot_id": "slot1",
+              "status": "resolved",
+              "role": "the question-stated Pacific Ring of Fire condition",
+              "expected_type": "question_condition",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "question_literal",
+                  "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                  "value_type": "question_condition",
+                  "start": 89,
+                  "end": 121,
+                  "literal": "part of the Pacific Ring of Fire"
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot2",
+              "status": "resolved",
+              "role": "a linked nation-document assertion satisfying that condition",
+              "expected_type": "nation_document",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                  "value_type": "nation_document",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 89,
+                      "end": 121,
+                      "literal": "part of the Pacific Ring of Fire"
+                    }
+                  ],
+                  "selector": "Unevaluated: follow each /rows member's cells[4].linked_document_ids into this collection; consider only assertions about the nation represented by that Country cell that explicitly satisfy the question condition. Require one distinct nation; retain unresolved multiplicity and missing evidence without guessing. Do not evaluate the predicate now.",
+                  "requested_attribute": "explicit assertion that the subject nation is part of the Pacific Ring of Fire",
+                  "entity_association": "The subject nation of the document must be the entity linked by the originating Country cell (column 4, exact label Country)."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot3",
+              "status": "resolved",
+              "role": "table rows relating the resolved nation to universities",
+              "expected_type": "table_rows",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                  "value_type": "table_rows",
+                  "scope": "/rows",
+                  "link_scope": null,
+                  "upstream_node_ids": [
+                    "op1"
+                  ],
+                  "question_spans": [],
+                  "selector": "Unevaluated: retain every row whose cells[4] Country entity corresponds to the nation output by op1, using the pinned Country-cell document link identity; use cell text only if the identity is unambiguous within the pinned source. Preserve all matches without ranking. Missing or conflicting identity remains unresolved.",
+                  "requested_attribute": null,
+                  "entity_association": "Country cell at column 4 of each row is associated with the upstream nation; University cell at column 3 stays associated with that same row."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot4",
+              "status": "ambiguous",
+              "role": "the question-intended university cell link among the nation-matching rows",
+              "expected_type": "one_university_cell_link",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                  "value_type": "one_university_cell_link",
+                  "scope": "/rows",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [
+                    "op1"
+                  ],
+                  "question_spans": [],
+                  "selector": "Unevaluated: consider University cells at column 3 only in rows whose Country cell at column 4 corresponds to op1. Follow each cell's linked_document_ids within /linked_documents and apply the candidate's existing condition that its university text exposes an explicit campus association list. Return the unique qualifying cell link only if university identity is unambiguous; do not select by rank or document order. This specifies the evidence criterion, but whether evidence availability identifies the question-intended university remains a semantic uncertainty.",
+                  "requested_attribute": "explicit campus association listing used by the candidate as its university selection criterion",
+                  "entity_association": "Each prospective University-cell link stays paired with its originating row and its own university document."
+                }
+              ],
+              "reason": "The candidate treats presence of an explicit campus listing as a discriminator for the question-intended university. The question does not explicitly state that condition, and document coverage is not itself proof of intended reference. This inherited assumption remains unresolved; no row selection or document-value extraction has been performed and no graph repair is proposed.",
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot5",
+              "status": "resolved",
+              "role": "an explicit linked university-document listing of associated campuses",
+              "expected_type": "campus_listing_documents",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                  "value_type": "campus_listing_documents",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [
+                    "op1"
+                  ],
+                  "question_spans": [],
+                  "selector": "Unevaluated shared source rule for slot5: range over /rows whose Country cell (column 4) corresponds to op1; for each such row follow its University cell (column 3) linked_document_ids into this collection. Preserve the row/university/document association and request explicit campus listings without extracting entries. At op2 these sources support its declared campus-evidence criterion. At op3 its separate operator parameter restricts these sources to the university output by op2. The shared slot rule does not depend on op2, which itself consumes this slot.",
+                  "requested_attribute": "explicit listing of campuses associated with the originating university",
+                  "entity_association": "Each campus listing must concern the same university as its originating University cell; Country-cell identity relates that row to op1."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            }
+          ],
+          "operators": [
+            {
+              "node_id": "op1",
+              "status": "specified",
+              "role": "Scan linked nation text for an explicit statement that the nation is part of the Pacific Ring of Fire.",
+              "expected_output_type": "one_nation",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "country_link_origin_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "table_column",
+                    "pointer": "/columns/4",
+                    "table_id": "Performance_Ranking_of_Scientific_Papers_for_World_Universities_5",
+                    "column_index": 4,
+                    "column_label": "Country"
+                  }
+                },
+                {
+                  "name": "condition_match",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "one_nation",
+                    "function": "Unevaluated: match the condition in slot1 to explicit subject-nation assertions from slot2 and require one distinct nation.",
+                    "operands": [
+                      {
+                        "kind": "slot",
+                        "id": "slot1"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot2"
+                      }
+                    ],
+                    "units": "nation_identity",
+                    "tie_policy": "Repeated statements about the same nation are compatible; multiple distinct matching nations remain unresolved.",
+                    "null_policy": "No explicit supporting assertion yields unresolved."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op2",
+              "status": "ambiguous",
+              "role": "Match the nation to university rows and retain the question-intended linked university whose supplied text exposes the campus association needed downstream.",
+              "expected_output_type": "one_university",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "country_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "table_column",
+                    "pointer": "/columns/4",
+                    "table_id": "Performance_Ranking_of_Scientific_Papers_for_World_Universities_5",
+                    "column_index": 4,
+                    "column_label": "Country"
+                  }
+                },
+                {
+                  "name": "university_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "table_column",
+                    "pointer": "/columns/3",
+                    "table_id": "Performance_Ranking_of_Scientific_Papers_for_World_Universities_5",
+                    "column_index": 3,
+                    "column_label": "University"
+                  }
+                },
+                {
+                  "name": "declared_evidence_selection",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "one_university",
+                    "function": "Unevaluated: within slot3 rows associated with op1, apply slot4's university-cell link rule using explicit campus-list presence in slot5; preserve the candidate's assumption that this determines intended reference.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op1"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot3"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot4"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot5"
+                      }
+                    ],
+                    "units": "university_identity",
+                    "tie_policy": "No preference by rank, first occurrence or text length. Multiple qualifying distinct universities remain unresolved; even a unique evidence match does not resolve the semantic limitation.",
+                    "null_policy": "Missing links or missing listing remain unresolved; missing text is not proof that a university has no campuses."
+                  }
+                }
+              ],
+              "reason": "The candidate treats presence of an explicit campus listing as a discriminator for the question-intended university. The question does not explicitly state that condition, and document coverage is not itself proof of intended reference. This inherited assumption remains unresolved; no row selection or document-value extraction has been performed and no graph repair is proposed."
+            },
+            {
+              "node_id": "op3",
+              "status": "specified",
+              "role": "Enumerate the campuses explicitly associated with the selected university in linked text and count the distinct entries.",
+              "expected_output_type": "one_nonnegative_integer",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "selected_university_document_rule",
+                  "binding": {
+                    "kind": "dynamic",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "selected_university_campus_listing",
+                    "scope": "/linked_documents",
+                    "link_scope": "/rows",
+                    "upstream_node_ids": [
+                      "op2"
+                    ],
+                    "question_spans": [],
+                    "selector": "Unevaluated: restrict slot5's document candidates to the university identity output by op2; follow its originating University-cell links in /rows into this collection. Enumerate only explicitly associated campuses for that same university when the supplied list is exhaustive. Do not borrow evidence from another university or a parent system.",
+                    "requested_attribute": "explicit exhaustive campus association listing for the university output by op2",
+                    "entity_association": "The document subject and link origin must agree with op2's selected university."
+                  }
+                },
+                {
+                  "name": "distinct_campus_count",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "1c68e3a5e827aa4a65541c6ac59ffdc716d458dd265b6e50b5102bf6464951d8",
+                    "value_type": "one_nonnegative_integer",
+                    "function": "Unevaluated: restrict slot5 to op2's university, enumerate its explicitly associated campuses and count distinct campus entities only under an exhaustive listing.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op2"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot5"
+                      }
+                    ],
+                    "units": "campuses",
+                    "tie_policy": "Merge aliases only when explicitly coreferential; uncertain identity, incompatible time/scope or conflicting listings remains unresolved.",
+                    "null_policy": "No exhaustive listing or unresolved university identity yields unresolved, never zero."
+                  }
+                }
+              ],
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Isolation limitation: the initial user-supplied project instructions contained excluded prior research summaries, including normalization/crossed-author results, challenge-question identities and project status. No excluded repository files or coordinator conversation were requested or read. prior_exposure is known_exposed; this context cannot attest fresh isolation.",
+        "The candidate treats presence of an explicit campus listing as a discriminator for the question-intended university. The question does not explicitly state that condition, and document coverage is not itself proof of intended reference. This inherited assumption remains unresolved; no row selection or document-value extraction has been performed and no graph repair is proposed.",
+        "An explicit stated count alone does not fulfill this candidate's enumeration/list requirement. No count-only substitution, document-completeness inference or upstream repair is introduced."
+      ]
+    }
+  ]
+}

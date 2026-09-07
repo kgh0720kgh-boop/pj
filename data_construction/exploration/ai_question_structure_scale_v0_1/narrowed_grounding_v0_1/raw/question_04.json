@@ -1,0 +1,612 @@
+{
+  "schema_version": "narrowed_grounding_raw_v0_1",
+  "packet_id": "ng_v0_1_question_04",
+  "packet_sha256": "8f18822b17547746d62b8967e27b5149315332a4334700021a156615dad06c99",
+  "question_id": "1e674ae4b655c1a1",
+  "environment_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+  "input_delivery": {
+    "status": "complete",
+    "reason": null
+  },
+  "provenance": {
+    "model_id": "GPT-6",
+    "model_revision": null,
+    "revision_status": "revision_not_exposed",
+    "seed": null,
+    "seed_status": "not_supported",
+    "context_id": "ng_v0_1_question_04_fresh_author",
+    "prior_exposure": "known_exposed",
+    "raw_capture_status": "structured_output_only_interface_limitation",
+    "attempts": [
+      {
+        "packet_sha256": "8f18822b17547746d62b8967e27b5149315332a4334700021a156615dad06c99",
+        "delivery": "response_delivered"
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "observation_alias": "observation_01",
+      "candidate_sha256": "4336c1bed4c089de763cf528791f13f40a1658316e87e11da95e947fd7779702",
+      "identified_alternative_ids": [
+        "alternative_01"
+      ],
+      "alternative_relationship": "single",
+      "alternatives": [
+        {
+          "alternative_id": "alternative_01",
+          "assumptions": [
+            "The location clue is evaluated in linked location text and the resulting location-to-tournament relation is inverted through schedule rows.",
+            "Location is the entity denoted by the linked document subject and the corresponding Location column cell. Currency is required to be compatible with the question's dollar marker; no conversion or unstated measure substitution is authorized.",
+            "The one document slot denotes eventual requested source cardinality, not the number of documents in the allowed search scope. Rules and uniqueness conditions remain unevaluated.",
+            "The multiple-row and multiple-cell input slots preserve all matches. The graph's singular tournament output still requires a justified selection; no such discriminator is introduced here."
+          ],
+          "slots": [
+            {
+              "slot_id": "slot1",
+              "status": "resolved",
+              "role": "location-linked document text whose per-capita personal-income statement matches the value and year specified by the question",
+              "expected_type": "location_document_text",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                  "value_type": "location_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "literal": "per capita personal income",
+                      "start": 41,
+                      "end": 67
+                    },
+                    {
+                      "literal": "$ 47,684",
+                      "start": 72,
+                      "end": 80
+                    },
+                    {
+                      "literal": "2017",
+                      "start": 84,
+                      "end": 88
+                    }
+                  ],
+                  "selector": "Unevaluated rule: for each row in /rows, follow only cells[2].linked_document_ids (column index 2, exact label Location) to whole objects in /linked_documents with identical document_id. On that pinned closure, request the assertion associating the document's location subject with the question's per-capita personal-income attribute, currency amount and year at the supplied spans. Require an exact semantic attribute/value/year match; do not substitute household income, GDP, a different year, or a mentioned location unrelated to the document subject. Repeated links to one document denote one source. The slot requests one matching location document; zero matches remain missing and competing matching subjects remain unresolved. This rule has not been evaluated and specifies no selected document, location or extracted value.",
+                  "requested_attribute": "Per-capita personal income of the linked location subject for the question-stated year, with its currency unit and value compared to the question literal.",
+                  "entity_association": "The location subject of each document is associated with the schedule Location cell that directly links to that document; preserve the document_id and originating row/cell relation symbolically."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot2",
+              "status": "resolved",
+              "role": "schedule rows whose location cells correspond to the location produced by op1",
+              "expected_type": "schedule_row_collection",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                  "value_type": "schedule_row_collection",
+                  "scope": "/rows",
+                  "link_scope": null,
+                  "upstream_node_ids": [
+                    "op1"
+                  ],
+                  "question_spans": [],
+                  "selector": "Unevaluated rule over the full /rows collection: retain each row whose cells[2] (column index 2, exact label Location) denotes the location output of strict upstream op1. Use identity of the originating location document_id carried by op1 and membership in that Location cell's linked_document_ids; the cell label supplies the associated location name. Preserve every matching row and its identity without ranking or taking the first. Missing or ambiguous upstream identity remains unresolved. No matching row has been computed or enumerated.",
+                  "requested_attribute": null,
+                  "entity_association": "Join strict upstream op1's location referent to the Location cell of each schedule row; maintain the original row association for downstream tournament projection."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot3",
+              "status": "resolved",
+              "role": "tournament cells in the location-matched schedule rows",
+              "expected_type": "tournament_cell_collection",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                  "value_type": "tournament_cell_collection",
+                  "scope": "/rows",
+                  "link_scope": null,
+                  "upstream_node_ids": [
+                    "op2"
+                  ],
+                  "question_spans": [],
+                  "selector": "Unevaluated rule: for every row supplied by strict upstream op2, locate cells[1] (column index 1, exact label Tournament) in the same original row within /rows. Preserve all such cells with their row identities; select no row and read no projected value during grounding. This plural input locator does not decide which singular tournament is intended.",
+                  "requested_attribute": null,
+                  "entity_association": "Each Tournament cell remains associated with its own Location-matched schedule row from strict upstream op2."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            }
+          ],
+          "operators": [
+            {
+              "node_id": "op1",
+              "status": "specified",
+              "role": "Find the location-linked document whose per-capita personal-income statement satisfies the value and year in the question.",
+              "expected_output_type": "one_location_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "location_link_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "location_entity_column",
+                    "pointer": "/columns/2",
+                    "table_id": "2000_Buy.com_Tour_0",
+                    "column_index": 2,
+                    "column_label": "Location"
+                  }
+                },
+                {
+                  "name": "attribute",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "attribute_name",
+                    "literal": "per capita personal income",
+                    "start": 41,
+                    "end": 67
+                  }
+                },
+                {
+                  "name": "income_value_with_currency",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "currency_amount_literal",
+                    "literal": "$ 47,684",
+                    "start": 72,
+                    "end": 80
+                  }
+                },
+                {
+                  "name": "income_year",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "calendar_year_literal",
+                    "literal": "2017",
+                    "start": 84,
+                    "end": 88
+                  }
+                },
+                {
+                  "name": "income_assertion_matching_contract",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "one_location_entity",
+                    "function": "Unevaluated resolve_location_by_subject_attribute_value_year: consume the source slots in the stated order; follow the location-link scope specified by the document slot; require the document subject's per-capita personal-income assertion to match the attribute, currency amount and calendar year supplied as question-literal parameters. Normalize whitespace and numeric thousands separators only for comparison. Do not reinterpret the measure, convert currency, extrapolate years, or return a location during grounding.",
+                    "operands": [
+                      {
+                        "kind": "slot",
+                        "id": "slot1"
+                      }
+                    ],
+                    "units": "currency units denoted by the question's dollar marker per person; calendar year",
+                    "tie_policy": "Repeated links to the same document are source aliases; competing location subjects or conflicting assertions remain unresolved, with no preference or first-match rule.",
+                    "null_policy": "Absent assertion, unspecified currency compatibility or missing year/value yields unresolved evidence; do not infer or fill a value."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op2",
+              "status": "specified",
+              "role": "Find schedule rows whose location cells correspond to the location produced by op1.",
+              "expected_output_type": "schedule_row_collection",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "schedule_scope",
+                  "binding": {
+                    "kind": "table_scope",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "schedule_row_collection",
+                    "pointer": "/rows",
+                    "table_id": "2000_Buy.com_Tour_0"
+                  }
+                },
+                {
+                  "name": "location_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "location_entity_column",
+                    "pointer": "/columns/2",
+                    "table_id": "2000_Buy.com_Tour_0",
+                    "column_index": 2,
+                    "column_label": "Location"
+                  }
+                },
+                {
+                  "name": "row_join_contract",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "schedule_row_collection",
+                    "function": "Unevaluated match_schedule_rows_by_location_identity: ordered operands are op1's location identity, then slot2's row-locator rule. Match through the same document identity that associates op1's subject with column 2; preserve all matching original rows.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op1"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot2"
+                      }
+                    ],
+                    "units": "entity identity; no numerical units",
+                    "tie_policy": "Retain every matching row without a tie-break or ordering preference.",
+                    "null_policy": "Missing or ambiguous op1 identity or missing location links remains unresolved; never impute a row."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op3",
+              "status": "ambiguous",
+              "role": "Project the tournament field from the location-matched row or rows under the target's singular tournament reference.",
+              "expected_output_type": "one_tournament_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "tournament_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "tournament_entity_column",
+                    "pointer": "/columns/1",
+                    "table_id": "2000_Buy.com_Tour_0",
+                    "column_index": 1,
+                    "column_label": "Tournament"
+                  }
+                },
+                {
+                  "name": "singular_question_reference",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "singular_tournament_reference",
+                    "literal": "the tournament",
+                    "start": 8,
+                    "end": 22
+                  }
+                },
+                {
+                  "name": "projection_contract_with_unresolved_selector",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "one_tournament_entity",
+                    "function": "Unevaluated project_tournament_under_singular_reference: ordered operands are op2's matched rows and slot3's Tournament-cell locator. Preserve the existing projection boundary and within-row relation. The locator is specified, but the intended singular tournament selector is unresolved; no projected value or row choice is supplied.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op2"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot3"
+                      }
+                    ],
+                    "units": "tournament entity identity",
+                    "tie_policy": "Unresolved: no question-supported preference among competing tournament identities is available; do not use source order, earliest week, latest week, or arbitrary selection.",
+                    "null_policy": "No matching row or missing Tournament cell remains unresolved; no substitute tournament."
+                  }
+                }
+              ],
+              "reason": "The question specifies a singular tournament but supplies no schedule-row discriminator beyond the resolved location. The original candidate's singular selection is under-specified when matching rows yield competing tournaments. No matched rows, entities, values or uniqueness result were computed; the unresolved disposition records this missing semantic selector without repairing the graph."
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Isolation limitation: an earlier user message supplied project-wide AGENTS instructions containing prior research status, metrics and challenge-question information outside the four-file author allowlist. Those supplied statements were already visible in this context; prior_exposure is therefore known_exposed. No additional excluded repository file, prior author response, coordinator manifest, web source or subagent was consulted. Fresh-context independence cannot be attested.",
+        "The question specifies a singular tournament but supplies no schedule-row discriminator beyond the resolved location. The original candidate's singular selection is under-specified when matching rows yield competing tournaments. No matched rows, entities, values or uniqueness result were computed; the unresolved disposition records this missing semantic selector without repairing the graph.",
+        "Only one coherent unevaluated grounding alternative was identified for this fixed candidate. No concrete competing row choices were enumerated, since finding them would evaluate the prohibited upstream operations. The unresolved singular selector is retained explicitly rather than replaced by a new graph or an unsupported tie-break.",
+        "All four allowed inputs were read completely. An initially truncated tool display was reread in smaller same-input chunks before submission; this was input transport continuation and produced no earlier response delivery.",
+        "Model identity is the GPT-6 identity supplied in runtime instructions; no exact backend revision or seed is exposed. The JSON file is primary structured capture only; hidden reasoning and backend response bytes are not exposed. Static binding completeness does not establish retrieval success or semantic correctness."
+      ]
+    },
+    {
+      "observation_alias": "observation_02",
+      "candidate_sha256": "7930520a2615f21dcac42fd69f443fb45233fb852d49379013278fbec7a96375",
+      "identified_alternative_ids": [
+        "alternative_01"
+      ],
+      "alternative_relationship": "single",
+      "alternatives": [
+        {
+          "alternative_id": "alternative_01",
+          "assumptions": [
+            "The location is identified by an exact semantic match to the stated year and per-capita personal-income value in linked location text.",
+            "The singular tournament output denotes one question-intended matching schedule row; its concrete row binding is deferred.",
+            "The two literal bindings jointly express one composite income-value/year criterion, preserving slot1 cardinality one. The measure is supplied separately as an exact question-literal operator parameter.",
+            "Location-document identity is associated only with links in the schedule Location column. All linked source scanning, assertion matching and row selection remain unevaluated.",
+            "The original slot3 cardinality one and fused op2 boundary are retained. The assumption of a question-intended row lacks a binding discriminator if the location relation is not unique; it is explicitly unresolved."
+          ],
+          "slots": [
+            {
+              "slot_id": "slot1",
+              "status": "resolved",
+              "role": "the question-stated per-capita personal-income value and year",
+              "expected_type": "income_value_and_year_criterion",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "question_literal",
+                  "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                  "value_type": "currency_amount_literal",
+                  "literal": "$ 47,684",
+                  "start": 72,
+                  "end": 80
+                },
+                {
+                  "kind": "question_literal",
+                  "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                  "value_type": "calendar_year_literal",
+                  "literal": "2017",
+                  "start": 84,
+                  "end": 88
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot2",
+              "status": "resolved",
+              "role": "a linked location-document assertion matching that value and year",
+              "expected_type": "location_document_text",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                  "value_type": "location_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "literal": "per capita personal income",
+                      "start": 41,
+                      "end": 67
+                    },
+                    {
+                      "literal": "$ 47,684",
+                      "start": 72,
+                      "end": 80
+                    },
+                    {
+                      "literal": "2017",
+                      "start": 84,
+                      "end": 88
+                    }
+                  ],
+                  "selector": "Unevaluated rule: for each row in /rows, follow only cells[2].linked_document_ids (column index 2, exact label Location) to whole objects in /linked_documents with identical document_id. On that pinned closure, request the assertion associating the document's location subject with the question's per-capita personal-income attribute, currency amount and year at the supplied spans. Require an exact semantic attribute/value/year match; do not substitute household income, GDP, a different year, or a mentioned location unrelated to the document subject. Repeated links to one document denote one source. The slot requests one matching location document; zero matches remain missing and competing matching subjects remain unresolved. This rule has not been evaluated and specifies no selected document, location or extracted value.",
+                  "requested_attribute": "Per-capita personal income of the linked location subject for the question-stated year, with its currency unit and value compared to the question literal.",
+                  "entity_association": "The location subject of each document is associated with the schedule Location cell that directly links to that document; preserve the document_id and originating row/cell relation symbolically."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot3",
+              "status": "ambiguous",
+              "role": "one question-intended schedule row relating the resolved location to a tournament",
+              "expected_type": "single_schedule_row",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                  "value_type": "single_schedule_row",
+                  "scope": "/rows",
+                  "link_scope": null,
+                  "upstream_node_ids": [
+                    "op1"
+                  ],
+                  "question_spans": [
+                    {
+                      "literal": "the tournament",
+                      "start": 8,
+                      "end": 22
+                    }
+                  ],
+                  "selector": "Unevaluated partial rule over /rows: match cells[2] (column index 2, exact label Location) to the location output of strict upstream op1 by its originating location document_id and that cell's linked_document_ids. The source slot requires one question-intended row. The question supplies no further row discriminator or ordering criterion. A unique matching row would satisfy that assumption; a choice among multiple matching rows remains unspecified. Do not select a first, earliest, latest or arbitrary row. No match or row identity is computed here.",
+                  "requested_attribute": null,
+                  "entity_association": "Join strict upstream op1's location referent to the Location cell of each schedule row; maintain the original row association for downstream tournament projection."
+                }
+              ],
+              "reason": "The location-join scope and upstream identity are specified, but selecting one question-intended schedule row is unresolved: the question provides no additional row discriminator. No matching rows or uniqueness outcome have been computed.",
+              "searched_scope": []
+            }
+          ],
+          "operators": [
+            {
+              "node_id": "op1",
+              "status": "specified",
+              "role": "Scan linked location text for the stated per-capita personal-income value in the stated year.",
+              "expected_output_type": "one_location_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "location_link_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "location_entity_column",
+                    "pointer": "/columns/2",
+                    "table_id": "2000_Buy.com_Tour_0",
+                    "column_index": 2,
+                    "column_label": "Location"
+                  }
+                },
+                {
+                  "name": "attribute",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "attribute_name",
+                    "literal": "per capita personal income",
+                    "start": 41,
+                    "end": 67
+                  }
+                },
+                {
+                  "name": "income_value_with_currency",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "currency_amount_literal",
+                    "literal": "$ 47,684",
+                    "start": 72,
+                    "end": 80
+                  }
+                },
+                {
+                  "name": "income_year",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "calendar_year_literal",
+                    "literal": "2017",
+                    "start": 84,
+                    "end": 88
+                  }
+                },
+                {
+                  "name": "income_assertion_matching_contract",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "one_location_entity",
+                    "function": "Unevaluated resolve_location_by_subject_attribute_value_year: consume the source slots in the stated order; follow the location-link scope specified by the document slot; require the document subject's per-capita personal-income assertion to match the attribute, currency amount and calendar year supplied as question-literal parameters. Normalize whitespace and numeric thousands separators only for comparison. Do not reinterpret the measure, convert currency, extrapolate years, or return a location during grounding.",
+                    "operands": [
+                      {
+                        "kind": "slot",
+                        "id": "slot1"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot2"
+                      }
+                    ],
+                    "units": "currency units denoted by the question's dollar marker per person; calendar year",
+                    "tie_policy": "Repeated links to the same document are source aliases; competing location subjects or conflicting assertions remain unresolved, with no preference or first-match rule.",
+                    "null_policy": "Absent assertion, unspecified currency compatibility or missing year/value yields unresolved evidence; do not infer or fill a value."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op2",
+              "status": "ambiguous",
+              "role": "Match the resolved location to the question-intended schedule row and project that row's tournament.",
+              "expected_output_type": "one_tournament_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "schedule_scope",
+                  "binding": {
+                    "kind": "table_scope",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "schedule_row_collection",
+                    "pointer": "/rows",
+                    "table_id": "2000_Buy.com_Tour_0"
+                  }
+                },
+                {
+                  "name": "location_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "location_entity_column",
+                    "pointer": "/columns/2",
+                    "table_id": "2000_Buy.com_Tour_0",
+                    "column_index": 2,
+                    "column_label": "Location"
+                  }
+                },
+                {
+                  "name": "tournament_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "tournament_entity_column",
+                    "pointer": "/columns/1",
+                    "table_id": "2000_Buy.com_Tour_0",
+                    "column_index": 1,
+                    "column_label": "Tournament"
+                  }
+                },
+                {
+                  "name": "singular_question_reference",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "singular_tournament_reference",
+                    "literal": "the tournament",
+                    "start": 8,
+                    "end": 22
+                  }
+                },
+                {
+                  "name": "fused_row_selection_and_projection_contract",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "786c2c602d36ea940857fb5f70784c59c878d91aec52bd22560432819e578222",
+                    "value_type": "one_tournament_entity",
+                    "function": "Unevaluated match_intended_schedule_row_and_project_tournament: ordered operands are op1's location identity and slot3's partial single-row locator. Associate the upstream location through column 2 links and project column 1 from the same row within this existing fused operator. The question-intended row selector remains unresolved; do not materialize a row or projected value.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op1"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot3"
+                      }
+                    ],
+                    "units": "row and tournament entity identity",
+                    "tie_policy": "Unresolved: preserve cardinality one without selecting a first, earliest, latest or arbitrary location-matched row. Multiple eligible rows require an additional justified discriminator that is not supplied.",
+                    "null_policy": "Missing upstream identity, missing matching row, or missing Tournament cell remains unresolved; no guessed row or tournament."
+                  }
+                }
+              ],
+              "reason": "The question specifies a singular tournament but supplies no schedule-row discriminator beyond the resolved location. The original candidate's singular selection is under-specified when matching rows yield competing tournaments. No matched rows, entities, values or uniqueness result were computed; the unresolved disposition records this missing semantic selector without repairing the graph."
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Isolation limitation: an earlier user message supplied project-wide AGENTS instructions containing prior research status, metrics and challenge-question information outside the four-file author allowlist. Those supplied statements were already visible in this context; prior_exposure is therefore known_exposed. No additional excluded repository file, prior author response, coordinator manifest, web source or subagent was consulted. Fresh-context independence cannot be attested.",
+        "The question specifies a singular tournament but supplies no schedule-row discriminator beyond the resolved location. The original candidate's singular selection is under-specified when matching rows yield competing tournaments. No matched rows, entities, values or uniqueness result were computed; the unresolved disposition records this missing semantic selector without repairing the graph.",
+        "Only one coherent unevaluated grounding alternative was identified for this fixed candidate. No concrete competing row choices were enumerated, since finding them would evaluate the prohibited upstream operations. The unresolved singular selector is retained explicitly rather than replaced by a new graph or an unsupported tie-break.",
+        "All four allowed inputs were read completely. An initially truncated tool display was reread in smaller same-input chunks before submission; this was input transport continuation and produced no earlier response delivery.",
+        "Model identity is the GPT-6 identity supplied in runtime instructions; no exact backend revision or seed is exposed. The JSON file is primary structured capture only; hidden reasoning and backend response bytes are not exposed. Static binding completeness does not establish retrieval success or semantic correctness."
+      ]
+    }
+  ]
+}

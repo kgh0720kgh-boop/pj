@@ -1,0 +1,1335 @@
+{
+  "schema_version": "narrowed_grounding_raw_v0_1",
+  "packet_id": "ng_v0_1_question_01",
+  "packet_sha256": "41d1ff0a23c555f80e107f91bee9eec839f58cb56a00a7bd1c34954a585e7909",
+  "question_id": "0d48bffa70ef4acf",
+  "environment_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+  "input_delivery": {
+    "status": "complete",
+    "reason": null
+  },
+  "provenance": {
+    "model_id": "GPT-6 (Codex; identity supplied by runtime instructions)",
+    "model_revision": null,
+    "revision_status": "revision_not_exposed",
+    "seed": null,
+    "seed_status": "not_supported",
+    "context_id": "ng_v0_1_question_01_fresh_author",
+    "prior_exposure": "known_exposed",
+    "raw_capture_status": "structured_output_only_interface_limitation",
+    "attempts": [
+      {
+        "packet_sha256": "41d1ff0a23c555f80e107f91bee9eec839f58cb56a00a7bd1c34954a585e7909",
+        "delivery": "response_delivered"
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "observation_alias": "observation_01",
+      "candidate_sha256": "d792a067cef0a28497c73b4d7a10f6c32bd6c8d9d6c629e0064c742df89b45fe",
+      "identified_alternative_ids": [
+        "alternative_01"
+      ],
+      "alternative_relationship": "single",
+      "alternatives": [
+        {
+          "alternative_id": "alternative_01",
+          "assumptions": [
+            "The primary variant treats the duplicated township name as the bridge from a year-qualified county to a different target county.",
+            "Only the packet's sanitized full table and table-link closure are source scopes; all locator rules remain unevaluated.",
+            "The source serializes a township pair in /columns/1 and /columns/2 as header entries; retain it alongside all /rows pairs in the complete table without rewriting the environment. /columns/0 and cell column 0 are ordinal positions.",
+            "County links belong to the county named in the same township entry. A separate township-document link is not interchangeable with a county-document subject. Joining and predicate evaluation are deferred.",
+            "Original creation means the county's original-creation event, not its later organization or recreation. Year comparison uses the question literal only.",
+            "Singular slot cardinalities describe eventual values, not numbers of potential source locations. Repeated links to the same county document are deduplicated by identity only at later execution; no result or uniqueness test is performed here.",
+            "Primary and alt1 readings remain separate observations with their supplied graphs. A locator proposal conditional on a reading does not establish that reading's semantic correctness."
+          ],
+          "slots": [
+            {
+              "slot_id": "slot1",
+              "status": "resolved",
+              "role": "linked-document text for a county whose original-creation statement satisfies the year condition in the question",
+              "expected_type": "linked_document_text",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 75,
+                      "end": 101,
+                      "literal": "originally created in 1873"
+                    }
+                  ],
+                  "selector": "Unevaluated: range over county-entity links in this whole origin collection, associate each with its township-bearing cell or column entry, and follow exact linked_document_ids into /linked_documents. Request the original-creation assertion for the same county and leave testing its year against the question literal to the consuming operator. Exclude township-document links as county-entity substitutes. Combine row-origin and column-origin routes by document identity; do not preselect a document or evaluate the year predicate.",
+                  "requested_attribute": "county original-creation assertion",
+                  "entity_association": "A county document subject must match the county link in the originating township entry; township and county entities remain distinct."
+                },
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/columns",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 75,
+                      "end": 101,
+                      "literal": "originally created in 1873"
+                    }
+                  ],
+                  "selector": "Unevaluated: range over county-entity links in this whole origin collection, associate each with its township-bearing cell or column entry, and follow exact linked_document_ids into /linked_documents. Request the original-creation assertion for the same county and leave testing its year against the question literal to the consuming operator. Exclude township-document links as county-entity substitutes. Combine row-origin and column-origin routes by document identity; do not preselect a document or evaluate the year predicate.",
+                  "requested_attribute": "county original-creation assertion",
+                  "entity_association": "A county document subject must match the county link in the originating township entry; township and county entities remain distinct."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot2",
+              "status": "ambiguous",
+              "role": "township cells and county links needed to find a township occurrence in the county produced by op1",
+              "expected_type": "township_occurrence_links",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "cell_link",
+                  "scope": "",
+                  "link_scope": null,
+                  "upstream_node_ids": [
+                    "op1"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 47,
+                      "end": 57,
+                      "literal": "a township"
+                    }
+                  ],
+                  "selector": "Unevaluated: range over every logical township pair in the complete table. Match either side's county-link identity to the county output of op1; retain the matched township occurrence together with its original pair and side. The question provides no additional township-name or row-specific selector. Do not choose a first occurrence, enumerate matches, or assume that the resulting occurrence is unique.",
+                  "requested_attribute": null,
+                  "entity_association": "Each logical pair consists of township-name occurrences with their own county links: /rows/*/cells/1 and /rows/*/cells/2, or the source-encoded first pair /columns/1 and /columns/2. Column/cell 0 is an ordinal, not a county or township. Retain pair position, side and county association symbolically."
+                }
+              ],
+              "reason": "The question supplies no township name or row-specific discriminator for the singular intended occurrence. Its uniqueness is not established by static grounding, and evaluating county/row matches is forbidden. Keep the choice unresolved; do not select an arbitrary row or repair the upstream graph.",
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot3",
+              "status": "resolved",
+              "role": "the counterpart township occurrence in the same duplicated-name table row and its associated county",
+              "expected_type": "counterpart_county_source",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "table_row_or_cell",
+                  "scope": "",
+                  "link_scope": null,
+                  "upstream_node_ids": [
+                    "op2"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 47,
+                      "end": 57,
+                      "literal": "a township"
+                    }
+                  ],
+                  "selector": "Unevaluated: use the township occurrence, original pair and matched side from op2 to select the other township-bearing side in that same pair, preserving the duplicated name and its distinct county association. Request the county identity associated with that counterpart. Do not search a different pair, choose an arbitrary match, or substitute a county value.",
+                  "requested_attribute": null,
+                  "entity_association": "Each logical pair consists of township-name occurrences with their own county links: /rows/*/cells/1 and /rows/*/cells/2, or the source-encoded first pair /columns/1 and /columns/2. Column/cell 0 is an ordinal, not a county or township. Retain pair position, side and county association symbolically."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot4",
+              "status": "resolved",
+              "role": "linked-document text expressing the county-seat relation for the county produced by op3",
+              "expected_type": "linked_document_text",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [
+                    "op3"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 12,
+                      "end": 23,
+                      "literal": "county seat"
+                    }
+                  ],
+                  "selector": "Unevaluated: within this whole link-origin collection, consider county links associated with the county identity supplied by op3. Follow only exact linked_document_ids into the pinned /linked_documents collection and request the county-seat relation for that same county. Combine the row-origin and column-origin routes by document identity; they are complementary source scopes, not competing county choices. Return no document text or attribute value during grounding.",
+                  "requested_attribute": "county-seat relation",
+                  "entity_association": "The document subject must be the identical county from the referenced strict upstream output; the origin is a county link in its township entry."
+                },
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/columns",
+                  "upstream_node_ids": [
+                    "op3"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 12,
+                      "end": 23,
+                      "literal": "county seat"
+                    }
+                  ],
+                  "selector": "Unevaluated: within this whole link-origin collection, consider county links associated with the county identity supplied by op3. Follow only exact linked_document_ids into the pinned /linked_documents collection and request the county-seat relation for that same county. Combine the row-origin and column-origin routes by document identity; they are complementary source scopes, not competing county choices. Return no document text or attribute value during grounding.",
+                  "requested_attribute": "county-seat relation",
+                  "entity_association": "The document subject must be the identical county from the referenced strict upstream output; the origin is a county link in its township entry."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            }
+          ],
+          "operators": [
+            {
+              "node_id": "op1",
+              "status": "specified",
+              "role": "Find a county-linked document whose original-creation statement satisfies the year condition expressed in the question.",
+              "expected_output_type": "county_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "creation_year",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "calendar_year_literal",
+                    "start": 97,
+                    "end": 101,
+                    "literal": "1873"
+                  }
+                },
+                {
+                  "name": "creation_relation",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "original_creation_constraint",
+                    "start": 75,
+                    "end": 101,
+                    "literal": "originally created in 1873"
+                  }
+                },
+                {
+                  "name": "county_selection",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "county_entity",
+                    "function": "Unevaluated: identify the county subject of the source document, compare the original-creation event's calendar year by equality with the creation_year question parameter, and retain the county identity. Only county documents in the table-link closure are eligible. Distinct multiple matching counties remain unresolved; no first-match selection. The operation's existing boundary is unchanged.",
+                    "operands": [
+                      {
+                        "kind": "slot",
+                        "id": "slot1"
+                      }
+                    ],
+                    "units": "calendar years for the predicate; county identity for output",
+                    "tie_policy": "Do not choose arbitrarily. Retain unresolved multiplicity rather than coercing a singular result.",
+                    "null_policy": "Missing evidence remains unknown; do not impute a value or silently discard a required match."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op2",
+              "status": "ambiguous",
+              "role": "Within the table, identify a township occurrence whose county link corresponds to the county produced by op1.",
+              "expected_output_type": "township_occurrence_with_pair_provenance",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "township_occurrence_selector",
+                  "binding": {
+                    "kind": "dynamic",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "cell_link",
+                    "scope": "",
+                    "link_scope": null,
+                    "upstream_node_ids": [
+                      "op1"
+                    ],
+                    "question_spans": [
+                      {
+                        "start": 47,
+                        "end": 57,
+                        "literal": "a township"
+                      }
+                    ],
+                    "selector": "Unevaluated: range over every logical township pair in the complete table. Match either side's county-link identity to the county output of op1; retain the matched township occurrence together with its original pair and side. The question provides no additional township-name or row-specific selector. Do not choose a first occurrence, enumerate matches, or assume that the resulting occurrence is unique.",
+                    "requested_attribute": null,
+                    "entity_association": "Each logical pair consists of township-name occurrences with their own county links: /rows/*/cells/1 and /rows/*/cells/2, or the source-encoded first pair /columns/1 and /columns/2. Column/cell 0 is an ordinal, not a county or township. Retain pair position, side and county association symbolically."
+                  }
+                },
+                {
+                  "name": "occurrence_selection_policy",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "township_occurrence_with_pair_provenance",
+                    "function": "Unevaluated: match the upstream county identity to the county link of a township occurrence in slot2 and retain its pair and side provenance. The singular occurrence selector is unspecified; do not introduce ordering or a new discriminator.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op1"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot2"
+                      }
+                    ],
+                    "units": "entity identity",
+                    "tie_policy": "Do not choose arbitrarily. Retain unresolved multiplicity rather than coercing a singular result.",
+                    "null_policy": "Missing evidence remains unknown; do not impute a value or silently discard a required match."
+                  }
+                }
+              ],
+              "reason": "The question supplies no township name or row-specific discriminator for the singular intended occurrence. Its uniqueness is not established by static grounding, and evaluating county/row matches is forbidden. Keep the choice unresolved; do not select an arbitrary row or repair the upstream graph."
+            },
+            {
+              "node_id": "op3",
+              "status": "specified",
+              "role": "Use the duplicated-name row containing the township from op2 to identify the county associated with the counterpart township occurrence.",
+              "expected_output_type": "counterpart_county_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "counterpart_selector",
+                  "binding": {
+                    "kind": "dynamic",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "table_row_or_cell",
+                    "scope": "",
+                    "link_scope": null,
+                    "upstream_node_ids": [
+                      "op2"
+                    ],
+                    "question_spans": [
+                      {
+                        "start": 47,
+                        "end": 57,
+                        "literal": "a township"
+                      }
+                    ],
+                    "selector": "Unevaluated: use the township occurrence, original pair and matched side from op2 to select the other township-bearing side in that same pair, preserving the duplicated name and its distinct county association. Request the county identity associated with that counterpart. Do not search a different pair, choose an arbitrary match, or substitute a county value.",
+                    "requested_attribute": null,
+                    "entity_association": "Each logical pair consists of township-name occurrences with their own county links: /rows/*/cells/1 and /rows/*/cells/2, or the source-encoded first pair /columns/1 and /columns/2. Column/cell 0 is an ordinal, not a county or township. Retain pair position, side and county association symbolically."
+                  }
+                },
+                {
+                  "name": "counterpart_relation",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "counterpart_county_entity",
+                    "function": "Unevaluated: given the occurrence and pair context from op2 and source slot3, identify the other side's county in the same duplicated-name pair. Require the counterpart relation described by the original candidate; do not merge unrelated township occurrences.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op2"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot3"
+                      }
+                    ],
+                    "units": "entity identity",
+                    "tie_policy": "Do not choose arbitrarily. Retain unresolved multiplicity rather than coercing a singular result.",
+                    "null_policy": "Missing evidence remains unknown; do not impute a value or silently discard a required match."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op4",
+              "status": "specified",
+              "role": "Read the county-seat relation from linked-document text for the county produced by op3.",
+              "expected_output_type": "county_seat_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "requested_relation",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "county_seat_relation",
+                    "start": 12,
+                    "end": 23,
+                    "literal": "county seat"
+                  }
+                },
+                {
+                  "name": "relation_read",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "county_seat_entity",
+                    "function": "Unevaluated: from the linked-text source slot associated with the strict upstream county, request the seat relation whose subject is exactly that county; emit its county-seat entity only during a separately authorized execution. Preserve conflicts or multiple seats without inventing a temporal criterion.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op3"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot4"
+                      }
+                    ],
+                    "units": "entity identity",
+                    "tie_policy": "Do not choose arbitrarily. Retain unresolved multiplicity rather than coercing a singular result.",
+                    "null_policy": "Missing evidence remains unknown; do not impute a value or silently discard a required match."
+                  }
+                }
+              ],
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Isolation limitation: the initial user message supplied excluded project AGENTS-style research context, including prior phase decisions, results/metrics, normalizations and this question's membership in a challenge subset. No additional excluded file was read, no coordinator conversation was requested, and no other author was inspected. Prior exposure is therefore known_exposed; this is not a clean isolated-author observation.",
+        "No graph operation, matching-row enumeration, entity recovery, document-attribute extraction, or answer projection was performed. Resolved dynamic bindings specify rules only; source sufficiency and runtime cardinality remain unevaluated.",
+        "The row-origin and column-origin document rules jointly cover one source domain. They do not assert multiple incompatible county choices. No discrete concrete-row alternatives were identified by evaluating the forbidden predicate.",
+        "The question supplies no township name or row-specific discriminator for the singular intended occurrence. Its uniqueness is not established by static grounding, and evaluating county/row matches is forbidden. Keep the choice unresolved; do not select an arbitrary row or repair the upstream graph.",
+        "The unresolved row choice is recorded within the supplied primary graph. No union of potential rows, altered cardinality, new node, or extra semantic constraint is used to repair it.",
+        "Protocol-binding limitation: the fully read allowed prompts/narrowed_grounding_v0_1.md has raw-byte SHA-256 f48cf2d4c9adb18c2eb82d3011ee49717df16ee6aba061f2098c3e0b59b868ab, while packet protocol_sha256 is ffe774bedeec6d6e6f473ab505267113ae73edd9796ffcd1d92ea7b6dfbf3c94. Their equality cannot be certified from the four allowed inputs. Packet payload and environment canonical hashes and raw response-schema byte hash were independently verified. All supplied inputs were delivered completely; no excluded provenance files were opened to explain this discrepancy."
+      ]
+    },
+    {
+      "observation_alias": "observation_02",
+      "candidate_sha256": "bf9f92f153df7ef695fa3be85c16c3ac6a58dd1807a6149ef1515a49492803c4",
+      "identified_alternative_ids": [
+        "alternative_01"
+      ],
+      "alternative_relationship": "single",
+      "alternatives": [
+        {
+          "alternative_id": "alternative_01",
+          "assumptions": [
+            "The alternative variant attaches the creation-year condition to the same county whose seat is requested.",
+            "Only the packet's sanitized full table and table-link closure are source scopes; all locator rules remain unevaluated.",
+            "The source serializes a township pair in /columns/1 and /columns/2 as header entries; retain it alongside all /rows pairs in the complete table without rewriting the environment. /columns/0 and cell column 0 are ordinal positions.",
+            "County links belong to the county named in the same township entry. A separate township-document link is not interchangeable with a county-document subject. Joining and predicate evaluation are deferred.",
+            "Original creation means the county's original-creation event, not its later organization or recreation. Year comparison uses the question literal only.",
+            "Singular slot cardinalities describe eventual values, not numbers of potential source locations. Repeated links to the same county document are deduplicated by identity only at later execution; no result or uniqueness test is performed here.",
+            "Primary and alt1 readings remain separate observations with their supplied graphs. A locator proposal conditional on a reading does not establish that reading's semantic correctness."
+          ],
+          "slots": [
+            {
+              "slot_id": "slot5",
+              "status": "resolved",
+              "role": "table township cells and their associated county links",
+              "expected_type": "township_county_links",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "township_county_association_source",
+                  "scope": "",
+                  "link_scope": null,
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 47,
+                      "end": 57,
+                      "literal": "a township"
+                    }
+                  ],
+                  "selector": "Unevaluated: range over every township-bearing side in the whole paired table, retaining the township name, exact county-link identity and link origin. At the consuming entry operator, associate that county identity with the same county's document assertion; verify township participation jointly with the question's creation-year condition. No county or row has been selected.",
+                  "requested_attribute": null,
+                  "entity_association": "Each logical pair consists of township-name occurrences with their own county links: /rows/*/cells/1 and /rows/*/cells/2, or the source-encoded first pair /columns/1 and /columns/2. Column/cell 0 is an ordinal, not a county or township. Retain pair position, side and county association symbolically."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot6",
+              "status": "resolved",
+              "role": "linked-document text confirming that the county associated with a township satisfies the original-creation year condition",
+              "expected_type": "linked_document_text",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 75,
+                      "end": 101,
+                      "literal": "originally created in 1873"
+                    }
+                  ],
+                  "selector": "Unevaluated: range over county-entity links in this whole origin collection, associate each with its township-bearing cell or column entry, and follow exact linked_document_ids into /linked_documents. Request the original-creation assertion for the same county and leave testing its year against the question literal to the consuming operator. Exclude township-document links as county-entity substitutes. Combine row-origin and column-origin routes by document identity; do not preselect a document or evaluate the year predicate.",
+                  "requested_attribute": "county original-creation assertion",
+                  "entity_association": "A county document subject must match the county link in the originating township entry; township and county entities remain distinct."
+                },
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/columns",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 75,
+                      "end": 101,
+                      "literal": "originally created in 1873"
+                    }
+                  ],
+                  "selector": "Unevaluated: range over county-entity links in this whole origin collection, associate each with its township-bearing cell or column entry, and follow exact linked_document_ids into /linked_documents. Request the original-creation assertion for the same county and leave testing its year against the question literal to the consuming operator. Exclude township-document links as county-entity substitutes. Combine row-origin and column-origin routes by document identity; do not preselect a document or evaluate the year predicate.",
+                  "requested_attribute": "county original-creation assertion",
+                  "entity_association": "A county document subject must match the county link in the originating township entry; township and county entities remain distinct."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot7",
+              "status": "resolved",
+              "role": "linked-document text expressing the county-seat relation for the county produced by op5",
+              "expected_type": "linked_document_text",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [
+                    "op5"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 12,
+                      "end": 23,
+                      "literal": "county seat"
+                    }
+                  ],
+                  "selector": "Unevaluated: within this whole link-origin collection, consider county links associated with the county identity supplied by op5. Follow only exact linked_document_ids into the pinned /linked_documents collection and request the county-seat relation for that same county. Combine the row-origin and column-origin routes by document identity; they are complementary source scopes, not competing county choices. Return no document text or attribute value during grounding.",
+                  "requested_attribute": "county-seat relation",
+                  "entity_association": "The document subject must be the identical county from the referenced strict upstream output; the origin is a county link in its township entry."
+                },
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/columns",
+                  "upstream_node_ids": [
+                    "op5"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 12,
+                      "end": 23,
+                      "literal": "county seat"
+                    }
+                  ],
+                  "selector": "Unevaluated: within this whole link-origin collection, consider county links associated with the county identity supplied by op5. Follow only exact linked_document_ids into the pinned /linked_documents collection and request the county-seat relation for that same county. Combine the row-origin and column-origin routes by document identity; they are complementary source scopes, not competing county choices. Return no document text or attribute value during grounding.",
+                  "requested_attribute": "county-seat relation",
+                  "entity_association": "The document subject must be the identical county from the referenced strict upstream output; the origin is a county link in its township entry."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            }
+          ],
+          "operators": [
+            {
+              "node_id": "op5",
+              "status": "specified",
+              "role": "Identify a county represented through a township cell and verify from its linked text that the same county satisfies the original-creation year condition.",
+              "expected_output_type": "county_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "creation_year",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "calendar_year_literal",
+                    "start": 97,
+                    "end": 101,
+                    "literal": "1873"
+                  }
+                },
+                {
+                  "name": "creation_relation",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "original_creation_constraint",
+                    "start": 75,
+                    "end": 101,
+                    "literal": "originally created in 1873"
+                  }
+                },
+                {
+                  "name": "county_selection",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "county_entity",
+                    "function": "Unevaluated: identify the county subject of the source document, compare the original-creation event's calendar year by equality with the creation_year question parameter, and retain the county identity. Conjoin existence of a township entry with that exact county-link identity from the table source slot. Distinct multiple matching counties remain unresolved; no first-match selection. The operation's existing boundary is unchanged.",
+                    "operands": [
+                      {
+                        "kind": "slot",
+                        "id": "slot6"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot5"
+                      }
+                    ],
+                    "units": "calendar years for the predicate; county identity for output",
+                    "tie_policy": "Do not choose arbitrarily. Retain unresolved multiplicity rather than coercing a singular result.",
+                    "null_policy": "Missing evidence remains unknown; do not impute a value or silently discard a required match."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op6",
+              "status": "specified",
+              "role": "Read the county-seat relation from linked-document text for the county produced by op5.",
+              "expected_output_type": "county_seat_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "requested_relation",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "county_seat_relation",
+                    "start": 12,
+                    "end": 23,
+                    "literal": "county seat"
+                  }
+                },
+                {
+                  "name": "relation_read",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "county_seat_entity",
+                    "function": "Unevaluated: from the linked-text source slot associated with the strict upstream county, request the seat relation whose subject is exactly that county; emit its county-seat entity only during a separately authorized execution. Preserve conflicts or multiple seats without inventing a temporal criterion.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op5"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot7"
+                      }
+                    ],
+                    "units": "entity identity",
+                    "tie_policy": "Do not choose arbitrarily. Retain unresolved multiplicity rather than coercing a singular result.",
+                    "null_policy": "Missing evidence remains unknown; do not impute a value or silently discard a required match."
+                  }
+                }
+              ],
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Isolation limitation: the initial user message supplied excluded project AGENTS-style research context, including prior phase decisions, results/metrics, normalizations and this question's membership in a challenge subset. No additional excluded file was read, no coordinator conversation was requested, and no other author was inspected. Prior exposure is therefore known_exposed; this is not a clean isolated-author observation.",
+        "No graph operation, matching-row enumeration, entity recovery, document-attribute extraction, or answer projection was performed. Resolved dynamic bindings specify rules only; source sufficiency and runtime cardinality remain unevaluated.",
+        "The row-origin and column-origin document rules jointly cover one source domain. They do not assert multiple incompatible county choices. No discrete concrete-row alternatives were identified by evaluating the forbidden predicate.",
+        "The same-county reading is conditional on the supplied alt1 variant and is not selected over the separately preserved primary reading.",
+        "Protocol-binding limitation: the fully read allowed prompts/narrowed_grounding_v0_1.md has raw-byte SHA-256 f48cf2d4c9adb18c2eb82d3011ee49717df16ee6aba061f2098c3e0b59b868ab, while packet protocol_sha256 is ffe774bedeec6d6e6f473ab505267113ae73edd9796ffcd1d92ea7b6dfbf3c94. Their equality cannot be certified from the four allowed inputs. Packet payload and environment canonical hashes and raw response-schema byte hash were independently verified. All supplied inputs were delivered completely; no excluded provenance files were opened to explain this discrepancy."
+      ]
+    },
+    {
+      "observation_alias": "observation_03",
+      "candidate_sha256": "936665cdb5ce4f7bd4546af4ee3c8a4fed3afcb65964753090024537a6c9bb53",
+      "identified_alternative_ids": [
+        "alternative_01"
+      ],
+      "alternative_relationship": "single",
+      "alternatives": [
+        {
+          "alternative_id": "alternative_01",
+          "assumptions": [
+            "The primary reading treats the county created in the stated year, the shared township, and the counterpart county as three successive referents.",
+            "The singular answer specification denotes one question-intended duplicated-name row; its concrete row binding is deferred.",
+            "Only the packet's sanitized full table and table-link closure are source scopes; all locator rules remain unevaluated.",
+            "The source serializes a township pair in /columns/1 and /columns/2 as header entries; retain it alongside all /rows pairs in the complete table without rewriting the environment. /columns/0 and cell column 0 are ordinal positions.",
+            "County links belong to the county named in the same township entry. A separate township-document link is not interchangeable with a county-document subject. Joining and predicate evaluation are deferred.",
+            "Original creation means the county's original-creation event, not its later organization or recreation. Year comparison uses the question literal only.",
+            "Singular slot cardinalities describe eventual values, not numbers of potential source locations. Repeated links to the same county document are deduplicated by identity only at later execution; no result or uniqueness test is performed here.",
+            "Primary and alt1 readings remain separate observations with their supplied graphs. A locator proposal conditional on a reading does not establish that reading's semantic correctness."
+          ],
+          "slots": [
+            {
+              "slot_id": "slot1",
+              "status": "resolved",
+              "role": "the question-stated county creation-year condition",
+              "expected_type": "original_creation_constraint",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "question_literal",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "original_creation_constraint",
+                  "start": 75,
+                  "end": 101,
+                  "literal": "originally created in 1873"
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot2",
+              "status": "resolved",
+              "role": "a county document assertion satisfying the stated creation-year condition",
+              "expected_type": "linked_document_text",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 75,
+                      "end": 101,
+                      "literal": "originally created in 1873"
+                    }
+                  ],
+                  "selector": "Unevaluated: range over county-entity links in this whole origin collection, associate each with its township-bearing cell or column entry, and follow exact linked_document_ids into /linked_documents. Request the original-creation assertion for the same county and leave testing its year against the question literal to the consuming operator. Exclude township-document links as county-entity substitutes. Combine row-origin and column-origin routes by document identity; do not preselect a document or evaluate the year predicate.",
+                  "requested_attribute": "county original-creation assertion",
+                  "entity_association": "A county document subject must match the county link in the originating township entry; township and county entities remain distinct."
+                },
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/columns",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 75,
+                      "end": 101,
+                      "literal": "originally created in 1873"
+                    }
+                  ],
+                  "selector": "Unevaluated: range over county-entity links in this whole origin collection, associate each with its township-bearing cell or column entry, and follow exact linked_document_ids into /linked_documents. Request the original-creation assertion for the same county and leave testing its year against the question literal to the consuming operator. Exclude township-document links as county-entity substitutes. Combine row-origin and column-origin routes by document identity; do not preselect a document or evaluate the year predicate.",
+                  "requested_attribute": "county original-creation assertion",
+                  "entity_association": "A county document subject must match the county link in the originating township entry; township and county entities remain distinct."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot3",
+              "status": "ambiguous",
+              "role": "one question-intended duplicated-township table row linking the resolved county to a counterpart county",
+              "expected_type": "shared_duplicated_township_pair",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "table_row_or_cell",
+                  "scope": "",
+                  "link_scope": null,
+                  "upstream_node_ids": [
+                    "op1"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 47,
+                      "end": 57,
+                      "literal": "a township"
+                    }
+                  ],
+                  "selector": "Unevaluated: define the shared source-row variable as a logical duplicated-name pair having a county-link identity equal to op1 and a counterpart township occurrence with the same township name. This identical pair variable is required by both consuming nodes op2 and op3. No particular pair is assigned: the question supplies no further name or row discriminator. Do not enumerate qualifying rows, select a first row, or force singularity.",
+                  "requested_attribute": null,
+                  "entity_association": "Each logical pair consists of township-name occurrences with their own county links: /rows/*/cells/1 and /rows/*/cells/2, or the source-encoded first pair /columns/1 and /columns/2. Column/cell 0 is an ordinal, not a county or township. Retain pair position, side and county association symbolically."
+                }
+              ],
+              "reason": "The question supplies no township name or row-specific discriminator for the singular intended occurrence. Its uniqueness is not established by static grounding, and evaluating county/row matches is forbidden. Keep the choice unresolved; do not select an arbitrary row or repair the upstream graph.",
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot4",
+              "status": "resolved",
+              "role": "the target county document statement of its county-seat property",
+              "expected_type": "linked_document_text",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [
+                    "op3"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 12,
+                      "end": 23,
+                      "literal": "county seat"
+                    }
+                  ],
+                  "selector": "Unevaluated: within this whole link-origin collection, consider county links associated with the county identity supplied by op3. Follow only exact linked_document_ids into the pinned /linked_documents collection and request the county-seat relation for that same county. Combine the row-origin and column-origin routes by document identity; they are complementary source scopes, not competing county choices. Return no document text or attribute value during grounding.",
+                  "requested_attribute": "county-seat relation",
+                  "entity_association": "The document subject must be the identical county from the referenced strict upstream output; the origin is a county link in its township entry."
+                },
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/columns",
+                  "upstream_node_ids": [
+                    "op3"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 12,
+                      "end": 23,
+                      "literal": "county seat"
+                    }
+                  ],
+                  "selector": "Unevaluated: within this whole link-origin collection, consider county links associated with the county identity supplied by op3. Follow only exact linked_document_ids into the pinned /linked_documents collection and request the county-seat relation for that same county. Combine the row-origin and column-origin routes by document identity; they are complementary source scopes, not competing county choices. Return no document text or attribute value during grounding.",
+                  "requested_attribute": "county-seat relation",
+                  "entity_association": "The document subject must be the identical county from the referenced strict upstream output; the origin is a county link in its township entry."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            }
+          ],
+          "operators": [
+            {
+              "node_id": "op1",
+              "status": "specified",
+              "role": "Scan county-linked document text for a county satisfying the creation-year condition.",
+              "expected_output_type": "county_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "creation_year",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "calendar_year_literal",
+                    "start": 97,
+                    "end": 101,
+                    "literal": "1873"
+                  }
+                },
+                {
+                  "name": "creation_relation",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "original_creation_constraint",
+                    "start": 75,
+                    "end": 101,
+                    "literal": "originally created in 1873"
+                  }
+                },
+                {
+                  "name": "county_selection",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "county_entity",
+                    "function": "Unevaluated: identify the county subject of the source document, compare the original-creation event's calendar year by equality with the creation_year question parameter, and retain the county identity. Only county documents in the table-link closure are eligible. Distinct multiple matching counties remain unresolved; no first-match selection. The operation's existing boundary is unchanged.",
+                    "operands": [
+                      {
+                        "kind": "slot",
+                        "id": "slot2"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot1"
+                      }
+                    ],
+                    "units": "calendar years for the predicate; county identity for output",
+                    "tie_policy": "Do not choose arbitrarily. Retain unresolved multiplicity rather than coercing a singular result.",
+                    "null_policy": "Missing evidence remains unknown; do not impute a value or silently discard a required match."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op2",
+              "status": "ambiguous",
+              "role": "Use the resolved county to find the question-intended duplicated-name row and retain its township identity.",
+              "expected_output_type": "township_identity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "shared_row_selector",
+                  "binding": {
+                    "kind": "dynamic",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "table_row_or_cell",
+                    "scope": "",
+                    "link_scope": null,
+                    "upstream_node_ids": [
+                      "op1"
+                    ],
+                    "question_spans": [
+                      {
+                        "start": 47,
+                        "end": 57,
+                        "literal": "a township"
+                      }
+                    ],
+                    "selector": "Unevaluated: define the shared source-row variable as a logical duplicated-name pair having a county-link identity equal to op1 and a counterpart township occurrence with the same township name. This identical pair variable is required by both consuming nodes op2 and op3. No particular pair is assigned: the question supplies no further name or row discriminator. Do not enumerate qualifying rows, select a first row, or force singularity.",
+                    "requested_attribute": null,
+                    "entity_association": "Each logical pair consists of township-name occurrences with their own county links: /rows/*/cells/1 and /rows/*/cells/2, or the source-encoded first pair /columns/1 and /columns/2. Column/cell 0 is an ordinal, not a county or township. Retain pair position, side and county association symbolically."
+                  }
+                },
+                {
+                  "name": "township_relation",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "township_identity",
+                    "function": "Unevaluated: use op1 with slot3's shared pair variable to identify the township name on the matching county side. The question-intended singular row is unbound, so neither a row nor its township identity is emitted here.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op1"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot3"
+                      }
+                    ],
+                    "units": "entity identity",
+                    "tie_policy": "Do not choose arbitrarily. Retain unresolved multiplicity rather than coercing a singular result.",
+                    "null_policy": "Missing evidence remains unknown; do not impute a value or silently discard a required match."
+                  }
+                }
+              ],
+              "reason": "The question supplies no township name or row-specific discriminator for the singular intended occurrence. Its uniqueness is not established by static grounding, and evaluating county/row matches is forbidden. Keep the choice unresolved; do not select an arbitrary row or repair the upstream graph."
+            },
+            {
+              "node_id": "op3",
+              "status": "ambiguous",
+              "role": "From the same duplicated-name row, project the other county associated with the township.",
+              "expected_output_type": "counterpart_county_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "same_pair_counterpart",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "counterpart_county_entity",
+                    "function": "Unevaluated: resolve the same shared pair variable in slot3, associate op2's township identity with its side whose county matches strict ancestor op1, and request the other side's county. Do not let repeated township names select a different row. The singular pair remains unbound; no graph output is augmented or rewritten.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op2"
+                      },
+                      {
+                        "kind": "node",
+                        "id": "op1"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot3"
+                      }
+                    ],
+                    "units": "entity identity",
+                    "tie_policy": "Do not choose arbitrarily. Retain unresolved multiplicity rather than coercing a singular result.",
+                    "null_policy": "Missing evidence remains unknown; do not impute a value or silently discard a required match."
+                  }
+                }
+              ],
+              "reason": "The question supplies no township name or row-specific discriminator for the singular intended occurrence. Its uniqueness is not established by static grounding, and evaluating county/row matches is forbidden. Keep the choice unresolved; do not select an arbitrary row or repair the upstream graph."
+            },
+            {
+              "node_id": "op4",
+              "status": "specified",
+              "role": "Read the county-seat property from linked text for the target county.",
+              "expected_output_type": "county_seat_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "requested_relation",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "county_seat_relation",
+                    "start": 12,
+                    "end": 23,
+                    "literal": "county seat"
+                  }
+                },
+                {
+                  "name": "relation_read",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "county_seat_entity",
+                    "function": "Unevaluated: from the linked-text source slot associated with the strict upstream county, request the seat relation whose subject is exactly that county; emit its county-seat entity only during a separately authorized execution. Preserve conflicts or multiple seats without inventing a temporal criterion.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op3"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot4"
+                      }
+                    ],
+                    "units": "entity identity",
+                    "tie_policy": "Do not choose arbitrarily. Retain unresolved multiplicity rather than coercing a singular result.",
+                    "null_policy": "Missing evidence remains unknown; do not impute a value or silently discard a required match."
+                  }
+                }
+              ],
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Isolation limitation: the initial user message supplied excluded project AGENTS-style research context, including prior phase decisions, results/metrics, normalizations and this question's membership in a challenge subset. No additional excluded file was read, no coordinator conversation was requested, and no other author was inspected. Prior exposure is therefore known_exposed; this is not a clean isolated-author observation.",
+        "No graph operation, matching-row enumeration, entity recovery, document-attribute extraction, or answer projection was performed. Resolved dynamic bindings specify rules only; source sufficiency and runtime cardinality remain unevaluated.",
+        "The row-origin and column-origin document rules jointly cover one source domain. They do not assert multiple incompatible county choices. No discrete concrete-row alternatives were identified by evaluating the forbidden predicate.",
+        "The question supplies no township name or row-specific discriminator for the singular intended occurrence. Its uniqueness is not established by static grounding, and evaluating county/row matches is forbidden. Keep the choice unresolved; do not select an arbitrary row or repair the upstream graph.",
+        "The unresolved row choice is recorded within the supplied primary graph. No union of potential rows, altered cardinality, new node, or extra semantic constraint is used to repair it.",
+        "Protocol-binding limitation: the fully read allowed prompts/narrowed_grounding_v0_1.md has raw-byte SHA-256 f48cf2d4c9adb18c2eb82d3011ee49717df16ee6aba061f2098c3e0b59b868ab, while packet protocol_sha256 is ffe774bedeec6d6e6f473ab505267113ae73edd9796ffcd1d92ea7b6dfbf3c94. Their equality cannot be certified from the four allowed inputs. Packet payload and environment canonical hashes and raw response-schema byte hash were independently verified. All supplied inputs were delivered completely; no excluded provenance files were opened to explain this discrepancy."
+      ]
+    },
+    {
+      "observation_alias": "observation_04",
+      "candidate_sha256": "f7f6057ba0b62a300f093bba9fa5867a3307bc2f74b49d3b20e97453f7e1ca3a",
+      "identified_alternative_ids": [
+        "alternative_01"
+      ],
+      "alternative_relationship": "single",
+      "alternatives": [
+        {
+          "alternative_id": "alternative_01",
+          "assumptions": [
+            "The alternative reading treats the creation-year clause as modifying the same county whose seat is requested.",
+            "Having a township is verified through a table row, but no particular row is grounded.",
+            "Only the packet's sanitized full table and table-link closure are source scopes; all locator rules remain unevaluated.",
+            "The source serializes a township pair in /columns/1 and /columns/2 as header entries; retain it alongside all /rows pairs in the complete table without rewriting the environment. /columns/0 and cell column 0 are ordinal positions.",
+            "County links belong to the county named in the same township entry. A separate township-document link is not interchangeable with a county-document subject. Joining and predicate evaluation are deferred.",
+            "Original creation means the county's original-creation event, not its later organization or recreation. Year comparison uses the question literal only.",
+            "Singular slot cardinalities describe eventual values, not numbers of potential source locations. Repeated links to the same county document are deduplicated by identity only at later execution; no result or uniqueness test is performed here.",
+            "Primary and alt1 readings remain separate observations with their supplied graphs. A locator proposal conditional on a reading does not establish that reading's semantic correctness."
+          ],
+          "slots": [
+            {
+              "slot_id": "slot5",
+              "status": "resolved",
+              "role": "the combined question condition that a county was created in the stated year and has a township in the table",
+              "expected_type": "combined_county_modifier",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "question_literal",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "combined_county_modifier",
+                  "start": 27,
+                  "end": 101,
+                  "literal": "the county that has a township also in a county originally created in 1873"
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot6",
+              "status": "resolved",
+              "role": "a county document assertion satisfying the creation-year part of the condition",
+              "expected_type": "linked_document_text",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 75,
+                      "end": 101,
+                      "literal": "originally created in 1873"
+                    }
+                  ],
+                  "selector": "Unevaluated: range over county-entity links in this whole origin collection, associate each with its township-bearing cell or column entry, and follow exact linked_document_ids into /linked_documents. Request the original-creation assertion for the same county and leave testing its year against the question literal to the consuming operator. Exclude township-document links as county-entity substitutes. Combine row-origin and column-origin routes by document identity; do not preselect a document or evaluate the year predicate.",
+                  "requested_attribute": "county original-creation assertion",
+                  "entity_association": "A county document subject must match the county link in the originating township entry; township and county entities remain distinct."
+                },
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/columns",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 75,
+                      "end": 101,
+                      "literal": "originally created in 1873"
+                    }
+                  ],
+                  "selector": "Unevaluated: range over county-entity links in this whole origin collection, associate each with its township-bearing cell or column entry, and follow exact linked_document_ids into /linked_documents. Request the original-creation assertion for the same county and leave testing its year against the question literal to the consuming operator. Exclude township-document links as county-entity substitutes. Combine row-origin and column-origin routes by document identity; do not preselect a document or evaluate the year predicate.",
+                  "requested_attribute": "county original-creation assertion",
+                  "entity_association": "A county document subject must match the county link in the originating township entry; township and county entities remain distinct."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot7",
+              "status": "resolved",
+              "role": "table evidence that the same county is associated with at least one township",
+              "expected_type": "township_county_table_evidence",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "township_county_association_source",
+                  "scope": "",
+                  "link_scope": null,
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 47,
+                      "end": 57,
+                      "literal": "a township"
+                    }
+                  ],
+                  "selector": "Unevaluated: range over every township-bearing side in the whole paired table, retaining the township name, exact county-link identity and link origin. At the consuming entry operator, associate that county identity with the same county's document assertion; verify township participation jointly with the question's creation-year condition. No county or row has been selected.",
+                  "requested_attribute": null,
+                  "entity_association": "Each logical pair consists of township-name occurrences with their own county links: /rows/*/cells/1 and /rows/*/cells/2, or the source-encoded first pair /columns/1 and /columns/2. Column/cell 0 is an ordinal, not a county or township. Retain pair position, side and county association symbolically."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot8",
+              "status": "resolved",
+              "role": "the resolved county document statement of its county-seat property",
+              "expected_type": "linked_document_text",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [
+                    "op5"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 12,
+                      "end": 23,
+                      "literal": "county seat"
+                    }
+                  ],
+                  "selector": "Unevaluated: within this whole link-origin collection, consider county links associated with the county identity supplied by op5. Follow only exact linked_document_ids into the pinned /linked_documents collection and request the county-seat relation for that same county. Combine the row-origin and column-origin routes by document identity; they are complementary source scopes, not competing county choices. Return no document text or attribute value during grounding.",
+                  "requested_attribute": "county-seat relation",
+                  "entity_association": "The document subject must be the identical county from the referenced strict upstream output; the origin is a county link in its township entry."
+                },
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/columns",
+                  "upstream_node_ids": [
+                    "op5"
+                  ],
+                  "question_spans": [
+                    {
+                      "start": 12,
+                      "end": 23,
+                      "literal": "county seat"
+                    }
+                  ],
+                  "selector": "Unevaluated: within this whole link-origin collection, consider county links associated with the county identity supplied by op5. Follow only exact linked_document_ids into the pinned /linked_documents collection and request the county-seat relation for that same county. Combine the row-origin and column-origin routes by document identity; they are complementary source scopes, not competing county choices. Return no document text or attribute value during grounding.",
+                  "requested_attribute": "county-seat relation",
+                  "entity_association": "The document subject must be the identical county from the referenced strict upstream output; the origin is a county link in its township entry."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            }
+          ],
+          "operators": [
+            {
+              "node_id": "op5",
+              "status": "specified",
+              "role": "Identify a county whose linked text satisfies the creation condition and whose table participation supplies township evidence.",
+              "expected_output_type": "county_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "creation_year",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "calendar_year_literal",
+                    "start": 97,
+                    "end": 101,
+                    "literal": "1873"
+                  }
+                },
+                {
+                  "name": "creation_relation",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "original_creation_constraint",
+                    "start": 75,
+                    "end": 101,
+                    "literal": "originally created in 1873"
+                  }
+                },
+                {
+                  "name": "county_selection",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "county_entity",
+                    "function": "Unevaluated: identify the county subject of the source document, compare the original-creation event's calendar year by equality with the creation_year question parameter, and retain the county identity. Conjoin existence of a township entry with that exact county-link identity from the table source slot. Distinct multiple matching counties remain unresolved; no first-match selection. The operation's existing boundary is unchanged.",
+                    "operands": [
+                      {
+                        "kind": "slot",
+                        "id": "slot6"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot5"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot7"
+                      }
+                    ],
+                    "units": "calendar years for the predicate; county identity for output",
+                    "tie_policy": "Do not choose arbitrarily. Retain unresolved multiplicity rather than coercing a singular result.",
+                    "null_policy": "Missing evidence remains unknown; do not impute a value or silently discard a required match."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op6",
+              "status": "specified",
+              "role": "Read the county-seat property from linked text for that county.",
+              "expected_output_type": "county_seat_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "requested_relation",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "county_seat_relation",
+                    "start": 12,
+                    "end": 23,
+                    "literal": "county seat"
+                  }
+                },
+                {
+                  "name": "relation_read",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "fef24e248e949086e627ad37119ac7765c8a5ec91f1bd3ca81cb90474f957ee1",
+                    "value_type": "county_seat_entity",
+                    "function": "Unevaluated: from the linked-text source slot associated with the strict upstream county, request the seat relation whose subject is exactly that county; emit its county-seat entity only during a separately authorized execution. Preserve conflicts or multiple seats without inventing a temporal criterion.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op5"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot8"
+                      }
+                    ],
+                    "units": "entity identity",
+                    "tie_policy": "Do not choose arbitrarily. Retain unresolved multiplicity rather than coercing a singular result.",
+                    "null_policy": "Missing evidence remains unknown; do not impute a value or silently discard a required match."
+                  }
+                }
+              ],
+              "reason": null
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Isolation limitation: the initial user message supplied excluded project AGENTS-style research context, including prior phase decisions, results/metrics, normalizations and this question's membership in a challenge subset. No additional excluded file was read, no coordinator conversation was requested, and no other author was inspected. Prior exposure is therefore known_exposed; this is not a clean isolated-author observation.",
+        "No graph operation, matching-row enumeration, entity recovery, document-attribute extraction, or answer projection was performed. Resolved dynamic bindings specify rules only; source sufficiency and runtime cardinality remain unevaluated.",
+        "The row-origin and column-origin document rules jointly cover one source domain. They do not assert multiple incompatible county choices. No discrete concrete-row alternatives were identified by evaluating the forbidden predicate.",
+        "The same-county reading is conditional on the supplied alt1 variant and is not selected over the separately preserved primary reading.",
+        "Protocol-binding limitation: the fully read allowed prompts/narrowed_grounding_v0_1.md has raw-byte SHA-256 f48cf2d4c9adb18c2eb82d3011ee49717df16ee6aba061f2098c3e0b59b868ab, while packet protocol_sha256 is ffe774bedeec6d6e6f473ab505267113ae73edd9796ffcd1d92ea7b6dfbf3c94. Their equality cannot be certified from the four allowed inputs. Packet payload and environment canonical hashes and raw response-schema byte hash were independently verified. All supplied inputs were delivered completely; no excluded provenance files were opened to explain this discrepancy."
+      ]
+    }
+  ]
+}

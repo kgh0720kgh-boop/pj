@@ -1,0 +1,505 @@
+{
+  "schema_version": "narrowed_grounding_raw_v0_1",
+  "packet_id": "ng_v0_1_question_05",
+  "packet_sha256": "1ede7b6ba0c4a9c15e1da1dd5478f99bbc091ee5712ecc2abb3762d3efe85743",
+  "question_id": "1ca8ffcd3e20e498",
+  "environment_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+  "input_delivery": {
+    "status": "complete",
+    "reason": null
+  },
+  "provenance": {
+    "model_id": "gpt-6",
+    "model_revision": null,
+    "revision_status": "revision_not_exposed",
+    "seed": null,
+    "seed_status": "not_supported",
+    "context_id": "ng_v0_1_question_05_fresh_author",
+    "prior_exposure": "known_exposed",
+    "raw_capture_status": "structured_output_only_interface_limitation",
+    "attempts": [
+      {
+        "packet_sha256": "1ede7b6ba0c4a9c15e1da1dd5478f99bbc091ee5712ecc2abb3762d3efe85743",
+        "delivery": "response_delivered"
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "observation_alias": "observation_01",
+      "candidate_sha256": "07fa9e5266166208234cb4b4560267d2a563d3c2e0cba3dbbaa2b0251837dfc9",
+      "identified_alternative_ids": [
+        "observation_01_alt_01"
+      ],
+      "alternative_relationship": "single",
+      "alternatives": [
+        {
+          "alternative_id": "observation_01_alt_01",
+          "assumptions": [
+            "All rules refer only to the supplied pinned environment and exact question text; no graph operation is evaluated.",
+            "The transportation-center, both route, and both railroad clauses are conjunctive predicates of the same municipality.",
+            "City or town column links associate municipality documents with register rows. Carrying that source identity is locator provenance for the existing op1 municipality output, not an added graph node.",
+            "An unresolved or nonunique upstream referent must remain unresolved downstream; no arbitrary first-match, popularity, or text-salience selection is permitted.",
+            "The transportation description resolves a city or town in linked text, then the registry table is traversed from that location to a listed historic place.",
+            "The multiple cardinalities of slot2 and slot3 are preserved; they do not authorize conversion of a possible set into the target's singular output."
+          ],
+          "slots": [
+            {
+              "slot_id": "slot1",
+              "status": "resolved",
+              "role": "city-or-town linked text jointly expressing regional transportation-center status, both specified routes, and both specified railroads",
+              "expected_type": "linked_document_text",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 56,
+                      "end": 179,
+                      "literal": "regional transportation center , located along U.S . Routes 20 and 65 and the Canadian National and Union Pacific Railroads"
+                    }
+                  ],
+                  "selector": "Unevaluated rule: for each row in /rows, take the linked_document_ids of its cell at column_index 4 (City or town), follow only those IDs to whole documents in /linked_documents, and consider each distinct linked city-or-town document once. Require that the same municipality described by that document jointly satisfy every clause in the attached question span, allowing punctuation and whitespace variation without weakening either route or railroad requirement. Do not resolve a document ID, municipality, passage value, or matching set during grounding. Eventual cardinality is one; if none or several qualify, preserve the unresolved result rather than selecting the first.",
+                  "requested_attribute": "joint regional transportation-center status, location along both question-stated U.S. routes, and association with both question-stated railroads",
+                  "entity_association": "The subject municipality of a document must be the municipality denoted by the originating City or town cell. Preserve that link identity with the eventual op1 output; register-name and Location-column links are not city-or-town evidence."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot2",
+              "status": "resolved",
+              "role": "registry rows whose city-or-town cells correspond to the location produced by op1",
+              "expected_type": "registry_rows",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                  "value_type": "registry_rows",
+                  "scope": "/rows",
+                  "link_scope": null,
+                  "upstream_node_ids": [
+                    "op1"
+                  ],
+                  "question_spans": [],
+                  "selector": "Unevaluated rule: retain every registry row whose cell at column_index 4 (City or town) denotes the municipality output by op1. Match the originating municipality-document identity carried from op1 to the cell's linked_document_ids; the cell text is its display label, not an independent fuzzy-match or substring predicate. Preserve all matching rows in source order without selecting or enumerating any now. Missing or nonunique op1 referents remain unresolved.",
+                  "requested_attribute": null,
+                  "entity_association": "Each retained row is associated with the strict upstream op1 municipality through its City or town cell."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot3",
+              "status": "resolved",
+              "role": "name-on-the-register cells in the city-or-town-matched rows",
+              "expected_type": "register_name_cells",
+              "cardinality": "multiple",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                  "value_type": "register_name_cells",
+                  "scope": "/rows",
+                  "link_scope": null,
+                  "upstream_node_ids": [
+                    "op2"
+                  ],
+                  "question_spans": [],
+                  "selector": "Unevaluated rule: for every row supplied by op2, locate its cell at column_index 1 (Name on the Register), preserving the upstream row-to-cell association and all such cells. Do not enumerate the rows, extract cell text, or select a singular historic place here.",
+                  "requested_attribute": null,
+                  "entity_association": "Each future register-name cell belongs to exactly its op2 row; the municipality constraint is inherited through that row."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            }
+          ],
+          "operators": [
+            {
+              "node_id": "op1",
+              "status": "specified",
+              "role": "Find the city-or-town linked document that jointly satisfies the transportation-center, route, and railroad description in the question.",
+              "expected_output_type": "municipality_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "description",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                    "value_type": "question_text",
+                    "start": 56,
+                    "end": 179,
+                    "literal": "regional transportation center , located along U.S . Routes 20 and 65 and the Canadian National and Union Pacific Railroads"
+                  }
+                },
+                {
+                  "name": "municipality_link_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                    "value_type": "column",
+                    "pointer": "/columns/4",
+                    "table_id": "National_Register_of_Historic_Places_listings_in_Hardin_County,_Iowa_0",
+                    "column_index": 4,
+                    "column_label": "City or town"
+                  }
+                },
+                {
+                  "name": "referent_rule",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                    "value_type": "municipality_entity",
+                    "function": "Unevaluated resolve_subject_of_document_satisfying_all_description_clauses; obtain the municipality subject only through the document rule in the operand slot, retaining its link identity as provenance.",
+                    "operands": [
+                      {
+                        "kind": "slot",
+                        "id": "slot1"
+                      }
+                    ],
+                    "units": "not_applicable",
+                    "tie_policy": "One municipality is required. Preserve all competing matches as unresolved; do not choose or compute matches here.",
+                    "null_policy": "No qualifying document, missing description evidence, or missing municipality association yields unresolved; do not infer absent evidence as a match."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op2",
+              "status": "specified",
+              "role": "Find historic-register rows whose city-or-town cells correspond to the location produced by op1.",
+              "expected_output_type": "registry_rows",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "municipality_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                    "value_type": "column",
+                    "pointer": "/columns/4",
+                    "table_id": "National_Register_of_Historic_Places_listings_in_Hardin_County,_Iowa_0",
+                    "column_index": 4,
+                    "column_label": "City or town"
+                  }
+                },
+                {
+                  "name": "row_relation",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                    "value_type": "registry_rows",
+                    "function": "Unevaluated select_all_registry_rows_associated_with_municipality; apply the rule in slot2 to op1 and preserve each matching row identity.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op1"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot2"
+                      }
+                    ],
+                    "units": "not_applicable",
+                    "tie_policy": "All associated rows are retained; source order confers no preference.",
+                    "null_policy": "Missing/nonunique upstream municipality or broken association remains unresolved. No matching-row set is computed here."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op3",
+              "status": "ambiguous",
+              "role": "Project the name-on-the-register field from the matched row or rows under the target's singular historic-place reference.",
+              "expected_output_type": "historic_place_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "register_name_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                    "value_type": "column",
+                    "pointer": "/columns/1",
+                    "table_id": "National_Register_of_Historic_Places_listings_in_Hardin_County,_Iowa_0",
+                    "column_index": 1,
+                    "column_label": "Name on the Register"
+                  }
+                },
+                {
+                  "name": "projection_rule",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                    "value_type": "historic_place_entity",
+                    "function": "Unevaluated project_Name_on_the_Register_from_op2_rows_using_slot3; the existing operator requires singular historic-place output, whose selection is unresolved unless the upstream relation establishes uniqueness. Do not extract any name or alter the output to a plural answer.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op2"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot3"
+                      }
+                    ],
+                    "units": "not_applicable",
+                    "tie_policy": "Unresolved: there is no question-supported choice among multiple eligible rows or distinct projected places. Do not take the first or deduplicate to manufacture singularity.",
+                    "null_policy": "Missing register-name cell or empty/unresolved upstream rows remains unresolved; no substitution from linked text."
+                  }
+                }
+              ],
+              "reason": "The question supplies a municipality description and a singular historic-place reference but no register-row discriminator or supported tie rule. The municipality-to-register relation does not itself guarantee a single historic place. Whether matching rows exist or are unique has not been evaluated. Preserve this unresolved singular selection; do not repair the graph or invent a ranking."
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "The question supplies a municipality description and a singular historic-place reference but no register-row discriminator or supported tie rule. The municipality-to-register relation does not itself guarantee a single historic place. Whether matching rows exist or are unique has not been evaluated. Preserve this unresolved singular selection; do not repair the graph or invent a ranking.",
+        "Isolation limitation: before this assignment the user supplied an AGENTS-style project summary containing excluded prior research information, including earlier challenge-selection context, aggregate results, and stopping decisions. Thus prior_exposure is known_exposed; this response cannot attest a context free of prior research information. No excluded repository files, coordinator conversation, other authors' submissions, official answers/traces, or historical artifacts were requested or inspected during this task.",
+        "Runtime instructions identify this author as Codex based on GPT-6; an exact model revision and seed are not exposed/supported. The artifact is the primary structured response only, not hidden reasoning or backend response bytes.",
+        "One coherent partial grounding alternative is identified for this unchanged candidate. No municipality, selected document, filtered row, attribute value, projected name, or final answer is returned. Static rule resolution is not retrieval success or a semantic correctness claim."
+      ]
+    },
+    {
+      "observation_alias": "observation_02",
+      "candidate_sha256": "1156c0c1b4278e44cba38c45290336d4b9c908fd67f61db020d3aab81c22269a",
+      "identified_alternative_ids": [
+        "observation_02_alt_01"
+      ],
+      "alternative_relationship": "single",
+      "alternatives": [
+        {
+          "alternative_id": "observation_02_alt_01",
+          "assumptions": [
+            "All rules refer only to the supplied pinned environment and exact question text; no graph operation is evaluated.",
+            "The transportation-center, both route, and both railroad clauses are conjunctive predicates of the same municipality.",
+            "City or town column links associate municipality documents with register rows. Carrying that source identity is locator provenance for the existing op1 municipality output, not an added graph node.",
+            "An unresolved or nonunique upstream referent must remain unresolved downstream; no arbitrary first-match, popularity, or text-salience selection is permitted.",
+            "The transportation-center, route, and railroad clauses jointly identify a city or town through linked place text.",
+            "The singular historic-place output denotes one question-intended register row for that city or town; its concrete row binding is deferred.",
+            "The candidate's question-intended single-row assumption is recorded, not established by a concrete row or additional predicate."
+          ],
+          "slots": [
+            {
+              "slot_id": "slot1",
+              "status": "resolved",
+              "role": "the question-stated transportation-center, route, and railroad description",
+              "expected_type": "question_text",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "question_literal",
+                  "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                  "value_type": "question_text",
+                  "start": 56,
+                  "end": 179,
+                  "literal": "regional transportation center , located along U.S . Routes 20 and 65 and the Canadian National and Union Pacific Railroads"
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot2",
+              "status": "resolved",
+              "role": "a linked city-or-town document satisfying the full description",
+              "expected_type": "linked_document_text",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                  "value_type": "linked_document_text",
+                  "scope": "/linked_documents",
+                  "link_scope": "/rows",
+                  "upstream_node_ids": [],
+                  "question_spans": [
+                    {
+                      "start": 56,
+                      "end": 179,
+                      "literal": "regional transportation center , located along U.S . Routes 20 and 65 and the Canadian National and Union Pacific Railroads"
+                    }
+                  ],
+                  "selector": "Unevaluated rule: for each row in /rows, take the linked_document_ids of its cell at column_index 4 (City or town), follow only those IDs to whole documents in /linked_documents, and consider each distinct linked city-or-town document once. Require that the same municipality described by that document jointly satisfy every clause in the attached question span, allowing punctuation and whitespace variation without weakening either route or railroad requirement. Do not resolve a document ID, municipality, passage value, or matching set during grounding. Eventual cardinality is one; if none or several qualify, preserve the unresolved result rather than selecting the first.",
+                  "requested_attribute": "joint regional transportation-center status, location along both question-stated U.S. routes, and association with both question-stated railroads",
+                  "entity_association": "The subject municipality of a document must be the municipality denoted by the originating City or town cell. Preserve that link identity with the eventual op1 output; register-name and Location-column links are not city-or-town evidence."
+                }
+              ],
+              "reason": null,
+              "searched_scope": []
+            },
+            {
+              "slot_id": "slot3",
+              "status": "ambiguous",
+              "role": "one question-intended register row relating the resolved city or town to a historic place",
+              "expected_type": "registry_row",
+              "cardinality": "one",
+              "bindings": [
+                {
+                  "kind": "dynamic",
+                  "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                  "value_type": "registry_row",
+                  "scope": "/rows",
+                  "link_scope": null,
+                  "upstream_node_ids": [
+                    "op1"
+                  ],
+                  "question_spans": [],
+                  "selector": "Unevaluated partial rule: use the op1 municipality identity to match /rows cells at column_index 4 (City or town) through linked_document_ids, retaining the municipality-to-row association. The candidate requires one question-intended row. No question-supported discriminator selects one if several rows match; do not choose by source order, document salience, register name, or an invented additional predicate. Leave this one-row binding ambiguous. No matched rows or cardinality have been computed.",
+                  "requested_attribute": null,
+                  "entity_association": "The sought single register row must denote the op1 municipality in its City or town cell; selection among any qualifying rows is not established."
+                }
+              ],
+              "reason": "The question supplies a municipality description and a singular historic-place reference but no register-row discriminator or supported tie rule. The municipality-to-register relation does not itself guarantee a single historic place. Whether matching rows exist or are unique has not been evaluated. Preserve this unresolved singular selection; do not repair the graph or invent a ranking.",
+              "searched_scope": []
+            }
+          ],
+          "operators": [
+            {
+              "node_id": "op1",
+              "status": "specified",
+              "role": "Scan linked city-or-town text for the full transportation-center, route, and railroad description.",
+              "expected_output_type": "municipality_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "description",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                    "value_type": "question_text",
+                    "start": 56,
+                    "end": 179,
+                    "literal": "regional transportation center , located along U.S . Routes 20 and 65 and the Canadian National and Union Pacific Railroads"
+                  }
+                },
+                {
+                  "name": "municipality_link_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                    "value_type": "column",
+                    "pointer": "/columns/4",
+                    "table_id": "National_Register_of_Historic_Places_listings_in_Hardin_County,_Iowa_0",
+                    "column_index": 4,
+                    "column_label": "City or town"
+                  }
+                },
+                {
+                  "name": "referent_rule",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                    "value_type": "municipality_entity",
+                    "function": "Unevaluated resolve_subject_of_document_satisfying_all_description_clauses; obtain the municipality subject only through the document rule in the operand slot, retaining its link identity as provenance.",
+                    "operands": [
+                      {
+                        "kind": "slot",
+                        "id": "slot1"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot2"
+                      }
+                    ],
+                    "units": "not_applicable",
+                    "tie_policy": "One municipality is required. Preserve all competing matches as unresolved; do not choose or compute matches here.",
+                    "null_policy": "No qualifying document, missing description evidence, or missing municipality association yields unresolved; do not infer absent evidence as a match."
+                  }
+                }
+              ],
+              "reason": null
+            },
+            {
+              "node_id": "op2",
+              "status": "ambiguous",
+              "role": "Match the resolved municipality to the question-intended register row and project its historic-place name.",
+              "expected_output_type": "historic_place_entity",
+              "no_additional_arguments": false,
+              "parameters": [
+                {
+                  "name": "municipality_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                    "value_type": "column",
+                    "pointer": "/columns/4",
+                    "table_id": "National_Register_of_Historic_Places_listings_in_Hardin_County,_Iowa_0",
+                    "column_index": 4,
+                    "column_label": "City or town"
+                  }
+                },
+                {
+                  "name": "register_name_column",
+                  "binding": {
+                    "kind": "table_column",
+                    "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                    "value_type": "column",
+                    "pointer": "/columns/1",
+                    "table_id": "National_Register_of_Historic_Places_listings_in_Hardin_County,_Iowa_0",
+                    "column_index": 1,
+                    "column_label": "Name on the Register"
+                  }
+                },
+                {
+                  "name": "singular_target_cue",
+                  "binding": {
+                    "kind": "question_literal",
+                    "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                    "value_type": "question_text",
+                    "start": 12,
+                    "end": 26,
+                    "literal": "historic place"
+                  }
+                },
+                {
+                  "name": "join_and_projection_rule",
+                  "binding": {
+                    "kind": "derived",
+                    "view_sha256": "ecd30da991bf9846c13c65ad694be2fba32fc25d063649e6fa141a20f0aebdc5",
+                    "value_type": "historic_place_entity",
+                    "function": "Unevaluated match_municipality_to_question_intended_register_row_then_project_Name_on_the_Register; use op1 and the partial rule in slot3 without changing this fused operator. A unique intended row has not been established and no replacement selection predicate is introduced.",
+                    "operands": [
+                      {
+                        "kind": "node",
+                        "id": "op1"
+                      },
+                      {
+                        "kind": "slot",
+                        "id": "slot3"
+                      }
+                    ],
+                    "units": "not_applicable",
+                    "tie_policy": "Unresolved single-row selection when the municipality relation permits several rows; neither row order nor mentions in municipality prose determine the intended register row.",
+                    "null_policy": "Missing/nonunique upstream municipality, unresolved intended row, or missing register-name field remains unresolved."
+                  }
+                }
+              ],
+              "reason": "The question supplies a municipality description and a singular historic-place reference but no register-row discriminator or supported tie rule. The municipality-to-register relation does not itself guarantee a single historic place. Whether matching rows exist or are unique has not been evaluated. Preserve this unresolved singular selection; do not repair the graph or invent a ranking."
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "The question supplies a municipality description and a singular historic-place reference but no register-row discriminator or supported tie rule. The municipality-to-register relation does not itself guarantee a single historic place. Whether matching rows exist or are unique has not been evaluated. Preserve this unresolved singular selection; do not repair the graph or invent a ranking.",
+        "Isolation limitation: before this assignment the user supplied an AGENTS-style project summary containing excluded prior research information, including earlier challenge-selection context, aggregate results, and stopping decisions. Thus prior_exposure is known_exposed; this response cannot attest a context free of prior research information. No excluded repository files, coordinator conversation, other authors' submissions, official answers/traces, or historical artifacts were requested or inspected during this task.",
+        "Runtime instructions identify this author as Codex based on GPT-6; an exact model revision and seed are not exposed/supported. The artifact is the primary structured response only, not hidden reasoning or backend response bytes.",
+        "One coherent partial grounding alternative is identified for this unchanged candidate. No municipality, selected document, filtered row, attribute value, projected name, or final answer is returned. Static rule resolution is not retrieval success or a semantic correctness claim."
+      ]
+    }
+  ]
+}
