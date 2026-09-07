@@ -1,0 +1,989 @@
+{
+  "answer_recovery_authorized": false,
+  "contract_artifacts": [
+    {
+      "bytes": 9684,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_design_v0_1.json",
+      "sha256": "0ea8412dafde733bc6f2ddc2aa0d9df0ff653f30d73233c9392fd02501f55b36"
+    },
+    {
+      "bytes": 8886,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/prompts/narrowed_grounding_v0_1.md",
+      "sha256": "f48cf2d4c9adb18c2eb82d3011ee49717df16ee6aba061f2098c3e0b59b868ab"
+    },
+    {
+      "bytes": 15292,
+      "path": "data_construction/tools/_common.py",
+      "sha256": "5e879a163863e3d4e497a57be99f4dc40a0e033d351dfed8da991514c789f64d"
+    },
+    {
+      "bytes": 14407,
+      "path": "data_construction/tools/freeze_narrowed_grounding_plan_v0_1.py",
+      "sha256": "7d8abc7f7f40ea24cff4ce02ea232898dfa9f7516050e59fda03613a6d7c9f05"
+    },
+    {
+      "bytes": 7218,
+      "path": "tests/test_narrowed_grounding_plan_v0_1.py",
+      "sha256": "14b910513923b81b34d324d527d52e41e1494c9d9efbc5b53147f6bd0baffe57"
+    }
+  ],
+  "design": {
+    "analysis": {
+      "all_branches": "preserve_raw_and_negative_observations; no_execution_answer_recovery_new_ids_or_automatic_expansion",
+      "branch_precedence": [
+        "STOP_TECHNICAL_OR_LEAKAGE_FAILURE",
+        "BLOCKED_PINNED_ENVIRONMENT_UNAVAILABLE",
+        "INCOMPLETE_GROUNDING_COLLECTION",
+        "REVIEW_AMBIGUITY_OR_COVERAGE_BEFORE_EXECUTION_PLAN",
+        "FREEZE_GROUNDING_EVIDENCE_FOR_SEPARATE_EXECUTION_PLAN"
+      ],
+      "fixed_denominators": {
+        "author_question_pairs": 12,
+        "candidate_observations": 14,
+        "questions": 6,
+        "source_slots": 52
+      },
+      "malformed_delivered_raw_file": "technical_failure_not_silent_exclusion",
+      "missing_pinned_environment": "source_blocker_not_semantic_failure",
+      "missing_raw_file": "incomplete_not_semantic_failure",
+      "no_majority_vote_or_exact_locator_match_correctness_target": true,
+      "no_new_significance_or_population_prevalence_claim": true,
+      "pass_requires": "zero_technical_or_leakage_errors; all_14_records_delivered_and_resolved; zero_unresolved_slot_or_operator_dispositions; zero_lost_candidate_or_binding_alternatives",
+      "report": [
+        "raw_delivery_parse_and_schema_status_separately",
+        "candidate_status_counts_over_14",
+        "slot_dispositions_over_52_with_alternative_qualified_details",
+        "operator_argument_dispositions",
+        "question_and_author_question_coverage",
+        "target_variant_coverage",
+        "static_vs_dynamic_binding_counts",
+        "ambiguity_unavailable_and_abstention_reasons",
+        "identified_retained_and_lost_alternatives",
+        "source_locator_compatibility_by_existing_semantic_profile_after_authoring",
+        "technical_and_leakage_failures",
+        "model_and_context_provenance_limitations"
+      ]
+    },
+    "authoring": {
+      "contexts": 6,
+      "cross_author_grounding_agreement_claim": false,
+      "each_context_covers_all_current_question_candidate_observations": true,
+      "exact_revision": "record_value_if_exposed_else_revision_not_exposed",
+      "independent_duplicate_review": false,
+      "invalid_or_partial_raw_output": "preserve_bytes_and_report_failure_or_incomplete_status_without_repair",
+      "isolation": "procedural_packet_allowlist_and_fresh_context_not_global_cognitive_authentication",
+      "maximum_submissions_per_question": 1,
+      "model_id": "capture_actual_runtime_identity_at_run_time",
+      "raw_output": "preserve_delivered_response_or_explicitly_record_interface_limitation",
+      "routing": "one_new_context_per_question_in_frozen_order",
+      "seed": "record_value_if_supported_else_not_supported",
+      "semantic_retry_or_feedback_rounds": 0,
+      "serialization": "raw_bytes_immutable; parsed_canonical_records_separate_with_both_hashes",
+      "transport_resume": "only_exact_same_packet_without_any_output_delivered; record_every_attempt"
+    },
+    "binding_contract": {
+      "abstained": "author_cannot_justify_binding_or_input_delivery_is_incomplete_with_explicit_reason",
+      "alternative_equivalence": "author_may_declare_compatible_alternatives_but_deterministic_check_does_not_certify_semantic_equivalence",
+      "alternative_policy": "retain_each_identified_coherent_binding_combination_with_unique_local_id_and_assumptions; never_silently_take_cartesian_product_or_choose_by_answer",
+      "ambiguous": "two_or_more_incompatible_source_supported_bindings_or_interpretations_with_no_licensed_rule_to_choose",
+      "candidate_statuses": [
+        "resolved",
+        "ambiguous",
+        "unavailable",
+        "abstained",
+        "partial"
+      ],
+      "candidate_unit": "one_record_per_source_observation_even_when_another_candidate_has_identical_bindings",
+      "cardinality": "source_cardinality_constrains_eventual_runtime_values_not_the_number_of_permitted_source_locations",
+      "operator_statuses": [
+        "specified",
+        "ambiguous",
+        "unavailable",
+        "abstained"
+      ],
+      "operator_unit": "exactly_one_argument_disposition_per_original_operator_node_in_every_grounding_alternative",
+      "partial": "mixed_resolved_and_unresolved_slot_or_operator_dispositions; never_union_complementary_partial_candidates",
+      "provenance": "every_concrete_binding_has_view_hash_and_exact_JSON_pointer_or_a_typed_rule_over_pinned_sources_and_upstream_nodes",
+      "resolved": "all_slots_resolved_and_all_operator_arguments_specified_in_every_retained_alternative_with_no_unresolved_choice_or_failed_deterministic_check",
+      "slot_statuses": [
+        "resolved",
+        "ambiguous",
+        "unavailable",
+        "abstained"
+      ],
+      "slot_unit": "exactly_one_disposition_per_source_binding_slot_in_every_grounding_alternative",
+      "source_candidate_graph": "immutable_hash_bound_no_node_edge_mapping_or_slot_changes",
+      "unavailable": "required_source_or_relation_missing_from_complete_allowed_view_with_explicit_scope_of_search"
+    },
+    "evidence_class": "ai_exploratory_non_human_non_gold",
+    "locator_contract": {
+      "JSON_pointer": "RFC6901_escaping_and_zero_based_array_indices; verify_resolution_and_type_without_operator_evaluation",
+      "cell_link": "header_or_cell_link_collection_pointer_and_follow_rule_preserving_row_entity_association",
+      "derived_argument": "symbolic_operation_and_ordered_operand_references_with_units_types_and_tie_null_policy; never_computed_value",
+      "document_span_extraction": "not_performed; record_attribute_request_and_document_scope_only",
+      "dynamic_binding": "upstream_operator_output_reference_plus_allowed_source_scope_and_explicit_selector; runtime_value_remains_uncomputed",
+      "generic_document_placeholder": "insufficient_for_resolved_status_without_link_scope_attribute_and_entity_association",
+      "linked_document": "document_key_from_allowed_link_closure_or_dynamic_link_rule_with_requested_attribute; never_oracle_document_ID",
+      "question_literal": "zero_based_half_open_Unicode_codepoint_span_in_exact_question_text_with_literal_and_declared_type",
+      "resolved_locator_meaning": "static_binding_or_fully_specified_dynamic_locator_rule_not_proof_of_runtime_retrieval_or_correctness",
+      "source_literal": "exact_allowed_view_pointer_with_declared_type_for_operator_parameter_only; no_extracted_answer_values",
+      "table_column": "view_JSON_pointer_to_header_index_with_exact_column_label_and_table_identity",
+      "table_scope": "view_JSON_pointer_to_table_or_column_scope; do_not_materialize_filtered_rows"
+    },
+    "purpose": "Test whether the existing six-question candidate observations admit explicit source-backed bindings without evaluating their outputs.",
+    "schema_version": "narrowed_grounding_design_v0_1",
+    "selection": {
+      "deduplicate": false,
+      "historical_or_locked_question_ids": 0,
+      "new_question_ids": 0,
+      "order": "frozen_question_order_then_producer_partition_09_10_then_candidate_id_lexicographic",
+      "preferred_candidate": null,
+      "prior_targeted_v0_1_run_role": "complete_hash_bound_reference_inventory_not_grounding_input_or_gold",
+      "rule": "all_14_final_full_eligible_instrument_v0_2_candidate_observations"
+    },
+    "stage_order": [
+      "commit_design_protocol_and_freezer_tests",
+      "commit_exact_plan_while_entire_grounding_namespace_empty",
+      "implement_schemas_packet_builder_grounding_validator_and_analyzer_from_unchanged_plan",
+      "commit_runtime_freeze_receipt_binding_implementation_and_tests_while_outputs_absent",
+      "materialize_and_commit_six_complete_packets_and_packet_manifest",
+      "collect_one_immutable_raw_submission_per_question_in_six_new_contexts",
+      "validate_derive_compare_and_commit_results_with_frozen_branches",
+      "record_next_versioned_decision_and_handoff"
+    ],
+    "validation": {
+      "current_freezer_validates_grounding_results": false,
+      "deterministic_checks": [
+        "exact_14_observation_52_slot_source_inventory",
+        "candidate_graph_hash_unchanged",
+        "per_alternative_slot_and_operator_partition_exact",
+        "all_dispositions_and_reasons_consistent",
+        "view_identity_hash_and_pointer_resolution",
+        "column_label_index_and_document_link_membership",
+        "dynamic_references_use_existing_strict_upstream_dependencies",
+        "question_literal_span_exact",
+        "cardinality_type_and_parameter_contract_consistency",
+        "alternative_inventory_and_assumptions_retained",
+        "source_and_raw_provenance_complete_or_explicitly_unavailable",
+        "no_answers_traces_execution_or_upstream_mutation"
+      ],
+      "free_text_contamination_scan": "structural_allowlist_plus_procedural_review_not_global_proof",
+      "required_before_generation": [
+        "output_absent_plan_commit_verified",
+        "exact_pinned_environment_available",
+        "source_and_contract_hashes_match",
+        "schema_and_runtime_implementation_receipt_committed",
+        "synthetic_positive_and_adversarial_tests_pass",
+        "packet_allowlist_and_complete_delivery_validated"
+      ],
+      "static_validity_is_semantic_correctness": false
+    },
+    "visibility": {
+      "backbones": "only_target_variants_referenced_by_current_candidates_from_the_same_sanitized_view",
+      "candidates": "all_selected_candidates_for_the_current_question_with_opaque_observation_aliases",
+      "environment": "same_question_complete_previously_committed_table_and_table_link_closure_view",
+      "environment_fact_visibility_is_answer_label_visibility": false,
+      "environment_selection": "exact_question_id_join_no_answer_based_retrieval_ranking_truncation_or_new_web_access",
+      "forbidden": [
+        "official_answers",
+        "official_traces",
+        "gold_spans",
+        "historical_graphs",
+        "E1_assessments",
+        "prior_targeted_v0_1_records",
+        "normalization_signatures",
+        "eligibility_labels",
+        "prior_metrics",
+        "producer_identities",
+        "other_grounder_outputs",
+        "execution_results",
+        "answer_recovery",
+        "unselected_question_views"
+      ],
+      "latent_answer_inference_machine_authenticated": false,
+      "question": "only_the_current_packet_question",
+      "upstream_semantic_and_operator_artifacts_read_only": true
+    }
+  },
+  "execution_authorized": false,
+  "grounding_outputs_created": 0,
+  "implementation_commit": "6bd9c36ddc6207552b778cf5b20b16946975ef05",
+  "output_absence_proof": "validator_requires_empty_namespace_in_plan_introduction_commit",
+  "planned_outputs": {
+    "checks": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/checks.jsonl",
+    "comparisons": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/question_comparisons.jsonl",
+    "exposure": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/grounding_exposure_ledger_v0_1.json",
+    "metrics": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/metrics_v0_1.json",
+    "packet_01": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_01.json",
+    "packet_02": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_02.json",
+    "packet_03": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_03.json",
+    "packet_04": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_04.json",
+    "packet_05": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_05.json",
+    "packet_06": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packets/question_06.json",
+    "packet_manifest": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/packet_manifest.json",
+    "raw_01": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_01.json",
+    "raw_02": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_02.json",
+    "raw_03": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_03.json",
+    "raw_04": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_04.json",
+    "raw_05": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_05.json",
+    "raw_06": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_06.json",
+    "records": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/grounding_records.jsonl",
+    "report": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/report_v0_1.md",
+    "run_manifest": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/run_manifest.json"
+  },
+  "pre_generation_implementation_gate": {
+    "condition": "schemas_packet_builder_validator_analyzer_tests_and_protocol_bound_at_output_absent_commit",
+    "no_protocol_change_allowed": true,
+    "receipt_path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/narrowed_grounding_runtime_freeze_v0_1.json",
+    "required": true
+  },
+  "question_ids": [
+    "0d48bffa70ef4acf",
+    "cc681cfdba9badd5",
+    "1e2e4e4f72a64bbf",
+    "1e674ae4b655c1a1",
+    "1ca8ffcd3e20e498",
+    "ba563b015b09bf21"
+  ],
+  "run_id": "hybridqa_narrowed_grounding_v0_1_run_001",
+  "schema_version": "narrowed_grounding_plan_v0_1",
+  "selection": [
+    {
+      "candidate_id": "candidate1",
+      "environment_payload_sha256": "db6dd9bbdde601a3873bfb729c4b97cae596703fe699e85e792d7939e712794c",
+      "environment_view_id": "representative_environment_view_v0_1:0d48bffa70ef4acf",
+      "observation_id": "0d48bffa70ef4acf:e2_author_partition_09:candidate1",
+      "operator_node_ids": [
+        "op1",
+        "op2",
+        "op3",
+        "op4"
+      ],
+      "packet_index": 1,
+      "producer_partition": "e2_author_partition_09",
+      "question_id": "0d48bffa70ef4acf",
+      "slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "cell_link",
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "table_row_or_cell",
+          "slot_id": "slot3"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot4"
+        }
+      ],
+      "source_candidate_sha256": "e3caca366893f9b9cc2daee5ba1ae1e87497abe4e0b7ff4261bc8f1dd1106b3c",
+      "source_record_sha256": "70b3a044a986be0128f07f6138d2f5d27168219e6038f94688c2f68da8a3fbb4",
+      "target_backbone_variant_id": "primary"
+    },
+    {
+      "candidate_id": "candidate2",
+      "environment_payload_sha256": "db6dd9bbdde601a3873bfb729c4b97cae596703fe699e85e792d7939e712794c",
+      "environment_view_id": "representative_environment_view_v0_1:0d48bffa70ef4acf",
+      "observation_id": "0d48bffa70ef4acf:e2_author_partition_09:candidate2",
+      "operator_node_ids": [
+        "op5",
+        "op6"
+      ],
+      "packet_index": 1,
+      "producer_partition": "e2_author_partition_09",
+      "question_id": "0d48bffa70ef4acf",
+      "slots": [
+        {
+          "cardinality": "multiple",
+          "environment_modality": "cell_link",
+          "slot_id": "slot5"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot6"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot7"
+        }
+      ],
+      "source_candidate_sha256": "b3032e3b95660eae19e4d7bd9d0b51d05283c277e96ece158466cbf995259118",
+      "source_record_sha256": "70b3a044a986be0128f07f6138d2f5d27168219e6038f94688c2f68da8a3fbb4",
+      "target_backbone_variant_id": "alt1"
+    },
+    {
+      "candidate_id": "candidate1",
+      "environment_payload_sha256": "db6dd9bbdde601a3873bfb729c4b97cae596703fe699e85e792d7939e712794c",
+      "environment_view_id": "representative_environment_view_v0_1:0d48bffa70ef4acf",
+      "observation_id": "0d48bffa70ef4acf:e2_author_partition_10:candidate1",
+      "operator_node_ids": [
+        "op1",
+        "op2",
+        "op3",
+        "op4"
+      ],
+      "packet_index": 1,
+      "producer_partition": "e2_author_partition_10",
+      "question_id": "0d48bffa70ef4acf",
+      "slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "question_literal",
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "table_row_or_cell",
+          "slot_id": "slot3"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot4"
+        }
+      ],
+      "source_candidate_sha256": "c6428842ea9fe2151e7c7677bedbc11c700c5c64b923c859735cea8952b069ec",
+      "source_record_sha256": "ac7941ecc4df67bcca692b91e28d230bfca5d6243936d888706ebadc97d9667b",
+      "target_backbone_variant_id": "primary"
+    },
+    {
+      "candidate_id": "candidate2",
+      "environment_payload_sha256": "db6dd9bbdde601a3873bfb729c4b97cae596703fe699e85e792d7939e712794c",
+      "environment_view_id": "representative_environment_view_v0_1:0d48bffa70ef4acf",
+      "observation_id": "0d48bffa70ef4acf:e2_author_partition_10:candidate2",
+      "operator_node_ids": [
+        "op5",
+        "op6"
+      ],
+      "packet_index": 1,
+      "producer_partition": "e2_author_partition_10",
+      "question_id": "0d48bffa70ef4acf",
+      "slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "question_literal",
+          "slot_id": "slot5"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot6"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "table_row_or_cell",
+          "slot_id": "slot7"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot8"
+        }
+      ],
+      "source_candidate_sha256": "5d22d9f321b529a183f745f32a16dab59ca10c0bdb57889aa161183cec78c592",
+      "source_record_sha256": "ac7941ecc4df67bcca692b91e28d230bfca5d6243936d888706ebadc97d9667b",
+      "target_backbone_variant_id": "alt1"
+    },
+    {
+      "candidate_id": "candidate1",
+      "environment_payload_sha256": "0aa3aa1abd38a2e99f612d7a22c8b2394ad093ceb06f9c7172f7f891981b5da3",
+      "environment_view_id": "representative_environment_view_v0_1:cc681cfdba9badd5",
+      "observation_id": "cc681cfdba9badd5:e2_author_partition_09:candidate1",
+      "operator_node_ids": [
+        "op1",
+        "op2",
+        "op3"
+      ],
+      "packet_index": 2,
+      "producer_partition": "e2_author_partition_09",
+      "question_id": "cc681cfdba9badd5",
+      "slots": [
+        {
+          "cardinality": "multiple",
+          "environment_modality": "table_row_or_cell",
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "question_literal",
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot3"
+        }
+      ],
+      "source_candidate_sha256": "766df1777d7fcac7d4fbe4a7496a374b8d627e1a79bb0ed327ea61192b7cdad9",
+      "source_record_sha256": "c47e7c09d1b09f05f86f5c3ffdf637562f8feff7fefc5107c05e2d82672191fb",
+      "target_backbone_variant_id": "primary"
+    },
+    {
+      "candidate_id": "candidate1",
+      "environment_payload_sha256": "0aa3aa1abd38a2e99f612d7a22c8b2394ad093ceb06f9c7172f7f891981b5da3",
+      "environment_view_id": "representative_environment_view_v0_1:cc681cfdba9badd5",
+      "observation_id": "cc681cfdba9badd5:e2_author_partition_10:candidate1",
+      "operator_node_ids": [
+        "op1",
+        "op2",
+        "op3"
+      ],
+      "packet_index": 2,
+      "producer_partition": "e2_author_partition_10",
+      "question_id": "cc681cfdba9badd5",
+      "slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "question_literal",
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "table_header",
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "table_row_or_cell",
+          "slot_id": "slot3"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "cell_link",
+          "slot_id": "slot4"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot5"
+        }
+      ],
+      "source_candidate_sha256": "85166a69022e2770cd9cdeafbf06098e75f1e7f06e6d571e7a66cd4a95f63bdd",
+      "source_record_sha256": "f5ed02ea19280bb90577d1c9ab7b06a3d39d992bd64646c3d4f450ee7919568f",
+      "target_backbone_variant_id": "primary"
+    },
+    {
+      "candidate_id": "candidate1",
+      "environment_payload_sha256": "e51d624423c226e27bd218455ef108c0f660198c4f734da34dbac8575a37ea8b",
+      "environment_view_id": "representative_environment_view_v0_1:1e2e4e4f72a64bbf",
+      "observation_id": "1e2e4e4f72a64bbf:e2_author_partition_09:candidate1",
+      "operator_node_ids": [
+        "op1",
+        "op2",
+        "op3",
+        "op4"
+      ],
+      "packet_index": 3,
+      "producer_partition": "e2_author_partition_09",
+      "question_id": "1e2e4e4f72a64bbf",
+      "slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "table_row_or_cell",
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "cell_link",
+          "slot_id": "slot3"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot4"
+        }
+      ],
+      "source_candidate_sha256": "fa233c6162b2e0c5d7474a6c03f50e62d24476e0a66937015c98bb320be8a845",
+      "source_record_sha256": "79403b03f17f6a93f2cf310f8cfd34cc52bfd506457980547eac183b50dbecd4",
+      "target_backbone_variant_id": "primary"
+    },
+    {
+      "candidate_id": "candidate1",
+      "environment_payload_sha256": "e51d624423c226e27bd218455ef108c0f660198c4f734da34dbac8575a37ea8b",
+      "environment_view_id": "representative_environment_view_v0_1:1e2e4e4f72a64bbf",
+      "observation_id": "1e2e4e4f72a64bbf:e2_author_partition_10:candidate1",
+      "operator_node_ids": [
+        "op1",
+        "op2",
+        "op3",
+        "op4"
+      ],
+      "packet_index": 3,
+      "producer_partition": "e2_author_partition_10",
+      "question_id": "1e2e4e4f72a64bbf",
+      "slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "question_literal",
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "cell_link",
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "cell_link",
+          "slot_id": "slot3"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot4"
+        }
+      ],
+      "source_candidate_sha256": "bc6332227671a7590f1cf5480683d93ce8a0c7a82d96329304b76b0e7f130eb4",
+      "source_record_sha256": "73f51170fbc641de619cf38a54ccbd6fe050e01d18a75ca1594019be6d331d91",
+      "target_backbone_variant_id": "primary"
+    },
+    {
+      "candidate_id": "candidate1",
+      "environment_payload_sha256": "2ff5bc321740001058ddc2c6cbbffda2895627d59e1d157b025249aa334dc53d",
+      "environment_view_id": "representative_environment_view_v0_1:1e674ae4b655c1a1",
+      "observation_id": "1e674ae4b655c1a1:e2_author_partition_09:candidate1",
+      "operator_node_ids": [
+        "op1",
+        "op2",
+        "op3"
+      ],
+      "packet_index": 4,
+      "producer_partition": "e2_author_partition_09",
+      "question_id": "1e674ae4b655c1a1",
+      "slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "table_row_or_cell",
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "table_row_or_cell",
+          "slot_id": "slot3"
+        }
+      ],
+      "source_candidate_sha256": "c64c00efb5a501d5b8e340b0dd2db2675b435b47a10dec489eff308c9c26fa35",
+      "source_record_sha256": "34b4f900637d87322e32227bd2c0d886843d68618c9ed30db90d4e26627f7c3b",
+      "target_backbone_variant_id": "primary"
+    },
+    {
+      "candidate_id": "candidate1",
+      "environment_payload_sha256": "2ff5bc321740001058ddc2c6cbbffda2895627d59e1d157b025249aa334dc53d",
+      "environment_view_id": "representative_environment_view_v0_1:1e674ae4b655c1a1",
+      "observation_id": "1e674ae4b655c1a1:e2_author_partition_10:candidate1",
+      "operator_node_ids": [
+        "op1",
+        "op2"
+      ],
+      "packet_index": 4,
+      "producer_partition": "e2_author_partition_10",
+      "question_id": "1e674ae4b655c1a1",
+      "slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "question_literal",
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "table_row_or_cell",
+          "slot_id": "slot3"
+        }
+      ],
+      "source_candidate_sha256": "5fec7460f97cb38eec555c70d4589204ca94016d25ae74420553b229d62b85f2",
+      "source_record_sha256": "a257e8151314f60f357a5ccba438b5676b77af2ba980f801103bb411143a9b45",
+      "target_backbone_variant_id": "primary"
+    },
+    {
+      "candidate_id": "candidate1",
+      "environment_payload_sha256": "02b3fb322c9ee8a829e3117e67bacd3d6792ee927384a723e357fafb382e5579",
+      "environment_view_id": "representative_environment_view_v0_1:1ca8ffcd3e20e498",
+      "observation_id": "1ca8ffcd3e20e498:e2_author_partition_09:candidate1",
+      "operator_node_ids": [
+        "op1",
+        "op2",
+        "op3"
+      ],
+      "packet_index": 5,
+      "producer_partition": "e2_author_partition_09",
+      "question_id": "1ca8ffcd3e20e498",
+      "slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "table_row_or_cell",
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "table_row_or_cell",
+          "slot_id": "slot3"
+        }
+      ],
+      "source_candidate_sha256": "e2af0db4835c56a11dbc64a4b298ac5cc0a94b4f24adcc531fd33953639bc954",
+      "source_record_sha256": "5e71efb3af599fbdd0770154bfd07ae83a065485af584e17b5ea27ce4661d5c4",
+      "target_backbone_variant_id": "primary"
+    },
+    {
+      "candidate_id": "candidate1",
+      "environment_payload_sha256": "02b3fb322c9ee8a829e3117e67bacd3d6792ee927384a723e357fafb382e5579",
+      "environment_view_id": "representative_environment_view_v0_1:1ca8ffcd3e20e498",
+      "observation_id": "1ca8ffcd3e20e498:e2_author_partition_10:candidate1",
+      "operator_node_ids": [
+        "op1",
+        "op2"
+      ],
+      "packet_index": 5,
+      "producer_partition": "e2_author_partition_10",
+      "question_id": "1ca8ffcd3e20e498",
+      "slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "question_literal",
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "table_row_or_cell",
+          "slot_id": "slot3"
+        }
+      ],
+      "source_candidate_sha256": "753f8e67e8586d07655311d58b45c888c2a5a324f261e3b1c0cca85768e292e9",
+      "source_record_sha256": "e9d5aedd2a3d6b46acf26d225e78e38d134fbb39098893a8f9fcef465220318d",
+      "target_backbone_variant_id": "primary"
+    },
+    {
+      "candidate_id": "candidate1",
+      "environment_payload_sha256": "e9696b8285d079a908a2757491ed8b9c83aba2e03b48605b49887f37f6c40712",
+      "environment_view_id": "representative_environment_view_v0_1:ba563b015b09bf21",
+      "observation_id": "ba563b015b09bf21:e2_author_partition_09:candidate1",
+      "operator_node_ids": [
+        "op1",
+        "op2",
+        "op3",
+        "op4"
+      ],
+      "packet_index": 6,
+      "producer_partition": "e2_author_partition_09",
+      "question_id": "ba563b015b09bf21",
+      "slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "table_row_or_cell",
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "table_row_or_cell",
+          "slot_id": "slot3"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot4"
+        }
+      ],
+      "source_candidate_sha256": "fd99008ae9ee3ef823d2d858b97581d073d2e4d963fe909c308be2f98f64a4db",
+      "source_record_sha256": "c7840da954986bd2d549a8459965ef9d7c6086b09e3057240ccdeee516457344",
+      "target_backbone_variant_id": "primary"
+    },
+    {
+      "candidate_id": "candidate1",
+      "environment_payload_sha256": "e9696b8285d079a908a2757491ed8b9c83aba2e03b48605b49887f37f6c40712",
+      "environment_view_id": "representative_environment_view_v0_1:ba563b015b09bf21",
+      "observation_id": "ba563b015b09bf21:e2_author_partition_10:candidate1",
+      "operator_node_ids": [
+        "op1",
+        "op2",
+        "op3"
+      ],
+      "packet_index": 6,
+      "producer_partition": "e2_author_partition_10",
+      "question_id": "ba563b015b09bf21",
+      "slots": [
+        {
+          "cardinality": "one",
+          "environment_modality": "question_literal",
+          "slot_id": "slot1"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot2"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "table_row_or_cell",
+          "slot_id": "slot3"
+        },
+        {
+          "cardinality": "one",
+          "environment_modality": "cell_link",
+          "slot_id": "slot4"
+        },
+        {
+          "cardinality": "multiple",
+          "environment_modality": "linked_document_text",
+          "slot_id": "slot5"
+        }
+      ],
+      "source_candidate_sha256": "608243177f47bfbe4611a98ddeb3689fa6b75d9ebe0725417e811e3cff3984dd",
+      "source_record_sha256": "95613d94fe432b155187cacb30805fee401b2802719a52778582b26b7cf972a3",
+      "target_backbone_variant_id": "primary"
+    }
+  ],
+  "selection_counts": {
+    "author_question_pairs": 12,
+    "binding_slots": 52,
+    "candidates": 14,
+    "questions": 6
+  },
+  "source_artifacts": [
+    {
+      "bytes": 29581,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/open_operator_realization_schema_v0_1.json",
+      "sha256": "a1146ade2d0c035fec46f679ffd061ef3d28cc80ab5b646733eeb41332a62094"
+    },
+    {
+      "bytes": 16556,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_targeted_instrument_plan_v0_2.json",
+      "sha256": "fbc0a211e1ca9c351bd231f3eeaa3a09e763cfe6333dfdae8622cca9709095bf"
+    },
+    {
+      "bytes": 13914,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/operator_equivalence_targeted_reauthor_plan_v0_1.json",
+      "sha256": "f35da5416458de9796de9de4f189a04a75e7f4ebafced7e8a8c11e2a39b1aef2"
+    },
+    {
+      "bytes": 27278,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_environment_realization_plan_v0_1.json",
+      "sha256": "17941b6006aa8db7b06c063c868c46c1c116a9e7e68ef75bc17ff4abc83a2ec6"
+    },
+    {
+      "bytes": 18989,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/contracts/representative_environment_view_schema_v0_1.json",
+      "sha256": "dd868f6f3ee678ac1fb19e6c3b266832168162e819f32cf540e7b58464ec06ed"
+    },
+    {
+      "bytes": 260279,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/authoring_packets/instrument_author_01.jsonl",
+      "sha256": "4aae25fc32d54c3f7e41fd5db26825ef803212b3b71e2284cf75ce670b02faec"
+    },
+    {
+      "bytes": 260279,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/authoring_packets/instrument_author_02.jsonl",
+      "sha256": "8c75776ae3501ea2a0447d805a21efc2dd708f15ece403420024b8d68e5ea44a"
+    },
+    {
+      "bytes": 7932,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/checks.jsonl",
+      "sha256": "a3fe2e77ee1e9b9dc6cdd1c04a351999bca0a6d459dedf1eaf84bac91e5224aa"
+    },
+    {
+      "bytes": 107438,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/combined_draft_records.jsonl",
+      "sha256": "df6d62d2ec31ea82360f9369af8ac2ce8c714b40e0366536687d7bd88ae9f298"
+    },
+    {
+      "bytes": 107438,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/combined_final_records.jsonl",
+      "sha256": "df6d62d2ec31ea82360f9369af8ac2ce8c714b40e0366536687d7bd88ae9f298"
+    },
+    {
+      "bytes": 114466,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/draft_normalized_candidates.jsonl",
+      "sha256": "83845da68a7c417a61546b3f358e8797761d3914ec4316b14a890929e973d18b"
+    },
+    {
+      "bytes": 54887,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/draft_outputs/instrument_author_01.jsonl",
+      "sha256": "aa6d90d45b7295570a03a86209bd7b29d4b73c1e133aac8f6cd95db3c7d2e39c"
+    },
+    {
+      "bytes": 52551,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/draft_outputs/instrument_author_02.jsonl",
+      "sha256": "c6086b262375f48499bba0c31dc8869f28b0aa53ba8738d057bda407a27bd187"
+    },
+    {
+      "bytes": 6729,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/feedback_round_01/instrument_author_01.jsonl",
+      "sha256": "d4e0a31c7816ed2877cfa132407a32d88bd9e068e955490ebcb31a8e5947725d"
+    },
+    {
+      "bytes": 6729,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/feedback_round_01/instrument_author_02.jsonl",
+      "sha256": "7bd2271458a148b1be0099b2c89df524aff5c860a5d074a9caf127dd118534db"
+    },
+    {
+      "bytes": 114466,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/final_normalized_candidates.jsonl",
+      "sha256": "18ba44d5691f4b788e19e6c8b753bba2e57d1d162bdfed2eb1dae4e904b1d126"
+    },
+    {
+      "bytes": 54887,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/final_outputs/instrument_author_01.jsonl",
+      "sha256": "aa6d90d45b7295570a03a86209bd7b29d4b73c1e133aac8f6cd95db3c7d2e39c"
+    },
+    {
+      "bytes": 52551,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/final_outputs/instrument_author_02.jsonl",
+      "sha256": "c6086b262375f48499bba0c31dc8869f28b0aa53ba8738d057bda407a27bd187"
+    },
+    {
+      "bytes": 3224,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/metrics_v0_2.json",
+      "sha256": "05c7b36b1918ba0a80617a836c2f95ad637284f8d38e249fea37bb7b2661ff76"
+    },
+    {
+      "bytes": 44937,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/question_comparisons.jsonl",
+      "sha256": "9421b239bd90c3ec7a47b91d463dcfe246906abc81c9a42c6be9f813cbb1829d"
+    },
+    {
+      "bytes": 1132,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/report_v0_2.md",
+      "sha256": "1f3ea3bcb4246d20e5e5f2fe1b528043386531764da6de2851fbc2cece14baa2"
+    },
+    {
+      "bytes": 9175,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_instrument_v0_2/run_manifest.json",
+      "sha256": "79b0223e0d26110d3df667d382cc7b62362f3f1c0c32fc48c9991c7485162706"
+    },
+    {
+      "bytes": 59726,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/author_outputs/targeted_author_01.jsonl",
+      "sha256": "df5d18b5599dd157f06ee81ff0cb42457013108719d4ee31f29d4d3084a88278"
+    },
+    {
+      "bytes": 45710,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/author_outputs/targeted_author_02.jsonl",
+      "sha256": "8d81c6e33126beba3d4d0d4339eb4ce92aaf1263c0344be740e65457f81f190a"
+    },
+    {
+      "bytes": 258959,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/authoring_packets/targeted_author_01.jsonl",
+      "sha256": "11f38e80298a895d8c9a6cfcdc1c992850b57d59e396cb147f47fcf4625984f4"
+    },
+    {
+      "bytes": 258959,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/authoring_packets/targeted_author_02.jsonl",
+      "sha256": "9d963dc0672c9a33fd10b5c090ce28eab7d1ce7e88df1a21c00ec917d4f86dfb"
+    },
+    {
+      "bytes": 2964,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/checks.jsonl",
+      "sha256": "d045497d7b87c637edd5785ace67ff39fcbb186b253eb5996f3bdcbf2da7bee8"
+    },
+    {
+      "bytes": 105436,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/combined_author_records.jsonl",
+      "sha256": "edbb635e47ea380ff78fdd1df64938104231bfef45016e2c860dca374aa619f4"
+    },
+    {
+      "bytes": 2587,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/metrics_v0_1.json",
+      "sha256": "cb88382d877fa1cb6bc4e4bc7150aacb02fcf685279448d22f336c16b9b2fd2e"
+    },
+    {
+      "bytes": 111152,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/normalized_candidates.jsonl",
+      "sha256": "4d1f2196c96d4da9f4b645479db17698f898d8429f40469089f0440beb5ffc5d"
+    },
+    {
+      "bytes": 39242,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/question_comparisons.jsonl",
+      "sha256": "09d40c8deace88489f6ee8abf30a373701b4bef284c53fa0e3840ce657e9ff17"
+    },
+    {
+      "bytes": 990,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/report_v0_1.md",
+      "sha256": "21acd9d74e9f34906a6241c8b843d9bd93723e3d03be2dc22bfc19ab542aa37a"
+    },
+    {
+      "bytes": 6958,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/operator_equivalence_targeted_reauthor_v0_1/run_manifest.json",
+      "sha256": "bc3141f2ba52a303124bbcc58e3fb3a9c1940a72a189a816e00a43295ae872a6"
+    },
+    {
+      "bytes": 3218214,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views.jsonl",
+      "sha256": "9cf0d6b81554066f5ff3175122e83dedf74f4d0a2d15ae9d64d65b873a9c72c7"
+    },
+    {
+      "bytes": 43012,
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/representative_environment_realization_v0_1/inputs/environment_views_manifest_v0_1.json",
+      "sha256": "a01d609b8e4d7c035198f0cd8897d6e178dcf07e5474328ae8c9d881ee00a0c8"
+    },
+    {
+      "bytes": 17730,
+      "path": "data_construction/manifests/historical_exposed_ids.json",
+      "sha256": "b6285a87556bdecd03f0e1c73635a898d657038b184d6de38321640f6760bb0f"
+    },
+    {
+      "bytes": 10850,
+      "path": "data_construction/manifests/question_exposure_ledger_v0_3.json",
+      "sha256": "643809989c084a83c09ab13c4bfc89a21f2d5d57c1a1a7a6a14361313840faed"
+    },
+    {
+      "bytes": 10756,
+      "path": "data_construction/manifests/source_manifest_v0_1.json",
+      "sha256": "853a8b993922ef69a35e00b87a91e510a4c8130cfe35f63ff97e9e4776849f39"
+    },
+    {
+      "bytes": 3427,
+      "path": "data_construction/manifests/split_manifest_v0_1.json",
+      "sha256": "9de7124ab4b3b7a213a0970c0a2c51c0d6353f5eb01d9ce8b60f9250440bcfc8"
+    },
+    {
+      "bytes": 5728,
+      "path": "data_construction/reports/research_sequencing_decision_v0_9.md",
+      "sha256": "2d81b2e4f836de4910e7c2638bfad9b4b5689b0958108fb395455162b959152b"
+    }
+  ],
+  "source_commit": "aa380e69b534e475f09d496955ebcbac69531309",
+  "status": "planned_not_run"
+}
