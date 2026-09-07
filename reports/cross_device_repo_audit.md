@@ -1,5 +1,31 @@
 # Cross-Device Repository Audit
 
+## Successful synchronization retry — 2026-09-07
+
+After the researcher completed browser authentication, the current execution
+environment confirmed the GitHub account `kgh0720kgh-boop`. The authenticated
+CLI was configured as Git's credential helper for github.com; no credential
+contents were copied into the repository or printed unmasked.
+
+The worktree was clean, the handoff baseline was an ancestor, and fetch showed
+48 local-only and zero remote-only commits. The exact-pin preflight reproduced
+236 passing tests, 161 core JSON/JSONL files and zero validation failures.
+A dry-run push succeeded, followed by the normal push of `main` to the existing
+origin. Direct `ls-remote` verification returned
+`65cc335ee3f0169a5c05ec94667151609a3d1d27`; local/tracking ahead/behind was 0/0.
+
+This supersedes the authentication blocker in the earlier attempt below.
+`HANDOFF_CURRENT.md`, `state/project_state.json` and `DESKTOP_HANDOFF.md` now
+record `SYNCED_TO_REMOTE`. Their completion-metadata commit follows the verified
+baseline and must also be pushed and checked against the live remote before
+handoff is declared complete. The baseline intentionally is not the hash of
+the commit containing its own metadata. No history, research output, frozen
+contract, exposure allocation, credential or cache was replaced or uploaded
+outside the authorized portable-history transfer.
+
+The remaining `QUESTION_FREE_ISOLATION_TRANSPORT_NOT_VERIFIED` gate is scientific,
+not a Git transfer failure. It remains active; no new research author was run.
+
 ## Synchronization authorization — 2026-09-07
 
 The researcher explicitly requested synchronizing this repository and saving

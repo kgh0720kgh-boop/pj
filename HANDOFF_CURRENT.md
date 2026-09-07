@@ -7,10 +7,11 @@ prepare a question-free transport probe before any new research authoring.**
 
 Active branch: `main`
 
-Expected handoff baseline: `4ca7aa46460397621db4e3efd632975c843364ef`
+Expected handoff baseline: `65cc335ee3f0169a5c05ec94667151609a3d1d27`
 
-The current metadata commit is a linear descendant of this transfer-document
-baseline, which includes the frozen input-isolation design.
+The current metadata commit is a linear descendant of this verified remote
+baseline, which includes the frozen input-isolation design and desktop guide.
+The baseline records a completed push, not a request to check out an older HEAD.
 
 Last completed task: separately froze the question-free input-isolation
 design v0.2, with nine context-source categories, separate host evidence and
@@ -23,24 +24,22 @@ Current scientific decision:
 The preserved v0.1 result remains `STOP_TECHNICAL_OR_LEAKAGE_FAILURE`;
 accepted grounding records remain zero.
 
-Synchronization state: `BLOCKED_REMOTE_AUTH`. The requested push was attempted
-but this execution environment has no usable GitHub Git credential.
+Synchronization state: `SYNCED_TO_REMOTE`. GitHub authentication was completed,
+Git was connected to the authenticated CLI, and the normal push succeeded.
+The 48 previously local-only commits were uploaded without rewriting history.
 
 Handoff readiness: Not ready. The active gate is
 `QUESTION_FREE_ISOLATION_TRANSPORT_NOT_VERIFIED`: the design is frozen, but no
 host channel is qualified. Do not repair, relabel, re-author, execute or score
 the failed v0.1 run; a clean self-report cannot substitute for host evidence.
-The separate `BLOCKED_REMOTE_AUTH` gate prevents cross-device delivery.
-The researcher authorized synchronization on 2026-09-07. Fetch succeeded but
-HTTPS push failed with a missing-username/disabled-terminal-prompt error.
-No Git credential helper, GitHub CLI/token environment or SSH agent was found.
-Direct remote-ref verification still returned
-`906df10a0a71ddf677c51c4a7b67ac6b1cc7d560` for `refs/heads/main`.
-After this status commit, 48 portable commits remain local-only. Authenticate
-Git on this execution environment, then retry a normal push and verify the
-remote ref. Do not recreate the history through new API commits: frozen
-contracts depend on the existing commit identities.
-See `reports/cross_device_repo_audit.md` for authorization and attempt details.
+Git transfer is complete; the remaining not-ready status is a research gate,
+not an authentication or synchronization failure. Direct remote-ref verification
+returned `65cc335ee3f0169a5c05ec94667151609a3d1d27` for `refs/heads/main`,
+with ahead/behind 0/0 before this completion-metadata commit. This metadata
+follows the same normal-push and live-ref verification procedure; the current
+HEAD is obtained with `git rev-parse HEAD`, not embedded self-referentially.
+See `reports/cross_device_repo_audit.md` for the dated authorization, initial
+failed attempt and successful retry. Credentials remain machine-local.
 Other-desktop startup instructions and the continuation request are in
 [`DESKTOP_HANDOFF.md`](DESKTOP_HANDOFF.md).
 
@@ -360,13 +359,14 @@ sh scripts/cross_device_preflight.sh
 
 Expected integrity results are zero validation failures, 236 unit tests,
 161 core JSON/JSONL files parsed, and preflight exit 2 for the declared
-unverified-transport and remote-auth gates. Git also reports the local-only
-commits until push succeeds. Analysis reconstruction succeeds
+unverified-transport research gate only once the completion metadata is pushed.
+Analysis reconstruction succeeds
 while correctly reproducing six research gate errors; this is not a passing
 grounding experiment. The 2026-09-07 exact-pin integration check reproduced
 236 passing tests and 161 parsed core JSON/JSONL files, with zero integrity
 validation failures. Pre-commit metadata edits added a temporary dirty-tree
-blocker; the final metadata commit clears it, not the research or push gates.
+blocker; committing and pushing the completion metadata clears the Git blockers,
+not the unverified-transport research gate.
 Three post-collection integrity tests pass and are separate from the 26
 pre-run runtime tests and ten new isolation-design tests. Use `--validate-results`
 for existing v0.1 results. Their historical output-absence proofs still pass,

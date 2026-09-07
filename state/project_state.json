@@ -4,29 +4,28 @@
   "project": "hierarchical_data_construction_for_semantic_execution_topology_induction",
   "active_phase": "phase_2l_question_free_input_isolation_probe_preparation",
   "active_branch": "main",
-  "expected_head": "4ca7aa46460397621db4e3efd632975c843364ef",
+  "expected_head": "65cc335ee3f0169a5c05ec94667151609a3d1d27",
   "last_completed_task": "froze_question_free_input_isolation_design_v0_2_with_nine_context_sources_host_evidence_and_author_disclosure_separation_three_synthetic_controls_and_ten_tests_preserved_failed_v0_1_no_new_authors",
   "next_task": "inspect_authorized_transport_host_evidence_capabilities_then_implement_offline_adapter_receipt_schemas_verifier_and_synthetic_tests_and_freeze_exact_question_free_probe_plan_before_launch_or_report_BLOCKED_UNVERIFIABLE_CONTEXT_if_evidence_unavailable_no_research_authoring",
   "current_scientific_decision": "IMPLEMENT_AND_FREEZE_QUESTION_FREE_TRANSPORT_PROBE",
   "scientific_decision_status": "input_isolation_design_frozen_transport_unqualified_no_new_authoring",
-  "synchronization_state": "BLOCKED_REMOTE_AUTH",
+  "synchronization_state": "SYNCED_TO_REMOTE",
   "handoff_readiness": "not_ready",
   "blocked_gates": [
-    "QUESTION_FREE_ISOLATION_TRANSPORT_NOT_VERIFIED: v0.2 design is frozen but no adapter or actual platform probe is qualified; implement and freeze the question-free probe before launch, or report unverifiable host evidence; no new research authoring",
-    "BLOCKED_REMOTE_AUTH: authorized HTTPS push failed because this execution environment lacks usable Git credentials; 48 portable commits remain local-only after this status commit; authenticate then retry normal push"
+    "QUESTION_FREE_ISOLATION_TRANSPORT_NOT_VERIFIED: v0.2 design is frozen but no adapter or actual platform probe is qualified; implement and freeze the question-free probe before launch, or report unverifiable host evidence; no new research authoring"
   ],
   "repository": {
     "git_root": "repository root (resolve with git rev-parse --show-toplevel)",
     "current_branch": "main",
-    "head": "4ca7aa46460397621db4e3efd632975c843364ef",
-    "head_role": "transfer_document_baseline_parent_of_remote_auth_status_commit",
+    "head": "65cc335ee3f0169a5c05ec94667151609a3d1d27",
+    "head_role": "verified_remote_baseline_parent_of_sync_completion_metadata_commit",
     "remotes": [
       "origin https://github.com/kgh0720kgh-boop/pj.git"
     ],
     "working_tree_status": "clean",
     "untracked_files": 0,
-    "unpushed_commits": 48,
-    "last_observed_remote_head": "906df10a0a71ddf677c51c4a7b67ac6b1cc7d560",
+    "unpushed_commits": 0,
+    "last_observed_remote_head": "65cc335ee3f0169a5c05ec94667151609a3d1d27",
     "remote_write_authorization": "researcher_authorized_normal_main_push_for_2026_09_07_desktop_transfer",
     "stash_state": "empty"
   },
