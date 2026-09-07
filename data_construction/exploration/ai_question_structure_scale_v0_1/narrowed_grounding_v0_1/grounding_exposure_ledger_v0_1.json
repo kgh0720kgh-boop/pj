@@ -1,0 +1,30 @@
+{
+  "delivered_question_ids": [
+    "0d48bffa70ef4acf",
+    "cc681cfdba9badd5",
+    "1e2e4e4f72a64bbf",
+    "1e674ae4b655c1a1",
+    "1ca8ffcd3e20e498",
+    "ba563b015b09bf21"
+  ],
+  "evidence_boundary": {
+    "answer_recovery_evaluated": false,
+    "cognitive_independence_authenticated": false,
+    "evidence_class": "ai_exploratory_non_human_non_gold",
+    "execution_evaluated": false,
+    "gold_claimed": false,
+    "human_evidence_count": 0,
+    "static_validity_is_semantic_correctness": false
+  },
+  "new_question_ids": [],
+  "question_ids": [
+    "0d48bffa70ef4acf",
+    "cc681cfdba9badd5",
+    "1e2e4e4f72a64bbf",
+    "1e674ae4b655c1a1",
+    "1ca8ffcd3e20e498",
+    "ba563b015b09bf21"
+  ],
+  "schema_version": "narrowed_grounding_exposure_v0_1",
+  "unseen_evaluation_allowed": false
+}

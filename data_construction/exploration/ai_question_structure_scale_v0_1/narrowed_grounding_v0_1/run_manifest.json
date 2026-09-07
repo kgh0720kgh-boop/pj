@@ -1,0 +1,80 @@
+{
+  "decision": "STOP_TECHNICAL_OR_LEAKAGE_FAILURE",
+  "evidence_boundary": {
+    "answer_recovery_evaluated": false,
+    "cognitive_independence_authenticated": false,
+    "evidence_class": "ai_exploratory_non_human_non_gold",
+    "execution_evaluated": false,
+    "gold_claimed": false,
+    "human_evidence_count": 0,
+    "static_validity_is_semantic_correctness": false
+  },
+  "outputs": {
+    "checks": {
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/checks.jsonl",
+      "sha256": "961a9b8ae16653e93dc467413c40c93704e2b3f4af786691c82951c19ac2056f"
+    },
+    "comparisons": {
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/question_comparisons.jsonl",
+      "sha256": "0836cbd3e44d93c02086def9a9e01e8c523c58b4b946281a2a9ba095eff35f8c"
+    },
+    "exposure": {
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/grounding_exposure_ledger_v0_1.json",
+      "sha256": "9df41e5012705428630dfadecc186b941544484170bc965c831d0d9d41c6b6b9"
+    },
+    "metrics": {
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/metrics_v0_1.json",
+      "sha256": "454e8742b7385fe7a6a10b6af3eeed005cd94bcad611cdb3c3491acde62cf9bb"
+    },
+    "records": {
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/grounding_records.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "report": {
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/report_v0_1.md",
+      "sha256": "6ba3661b6d7550bc8fb8346183a5dadfec0d75f7ba1cf3cde871c79636211999"
+    }
+  },
+  "raw_outputs": [
+    {
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_01.json",
+      "sha256": "94b87ea38f5604ff1e9e6a7c880f8fd1e52852d62b0f6e0959b55e1d9bff5368",
+      "status": "received"
+    },
+    {
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_02.json",
+      "sha256": "d64ff24fcadd6ce78e5b1d9419de6815d5d6c8db6276d68498670d6f696a7c59",
+      "status": "received"
+    },
+    {
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_03.json",
+      "sha256": "4315102b47350733b17751fea889802115b00b468a8f9e67905fbe5d2a5479b5",
+      "status": "received"
+    },
+    {
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_04.json",
+      "sha256": "225971b3212be671727620270f783d299efa0717933677a4ca310cc3706850a4",
+      "status": "received"
+    },
+    {
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_05.json",
+      "sha256": "8692866c25df4695d43bd31aa190569019cdd5f80fdafa65ee2306c2ad68818e",
+      "status": "received"
+    },
+    {
+      "path": "data_construction/exploration/ai_question_structure_scale_v0_1/narrowed_grounding_v0_1/raw/question_06.json",
+      "sha256": "482f77e4301c2ecb4a5a18172dbd61938d72151e10b97e7507dfd7feb55d469a",
+      "status": "received"
+    }
+  ],
+  "run_provenance": {
+    "implementation_commit": "2983168f48689e8e7129a9bdecde4787a4ecb8cf",
+    "packet_freeze_commit": "861b3cfd69fd622cfc67faaa7856f7e60f8ac872",
+    "plan_freeze_commit": "b2ca1fbc413336fa330b11a14649735acc25f0df",
+    "plan_sha256": "287776aecf19cbe4d310c1507f1682faaf7597eb251862ebbaaf3360c361036a",
+    "runtime_freeze_commit": "6c7487beddb03625b9fd23ef7514eebe307d397b",
+    "runtime_receipt_sha256": "723ba3447ac618ec049d4b875cf1341c0a053a2a50870211d90c3773fda230b7"
+  },
+  "schema_version": "narrowed_grounding_run_manifest_v0_1",
+  "status": "incomplete_or_failed"
+}

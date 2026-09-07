@@ -1,0 +1,58 @@
+# Narrowed grounding v0.1 result
+
+Decision: `STOP_TECHNICAL_OR_LEAKAGE_FAILURE`.
+
+These are static AI grounding observations, not semantic gold, execution, or answer accuracy.
+
+```json
+{
+  "alternative_qualified_operator_counts": {},
+  "alternative_qualified_slot_counts": {},
+  "alternative_retention_scope": "validated_records_only_invalid_raw_preserved_in_checks",
+  "author_question_any_complete_candidate_coverage": 0,
+  "binding_kind_counts": {},
+  "candidate_status_counts": {
+    "technical_invalid": 14
+  },
+  "decision": "STOP_TECHNICAL_OR_LEAKAGE_FAILURE",
+  "delivered_valid_candidate_records": 0,
+  "denominators": {
+    "author_question_pairs": 12,
+    "candidates": 14,
+    "questions": 6,
+    "source_slots": 52
+  },
+  "evidence_boundary": {
+    "answer_recovery_evaluated": false,
+    "cognitive_independence_authenticated": false,
+    "evidence_class": "ai_exploratory_non_human_non_gold",
+    "execution_evaluated": false,
+    "gold_claimed": false,
+    "human_evidence_count": 0,
+    "static_validity_is_semantic_correctness": false
+  },
+  "identified_alternatives": 0,
+  "lost_alternatives_in_validated_records": 0,
+  "operator_status_counts": {
+    "technical_invalid": 43
+  },
+  "question_all_candidate_coverage": 0,
+  "retained_alternatives": 0,
+  "run_provenance": {
+    "implementation_commit": "2983168f48689e8e7129a9bdecde4787a4ecb8cf",
+    "packet_freeze_commit": "861b3cfd69fd622cfc67faaa7856f7e60f8ac872",
+    "plan_freeze_commit": "b2ca1fbc413336fa330b11a14649735acc25f0df",
+    "plan_sha256": "287776aecf19cbe4d310c1507f1682faaf7597eb251862ebbaaf3360c361036a",
+    "runtime_freeze_commit": "6c7487beddb03625b9fd23ef7514eebe307d397b",
+    "runtime_receipt_sha256": "723ba3447ac618ec049d4b875cf1341c0a053a2a50870211d90c3773fda230b7"
+  },
+  "schema_version": "narrowed_grounding_metrics_v0_1",
+  "source_slot_status_counts": {
+    "technical_invalid": 52
+  },
+  "source_unavailable": 0,
+  "target_variant_any_complete_candidate_coverage": 0,
+  "technical_errors": 6,
+  "unresolved_dispositions": 95
+}
+```
